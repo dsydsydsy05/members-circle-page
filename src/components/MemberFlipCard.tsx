@@ -21,20 +21,29 @@ function CloseIcon({ className }: { className?: string }) {
 }
 
 export function MemberFlipCard({ member }: { member: Member }) {
-  const [flipped, setFlipped] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [showBack, setShowBack] = useState(false);
 
   useEffect(() => {
-    if (!flipped) return;
+    if (!open) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    // trigger the flip shortly after mount so the animation plays
+    const t = window.setTimeout(() => setShowBack(true), 250);
     return () => {
+      window.clearTimeout(t);
       document.body.style.overflow = original;
     };
-  }, [flipped]);
+  }, [open]);
+
+  const close = () => {
+    setOpen(false);
+    setShowBack(false);
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setFlipped(false);
+      if (e.key === "Escape") close();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -142,13 +151,12 @@ export function MemberFlipCard({ member }: { member: Member }) {
 
   return (
     <>
-      {/* Grid card — tap to expand and flip */}
+      {/* Grid card — tap to open */}
       <div className="perspective-1200 h-72">
         <button
           type="button"
-          onClick={() => setFlipped(true)}
-          className="preserve-3d relative h-full w-full text-left transition-transform duration-700"
-          style={{ transform: "rotateY(0deg)" }}
+          onClick={() => setOpen(true)}
+          className="preserve-3d relative h-full w-full text-left"
           aria-label={`Open card for ${member.name}`}
         >
           <CardFace expanded={false} />
@@ -156,11 +164,11 @@ export function MemberFlipCard({ member }: { member: Member }) {
       </div>
 
       {/* Expanded centered card with dark backdrop */}
-      {flipped &&
+      {open &&
         createPortal(
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6 backdrop-blur-sm animate-fade-in"
-            onClick={() => setFlipped(false)}
+            onClick={close}
             role="dialog"
             aria-modal="true"
             aria-label={`${member.name} member card`}
@@ -171,7 +179,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
             >
               <button
                 type="button"
-                onClick={() => setFlipped(false)}
+                onClick={close}
                 className="absolute -top-12 right-0 rounded-full p-2 text-white/80 hover:bg-white/10 hover:text-white"
                 aria-label="Close card"
               >
@@ -180,10 +188,11 @@ export function MemberFlipCard({ member }: { member: Member }) {
               <div className="perspective-1200 h-[28rem]">
                 <button
                   type="button"
-                  onClick={() => setFlipped((f) => !f)}
-                  className="preserve-3d relative h-full w-full text-left transition-transform duration-700"
+                  onClick={() => setShowBack((f) => !f)}
+                  className="preserve-3d relative h-full w-full text-left"
                   style={{
-                    transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+                    transform: showBack ? "rotateY(180deg)" : "rotateY(0deg)",
+                    transition: "transform 900ms cubic-bezier(0.4, 0.0, 0.2, 1)",
                   }}
                   aria-label={`Flip card for ${member.name}`}
                 >
@@ -197,3 +206,4 @@ export function MemberFlipCard({ member }: { member: Member }) {
     </>
   );
 }
+
