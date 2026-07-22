@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
 import type { Member } from "@/lib/community-data";
 
@@ -53,7 +53,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
     setEntered(false);
   };
 
-  const openCard = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const openCard = (event: MouseEvent<HTMLButtonElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     const width = Math.min(448, Math.max(280, window.innerWidth - 48));
     const height = Math.min(448, Math.max(360, window.innerHeight - 96));
