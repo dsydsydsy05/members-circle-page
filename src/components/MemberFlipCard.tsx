@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import type { Member } from "@/lib/community-data";
 
+type MotionBox = {
+  start: { left: number; top: number; width: number; height: number };
+  end: { left: number; top: number; width: number; height: number };
+};
+
 function CloseIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -23,13 +28,18 @@ function CloseIcon({ className }: { className?: string }) {
 export function MemberFlipCard({ member }: { member: Member }) {
   const [open, setOpen] = useState(false);
   const [showBack, setShowBack] = useState(false);
+  const [entered, setEntered] = useState(false);
+  const [motionBox, setMotionBox] = useState<MotionBox | null>(null);
 
   useEffect(() => {
     if (!open) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    // flip on the next frame so the transform animates from 0deg → 180deg
-    const raf = requestAnimationFrame(() => setShowBack(true));
+    // Move toward the center and flip on the same frame.
+    const raf = requestAnimationFrame(() => {
+      setEntered(true);
+      setShowBack(true);
+    });
     return () => {
       cancelAnimationFrame(raf);
       document.body.style.overflow = original;
@@ -40,6 +50,31 @@ export function MemberFlipCard({ member }: { member: Member }) {
   const close = () => {
     setOpen(false);
     setShowBack(false);
+    setEntered(false);
+  };
+
+  const openCard = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const width = Math.min(448, Math.max(280, window.innerWidth - 48));
+    const height = Math.min(448, Math.max(360, window.innerHeight - 96));
+
+    setMotionBox({
+      start: {
+        left: rect.left,
+        top: rect.top,
+        width: rect.width,
+        height: rect.height,
+      },
+      end: {
+        left: (window.innerWidth - width) / 2,
+        top: Math.max(48, (window.innerHeight - height) / 2),
+        width,
+        height,
+      },
+    });
+    setEntered(false);
+    setShowBack(false);
+    setOpen(true);
   };
 
   useEffect(() => {
@@ -156,7 +191,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
       <div className="perspective-1200 h-72">
         <button
           type="button"
-          onClick={() => setOpen(true)}
+          onClick={openCard}
           className="preserve-3d relative h-full w-full text-left"
           aria-label={`Open card for ${member.name}`}
         >
@@ -165,39 +200,51 @@ export function MemberFlipCard({ member }: { member: Member }) {
       </div>
 
       {/* Expanded centered card with dark backdrop */}
-      {open &&
+      {open && motionBox &&
         createPortal(
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6 backdrop-blur-sm animate-fade-in"
+            className={`fixed inset-0 z-50 transition-[background-color,backdrop-filter] duration-700 ${
+              entered ? "bg-black/70 backdrop-blur-sm" : "bg-black/0 backdrop-blur-0"
+            }`}
             onClick={close}
             role="dialog"
             aria-modal="true"
             aria-label={`${member.name} member card`}
           >
             <div
-              className="relative w-full max-w-md animate-scale-in"
+              className="fixed"
               onClick={(e) => e.stopPropagation()}
+              style={{
+                left: `${entered ? motionBox.end.left : motionBox.start.left}px`,
+                top: `${entered ? motionBox.end.top : motionBox.start.top}px`,
+                width: `${entered ? motionBox.end.width : motionBox.start.width}px`,
+                height: `${entered ? motionBox.end.height : motionBox.start.height}px`,
+                transition:
+                  "left 900ms cubic-bezier(0.22, 1, 0.36, 1), top 900ms cubic-bezier(0.22, 1, 0.36, 1), width 900ms cubic-bezier(0.22, 1, 0.36, 1), height 900ms cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
             >
               <button
                 type="button"
                 onClick={close}
-                className="absolute -top-12 right-0 rounded-full p-2 text-white/80 hover:bg-white/10 hover:text-white"
+                className={`absolute -top-12 right-0 rounded-full p-2 text-white/80 transition-opacity duration-300 hover:bg-white/10 hover:text-white ${
+                  entered ? "opacity-100" : "pointer-events-none opacity-0"
+                }`}
                 aria-label="Close card"
               >
                 <CloseIcon className="h-6 w-6" />
               </button>
-              <div className="perspective-1200 h-[28rem]">
+              <div className="perspective-1200 h-full">
                 <button
                   type="button"
                   onClick={() => setShowBack((f) => !f)}
                   className="preserve-3d relative h-full w-full text-left"
                   style={{
                     transform: showBack ? "rotateY(180deg)" : "rotateY(0deg)",
-                    transition: "transform 900ms cubic-bezier(0.4, 0.0, 0.2, 1)",
+                    transition: "transform 900ms cubic-bezier(0.22, 1, 0.36, 1)",
                   }}
                   aria-label={`Flip card for ${member.name}`}
                 >
-                  <CardFace expanded={true} />
+                  <CardFace expanded={entered} />
                 </button>
               </div>
             </div>
