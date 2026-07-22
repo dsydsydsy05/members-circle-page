@@ -22,48 +22,49 @@ function Home() {
     <div className="min-h-screen">
       <SiteNav />
 
-      {/* Hero — only the tag, full viewport */}
-      <section className="relative flex min-h-[calc(100svh-65px)] items-center justify-center overflow-hidden">
-        {/* soft ambient glow */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 60% 50% at 50% 55%, oklch(0.92 0.02 70 / 0.7), transparent 70%)",
-          }}
-        />
-        <LanyardCard />
-        <div className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-          scroll ↓
-        </div>
-      </section>
+      {/* Hero — tag zooms in on scroll, intro content reveals below */}
+      <section className="relative min-h-[150vh]">
+        <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-between overflow-hidden px-6 py-6">
+          {/* soft ambient glow */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 60% 50% at 50% 55%, oklch(0.92 0.02 70 / 0.7), transparent 70%)",
+            }}
+          />
 
-      {/* Zoom-in intro block */}
-      <section className="mx-auto max-w-6xl px-6 py-24">
-        <div className="animate-zoom-in-view">
-          <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-            A members-only community
+          {/* Name tag zooms as you scroll */}
+          <div className="animate-tag-zoom flex flex-1 items-center justify-center">
+            <LanyardCard />
           </div>
-          <h1 className="mt-4 text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
-            A quieter place<br />to build a brand.
-          </h1>
-          <p className="mt-5 max-w-md text-base text-muted-foreground">
-            Insider is a small, invite-friendly community of founders, designers and buyers.
-            Trade factory contacts, share family businesses, and show up at intimate events.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/members" className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90">
-              Meet the members
-            </Link>
-            <Link to="/events" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-secondary">
-              Upcoming events
-            </Link>
-          </div>
-          <div className="mt-10 grid max-w-md grid-cols-3 gap-6 text-sm">
-            <Stat n="120+" label="Members" />
-            <Stat n="14" label="Cities" />
-            <Stat n="30+" label="Vetted factories" />
+
+          {/* Intro content reveals during the zoom */}
+          <div className="animate-content-reveal w-full max-w-6xl">
+            <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+              A members-only community
+            </div>
+            <h1 className="mt-3 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-5xl">
+              A quieter place<br />to build a brand.
+            </h1>
+            <p className="mt-4 max-w-md text-sm text-muted-foreground">
+              Insider is a small, invite-friendly community of founders, designers and buyers.
+              Trade factory contacts, share family businesses, and show up at intimate events.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link to="/members" className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90">
+                Meet the members
+              </Link>
+              <Link to="/events" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-secondary">
+                Upcoming events
+              </Link>
+            </div>
+            <div className="mt-6 grid max-w-md grid-cols-3 gap-6 text-sm">
+              <Stat n="120+" label="Members" />
+              <Stat n="14" label="Cities" />
+              <Stat n="30+" label="Vetted factories" />
+            </div>
           </div>
         </div>
       </section>
