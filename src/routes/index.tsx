@@ -1,24 +1,144 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { SiteNav, SiteFooter } from "@/components/SiteNav";
+import { LanyardCard } from "@/components/LanyardCard";
+import { MemberFlipCard } from "@/components/MemberFlipCard";
+import { members, events, eventPhotos, guests } from "@/lib/community-data";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Insider — a quieter community for builders" },
+      { name: "description", content: "Members-only community for founders and makers. Flip cards, factory list, family businesses, and events." },
+      { property: "og:title", content: "Insider — a quieter community" },
+      { property: "og:description", content: "Founders, makers, buyers. Real conversations, real resources." },
+    ],
+  }),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Home() {
+  const featured = members.slice(0, 3);
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen">
+      <SiteNav />
+
+      <section className="relative overflow-hidden">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 pb-20 pt-16 lg:grid-cols-2 lg:pt-24">
+          <div className="animate-fade-up">
+            <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+              A members-only community
+            </div>
+            <h1 className="mt-4 text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
+              A quieter place<br />to build a brand.
+            </h1>
+            <p className="mt-5 max-w-md text-base text-muted-foreground">
+              Insider is a small, invite-friendly community of founders, designers and buyers.
+              Trade factory contacts, share family businesses, and show up at intimate events.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/members" className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90">
+                Meet the members
+              </Link>
+              <Link to="/events" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-secondary">
+                Upcoming events
+              </Link>
+            </div>
+            <div className="mt-10 grid grid-cols-3 gap-6 text-sm">
+              <Stat n="120+" label="Members" />
+              <Stat n="14" label="Cities" />
+              <Stat n="30+" label="Vetted factories" />
+            </div>
+          </div>
+          <div className="flex justify-center lg:justify-end">
+            <LanyardCard />
+          </div>
+        </div>
+      </section>
+
+      <Section
+        eyebrow="Community"
+        title="Meet a few members"
+        action={<Link to="/members" className="text-sm underline underline-offset-4">All members →</Link>}
+      >
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {featured.map((m) => <MemberFlipCard key={m.id} member={m} />)}
+        </div>
+        <p className="mt-4 text-xs text-muted-foreground">Tap any card to flip and see details.</p>
+      </Section>
+
+      <Section
+        eyebrow="What's next"
+        title="Upcoming events"
+        action={<Link to="/events" className="text-sm underline underline-offset-4">See all →</Link>}
+      >
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          {events.map((e) => (
+            <article key={e.id} className="group overflow-hidden rounded-xl bg-card ring-1 ring-border">
+              <div className="aspect-[4/3] overflow-hidden bg-muted">
+                <img src={e.cover} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              </div>
+              <div className="p-4">
+                <div className="text-xs text-muted-foreground">{e.date} · {e.city}</div>
+                <div className="mt-1 text-lg font-semibold tracking-tight">{e.title}</div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </Section>
+
+      <Section eyebrow="Guests" title="People we've hosted (and will)"
+        action={<Link to="/guests" className="text-sm underline underline-offset-4">Full list →</Link>}
+      >
+        <ul className="divide-y divide-border rounded-xl bg-card ring-1 ring-border">
+          {guests.map((g) => (
+            <li key={g.id} className="flex flex-col gap-1 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <div className="font-medium">{g.name}</div>
+                <div className="text-sm text-muted-foreground">{g.title}</div>
+              </div>
+              <div className="text-sm text-muted-foreground">{g.event} · <span className="text-foreground">{g.date}</span></div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section eyebrow="Recap" title="Event photos">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+          {eventPhotos.map((p, i) => (
+            <figure key={p.id} className={`overflow-hidden rounded-xl bg-muted ${i === 0 ? "md:col-span-2 md:row-span-2" : ""}`}>
+              <img src={p.src} alt={p.caption} className="h-full w-full object-cover" />
+            </figure>
+          ))}
+        </div>
+      </Section>
+
+      <SiteFooter />
     </div>
+  );
+}
+
+function Stat({ n, label }: { n: string; label: string }) {
+  return (
+    <div>
+      <div className="text-2xl font-semibold tracking-tight">{n}</div>
+      <div className="text-xs text-muted-foreground">{label}</div>
+    </div>
+  );
+}
+
+function Section({
+  eyebrow, title, action, children,
+}: { eyebrow: string; title: string; action?: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <section className="mx-auto max-w-6xl px-6 py-16">
+      <div className="mb-8 flex items-end justify-between gap-4">
+        <div>
+          <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{eyebrow}</div>
+          <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
+        </div>
+        {action}
+      </div>
+      {children}
+    </section>
   );
 }
