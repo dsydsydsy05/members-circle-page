@@ -1,0 +1,67 @@
+import { Link } from "@tanstack/react-router";
+import { useMember } from "@/lib/use-member";
+
+const links = [
+  { to: "/", label: "Home" },
+  { to: "/members", label: "Members" },
+  { to: "/guests", label: "Guests" },
+  { to: "/events", label: "Events" },
+  { to: "/resources", label: "Factory List" },
+  { to: "/businesses", label: "Family Business" },
+] as const;
+
+export function SiteNav() {
+  const { isMember, join, leave, hydrated } = useMember();
+  return (
+    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <Link to="/" className="text-lg font-semibold tracking-tight">
+          insider<span className="text-muted-foreground">˜</span>
+        </Link>
+        <nav className="hidden gap-6 md:flex">
+          {links.map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-sm text-foreground" }}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="flex items-center gap-2">
+          {hydrated && isMember ? (
+            <>
+              <span className="hidden text-xs text-muted-foreground sm:inline">Member</span>
+              <button
+                onClick={leave}
+                className="rounded-full border border-border px-3 py-1.5 text-xs hover:bg-secondary"
+              >
+                Sign out
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={join}
+              className="rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90"
+            >
+              Become a member
+            </button>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}
+
+export function SiteFooter() {
+  return (
+    <footer className="mt-24 border-t border-border/60">
+      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-10 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <div>© {new Date().getFullYear()} Insider Community</div>
+        <div>Made with care. For members, by members.</div>
+      </div>
+    </footer>
+  );
+}
