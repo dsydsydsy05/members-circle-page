@@ -28,13 +28,14 @@ export function MemberFlipCard({ member }: { member: Member }) {
     if (!open) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    // trigger the flip shortly after mount so the animation plays
-    const t = window.setTimeout(() => setShowBack(true), 250);
+    // flip on the next frame so the transform animates from 0deg → 180deg
+    const raf = requestAnimationFrame(() => setShowBack(true));
     return () => {
-      window.clearTimeout(t);
+      cancelAnimationFrame(raf);
       document.body.style.overflow = original;
     };
   }, [open]);
+
 
   const close = () => {
     setOpen(false);
