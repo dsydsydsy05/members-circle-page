@@ -1,6 +1,6 @@
 /**
- * Auto-rotating 3D name card ("工牌") inspired by the nuuds Insider lanyard.
- * Pure CSS 3D — no external libs.
+ * Realistic 3D name tag ("工牌") — no lanyard strap.
+ * Thick edges, soft shadows, gloss sweep, gentle auto-rotation.
  */
 export function LanyardCard({
   name = "Insider",
@@ -12,78 +12,138 @@ export function LanyardCard({
   price?: string;
 }) {
   return (
-    <div className="relative flex flex-col items-center select-none">
-      {/* Lanyard strap */}
-      <div className="animate-lanyard-sway flex flex-col items-center">
-        <div className="relative h-40 w-8 overflow-hidden rounded-b-sm bg-[color:var(--cream)] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)]">
-          <div className="absolute inset-0 flex flex-col items-center justify-around">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <span
-                key={i}
-                className="text-[10px] font-black leading-none text-[color:var(--cocoa)]"
-                style={{ transform: `rotate(${i % 2 === 0 ? -18 : 18}deg)` }}
-              >
-                N
-              </span>
-            ))}
-          </div>
-        </div>
-        {/* Clip */}
-        <div className="-mt-1 flex flex-col items-center">
-          <div className="h-3 w-6 rounded-t-md bg-neutral-400 shadow" />
-          <div className="h-2 w-2 rounded-full bg-neutral-500" />
-        </div>
+    <div className="perspective-1200 select-none">
+      <div className="preserve-3d animate-tag-spin relative h-[26rem] w-72 sm:h-[30rem] sm:w-80">
+        {/* Thickness layers — stacked slabs behind the front face */}
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 rounded-2xl bg-[color:var(--cocoa)]/70"
+            style={{
+              transform: `translateZ(${-2 - i * 1.2}px)`,
+              filter: `brightness(${0.55 + i * 0.05})`,
+            }}
+          />
+        ))}
 
-        {/* 3D card */}
-        <div className="perspective-1200 mt-2">
-          <div className="preserve-3d animate-lanyard-spin relative h-80 w-56 sm:h-96 sm:w-64">
-            {/* Front */}
-            <div className="backface-hidden absolute inset-0 overflow-hidden rounded-xl bg-[color:var(--cream)] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.35)] ring-1 ring-black/5">
-              <div className="flex h-full flex-col justify-between p-5">
-                <div className="text-sm font-medium text-[color:var(--cocoa)]">{price}</div>
-                <div>
-                  <div className="text-lg font-semibold lowercase tracking-tight text-[color:var(--cocoa)]">
-                    insider
-                  </div>
-                  <div className="mt-1 text-5xl font-semibold tracking-tight text-[color:var(--cocoa)]">
-                    {name}
-                    <span className="text-[color:var(--cocoa)]/70">˜</span>
-                  </div>
-                </div>
-                <div className="rounded-md bg-[color:var(--cocoa)] px-4 py-4 text-[11px] leading-snug text-[color:var(--cream)]">
-                  {subtitle} — your all-access pass to early drops, factory tours, and a very small group chat.
-                  <div className="mt-3 flex h-5 items-end gap-[2px]">
-                    {Array.from({ length: 34 }).map((_, i) => (
-                      <span
-                        key={i}
-                        className="block bg-[color:var(--cream)]"
-                        style={{ width: i % 3 === 0 ? 3 : 1, height: `${60 + ((i * 13) % 40)}%` }}
-                      />
-                    ))}
-                  </div>
-                </div>
+        {/* FRONT */}
+        <div
+          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-black/10"
+          style={{
+            background:
+              "linear-gradient(160deg, oklch(0.98 0.008 85) 0%, oklch(0.955 0.01 80) 55%, oklch(0.92 0.014 75) 100%)",
+            boxShadow:
+              "0 40px 80px -30px rgba(0,0,0,0.45), 0 12px 24px -12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)",
+            transform: "translateZ(0.5px)",
+          }}
+        >
+          {/* Punched hole */}
+          <div className="absolute left-1/2 top-4 -translate-x-1/2">
+            <div
+              className="h-3 w-10 rounded-full"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.6) 100%)",
+                boxShadow:
+                  "inset 0 1.5px 2px rgba(0,0,0,0.9), 0 1px 0 rgba(255,255,255,0.7)",
+              }}
+            />
+          </div>
+
+          {/* Gloss sweep */}
+          <div
+            className="pointer-events-none absolute inset-0 animate-tag-gloss"
+            style={{
+              background:
+                "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%)",
+              mixBlendMode: "screen",
+            }}
+          />
+          {/* Subtle paper grain */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage:
+                "radial-gradient(rgba(0,0,0,0.9) 1px, transparent 1px)",
+              backgroundSize: "3px 3px",
+            }}
+          />
+
+          <div className="flex h-full flex-col justify-between p-6 pt-10">
+            <div className="text-sm font-medium text-[color:var(--cocoa)]">{price}</div>
+            <div>
+              <div className="text-sm font-semibold lowercase tracking-tight text-[color:var(--cocoa)]/80">
+                insider
+              </div>
+              <div className="mt-1 text-6xl font-semibold tracking-tight text-[color:var(--cocoa)]">
+                {name}
+                <span className="text-[color:var(--cocoa)]/60">˜</span>
               </div>
             </div>
-            {/* Back */}
             <div
-              className="backface-hidden absolute inset-0 overflow-hidden rounded-xl bg-[color:var(--cocoa)] p-5 text-[color:var(--cream)] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.35)] ring-1 ring-black/5"
-              style={{ transform: "rotateY(180deg)" }}
+              className="rounded-lg px-4 py-4 text-[11px] leading-snug text-[color:var(--cream)]"
+              style={{
+                background:
+                  "linear-gradient(180deg, oklch(0.28 0.032 40) 0%, oklch(0.22 0.03 40) 100%)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.4)",
+              }}
             >
-              <div className="flex h-full flex-col justify-between">
-                <div className="text-xs uppercase tracking-[0.2em] opacity-70">Members Only</div>
-                <div>
-                  <div className="text-3xl font-semibold tracking-tight">
-                    A quieter<br />place to build.
-                  </div>
-                  <p className="mt-3 text-xs leading-relaxed opacity-80">
-                    Founders, makers, buyers. Real conversations, real resources.
-                  </p>
-                </div>
-                <div className="flex items-center justify-between text-[10px] opacity-80">
-                  <span>NO. 001</span>
-                  <span>EST. 2026</span>
-                </div>
+              {subtitle} — your all-access pass to early drops, factory tours, and a very small group chat.
+              <div className="mt-3 flex h-5 items-end gap-[2px]">
+                {Array.from({ length: 34 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className="block bg-[color:var(--cream)]"
+                    style={{ width: i % 3 === 0 ? 3 : 1, height: `${60 + ((i * 13) % 40)}%` }}
+                  />
+                ))}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* BACK */}
+        <div
+          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl p-6 pt-10 text-[color:var(--cream)] ring-1 ring-black/20"
+          style={{
+            transform: "rotateY(180deg) translateZ(0.5px)",
+            background:
+              "linear-gradient(160deg, oklch(0.28 0.032 40) 0%, oklch(0.22 0.03 40) 60%, oklch(0.18 0.028 40) 100%)",
+            boxShadow:
+              "0 40px 80px -30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.04)",
+          }}
+        >
+          <div className="absolute left-1/2 top-4 -translate-x-1/2">
+            <div
+              className="h-3 w-10 rounded-full"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,1) 60%)",
+                boxShadow: "inset 0 1.5px 2px rgba(0,0,0,0.95)",
+              }}
+            />
+          </div>
+          <div
+            className="pointer-events-none absolute inset-0 animate-tag-gloss"
+            style={{
+              background:
+                "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.14) 50%, transparent 60%)",
+            }}
+          />
+          <div className="flex h-full flex-col justify-between">
+            <div className="text-xs uppercase tracking-[0.24em] opacity-70">Members Only</div>
+            <div>
+              <div className="text-3xl font-semibold tracking-tight">
+                A quieter<br />place to build.
+              </div>
+              <p className="mt-3 text-xs leading-relaxed opacity-80">
+                Founders, makers, buyers. Real conversations, real resources.
+              </p>
+            </div>
+            <div className="flex items-center justify-between text-[10px] opacity-80">
+              <span>NO. 001</span>
+              <span>EST. 2026</span>
             </div>
           </div>
         </div>

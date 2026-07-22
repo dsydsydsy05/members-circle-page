@@ -22,38 +22,52 @@ function Home() {
     <div className="min-h-screen">
       <SiteNav />
 
-      <section className="relative overflow-hidden">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 pb-20 pt-16 lg:grid-cols-2 lg:pt-24">
-          <div className="animate-fade-up">
-            <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-              A members-only community
-            </div>
-            <h1 className="mt-4 text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
-              A quieter place<br />to build a brand.
-            </h1>
-            <p className="mt-5 max-w-md text-base text-muted-foreground">
-              Insider is a small, invite-friendly community of founders, designers and buyers.
-              Trade factory contacts, share family businesses, and show up at intimate events.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/members" className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90">
-                Meet the members
-              </Link>
-              <Link to="/events" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-secondary">
-                Upcoming events
-              </Link>
-            </div>
-            <div className="mt-10 grid grid-cols-3 gap-6 text-sm">
-              <Stat n="120+" label="Members" />
-              <Stat n="14" label="Cities" />
-              <Stat n="30+" label="Vetted factories" />
-            </div>
+      {/* Hero — only the tag, full viewport */}
+      <section className="relative flex min-h-[calc(100svh-65px)] items-center justify-center overflow-hidden">
+        {/* soft ambient glow */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 50% at 50% 55%, oklch(0.92 0.02 70 / 0.7), transparent 70%)",
+          }}
+        />
+        <LanyardCard />
+        <div className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+          scroll ↓
+        </div>
+      </section>
+
+      {/* Zoom-in intro block */}
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <div className="animate-zoom-in-view">
+          <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+            A members-only community
           </div>
-          <div className="flex justify-center lg:justify-end">
-            <LanyardCard />
+          <h1 className="mt-4 text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
+            A quieter place<br />to build a brand.
+          </h1>
+          <p className="mt-5 max-w-md text-base text-muted-foreground">
+            Insider is a small, invite-friendly community of founders, designers and buyers.
+            Trade factory contacts, share family businesses, and show up at intimate events.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link to="/members" className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90">
+              Meet the members
+            </Link>
+            <Link to="/events" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-secondary">
+              Upcoming events
+            </Link>
+          </div>
+          <div className="mt-10 grid max-w-md grid-cols-3 gap-6 text-sm">
+            <Stat n="120+" label="Members" />
+            <Stat n="14" label="Cities" />
+            <Stat n="30+" label="Vetted factories" />
           </div>
         </div>
       </section>
+
 
       <Section
         eyebrow="Community"
@@ -130,7 +144,7 @@ function Section({
   eyebrow, title, action, children,
 }: { eyebrow: string; title: string; action?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-16">
+    <section className="mx-auto max-w-6xl px-6 py-16 animate-zoom-in-view">
       <div className="mb-8 flex items-end justify-between gap-4">
         <div>
           <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{eyebrow}</div>
