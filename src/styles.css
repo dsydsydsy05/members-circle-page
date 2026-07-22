@@ -105,6 +105,15 @@
   from { opacity: 0; transform: scale(0.86) translateY(40px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
+@keyframes tag-zoom {
+  0%   { transform: scale(1) translateY(0); opacity: 1; }
+  60%  { transform: scale(3) translateY(-25vh); opacity: 1; }
+  100% { transform: scale(4.5) translateY(-40vh); opacity: 0; }
+}
+@keyframes content-reveal {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 @utility animate-tag-spin {
   animation: tag-spin 16s ease-in-out infinite;
@@ -120,4 +129,14 @@
   animation: zoom-in-view linear both;
   animation-timeline: view();
   animation-range: entry 0% cover 40%;
+}
+@utility animate-tag-zoom {
+  animation: tag-zoom linear both;
+  animation-timeline: scroll();
+  animation-range: 0% 45%;
+}
+@utility animate-content-reveal {
+  animation: content-reveal linear both;
+  animation-timeline: scroll();
+  animation-range: 30% 45%;
 }
