@@ -51,25 +51,31 @@ export function SiteNav() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          {hydrated && isMember ? (
+          {!loading && isSignedIn ? (
             <>
-              <span className="hidden text-xs text-muted-foreground sm:inline">Member</span>
+              <Link
+                to="/onboarding"
+                className="hidden text-xs text-muted-foreground transition-colors hover:text-primary sm:inline"
+              >
+                {isMember ? "Member · Edit card" : "Enter code"}
+              </Link>
               <button
-                onClick={leave}
+                onClick={handleSignOut}
                 className="rounded-full border border-border px-3 py-1.5 text-xs transition-colors hover:bg-primary-foreground hover:text-primary"
               >
                 Sign out
               </button>
             </>
           ) : (
-            <button
-              onClick={join}
+            <Link
+              to="/auth"
               className="rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary-foreground hover:text-primary"
             >
-              Become a member
-            </button>
+              Sign in
+            </Link>
           )}
         </div>
+
       </div>
     </header>
   );
