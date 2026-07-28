@@ -34,7 +34,7 @@ export function LanyardCard({
             background:
               "linear-gradient(160deg, oklch(0.9 0.29 136) 0%, oklch(0.85 0.28 138) 55%, oklch(0.74 0.24 140) 100%)",
             boxShadow:
-              "0 40px 90px -30px oklch(0.88 0.29 136 / 0.45), 0 12px 24px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.15)",
+              "0 24px 50px -26px oklch(0.88 0.29 136 / 0.4), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.15)",
             transform: "translateZ(0.5px)",
           }}
         >
@@ -57,7 +57,7 @@ export function LanyardCard({
             style={{
               background:
                 "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%)",
-              mixBlendMode: "screen",
+              
             }}
           />
           {/* Subtle paper grain */}
@@ -112,7 +112,7 @@ export function LanyardCard({
             background:
               "linear-gradient(160deg, oklch(0.2 0 0) 0%, oklch(0.14 0 0) 60%, oklch(0.1 0 0) 100%)",
             boxShadow:
-              "0 40px 80px -30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 0 0 1px oklch(0.88 0.29 136 / 0.18)",
+              "0 24px 48px -26px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 0 0 1px oklch(0.88 0.29 136 / 0.18)",
           }}
         >
           <div className="absolute left-1/2 top-4 -translate-x-1/2">
