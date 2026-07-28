@@ -8,6 +8,7 @@ const links = [
   { to: "/events", label: "Events" },
   { to: "/resources", label: "Factory List" },
   { to: "/businesses", label: "Family Business" },
+  { to: "/partners", label: "Partners" },
 ] as const;
 
 export function SiteNav() {

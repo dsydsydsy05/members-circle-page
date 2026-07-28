@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as MembersRouteImport } from './routes/members'
 import { Route as GuestsRouteImport } from './routes/guests'
 import { Route as EventsRouteImport } from './routes/events'
@@ -25,6 +26,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ResourcesRoute = ResourcesRouteImport.update({
   id: '/resources',
   path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MembersRoute = MembersRouteImport.update({
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/members': typeof MembersRoute
+  '/partners': typeof PartnersRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/members': typeof MembersRoute
+  '/partners': typeof PartnersRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/members': typeof MembersRoute
+  '/partners': typeof PartnersRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/guests'
     | '/members'
+    | '/partners'
     | '/resources'
     | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/guests'
     | '/members'
+    | '/partners'
     | '/resources'
     | '/sitemap.xml'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/guests'
     | '/members'
+    | '/partners'
     | '/resources'
     | '/sitemap.xml'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   GuestsRoute: typeof GuestsRoute
   MembersRoute: typeof MembersRoute
+  PartnersRoute: typeof PartnersRoute
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/resources'
       fullPath: '/resources'
       preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/members': {
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   GuestsRoute: GuestsRoute,
   MembersRoute: MembersRoute,
+  PartnersRoute: PartnersRoute,
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
