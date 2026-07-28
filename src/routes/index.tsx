@@ -25,12 +25,22 @@ function Home() {
       <SiteNav />
 
       {/* Hero — only the badge. Scroll down to reveal the story. */}
-      <section className="relative min-h-[170vh]">
+      <section className="relative min-h-[170vh] bg-black">
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
-          <div className="animate-tag-zoom flex items-center justify-center">
+          {/* Ambient glow behind the card */}
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            style={{
+              width: "26rem",
+              height: "36rem",
+              background: "radial-gradient(circle, oklch(0.88 0.29 136 / 0.22) 0%, oklch(0.88 0.29 136 / 0.05) 45%, transparent 70%)",
+              filter: "blur(40px)",
+            }}
+          />
+          <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
             <LanyardCard />
           </div>
-          <div className="absolute inset-x-0 bottom-6 text-center text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+          <div className="absolute inset-x-0 bottom-6 z-10 text-center text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
             Scroll
           </div>
         </div>
