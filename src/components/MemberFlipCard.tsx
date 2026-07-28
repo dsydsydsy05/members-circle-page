@@ -7,7 +7,16 @@ type MotionBox = {
   end: { left: number; top: number; width: number; height: number };
 };
 
+function hostnameOf(url: string) {
+  try {
+    return new URL(url).hostname.replace("www.", "");
+  } catch {
+    return url;
+  }
+}
+
 function CloseIcon({ className }: { className?: string }) {
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
