@@ -163,8 +163,9 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
   const [tags, setTags] = useState((initial?.tags ?? []).join(", "));
   const [about, setAbout] = useState(initial?.about ?? "");
   const [busy, setBusy] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+
 
 
 
