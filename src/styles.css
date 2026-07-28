@@ -30,6 +30,7 @@
   --color-ring: var(--ring);
   --color-cream: var(--cream);
   --color-cocoa: var(--cocoa);
+  --color-neon: var(--neon);
   --font-display: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
@@ -37,30 +38,32 @@
 :root {
   --radius: 0.75rem;
 
-  /* nuuds-inspired warm cream + deep cocoa */
-  --cream: oklch(0.975 0.006 85);
-  --cocoa: oklch(0.24 0.032 40);
+  /* ICONIC branding: neon green / white / black */
+  --cream: oklch(1 0 0);
+  --cocoa: oklch(0.13 0 0);
+  --neon: oklch(0.88 0.29 136);
 
-  --background: oklch(0.975 0.006 85);
-  --foreground: oklch(0.24 0.032 40);
-  --card: oklch(0.99 0.004 85);
-  --card-foreground: oklch(0.24 0.032 40);
-  --popover: oklch(0.99 0.004 85);
-  --popover-foreground: oklch(0.24 0.032 40);
-  --primary: oklch(0.24 0.032 40);
-  --primary-foreground: oklch(0.975 0.006 85);
-  --secondary: oklch(0.94 0.008 80);
-  --secondary-foreground: oklch(0.24 0.032 40);
-  --muted: oklch(0.94 0.008 80);
-  --muted-foreground: oklch(0.5 0.02 50);
-  --accent: oklch(0.9 0.02 70);
-  --accent-foreground: oklch(0.24 0.032 40);
+  --background: oklch(0.11 0 0);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.16 0 0);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.16 0 0);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.88 0.29 136);
+  --primary-foreground: oklch(0.13 0 0);
+  --secondary: oklch(0.22 0 0);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.22 0 0);
+  --muted-foreground: oklch(0.72 0 0);
+  --accent: oklch(0.88 0.29 136);
+  --accent-foreground: oklch(0.13 0 0);
   --destructive: oklch(0.55 0.2 27);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.9 0.01 75);
-  --input: oklch(0.9 0.01 75);
-  --ring: oklch(0.24 0.032 40);
+  --border: oklch(0.26 0 0);
+  --input: oklch(0.26 0 0);
+  --ring: oklch(0.88 0.29 136);
 }
+
 
 @layer base {
   * {

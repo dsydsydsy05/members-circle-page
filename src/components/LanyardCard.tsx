@@ -28,12 +28,12 @@ export function LanyardCard({
 
         {/* FRONT */}
         <div
-          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-black/10"
+          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-white/10"
           style={{
             background:
-              "linear-gradient(160deg, oklch(0.98 0.008 85) 0%, oklch(0.955 0.01 80) 55%, oklch(0.92 0.014 75) 100%)",
+              "linear-gradient(160deg, oklch(0.9 0.29 136) 0%, oklch(0.85 0.28 138) 55%, oklch(0.74 0.24 140) 100%)",
             boxShadow:
-              "0 40px 80px -30px rgba(0,0,0,0.45), 0 12px 24px -12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)",
+              "0 40px 90px -30px oklch(0.88 0.29 136 / 0.45), 0 12px 24px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.15)",
             transform: "translateZ(0.5px)",
           }}
         >
@@ -84,9 +84,9 @@ export function LanyardCard({
               className="rounded-lg px-4 py-4 text-[11px] leading-snug text-[color:var(--cream)]"
               style={{
                 background:
-                  "linear-gradient(180deg, oklch(0.28 0.032 40) 0%, oklch(0.22 0.03 40) 100%)",
+                  "linear-gradient(180deg, oklch(0.18 0 0) 0%, oklch(0.11 0 0) 100%)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.4)",
+                  "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.6)",
               }}
             >
               {subtitle} — your all-access pass to early drops, factory tours, and a very small group chat.
@@ -109,9 +109,9 @@ export function LanyardCard({
           style={{
             transform: "rotateY(180deg) translateZ(0.5px)",
             background:
-              "linear-gradient(160deg, oklch(0.28 0.032 40) 0%, oklch(0.22 0.03 40) 60%, oklch(0.18 0.028 40) 100%)",
+              "linear-gradient(160deg, oklch(0.2 0 0) 0%, oklch(0.14 0 0) 60%, oklch(0.1 0 0) 100%)",
             boxShadow:
-              "0 40px 80px -30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.04)",
+              "0 40px 80px -30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 0 0 1px oklch(0.88 0.29 136 / 0.18)",
           }}
         >
           <div className="absolute left-1/2 top-4 -translate-x-1/2">
