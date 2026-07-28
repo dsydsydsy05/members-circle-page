@@ -27,6 +27,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   const memberCount = useMemberCount();
   const featured = useCommunityMembers().members.slice(0, 3);
+  const familyBusinessCount = useFamilyBusinessCount();
 
 
   return (
