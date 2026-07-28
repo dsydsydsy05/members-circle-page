@@ -103,7 +103,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
         </div>
         <div>
           <div
-            className={`flex items-center justify-center rounded-full bg-[color:var(--cocoa)] font-semibold text-[color:var(--cream)] ${
+            className={`flex items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground ${
               expanded ? "h-20 w-20 text-2xl" : "h-14 w-14 text-lg"
             }`}
           >
