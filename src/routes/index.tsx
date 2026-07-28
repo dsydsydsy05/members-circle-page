@@ -47,30 +47,32 @@ function Home() {
       </section>
 
       {/* Intro — appears after the badge */}
-      <section className="mx-auto max-w-6xl px-6 py-24 animate-zoom-in-view">
-        <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-          A members-only community
-        </div>
-        <h1 className="mt-3 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
-          A quieter place<br />to build a brand.
-        </h1>
-        <p className="mt-5 max-w-xl text-muted-foreground">
-          The Room is a small, invite-friendly community of founders, designers and buyers.
-          Trade factory contacts, share family businesses, and show up at intimate events.
-        </p>
-        <div className="mt-8 grid max-w-3xl grid-cols-2 gap-8 sm:grid-cols-4">
-          <Stat n="120+" label="Members" />
-          <Stat n={`${events.length}`} label="Events" />
-          <Stat n="14" label="Cities" />
-          <Stat n="30+" label="Vetted factories" />
-        </div>
-        <div className="mt-10 flex flex-wrap gap-3">
-          <Link to="/members" className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90">
-            Join The Room
-          </Link>
-          <Link to="/events" className="rounded-full border border-border px-6 py-3 text-sm font-medium hover:bg-secondary">
-            Upcoming events
-          </Link>
+      <section className="bg-cream text-cocoa animate-zoom-in-view">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <div className="text-xs uppercase tracking-[0.24em] text-cocoa/60">
+            A members-only community
+          </div>
+          <h1 className="mt-3 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
+            A quieter place<br />to build a brand.
+          </h1>
+          <p className="mt-5 max-w-xl text-cocoa/70">
+            The Room is a small, invite-friendly community of founders, designers and buyers.
+            Trade factory contacts, share family businesses, and show up at intimate events.
+          </p>
+          <div className="mt-8 grid max-w-3xl grid-cols-2 gap-8 sm:grid-cols-4">
+            <StatLight n="120+" label="Members" />
+            <StatLight n={`${events.length}`} label="Events" />
+            <StatLight n="14" label="Cities" />
+            <StatLight n="30+" label="Vetted factories" />
+          </div>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Link to="/members" className="rounded-full bg-cocoa px-6 py-3 text-sm font-medium text-cream hover:bg-cocoa/90">
+              Join The Room
+            </Link>
+            <Link to="/events" className="rounded-full border border-cocoa/20 px-6 py-3 text-sm font-medium text-cocoa hover:bg-cocoa/5">
+              Upcoming events
+            </Link>
+          </div>
         </div>
       </section>
 
