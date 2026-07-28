@@ -102,13 +102,24 @@ export function MemberFlipCard({ member }: { member: Member }) {
           <span>NO. {member.id.padStart(3, "0")}</span>
         </div>
         <div>
-          <div
-            className={`flex items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground ${
-              expanded ? "h-20 w-20 text-2xl" : "h-14 w-14 text-lg"
-            }`}
-          >
-            {member.initials}
-          </div>
+          {member.avatarUrl ? (
+            <img
+              src={member.avatarUrl}
+              alt={member.name}
+              className={`rounded-full object-cover ring-1 ring-border ${
+                expanded ? "h-20 w-20" : "h-14 w-14"
+              }`}
+            />
+          ) : (
+            <div
+              className={`flex items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground ${
+                expanded ? "h-20 w-20 text-2xl" : "h-14 w-14 text-lg"
+              }`}
+            >
+              {member.initials}
+            </div>
+          )}
+
           <div
             className={`mt-3 font-semibold tracking-tight ${
               expanded ? "text-3xl" : "text-xl"
