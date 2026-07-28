@@ -12,74 +12,8 @@ export type Member = {
 };
 
 
-export const members: Member[] = [
-  {
-    id: "1",
-    name: "Ava Chen",
-    handle: "ava",
-    role: "Founder, Loom & Co.",
-    city: "Shanghai",
-    bio: "Building small-batch knitwear. Ex-supply chain at a big-box retailer. Loves ceramic mugs and long walks.",
-    tags: ["Apparel", "Founder", "Manufacturing"],
-    website: "https://loomandco.example.com",
-    initials: "AC",
-  },
-  {
-    id: "2",
-    name: "Marco Silva",
-    handle: "marco",
-    role: "Designer, Studio Norte",
-    city: "Lisbon",
-    bio: "Product & packaging designer. Obsessed with paper stocks and quiet type.",
-    tags: ["Design", "Packaging"],
-    website: "https://studionorte.example.com",
-    initials: "MS",
-  },
-  {
-    id: "3",
-    name: "Priya Rao",
-    handle: "priya",
-    role: "Ops Lead, Kite Goods",
-    city: "Bengaluru",
-    bio: "Runs operations for a DTC home brand. Talks factories, freight, and forecasting.",
-    tags: ["Ops", "DTC"],
-    website: "https://kitegoods.example.com",
-    initials: "PR",
-  },
-  {
-    id: "4",
-    name: "Jules Martin",
-    handle: "jules",
-    role: "Buyer, Maison Bleu",
-    city: "Paris",
-    bio: "Wholesale buyer sourcing emerging brands across EU. Coffee-forward.",
-    tags: ["Retail", "Wholesale"],
-    website: "https://maisonbleu.example.com",
-    initials: "JM",
-  },
-  {
-    id: "5",
-    name: "Kenji Ito",
-    handle: "kenji",
-    role: "Founder, Hako Studio",
-    city: "Tokyo",
-    bio: "Home goods that don't shout. Ex-architect turned product person.",
-    tags: ["Home", "Founder"],
-    website: "https://hakostudio.example.com",
-    initials: "KI",
-  },
-  {
-    id: "6",
-    name: "Sofia Alvarez",
-    handle: "sofia",
-    role: "PR & Community, Faro",
-    city: "Mexico City",
-    bio: "Storytelling for early-stage brands. Runs a small dinner series.",
-    tags: ["Comms", "Community"],
-    website: "https://faroagency.example.com",
-    initials: "SA",
-  },
-];
+export const members: Member[] = [];
+
 
 export type Guest = {
   id: string;
