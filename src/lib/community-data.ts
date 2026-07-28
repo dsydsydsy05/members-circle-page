@@ -8,7 +8,9 @@ export type Member = {
   tags: string[];
   website: string;
   initials: string;
+  avatarUrl?: string | null;
 };
+
 
 export const members: Member[] = [
   {
