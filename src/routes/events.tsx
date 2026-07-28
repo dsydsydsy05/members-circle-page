@@ -27,7 +27,7 @@ function EventsPage() {
           {events.map((e) => (
             <article key={e.id} className="group overflow-hidden rounded-xl bg-card ring-1 ring-border">
               <div className="aspect-[4/3] overflow-hidden bg-muted">
-                <img src={e.cover} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <img src={e.cover} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
               </div>
               <div className="p-4">
                 <div className="text-xs text-muted-foreground">{e.date} · {e.city}</div>
@@ -42,7 +42,7 @@ function EventsPage() {
         <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
           {eventPhotos.map((p, i) => (
             <figure key={p.id} className={`overflow-hidden rounded-xl bg-muted ${i === 0 ? "md:col-span-2 md:row-span-2" : ""}`}>
-              <img src={p.src} alt={p.caption} className="h-full w-full object-cover" />
+              <img src={p.src} alt={p.caption} loading="lazy" decoding="async" className="h-full w-full object-cover" />
               <figcaption className="p-2 text-xs text-muted-foreground">{p.caption}</figcaption>
             </figure>
           ))}

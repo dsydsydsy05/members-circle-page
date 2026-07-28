@@ -203,8 +203,8 @@ export function MemberFlipCard({ member }: { member: Member }) {
       {open && motionBox &&
         createPortal(
           <div
-            className={`fixed inset-0 z-50 transition-[background-color,backdrop-filter] duration-700 ${
-              entered ? "bg-black/70 backdrop-blur-sm" : "bg-black/0 backdrop-blur-0"
+            className={`fixed inset-0 z-50 backdrop-blur-sm transition-[background-color] duration-500 ${
+              entered ? "bg-black/70" : "bg-black/0"
             }`}
             onClick={close}
             role="dialog"
