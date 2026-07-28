@@ -52,15 +52,6 @@ export function LanyardCard({
             />
           </div>
 
-          {/* Gloss sweep */}
-          <div
-            className="pointer-events-none absolute inset-0 animate-tag-gloss"
-            style={{
-              background:
-                "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.42) 50%, transparent 60%)",
-              mixBlendMode: "screen",
-            }}
-          />
           {/* Subtle grain */}
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.05]"
@@ -70,6 +61,7 @@ export function LanyardCard({
               backgroundSize: "3px 3px",
             }}
           />
+
 
           <div className="flex h-full flex-col gap-3 p-4 pt-12 text-black">
             {/* Top gradient block */}
