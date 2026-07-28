@@ -106,8 +106,8 @@
 }
 
 @keyframes real-badge-float {
-  0%, 100% { transform: perspective(1400px) rotate(-4.5deg) rotateY(-9deg) translate3d(0, -6px, 0); filter: brightness(0.96); }
-  50%      { transform: perspective(1400px) rotate(4.5deg) rotateY(9deg) translate3d(0, 6px, 0); filter: brightness(1.05); }
+  0%, 100% { transform: rotateY(-13deg) rotateX(4deg) rotateZ(-2deg) translate3d(0, -8px, 0); }
+  50%      { transform: rotateY(13deg) rotateX(-3deg) rotateZ(2deg) translate3d(0, 8px, 0); }
 }
 
 @keyframes tag-gloss {
@@ -148,9 +148,9 @@
 }
 
 @utility animate-real-badge-float {
-  animation: real-badge-float 6s ease-in-out infinite;
-  transform-origin: 50% 4%;
-  will-change: transform, filter;
+  animation: real-badge-float 8s ease-in-out infinite;
+  transform-origin: 50% 50%;
+  will-change: transform;
 }
 
 @utility realistic-badge-shadow {
