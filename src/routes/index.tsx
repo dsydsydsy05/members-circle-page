@@ -31,7 +31,7 @@ function Home() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse 60% 50% at 50% 55%, oklch(0.92 0.02 70 / 0.7), transparent 70%)",
+                "radial-gradient(ellipse 60% 50% at 50% 55%, oklch(0.88 0.29 136 / 0.22), transparent 70%)",
             }}
           />
 
