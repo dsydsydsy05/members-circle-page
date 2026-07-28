@@ -63,6 +63,7 @@ export const Route = createFileRoute("/members")({
 });
 
 function MembersPage() {
+  const all = useCommunityMembers();
   return (
     <div className="min-h-screen">
       <SiteNav />
@@ -73,9 +74,10 @@ function MembersPage() {
           A small, curated group. Every member has a card — tap to flip and see what they do, then visit their site.
         </p>
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {members.map((m) => <MemberFlipCard key={m.id} member={m} />)}
+          {all.map((m) => <MemberFlipCard key={m.id} member={m} />)}
         </div>
       </main>
+
       <SiteFooter />
     </div>
   );
