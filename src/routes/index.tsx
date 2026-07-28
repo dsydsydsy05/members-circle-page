@@ -85,16 +85,19 @@ function Home() {
 
 
 
-      <Section
-        eyebrow="Community"
-        title="Meet a few members"
-        action={<Link to="/members" className="text-sm underline underline-offset-4">All members →</Link>}
-      >
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((m) => <MemberFlipCard key={m.id} member={m} />)}
-        </div>
-        <p className="mt-4 text-xs text-muted-foreground">Tap any card to flip and see details.</p>
-      </Section>
+      {featured.length > 0 && (
+        <Section
+          eyebrow="Community"
+          title="Meet a few members"
+          action={<Link to="/members" className="text-sm underline underline-offset-4">All members →</Link>}
+        >
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((m) => <MemberFlipCard key={m.id} member={m} />)}
+          </div>
+          <p className="mt-4 text-xs text-muted-foreground">Tap any card to flip and see details.</p>
+        </Section>
+      )}
+
 
       <Section
         eyebrow="What's next"
