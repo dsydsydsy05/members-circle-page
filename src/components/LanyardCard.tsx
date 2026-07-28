@@ -14,17 +14,18 @@ export function LanyardCard({
   return (
     <div className="perspective-1200 select-none [contain:layout_paint]">
       <div className="preserve-3d animate-tag-spin relative h-[26rem] w-72 sm:h-[30rem] sm:w-80">
-        {/* Thickness layers — stacked slabs behind the front face */}
+        {/* Thickness layers — slightly inset so the front face stays the widest surface */}
         {Array.from({ length: 3 }).map((_, i) => (
           <div
             key={i}
-            className="absolute inset-0 rounded-2xl bg-[color:var(--cocoa)]/70"
+            className="absolute inset-[1.5px] rounded-2xl"
             style={{
-              transform: `translateZ(${-2 - i * 2.4}px)`,
-              filter: `brightness(${0.6 + i * 0.1})`,
+              transform: `translateZ(${-1.5 - i * 2}px)`,
+              background: `oklch(${0.62 - i * 0.09} ${0.2 - i * 0.03} 140)`,
             }}
           />
         ))}
+
 
 
         {/* FRONT */}
