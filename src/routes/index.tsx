@@ -3,8 +3,10 @@ import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { LanyardCard } from "@/components/LanyardCard";
 import { MemberFlipCard } from "@/components/MemberFlipCard";
 import { EventCover } from "@/components/EventCover";
-import { members, events, guests, factories } from "@/lib/community-data";
+import { events, guests, factories } from "@/lib/community-data";
 import { useMemberCount } from "@/lib/use-member-count";
+import { useCommunityMembers } from "@/lib/use-community-members";
+
 
 
 export const Route = createFileRoute("/")({
