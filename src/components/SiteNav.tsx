@@ -15,7 +15,7 @@ const links = [
 export function SiteNav() {
   const { isMember, join, leave, hydrated } = useMember();
   return (
-    <header className="group sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur transition-colors duration-300 hover:border-primary hover:bg-primary">
+    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
         <Link to="/" aria-label="The Room — home" className="flex items-center">
           <img
@@ -31,8 +31,8 @@ export function SiteNav() {
             <Link
               key={l.to}
               to={l.to}
-              className="text-sm text-muted-foreground transition-colors group-hover:text-primary-foreground hover:text-primary-foreground"
-              activeProps={{ className: "text-sm text-foreground group-hover:text-primary-foreground" }}
+              className="text-sm text-muted-foreground transition-colors hover:text-primary"
+              activeProps={{ className: "text-sm text-primary" }}
             >
               {l.label}
             </Link>
