@@ -1,6 +1,8 @@
-import { Link } from "@tanstack/react-router";
-import { useMember } from "@/lib/use-member";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { useAuth, signOut } from "@/lib/use-auth";
 import logo from "@/assets/the-room-logo.png.asset.json";
+
 
 const links = [
   { to: "/", label: "Home" },
@@ -13,7 +15,17 @@ const links = [
 ] as const;
 
 export function SiteNav() {
-  const { isMember, join, leave, hydrated } = useMember();
+  const { loading, isSignedIn, isMember } = useAuth();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const handleSignOut = async () => {
+    await queryClient.cancelQueries();
+    await signOut();
+    queryClient.clear();
+    navigate({ to: "/", replace: true });
+  };
+
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
@@ -39,25 +51,31 @@ export function SiteNav() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          {hydrated && isMember ? (
+          {!loading && isSignedIn ? (
             <>
-              <span className="hidden text-xs text-muted-foreground sm:inline">Member</span>
+              <Link
+                to="/onboarding"
+                className="hidden text-xs text-muted-foreground transition-colors hover:text-primary sm:inline"
+              >
+                {isMember ? "Member · Edit card" : "Enter code"}
+              </Link>
               <button
-                onClick={leave}
+                onClick={handleSignOut}
                 className="rounded-full border border-border px-3 py-1.5 text-xs transition-colors hover:bg-primary-foreground hover:text-primary"
               >
                 Sign out
               </button>
             </>
           ) : (
-            <button
-              onClick={join}
+            <Link
+              to="/auth"
               className="rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary-foreground hover:text-primary"
             >
-              Become a member
-            </button>
+              Sign in
+            </Link>
           )}
         </div>
+
       </div>
     </header>
   );

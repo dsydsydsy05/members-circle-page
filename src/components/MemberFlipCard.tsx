@@ -7,7 +7,16 @@ type MotionBox = {
   end: { left: number; top: number; width: number; height: number };
 };
 
+function hostnameOf(url: string) {
+  try {
+    return new URL(url).hostname.replace("www.", "");
+  } catch {
+    return url;
+  }
+}
+
 function CloseIcon({ className }: { className?: string }) {
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -102,13 +111,24 @@ export function MemberFlipCard({ member }: { member: Member }) {
           <span>NO. {member.id.padStart(3, "0")}</span>
         </div>
         <div>
-          <div
-            className={`flex items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground ${
-              expanded ? "h-20 w-20 text-2xl" : "h-14 w-14 text-lg"
-            }`}
-          >
-            {member.initials}
-          </div>
+          {member.avatarUrl ? (
+            <img
+              src={member.avatarUrl}
+              alt={member.name}
+              className={`rounded-full object-cover ring-1 ring-border ${
+                expanded ? "h-20 w-20" : "h-14 w-14"
+              }`}
+            />
+          ) : (
+            <div
+              className={`flex items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground ${
+                expanded ? "h-20 w-20 text-2xl" : "h-14 w-14 text-lg"
+              }`}
+            >
+              {member.initials}
+            </div>
+          )}
+
           <div
             className={`mt-3 font-semibold tracking-tight ${
               expanded ? "text-3xl" : "text-xl"
@@ -169,18 +189,21 @@ export function MemberFlipCard({ member }: { member: Member }) {
             </span>
           ))}
         </div>
-        <a
-          href={member.website}
-          target="_blank"
-          rel="noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className={`inline-flex items-center justify-between rounded-md bg-primary font-medium text-primary-foreground hover:opacity-90 ${
-            expanded ? "px-4 py-3 text-sm" : "px-3 py-2 text-xs"
-          }`}
-        >
-          Visit {new URL(member.website).hostname.replace("www.", "")}
-          <span>→</span>
-        </a>
+        {member.website ? (
+          <a
+            href={member.website}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className={`inline-flex items-center justify-between rounded-md bg-primary font-medium text-primary-foreground hover:opacity-90 ${
+              expanded ? "px-4 py-3 text-sm" : "px-3 py-2 text-xs"
+            }`}
+          >
+            Visit {hostnameOf(member.website)}
+            <span>→</span>
+          </a>
+        ) : null}
+
       </div>
     </>
   );

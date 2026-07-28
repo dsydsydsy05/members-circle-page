@@ -12,10 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as PartnersRouteImport } from './routes/partners'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as MembersRouteImport } from './routes/members'
 import { Route as GuestsRouteImport } from './routes/guests'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as BusinessesRouteImport } from './routes/businesses'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -31,6 +33,11 @@ const ResourcesRoute = ResourcesRouteImport.update({
 const PartnersRoute = PartnersRouteImport.update({
   id: '/partners',
   path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MembersRoute = MembersRouteImport.update({
@@ -53,6 +60,11 @@ const BusinessesRoute = BusinessesRouteImport.update({
   path: '/businesses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -61,20 +73,24 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/members': typeof MembersRoute
+  '/onboarding': typeof OnboardingRoute
   '/partners': typeof PartnersRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/members': typeof MembersRoute
+  '/onboarding': typeof OnboardingRoute
   '/partners': typeof PartnersRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -82,10 +98,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
   '/events': typeof EventsRoute
   '/guests': typeof GuestsRoute
   '/members': typeof MembersRoute
+  '/onboarding': typeof OnboardingRoute
   '/partners': typeof PartnersRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -94,30 +112,36 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/businesses'
     | '/events'
     | '/guests'
     | '/members'
+    | '/onboarding'
     | '/partners'
     | '/resources'
     | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/businesses'
     | '/events'
     | '/guests'
     | '/members'
+    | '/onboarding'
     | '/partners'
     | '/resources'
     | '/sitemap.xml'
   id:
     | '__root__'
     | '/'
+    | '/auth'
     | '/businesses'
     | '/events'
     | '/guests'
     | '/members'
+    | '/onboarding'
     | '/partners'
     | '/resources'
     | '/sitemap.xml'
@@ -125,10 +149,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   BusinessesRoute: typeof BusinessesRoute
   EventsRoute: typeof EventsRoute
   GuestsRoute: typeof GuestsRoute
   MembersRoute: typeof MembersRoute
+  OnboardingRoute: typeof OnboardingRoute
   PartnersRoute: typeof PartnersRoute
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -155,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/partners'
       fullPath: '/partners'
       preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/members': {
@@ -185,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -197,10 +237,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   BusinessesRoute: BusinessesRoute,
   EventsRoute: EventsRoute,
   GuestsRoute: GuestsRoute,
   MembersRoute: MembersRoute,
+  OnboardingRoute: OnboardingRoute,
   PartnersRoute: PartnersRoute,
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
