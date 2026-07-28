@@ -41,7 +41,7 @@ export function SiteNav() {
         <div className="flex items-center gap-2">
           {hydrated && isMember ? (
             <>
-              <span className="hidden text-xs text-muted-foreground transition-colors group-hover:text-primary-foreground/80 sm:inline">Member</span>
+              <span className="hidden text-xs text-muted-foreground sm:inline">Member</span>
               <button
                 onClick={leave}
                 className="rounded-full border border-border px-3 py-1.5 text-xs transition-colors hover:bg-primary-foreground hover:text-primary"
