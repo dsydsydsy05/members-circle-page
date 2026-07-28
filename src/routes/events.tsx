@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { events, eventPhotos } from "@/lib/community-data";
+import { EventCover } from "@/components/EventCover";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
@@ -28,9 +29,13 @@ function EventsPage() {
         <div className="mt-4 grid grid-cols-1 gap-5 md:grid-cols-3">
           {events.map((e) => (
             <article key={e.id} className="group overflow-hidden rounded-xl bg-card ring-1 ring-border">
-              <div className="aspect-[4/3] overflow-hidden bg-muted">
-                <img src={e.cover} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              </div>
+              <EventCover
+                image={e.cover}
+                month={e.date.split(" ")[0].toUpperCase()}
+                year="2026"
+                caption="This Photo Contains Something You May Find Exciting"
+                cta="Comment your guesses!"
+              />
               <div className="p-4">
                 <div className="text-xs text-muted-foreground">{e.date} · {e.city}</div>
                 <div className="mt-1 text-lg font-semibold tracking-tight">{e.title}</div>
