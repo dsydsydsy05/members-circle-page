@@ -1,7 +1,52 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { MemberFlipCard } from "@/components/MemberFlipCard";
-import { members } from "@/lib/community-data";
+import { members, type Member } from "@/lib/community-data";
+import { supabase } from "@/integrations/supabase/client";
+
+function initialsOf(name: string) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p[0]!.toUpperCase())
+    .join("");
+}
+
+function useCommunityMembers(): Member[] {
+  const { data } = useQuery({
+    queryKey: ["community-profiles"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("id, full_name, avatar_url, school, startup, position, website, tags, about")
+        .eq("onboarded", true)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data ?? [];
+    },
+    staleTime: 60_000,
+  });
+
+  const live: Member[] = (data ?? [])
+    .filter((p) => p.full_name)
+    .map((p) => ({
+      id: p.id,
+      name: p.full_name!,
+      handle: p.id.slice(0, 6),
+      role: [p.position, p.startup].filter(Boolean).join(" · ") || "Member",
+      city: p.school ?? "",
+      bio: p.about ?? "",
+      tags: p.tags ?? [],
+      website: p.website ?? "",
+      initials: initialsOf(p.full_name!),
+      avatarUrl: p.avatar_url,
+    }));
+
+  return [...live, ...members];
+}
+
 
 export const Route = createFileRoute("/members")({
   head: () => ({
