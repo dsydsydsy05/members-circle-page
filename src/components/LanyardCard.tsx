@@ -3,7 +3,7 @@
  * Thick edges, soft shadows, gloss sweep, gentle auto-rotation.
  */
 export function LanyardCard({
-  name = "The Room",
+  name = "member",
   subtitle = "Member No. 001",
   price = "$12",
 }: {
