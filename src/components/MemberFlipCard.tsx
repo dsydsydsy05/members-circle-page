@@ -180,18 +180,21 @@ export function MemberFlipCard({ member }: { member: Member }) {
             </span>
           ))}
         </div>
-        <a
-          href={member.website}
-          target="_blank"
-          rel="noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className={`inline-flex items-center justify-between rounded-md bg-primary font-medium text-primary-foreground hover:opacity-90 ${
-            expanded ? "px-4 py-3 text-sm" : "px-3 py-2 text-xs"
-          }`}
-        >
-          Visit {new URL(member.website).hostname.replace("www.", "")}
-          <span>→</span>
-        </a>
+        {member.website ? (
+          <a
+            href={member.website}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className={`inline-flex items-center justify-between rounded-md bg-primary font-medium text-primary-foreground hover:opacity-90 ${
+              expanded ? "px-4 py-3 text-sm" : "px-3 py-2 text-xs"
+            }`}
+          >
+            Visit {hostnameOf(member.website)}
+            <span>→</span>
+          </a>
+        ) : null}
+
       </div>
     </>
   );
