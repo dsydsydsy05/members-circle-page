@@ -37,16 +37,28 @@ function Home() {
       {/* Hero — only the badge. Scroll down to reveal the story. */}
       <section className="relative min-h-[170vh] bg-black">
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
-          {/* Ambient glow behind the card */}
+          {/* Soft green backlight behind the badge */}
           <div
             className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
             style={{
-              width: "26rem",
-              height: "36rem",
-              background: "radial-gradient(circle, oklch(0.88 0.29 136 / 0.22) 0%, oklch(0.88 0.29 136 / 0.05) 45%, transparent 70%)",
-              filter: "blur(40px)",
+              width: "46rem",
+              height: "46rem",
+              background:
+                "radial-gradient(circle, oklch(0.88 0.29 136 / 0.16) 0%, oklch(0.88 0.29 136 / 0.07) 35%, oklch(0.88 0.29 136 / 0.02) 60%, transparent 78%)",
+              filter: "blur(70px)",
             }}
           />
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            style={{
+              width: "20rem",
+              height: "28rem",
+              background:
+                "radial-gradient(ellipse at center, oklch(0.88 0.29 136 / 0.28) 0%, oklch(0.88 0.29 136 / 0.08) 50%, transparent 75%)",
+              filter: "blur(45px)",
+            }}
+          />
+
           <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
             <LanyardCard />
           </div>
