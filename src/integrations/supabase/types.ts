@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      family_businesses: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          location: string | null
+          name: string
+          owner_name: string | null
+          updated_at: string
+          user_id: string
+          website: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          location?: string | null
+          name: string
+          owner_name?: string | null
+          updated_at?: string
+          user_id: string
+          website?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          location?: string | null
+          name?: string
+          owner_name?: string | null
+          updated_at?: string
+          user_id?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           about: string | null
