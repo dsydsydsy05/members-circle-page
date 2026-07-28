@@ -9,6 +9,8 @@ export const Route = createFileRoute("/guests")({
       { name: "description", content: "Founders and operators we've hosted at The Room events." },
       { property: "og:title", content: "Guests · The Room" },
       { property: "og:description", content: "Fireside chats, closed Q&As, and workshops with our guests." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: GuestsPage,

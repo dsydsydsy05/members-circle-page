@@ -11,6 +11,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Members-only community for founders and makers. Flip cards, factory list, family businesses, and events." },
       { property: "og:title", content: "The Room — a quieter community" },
       { property: "og:description", content: "Founders, makers, buyers. Real conversations, real resources." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Home,
@@ -25,17 +27,6 @@ function Home() {
       {/* Hero — tag zooms in on scroll, intro content reveals below */}
       <section className="relative min-h-[150vh]">
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
-          {/* soft ambient glow */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 45% 35% at 50% 50%, oklch(0.88 0.29 136 / 0.12), transparent 75%)",
-
-            }}
-          />
-
           {/* Name tag zooms as you scroll */}
           <div className="animate-tag-zoom flex items-center justify-center">
             <LanyardCard />
