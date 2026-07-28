@@ -7,9 +7,13 @@ type MotionBox = {
   end: { left: number; top: number; width: number; height: number };
 };
 
+function normalizeUrl(url: string) {
+  return /^https?:\/\//i.test(url) ? url : `https://${url}`;
+}
+
 function hostnameOf(url: string) {
   try {
-    return new URL(url).hostname.replace("www.", "");
+    return new URL(normalizeUrl(url)).hostname.replace("www.", "");
   } catch {
     return url;
   }
@@ -161,22 +165,52 @@ export function MemberFlipCard({ member }: { member: Member }) {
         }`}
         style={{ transform: "rotateY(180deg)" }}
       >
-        <div>
+        <div className={`flex flex-col ${expanded ? "gap-4" : "gap-2.5"}`}>
           <div
-            className={`uppercase tracking-[0.18em] opacity-70 ${
-              expanded ? "text-xs" : "text-[11px]"
+            className={`flex items-center justify-between uppercase tracking-[0.18em] opacity-60 ${
+              expanded ? "text-xs" : "text-[10px]"
             }`}
           >
-            About
+            <span>THE ROOM</span>
+            <span>
+              NO. {member.memberNo ? String(member.memberNo).padStart(4, "0") : "----"}
+            </span>
           </div>
-          <p
-            className={`leading-relaxed opacity-95 ${
-              expanded ? "mt-3 text-base" : "mt-2 text-sm"
-            }`}
-          >
-            {member.bio}
-          </p>
+
+          <div>
+            <div className={`font-semibold tracking-tight ${expanded ? "text-2xl" : "text-lg"}`}>
+              {member.name}
+            </div>
+            <div className={`opacity-70 ${expanded ? "text-sm" : "text-xs"}`}>
+              {member.role}
+            </div>
+            {member.city ? (
+              <div className={`opacity-60 ${expanded ? "text-sm" : "text-xs"}`}>
+                {member.city}
+              </div>
+            ) : null}
+          </div>
+
+          {member.bio ? (
+            <div>
+              <div
+                className={`uppercase tracking-[0.18em] opacity-60 ${
+                  expanded ? "text-xs" : "text-[10px]"
+                }`}
+              >
+                About
+              </div>
+              <p
+                className={`leading-relaxed opacity-95 ${
+                  expanded ? "mt-2 text-base" : "mt-1 text-sm"
+                }`}
+              >
+                {member.bio}
+              </p>
+            </div>
+          ) : null}
         </div>
+
         <div className={`flex flex-wrap ${expanded ? "gap-2" : "gap-1.5"}`}>
           {member.tags.map((t) => (
             <span
@@ -189,9 +223,10 @@ export function MemberFlipCard({ member }: { member: Member }) {
             </span>
           ))}
         </div>
+
         {member.website ? (
           <a
-            href={member.website}
+            href={normalizeUrl(member.website)}
             target="_blank"
             rel="noreferrer"
             onClick={(e) => e.stopPropagation()}
