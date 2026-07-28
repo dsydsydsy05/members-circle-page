@@ -136,7 +136,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
 
       {/* Back — details + visit website */}
       <div
-        className={`backface-hidden absolute inset-0 flex flex-col justify-between rounded-xl bg-[color:var(--cocoa)] text-[color:var(--cream)] shadow-sm ${
+        className={`backface-hidden absolute inset-0 flex flex-col justify-between rounded-xl border border-primary/30 bg-[color:var(--cocoa)] text-[color:var(--cream)] shadow-sm ${
           expanded ? "p-8" : "p-5"
         }`}
         style={{ transform: "rotateY(180deg)" }}
@@ -161,7 +161,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
           {member.tags.map((t) => (
             <span
               key={t}
-              className={`rounded-full border border-[color:var(--cream)]/25 opacity-90 ${
+              className={`rounded-full border border-primary/40 text-primary ${
                 expanded ? "px-3 py-1 text-xs" : "px-2 py-0.5 text-[10px]"
               }`}
             >
@@ -174,7 +174,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
           target="_blank"
           rel="noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className={`inline-flex items-center justify-between rounded-md bg-[color:var(--cream)] font-medium text-[color:var(--cocoa)] hover:opacity-90 ${
+          className={`inline-flex items-center justify-between rounded-md bg-primary font-medium text-primary-foreground hover:opacity-90 ${
             expanded ? "px-4 py-3 text-sm" : "px-3 py-2 text-xs"
           }`}
         >
