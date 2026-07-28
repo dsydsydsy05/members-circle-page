@@ -10,6 +10,8 @@ export const Route = createFileRoute("/resources")({
       { name: "description", content: "Members-only vetted factory & supplier list, sourced from the The Room community." },
       { property: "og:title", content: "Factory List · The Room" },
       { property: "og:description", content: "Vetted factories and suppliers, contributed by members." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ResourcesPage,

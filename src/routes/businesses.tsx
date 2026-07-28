@@ -10,6 +10,8 @@ export const Route = createFileRoute("/businesses")({
       { name: "description", content: "Businesses run by The Room members. Tap a card to visit their site." },
       { property: "og:title", content: "Family Business · The Room" },
       { property: "og:description", content: "Businesses run by members of the The Room community." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: BusinessesPage,

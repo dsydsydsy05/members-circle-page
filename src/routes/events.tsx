@@ -9,6 +9,8 @@ export const Route = createFileRoute("/events")({
       { name: "description", content: "Upcoming The Room events and past recaps — dinners, factory tours, workshops." },
       { property: "og:title", content: "Events · The Room" },
       { property: "og:description", content: "Dinners, factory tours, and workshops with the The Room community." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: EventsPage,
