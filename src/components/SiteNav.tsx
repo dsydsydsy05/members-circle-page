@@ -31,7 +31,7 @@ export function SiteNav() {
             <Link
               key={l.to}
               to={l.to}
-              className="text-sm text-muted-foreground transition-colors hover:text-primary"
+              className="text-sm text-cream/80 transition-colors hover:text-primary"
               activeProps={{ className: "text-sm text-primary" }}
             >
               {l.label}
