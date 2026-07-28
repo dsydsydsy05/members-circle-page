@@ -128,10 +128,19 @@
 }
 
 @utility animate-tag-spin {
-  animation: tag-spin 16s ease-in-out infinite;
+  animation: tag-spin 14s ease-in-out infinite;
   transform-origin: center center;
   will-change: transform;
 }
+@utility animate-tag-float {
+  animation: tag-float 7s ease-in-out infinite;
+  will-change: transform;
+}
+@utility animate-tag-shadow {
+  animation: tag-shadow 7s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
 @utility animate-tag-gloss {
   animation: tag-gloss 6s ease-in-out infinite;
   will-change: transform, opacity;
