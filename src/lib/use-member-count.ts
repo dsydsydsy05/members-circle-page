@@ -13,7 +13,8 @@ export function useMemberCount() {
       if (error) throw error;
       return count ?? 0;
     },
-    staleTime: 60_000,
+    staleTime: 0,
+    refetchOnMount: "always",
   });
   return data ?? 0;
 }

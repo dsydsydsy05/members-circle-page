@@ -24,7 +24,9 @@ export function useCommunityMembers(): { members: Member[]; loading: boolean } {
       if (error) throw error;
       return data ?? [];
     },
-    staleTime: 60_000,
+    staleTime: 0,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true,
   });
 
   const members: Member[] = (data ?? [])
