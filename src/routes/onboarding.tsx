@@ -161,7 +161,51 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
   const [tags, setTags] = useState((initial?.tags ?? []).join(", "));
   const [about, setAbout] = useState(initial?.about ?? "");
   const [busy, setBusy] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const handleAvatarFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      setError("Please choose an image file.");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setError("Image must be under 5MB.");
+      return;
+    }
+    setUploading(true);
+    setError(null);
+    const { data: userData } = await supabase.auth.getUser();
+    const uid = userData.user?.id;
+    if (!uid) {
+      setError("Session expired, please sign in again.");
+      setUploading(false);
+      return;
+    }
+    const ext = (file.name.split(".").pop() || "jpg").toLowerCase().slice(0, 5);
+    const path = `${uid}/avatar-${Date.now()}.${ext}`;
+    const { error: upErr } = await supabase.storage
+      .from("avatars")
+      .upload(path, file, { upsert: true, contentType: file.type });
+    if (upErr) {
+      setError(upErr.message);
+      setUploading(false);
+      return;
+    }
+    const { data: signed, error: signErr } = await supabase.storage
+      .from("avatars")
+      .createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
+    setUploading(false);
+    if (signErr || !signed?.signedUrl) {
+      setError(signErr?.message ?? "Could not read the uploaded image.");
+      return;
+    }
+    setAvatarUrl(signed.signedUrl);
+  };
+
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -182,7 +226,7 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
       .from("profiles")
       .update({
         full_name: fullName.trim().slice(0, 80),
-        avatar_url: avatarUrl.trim().slice(0, 500) || null,
+        avatar_url: avatarUrl.trim().slice(0, 1000) || null,
         school: school.trim().slice(0, 120) || null,
         startup: startup.trim().slice(0, 120) || null,
         position: position.trim().slice(0, 120) || null,
@@ -219,12 +263,25 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
         </div>
 
         <div>
-          <label htmlFor="avatar" className={label}>Avatar image URL</label>
-          <input id="avatar" value={avatarUrl} onChange={(e) => setAvatarUrl(e.target.value)} className={field} placeholder="https://…" maxLength={500} />
-          {avatarUrl.trim() && (
-            <img src={avatarUrl} alt="Avatar preview" className="mt-3 h-16 w-16 rounded-full object-cover ring-1 ring-border" />
-          )}
+          <span className={label}>Avatar</span>
+          <div className="mt-2 flex items-center gap-4">
+            {avatarUrl.trim() ? (
+              <img src={avatarUrl} alt="Avatar preview" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
+            ) : (
+              <div className="h-16 w-16 rounded-full border border-dashed border-border" />
+            )}
+            <label className="cursor-pointer rounded-full border border-border px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:border-primary">
+              {uploading ? "Uploading…" : avatarUrl.trim() ? "Change photo" : "Upload photo"}
+              <input type="file" accept="image/*" className="hidden" disabled={uploading} onChange={handleAvatarFile} />
+            </label>
+            {avatarUrl.trim() && (
+              <button type="button" onClick={() => setAvatarUrl("")} className="text-sm text-muted-foreground hover:text-primary">
+                Remove
+              </button>
+            )}
+          </div>
         </div>
+
 
         <div>
           <label htmlFor="school" className={label}>School</label>
