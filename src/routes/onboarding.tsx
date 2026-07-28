@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { AvatarUploader } from "@/components/AvatarUploader";
 import { FamilyBusinessSection } from "@/components/FamilyBusinessSection";
@@ -155,6 +156,7 @@ type ProfileLike = {
 } | null;
 
 function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () => void }) {
+  const queryClient = useQueryClient();
   const [fullName, setFullName] = useState(initial?.full_name ?? "");
   const [avatarUrl, setAvatarUrl] = useState(initial?.avatar_url ?? "");
   const [school, setSchool] = useState(initial?.school ?? "");
@@ -207,7 +209,11 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
       .eq("id", uid);
     setBusy(false);
     if (error) setError(error.message);
-    else onSaved();
+    else {
+      await queryClient.invalidateQueries({ queryKey: ["community-profiles"] });
+      await queryClient.invalidateQueries({ queryKey: ["member-count"] });
+      onSaved();
+    }
   };
 
   const field = "mt-1 w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-primary";
