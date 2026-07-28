@@ -22,7 +22,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const memberCount = useMemberCount();
   const featured = members.slice(0, 3);
+
   return (
     <div className="min-h-screen">
       <SiteNav />
