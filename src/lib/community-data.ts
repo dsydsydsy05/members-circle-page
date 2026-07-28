@@ -9,6 +9,7 @@ export type Member = {
   website: string;
   initials: string;
   avatarUrl?: string | null;
+  memberNo?: number | null;
 };
 
 

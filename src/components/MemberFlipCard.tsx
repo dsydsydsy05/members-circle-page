@@ -108,7 +108,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
           }`}
         >
           <span>THE ROOM</span>
-          <span>NO. {member.id.padStart(3, "0")}</span>
+          <span>NO. {member.memberNo ? String(member.memberNo).padStart(4, "0") : "----"}</span>
         </div>
         <div>
           {member.avatarUrl ? (

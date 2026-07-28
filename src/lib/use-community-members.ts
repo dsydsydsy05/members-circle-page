@@ -18,7 +18,7 @@ export function useCommunityMembers(): { members: Member[]; loading: boolean } {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("profiles")
-        .select("id, full_name, avatar_url, school, startup, position, website, tags, about")
+        .select("id, member_no, full_name, avatar_url, school, startup, position, website, tags, about")
         .eq("onboarded", true)
         .order("created_at", { ascending: false });
       if (error) throw error;
@@ -40,6 +40,7 @@ export function useCommunityMembers(): { members: Member[]; loading: boolean } {
       website: p.website ?? "",
       initials: initialsOf(p.full_name!),
       avatarUrl: p.avatar_url,
+      memberNo: p.member_no,
     }));
 
   return { members, loading: isLoading };
