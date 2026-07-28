@@ -45,7 +45,7 @@ function Home() {
                 width: "46rem",
                 height: "46rem",
                 background:
-                  "radial-gradient(circle, oklch(0.88 0.29 136 / 0.24) 0%, oklch(0.88 0.29 136 / 0.11) 35%, oklch(0.88 0.29 136 / 0.03) 60%, transparent 78%)",
+                  "radial-gradient(circle, oklch(0.88 0.29 136 / 0.34) 0%, oklch(0.88 0.29 136 / 0.16) 35%, oklch(0.88 0.29 136 / 0.05) 60%, transparent 78%)",
                 filter: "blur(70px)",
               }}
             />
@@ -57,11 +57,12 @@ function Home() {
                 width: "20rem",
                 height: "28rem",
                 background:
-                  "radial-gradient(ellipse at center, oklch(0.88 0.29 136 / 0.44) 0%, oklch(0.88 0.29 136 / 0.14) 50%, transparent 75%)",
+                  "radial-gradient(ellipse at center, oklch(0.88 0.29 136 / 0.60) 0%, oklch(0.88 0.29 136 / 0.20) 50%, transparent 75%)",
                 filter: "blur(45px)",
               }}
             />
           </div>
+
 
 
           <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
