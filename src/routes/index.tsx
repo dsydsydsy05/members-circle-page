@@ -56,26 +56,16 @@ function Home() {
 
       {/* Intro — appears after the badge */}
       <section className="bg-black text-white animate-zoom-in-view">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <div className="text-xs uppercase tracking-[0.24em] text-white/50">
-            A members-only community
-          </div>
-          <h1 className="mt-3 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
-            A quieter place<br />to build a brand.
-          </h1>
-          <p className="mt-5 max-w-xl text-white/60">
-            The Room is a small, invite-friendly community of founders, designers and buyers.
-            Trade factory contacts, share family businesses, and show up at intimate events.
-          </p>
-          <div className="mt-8 grid max-w-3xl grid-cols-2 gap-8 sm:grid-cols-5">
+        <div className="mx-auto max-w-6xl px-6 py-28">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
             <StatLight n={`${memberCount}`} label="Members" />
             <StatLight n="1" label="Events" />
             <StatLight n="2" label="Cities" />
             <StatLight n={`${factories.length}`} label="Vetted factories" />
-            <StatLight n="0" label="Family businesses" />
+            <StatLight n={`${familyBusinessCount}`} label="Family businesses" />
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-16 flex flex-wrap gap-3">
             <Link to="/members" className="rounded-full bg-[color:var(--neon)] px-6 py-3 text-sm font-medium text-black hover:opacity-90">
               Join The Room
             </Link>
@@ -85,6 +75,7 @@ function Home() {
           </div>
         </div>
       </section>
+
 
 
 
