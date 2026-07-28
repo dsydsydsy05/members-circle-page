@@ -38,7 +38,7 @@ function BusinessesPage() {
                   className="group flex flex-col justify-between rounded-xl bg-card p-5 ring-1 ring-border transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                    <span>INSIDER · {b.category.toUpperCase()}</span>
+                    <span>THE ROOM · {b.category.toUpperCase()}</span>
                     <span className="opacity-0 transition-opacity group-hover:opacity-100">→</span>
                   </div>
                   <div className="mt-6">
