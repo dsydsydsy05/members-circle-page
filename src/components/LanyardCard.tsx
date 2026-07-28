@@ -20,7 +20,8 @@ export function LanyardCard({
 }) {
   return (
     <div className="perspective-1200 select-none">
-      <div className="animate-tag-float preserve-3d relative h-[26rem] w-72 sm:h-[30rem] sm:w-80">
+      <div className="animate-tag-float preserve-3d relative h-[22rem] w-60 sm:h-[26rem] sm:w-[17.5rem]">
+
         <div className="preserve-3d animate-tag-spin absolute inset-0">
           {/* ---- side faces (real thickness) ---- */}
           <div
