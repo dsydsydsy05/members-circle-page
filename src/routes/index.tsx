@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { LanyardCard } from "@/components/LanyardCard";
 import { MemberFlipCard } from "@/components/MemberFlipCard";
+import { EventCover } from "@/components/EventCover";
 import { members, events, guests } from "@/lib/community-data";
 
 export const Route = createFileRoute("/")({
@@ -47,15 +48,15 @@ function Home() {
       </section>
 
       {/* Intro — appears after the badge */}
-      <section className="bg-cream text-cocoa animate-zoom-in-view">
+      <section className="bg-black text-white animate-zoom-in-view">
         <div className="mx-auto max-w-6xl px-6 py-24">
-          <div className="text-xs uppercase tracking-[0.24em] text-cocoa/60">
+          <div className="text-xs uppercase tracking-[0.24em] text-white/50">
             A members-only community
           </div>
           <h1 className="mt-3 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
             A quieter place<br />to build a brand.
           </h1>
-          <p className="mt-5 max-w-xl text-cocoa/70">
+          <p className="mt-5 max-w-xl text-white/60">
             The Room is a small, invite-friendly community of founders, designers and buyers.
             Trade factory contacts, share family businesses, and show up at intimate events.
           </p>
@@ -66,10 +67,10 @@ function Home() {
             <StatLight n="30+" label="Vetted factories" />
           </div>
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link to="/members" className="rounded-full bg-cocoa px-6 py-3 text-sm font-medium text-cream hover:bg-cocoa/90">
+            <Link to="/members" className="rounded-full bg-[color:var(--neon)] px-6 py-3 text-sm font-medium text-black hover:opacity-90">
               Join The Room
             </Link>
-            <Link to="/events" className="rounded-full border border-cocoa/20 px-6 py-3 text-sm font-medium text-cocoa hover:bg-cocoa/5">
+            <Link to="/events" className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white hover:bg-white/5">
               Upcoming events
             </Link>
           </div>
@@ -97,9 +98,13 @@ function Home() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {events.map((e) => (
             <article key={e.id} className="group overflow-hidden rounded-xl bg-card ring-1 ring-border">
-              <div className="aspect-[4/3] overflow-hidden bg-muted">
-                <img src={e.cover} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              </div>
+              <EventCover
+                image={e.cover}
+                month={e.date.split(" ")[0].toUpperCase()}
+                year="2026"
+                caption="This Photo Contains Something You May Find Exciting"
+                cta="Comment your guesses!"
+              />
               <div className="p-4">
                 <div className="text-xs text-muted-foreground">{e.date} · {e.city}</div>
                 <div className="mt-1 text-lg font-semibold tracking-tight">{e.title}</div>
@@ -144,8 +149,8 @@ function Stat({ n, label }: { n: string; label: string }) {
 function StatLight({ n, label }: { n: string; label: string }) {
   return (
     <div>
-      <div className="text-2xl font-semibold tracking-tight text-cocoa">{n}</div>
-      <div className="text-xs text-cocoa/60">{label}</div>
+      <div className="text-2xl font-semibold tracking-tight text-white">{n}</div>
+      <div className="text-xs text-white/50">{label}</div>
     </div>
   );
 }

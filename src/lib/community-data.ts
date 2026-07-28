@@ -107,7 +107,7 @@ export const events: EventItem[] = [
   { id: "e1", title: "The Room Summer Social", date: "Aug 24", city: "Brooklyn", status: "upcoming",
     cover: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1200&auto=format&fit=crop&q=70" },
   { id: "e2", title: "Factory Tour: Knit Mill", date: "Sep 12", city: "Porto", status: "upcoming",
-    cover: "https://images.unsplash.com/photo-1581091012184-7e0cdfbb6791?w=1200&auto=format&fit=crop&q=70" },
+    cover: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&auto=format&fit=crop&q=70" },
   { id: "e3", title: "Founders Dinner No. 07", date: "Oct 05", city: "Los Angeles", status: "upcoming",
     cover: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&auto=format&fit=crop&q=70" },
 ];
