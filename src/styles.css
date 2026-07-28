@@ -148,9 +148,9 @@
 }
 
 @utility animate-real-badge-float {
-  animation: real-badge-float 6s ease-in-out infinite;
-  transform-origin: 50% 4%;
-  will-change: transform, filter;
+  animation: real-badge-float 8s ease-in-out infinite;
+  transform-origin: 50% 50%;
+  will-change: transform;
 }
 
 @utility realistic-badge-shadow {
