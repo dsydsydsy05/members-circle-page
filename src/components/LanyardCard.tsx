@@ -11,7 +11,7 @@ export function LanyardCard() {
           height={1408}
           decoding="async"
           fetchPriority="high"
-          className="h-auto w-full object-contain drop-shadow-[0_28px_42px_rgb(0_0_0/0.34)]"
+          className="realistic-badge-shadow h-auto w-full object-contain"
         />
       </div>
     </div>

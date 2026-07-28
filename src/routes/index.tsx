@@ -25,17 +25,6 @@ function Home() {
       {/* Hero — tag zooms in on scroll, intro content reveals below */}
       <section className="relative min-h-[150vh]">
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
-          {/* soft ambient glow */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 45% 35% at 50% 50%, oklch(0.88 0.29 136 / 0.12), transparent 75%)",
-
-            }}
-          />
-
           {/* Name tag zooms as you scroll */}
           <div className="animate-tag-zoom flex items-center justify-center">
             <LanyardCard />
