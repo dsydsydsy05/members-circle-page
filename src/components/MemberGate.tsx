@@ -10,7 +10,7 @@ export function MemberGate({ title, children }: { title: string; children: React
       <div className="mx-auto mb-4 h-10 w-10 rounded-full bg-[color:var(--cocoa)]" />
       <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
       <p className="mt-2 text-sm text-muted-foreground">
-        This section is reserved for Insider members. Join to unlock the vetted factory list,
+        This section is reserved for The Room members. Join to unlock the vetted factory list,
         member family businesses, and event RSVPs.
       </p>
       <button

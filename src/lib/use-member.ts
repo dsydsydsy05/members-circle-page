@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 
-const KEY = "insider_is_member";
+const KEY = "the_room_is_member";
 
 export function useMember() {
   const [isMember, setIsMember] = useState(false);

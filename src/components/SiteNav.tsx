@@ -17,7 +17,7 @@ export function SiteNav() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link to="/" className="text-lg font-semibold tracking-tight">
-          insider<span className="text-muted-foreground">˜</span>
+          the room<span className="text-muted-foreground">˜</span>
         </Link>
         <nav className="hidden gap-6 md:flex">
           {links.map((l) => (
@@ -60,7 +60,7 @@ export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border/60">
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-10 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-        <div>© {new Date().getFullYear()} Insider Community</div>
+        <div>© {new Date().getFullYear()} The Room</div>
         <div>Made with care. For members, by members.</div>
       </div>
     </footer>

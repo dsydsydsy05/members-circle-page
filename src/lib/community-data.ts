@@ -104,7 +104,7 @@ export type EventItem = {
 };
 
 export const events: EventItem[] = [
-  { id: "e1", title: "Insider Summer Social", date: "Aug 24", city: "Brooklyn", status: "upcoming",
+  { id: "e1", title: "The Room Summer Social", date: "Aug 24", city: "Brooklyn", status: "upcoming",
     cover: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1200&auto=format&fit=crop&q=70" },
   { id: "e2", title: "Factory Tour: Knit Mill", date: "Sep 12", city: "Porto", status: "upcoming",
     cover: "https://images.unsplash.com/photo-1581091012184-7e0cdfbb6791?w=1200&auto=format&fit=crop&q=70" },
@@ -116,7 +116,7 @@ export const eventPhotos: { id: string; src: string; caption: string }[] = [
   { id: "p1", src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1000&auto=format&fit=crop&q=70", caption: "Founders Dinner No. 06 — Tokyo" },
   { id: "p2", src: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=1000&auto=format&fit=crop&q=70", caption: "Workshop: Small-batch dye" },
   { id: "p3", src: "https://images.unsplash.com/photo-1515169067868-5387ec356754?w=1000&auto=format&fit=crop&q=70", caption: "Studio visit — Lisbon" },
-  { id: "p4", src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1000&auto=format&fit=crop&q=70", caption: "Insider Spring Social — NYC" },
+  { id: "p4", src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1000&auto=format&fit=crop&q=70", caption: "The Room Spring Social — NYC" },
   { id: "p5", src: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=1000&auto=format&fit=crop&q=70", caption: "Factory tour — Guangzhou" },
   { id: "p6", src: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1000&auto=format&fit=crop&q=70", caption: "Coffee Hour — Paris" },
 ];

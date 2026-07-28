@@ -6,10 +6,10 @@ import { familyBusinesses } from "@/lib/community-data";
 export const Route = createFileRoute("/businesses")({
   head: () => ({
     meta: [
-      { title: "Family Business · Insider" },
-      { name: "description", content: "Businesses run by Insider members. Tap a card to visit their site." },
-      { property: "og:title", content: "Family Business · Insider" },
-      { property: "og:description", content: "Businesses run by members of the Insider community." },
+      { title: "Family Business · The Room" },
+      { name: "description", content: "Businesses run by The Room members. Tap a card to visit their site." },
+      { property: "og:title", content: "Family Business · The Room" },
+      { property: "og:description", content: "Businesses run by members of the The Room community." },
     ],
   }),
   component: BusinessesPage,
@@ -38,7 +38,7 @@ function BusinessesPage() {
                   className="group flex flex-col justify-between rounded-xl bg-card p-5 ring-1 ring-border transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                    <span>INSIDER · {b.category.toUpperCase()}</span>
+                    <span>THE ROOM · {b.category.toUpperCase()}</span>
                     <span className="opacity-0 transition-opacity group-hover:opacity-100">→</span>
                   </div>
                   <div className="mt-6">

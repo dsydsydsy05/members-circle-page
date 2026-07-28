@@ -98,7 +98,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
             expanded ? "text-xs" : "text-[11px]"
           }`}
         >
-          <span>INSIDER</span>
+          <span>THE ROOM</span>
           <span>NO. {member.id.padStart(3, "0")}</span>
         </div>
         <div>

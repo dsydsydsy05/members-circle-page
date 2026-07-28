@@ -77,10 +77,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Insider — a quieter community for builders" },
+      { title: "The Room — a quieter community for builders" },
       { name: "description", content: "A members-only community of founders, makers and buyers. Flip cards, factory list, family businesses, and events." },
-      { name: "author", content: "Insider" },
-      { property: "og:title", content: "Insider — a quieter community for builders" },
+      { name: "author", content: "The Room" },
+      { property: "og:title", content: "The Room — a quieter community for builders" },
       { property: "og:description", content: "Members-only community: factory list, family businesses, events, and a very small group chat." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

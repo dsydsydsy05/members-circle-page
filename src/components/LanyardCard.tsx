@@ -3,7 +3,7 @@
  * Thick edges, soft shadows, gloss sweep, gentle auto-rotation.
  */
 export function LanyardCard({
-  name = "Insider",
+  name = "member",
   subtitle = "Member No. 001",
   price = "$12",
 }: {
@@ -14,27 +14,28 @@ export function LanyardCard({
   return (
     <div className="perspective-1200 select-none [contain:layout_paint]">
       <div className="preserve-3d animate-tag-spin relative h-[26rem] w-72 sm:h-[30rem] sm:w-80">
-        {/* Thickness layers — stacked slabs behind the front face */}
+        {/* Thickness layers — slightly inset so the front face stays the widest surface */}
         {Array.from({ length: 3 }).map((_, i) => (
           <div
             key={i}
-            className="absolute inset-0 rounded-2xl bg-[color:var(--cocoa)]/70"
+            className="absolute inset-[1.5px] rounded-2xl"
             style={{
-              transform: `translateZ(${-2 - i * 2.4}px)`,
-              filter: `brightness(${0.6 + i * 0.1})`,
+              transform: `translateZ(${-1.5 - i * 2}px)`,
+              background: `oklch(${0.62 - i * 0.09} ${0.2 - i * 0.03} 140)`,
             }}
           />
         ))}
 
 
+
         {/* FRONT */}
         <div
-          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-white/10"
+          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-white/20"
           style={{
             background:
               "linear-gradient(160deg, oklch(0.9 0.29 136) 0%, oklch(0.85 0.28 138) 55%, oklch(0.74 0.24 140) 100%)",
             boxShadow:
-              "0 24px 50px -26px oklch(0.88 0.29 136 / 0.4), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.15)",
+              "0 24px 50px -26px oklch(0.88 0.29 136 / 0.4), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.18), inset 0 0 0 1px oklch(0.6 0.2 140 / 0.5)",
             transform: "translateZ(0.5px)",
           }}
         >
@@ -74,7 +75,7 @@ export function LanyardCard({
             <div className="text-sm font-medium text-[color:var(--cocoa)]">{price}</div>
             <div>
               <div className="text-sm font-semibold lowercase tracking-tight text-[color:var(--cocoa)]/80">
-                insider
+                the room
               </div>
               <div className="mt-1 text-6xl font-semibold tracking-tight text-[color:var(--cocoa)]">
                 {name}
