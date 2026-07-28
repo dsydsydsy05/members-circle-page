@@ -226,7 +226,7 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
       .from("profiles")
       .update({
         full_name: fullName.trim().slice(0, 80),
-        avatar_url: avatarUrl.trim().slice(0, 500) || null,
+        avatar_url: avatarUrl.trim().slice(0, 1000) || null,
         school: school.trim().slice(0, 120) || null,
         startup: startup.trim().slice(0, 120) || null,
         position: position.trim().slice(0, 120) || null,
