@@ -16,8 +16,8 @@ export function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" className="text-lg font-semibold tracking-tight">
-          the room<span className="text-muted-foreground">˜</span>
+        <Link to="/" aria-label="The Room — home" className="flex items-center">
+          <img src={logo.url} alt="The Room" className="h-5 w-auto opacity-90" />
         </Link>
         <nav className="hidden gap-6 md:flex">
           {links.map((l) => (
