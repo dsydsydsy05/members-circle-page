@@ -5,6 +5,8 @@
 
 const T = 12; // total card thickness in px
 const H = T / 2;
+const R = 14; // corner radius in px
+
 
 const EDGE = "linear-gradient(180deg, oklch(0.82 0.26 138) 0%, oklch(0.6 0.19 141) 50%, oklch(0.78 0.24 138) 100%)";
 const EDGE_V = "linear-gradient(90deg, oklch(0.82 0.26 138) 0%, oklch(0.6 0.19 141) 50%, oklch(0.78 0.24 138) 100%)";
