@@ -141,6 +141,15 @@ function Stat({ n, label }: { n: string; label: string }) {
   );
 }
 
+function StatLight({ n, label }: { n: string; label: string }) {
+  return (
+    <div>
+      <div className="text-2xl font-semibold tracking-tight text-cocoa">{n}</div>
+      <div className="text-xs text-cocoa/60">{label}</div>
+    </div>
+  );
+}
+
 function Section({
   eyebrow, title, action, children,
 }: { eyebrow: string; title: string; action?: React.ReactNode; children: React.ReactNode }) {
