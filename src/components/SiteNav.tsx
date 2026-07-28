@@ -61,7 +61,10 @@ export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border/60">
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-10 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-        <div>© {new Date().getFullYear()} The Room</div>
+        <div className="flex items-center gap-3">
+          <img src={logo.url} alt="The Room" className="h-4 w-auto opacity-70" />
+          <span>© {new Date().getFullYear()}</span>
+        </div>
         <div>Made with care. For members, by members.</div>
       </div>
     </footer>
