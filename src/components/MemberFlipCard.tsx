@@ -7,9 +7,13 @@ type MotionBox = {
   end: { left: number; top: number; width: number; height: number };
 };
 
+function normalizeUrl(url: string) {
+  return /^https?:\/\//i.test(url) ? url : `https://${url}`;
+}
+
 function hostnameOf(url: string) {
   try {
-    return new URL(url).hostname.replace("www.", "");
+    return new URL(normalizeUrl(url)).hostname.replace("www.", "");
   } catch {
     return url;
   }
@@ -222,7 +226,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
 
         {member.website ? (
           <a
-            href={member.website}
+            href={normalizeUrl(member.website)}
             target="_blank"
             rel="noreferrer"
             onClick={(e) => e.stopPropagation()}
