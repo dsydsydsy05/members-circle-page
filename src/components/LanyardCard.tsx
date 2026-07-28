@@ -28,12 +28,12 @@ export function LanyardCard({
 
         {/* FRONT */}
         <div
-          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-black/10"
+          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-white/10"
           style={{
             background:
-              "linear-gradient(160deg, oklch(0.98 0.008 85) 0%, oklch(0.955 0.01 80) 55%, oklch(0.92 0.014 75) 100%)",
+              "linear-gradient(160deg, oklch(0.9 0.29 136) 0%, oklch(0.85 0.28 138) 55%, oklch(0.74 0.24 140) 100%)",
             boxShadow:
-              "0 40px 80px -30px rgba(0,0,0,0.45), 0 12px 24px -12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)",
+              "0 40px 90px -30px oklch(0.88 0.29 136 / 0.45), 0 12px 24px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.15)",
             transform: "translateZ(0.5px)",
           }}
         >
