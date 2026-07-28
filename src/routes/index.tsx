@@ -14,8 +14,8 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "The Room — a quieter community for builders" },
       { name: "description", content: "Members-only community for founders and makers. Flip cards, factory list, family businesses, and events." },
-      { property: "og:title", content: "The Room — a quieter community" },
-      { property: "og:description", content: "Founders, makers, buyers. Real conversations, real resources." },
+      { property: "og:title", content: "The Room — a quieter community for builders" },
+      { property: "og:description", content: "Members-only community for founders and makers. Flip cards, factory list, family businesses, and events." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
