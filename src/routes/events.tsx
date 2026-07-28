@@ -44,17 +44,8 @@ function EventsPage() {
             </article>
           ))}
         </div>
-
-        <h2 className="mt-16 text-xl font-semibold tracking-tight">Recap · Photos</h2>
-        <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
-          {eventPhotos.map((p, i) => (
-            <figure key={p.id} className={`overflow-hidden rounded-xl bg-muted ${i === 0 ? "md:col-span-2 md:row-span-2" : ""}`}>
-              <img src={p.src} alt={p.caption} loading="lazy" decoding="async" className="h-full w-full object-cover" />
-              <figcaption className="p-2 text-xs text-muted-foreground">{p.caption}</figcaption>
-            </figure>
-          ))}
-        </div>
       </main>
+
       <SiteFooter />
     </div>
   );
