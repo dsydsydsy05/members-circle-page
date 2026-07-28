@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useFamilyBusinesses, hostOf } from "@/lib/use-family-businesses";
 
@@ -22,6 +23,8 @@ const label = "text-xs uppercase tracking-wider text-muted-foreground";
 export function FamilyBusinessSection({ defaultOwner = "" }: { defaultOwner?: string }) {
   const { items, loading, refresh } = useFamilyBusinesses("mine");
   const [open, setOpen] = useState(false);
+  const qc = useQueryClient();
+  const syncCount = () => void qc.invalidateQueries({ queryKey: ["family-business-count"] });
 
   return (
     <div className="rounded-xl border border-border bg-card/40 p-5">
@@ -62,6 +65,7 @@ export function FamilyBusinessSection({ defaultOwner = "" }: { defaultOwner?: st
                 onClick={async () => {
                   await supabase.from("family_businesses").delete().eq("id", b.id);
                   void refresh();
+                  syncCount();
                 }}
                 className="shrink-0 text-xs text-muted-foreground hover:text-red-400"
               >
@@ -79,6 +83,7 @@ export function FamilyBusinessSection({ defaultOwner = "" }: { defaultOwner?: st
           onSaved={() => {
             setOpen(false);
             void refresh();
+            syncCount();
           }}
         />
       )}
