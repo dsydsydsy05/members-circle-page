@@ -84,9 +84,9 @@ export function LanyardCard({
               className="rounded-lg px-4 py-4 text-[11px] leading-snug text-[color:var(--cream)]"
               style={{
                 background:
-                  "linear-gradient(180deg, oklch(0.28 0.032 40) 0%, oklch(0.22 0.03 40) 100%)",
+                  "linear-gradient(180deg, oklch(0.18 0 0) 0%, oklch(0.11 0 0) 100%)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.4)",
+                  "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.6)",
               }}
             >
               {subtitle} — your all-access pass to early drops, factory tours, and a very small group chat.
