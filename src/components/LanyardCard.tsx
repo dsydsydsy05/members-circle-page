@@ -45,42 +45,9 @@ export function LanyardCard({
               className="h-3.5 w-12 rounded-full"
               style={{
                 background:
-                  "radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.75) 60%, rgba(0,0,0,0.5) 100%)",
+                  "radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.6) 100%)",
                 boxShadow:
-                  "inset 0 1.5px 2px rgba(0,0,0,0.9), 0 1px 0 rgba(255,255,255,0.5)",
-              }}
-            />
-          </div>
-
-          {/* Metal hook clip */}
-          <div
-            className="absolute left-1/2 top-0 z-10 -translate-x-1/2"
-            style={{
-              width: "28px",
-              height: "44px",
-              transform: "translateX(-50%) translateY(-18px)",
-            }}
-          >
-            {/* Hook outer ring */}
-            <div
-              className="absolute inset-0"
-              style={{
-                borderRadius: "14px 14px 8px 8px",
-                background:
-                  "linear-gradient(135deg, #9ca3af 0%, #e5e7eb 30%, #6b7280 55%, #d1d5db 80%, #4b5563 100%)",
-                boxShadow:
-                  "0 3px 6px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.8)",
-              }}
-            />
-            {/* Hook inner cutout */}
-            <div
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-              style={{
-                width: "14px",
-                height: "30px",
-                borderRadius: "10px 10px 5px 5px",
-                background: "rgba(0,0,0,0.55)",
-                boxShadow: "inset 0 1px 2px rgba(0,0,0,0.6)",
+                  "inset 0 1.5px 2px rgba(0,0,0,0.95), 0 1px 0 rgba(255,255,255,0.45)",
               }}
             />
           </div>
