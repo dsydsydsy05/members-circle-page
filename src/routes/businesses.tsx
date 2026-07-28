@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { MemberGate } from "@/components/MemberGate";
-import { familyBusinesses } from "@/lib/community-data";
+import { useFamilyBusinesses, normalizeUrl, hostOf } from "@/lib/use-family-businesses";
 
 export const Route = createFileRoute("/businesses")({
   head: () => ({
@@ -30,33 +30,68 @@ function BusinessesPage() {
 
         <div className="mt-10">
           <MemberGate title="Members only">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {familyBusinesses.map((b) => (
-                <a
-                  key={b.id}
-                  href={b.website}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex flex-col justify-between rounded-xl bg-card p-5 ring-1 ring-border transition-all hover:-translate-y-0.5 hover:shadow-md"
-                >
-                  <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                    <span>THE ROOM · {b.category.toUpperCase()}</span>
-                    <span className="opacity-0 transition-opacity group-hover:opacity-100">→</span>
-                  </div>
-                  <div className="mt-6">
-                    <div className="text-xl font-semibold tracking-tight">{b.name}</div>
-                    <div className="text-sm text-muted-foreground">by {b.owner}</div>
-                  </div>
-                  <div className="mt-6 text-xs text-muted-foreground">
-                    {new URL(b.website).hostname.replace("www.", "")}
-                  </div>
-                </a>
-              ))}
-            </div>
+            <BusinessGrid />
           </MemberGate>
         </div>
       </main>
       <SiteFooter />
+    </div>
+  );
+}
+
+function BusinessGrid() {
+  const { items, loading } = useFamilyBusinesses("all");
+
+  if (loading) {
+    return <div className="text-sm text-muted-foreground">Loading…</div>;
+  }
+
+  if (items.length === 0) {
+    return (
+      <div className="rounded-xl border border-dashed border-border p-10 text-center text-sm text-muted-foreground">
+        No family businesses listed yet. Add yours from your member card setup.
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((b) => {
+        const href = normalizeUrl(b.website);
+        const host = hostOf(b.website);
+        const Card = (
+          <>
+            <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+              <span>THE ROOM · {b.category.toUpperCase()}</span>
+              {href && <span className="opacity-0 transition-opacity group-hover:opacity-100">→</span>}
+            </div>
+            <div className="mt-6">
+              <div className="text-xl font-semibold tracking-tight">{b.name}</div>
+              {b.owner_name && <div className="text-sm text-muted-foreground">by {b.owner_name}</div>}
+              {b.description && (
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{b.description}</p>
+              )}
+            </div>
+            <div className="mt-6 flex items-center justify-between text-xs text-muted-foreground">
+              <span>{b.location ?? ""}</span>
+              <span>{host ?? ""}</span>
+            </div>
+          </>
+        );
+
+        const cls =
+          "group flex flex-col justify-between rounded-xl bg-card p-5 ring-1 ring-border transition-all hover:-translate-y-0.5 hover:shadow-md";
+
+        return href ? (
+          <a key={b.id} href={href} target="_blank" rel="noreferrer" className={cls}>
+            {Card}
+          </a>
+        ) : (
+          <div key={b.id} className={cls}>
+            {Card}
+          </div>
+        );
+      })}
     </div>
   );
 }
