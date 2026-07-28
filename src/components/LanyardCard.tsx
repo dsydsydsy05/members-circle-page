@@ -25,8 +25,10 @@ export function LanyardCard({
         <div className="preserve-3d animate-tag-spin absolute inset-0">
           {/* ---- side faces (real thickness) ---- */}
           <div
-            className="absolute left-0 top-0 h-full"
+            className="absolute left-0 rounded-full"
             style={{
+              top: R,
+              bottom: R,
               width: T,
               transformOrigin: "left center",
               transform: `translateZ(${H}px) rotateY(90deg)`,
@@ -34,8 +36,10 @@ export function LanyardCard({
             }}
           />
           <div
-            className="absolute right-0 top-0 h-full"
+            className="absolute right-0 rounded-full"
             style={{
+              top: R,
+              bottom: R,
               width: T,
               transformOrigin: "right center",
               transform: `translateZ(${H}px) rotateY(-90deg)`,
@@ -43,8 +47,10 @@ export function LanyardCard({
             }}
           />
           <div
-            className="absolute left-0 top-0 w-full"
+            className="absolute top-0 rounded-full"
             style={{
+              left: R,
+              right: R,
               height: T,
               transformOrigin: "center top",
               transform: `translateZ(${H}px) rotateX(-90deg)`,
@@ -52,12 +58,15 @@ export function LanyardCard({
             }}
           />
           <div
-            className="absolute bottom-0 left-0 w-full"
+            className="absolute bottom-0 rounded-full"
             style={{
+              left: R,
+              right: R,
               height: T,
               transformOrigin: "center bottom",
               transform: `translateZ(${H}px) rotateX(90deg)`,
               background: EDGE,
+
             }}
           />
 
