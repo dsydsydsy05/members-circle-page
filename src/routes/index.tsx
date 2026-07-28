@@ -24,43 +24,46 @@ function Home() {
     <div className="min-h-screen">
       <SiteNav />
 
-      {/* Hero — tag zooms in on scroll, intro content reveals below */}
-      <section className="relative min-h-[150vh]">
+      {/* Hero — only the badge. Scroll down to reveal the story. */}
+      <section className="relative min-h-[170vh]">
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
-          {/* Name tag zooms as you scroll */}
           <div className="animate-tag-zoom flex items-center justify-center">
             <LanyardCard />
           </div>
-
-          {/* Intro content reveals during the zoom */}
-          <div className="animate-content-reveal absolute inset-x-0 bottom-6 mx-auto w-full max-w-6xl px-6">
-
-            <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-              A members-only community
-            </div>
-            <h1 className="mt-3 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-5xl">
-              A quieter place<br />to build a brand.
-            </h1>
-            <p className="mt-4 max-w-md text-sm text-muted-foreground">
-              The Room is a small, invite-friendly community of founders, designers and buyers.
-              Trade factory contacts, share family businesses, and show up at intimate events.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link to="/members" className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90">
-                Meet the members
-              </Link>
-              <Link to="/events" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-secondary">
-                Upcoming events
-              </Link>
-            </div>
-            <div className="mt-6 grid max-w-md grid-cols-3 gap-6 text-sm">
-              <Stat n="120+" label="Members" />
-              <Stat n="14" label="Cities" />
-              <Stat n="30+" label="Vetted factories" />
-            </div>
+          <div className="absolute inset-x-0 bottom-6 text-center text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+            Scroll
           </div>
         </div>
       </section>
+
+      {/* Intro — appears after the badge */}
+      <section className="mx-auto max-w-6xl px-6 py-24 animate-zoom-in-view">
+        <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+          A members-only community
+        </div>
+        <h1 className="mt-3 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
+          A quieter place<br />to build a brand.
+        </h1>
+        <p className="mt-5 max-w-xl text-muted-foreground">
+          The Room is a small, invite-friendly community of founders, designers and buyers.
+          Trade factory contacts, share family businesses, and show up at intimate events.
+        </p>
+        <div className="mt-8 grid max-w-3xl grid-cols-2 gap-8 sm:grid-cols-4">
+          <Stat n="120+" label="Members" />
+          <Stat n={`${events.length}`} label="Events" />
+          <Stat n="14" label="Cities" />
+          <Stat n="30+" label="Vetted factories" />
+        </div>
+        <div className="mt-10 flex flex-wrap gap-3">
+          <Link to="/members" className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90">
+            Join The Room
+          </Link>
+          <Link to="/events" className="rounded-full border border-border px-6 py-3 text-sm font-medium hover:bg-secondary">
+            Upcoming events
+          </Link>
+        </div>
+      </section>
+
 
 
       <Section
