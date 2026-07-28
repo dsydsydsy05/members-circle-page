@@ -1,51 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { MemberFlipCard } from "@/components/MemberFlipCard";
-import { members, type Member } from "@/lib/community-data";
-import { supabase } from "@/integrations/supabase/client";
+import { useCommunityMembers } from "@/lib/use-community-members";
 
-function initialsOf(name: string) {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((p) => p[0]!.toUpperCase())
-    .join("");
-}
-
-function useCommunityMembers(): Member[] {
-  const { data } = useQuery({
-    queryKey: ["community-profiles"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("id, full_name, avatar_url, school, startup, position, website, tags, about")
-        .eq("onboarded", true)
-        .order("created_at", { ascending: false });
-      if (error) throw error;
-      return data ?? [];
-    },
-    staleTime: 60_000,
-  });
-
-  const live: Member[] = (data ?? [])
-    .filter((p) => p.full_name)
-    .map((p) => ({
-      id: p.id,
-      name: p.full_name!,
-      handle: p.id.slice(0, 6),
-      role: [p.position, p.startup].filter(Boolean).join(" · ") || "Member",
-      city: p.school ?? "",
-      bio: p.about ?? "",
-      tags: p.tags ?? [],
-      website: p.website ?? "",
-      initials: initialsOf(p.full_name!),
-      avatarUrl: p.avatar_url,
-    }));
-
-  return [...live, ...members];
-}
 
 
 export const Route = createFileRoute("/members")({
@@ -63,7 +20,7 @@ export const Route = createFileRoute("/members")({
 });
 
 function MembersPage() {
-  const all = useCommunityMembers();
+  const { members, loading } = useCommunityMembers();
   return (
     <div className="min-h-screen">
       <SiteNav />
@@ -73,10 +30,22 @@ function MembersPage() {
         <p className="mt-3 max-w-2xl text-muted-foreground">
           A small, curated group. Every member has a card — tap to flip and see what they do, then visit their site.
         </p>
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {all.map((m) => <MemberFlipCard key={m.id} member={m} />)}
-        </div>
+        {loading ? (
+          <p className="mt-10 text-sm text-muted-foreground">Loading members…</p>
+        ) : members.length === 0 ? (
+          <div className="mt-10 rounded-2xl border border-border bg-card p-10 text-center">
+            <h2 className="text-2xl font-semibold tracking-tight">No members yet</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              The Room is just opening. Sign up, enter your invitation code, and yours will be the first card here.
+            </p>
+          </div>
+        ) : (
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {members.map((m) => <MemberFlipCard key={m.id} member={m} />)}
+          </div>
+        )}
       </main>
+
 
       <SiteFooter />
     </div>

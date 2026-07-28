@@ -3,8 +3,10 @@ import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { LanyardCard } from "@/components/LanyardCard";
 import { MemberFlipCard } from "@/components/MemberFlipCard";
 import { EventCover } from "@/components/EventCover";
-import { members, events, guests, factories } from "@/lib/community-data";
+import { events, guests, factories } from "@/lib/community-data";
 import { useMemberCount } from "@/lib/use-member-count";
+import { useCommunityMembers } from "@/lib/use-community-members";
+
 
 
 export const Route = createFileRoute("/")({
@@ -23,7 +25,8 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const memberCount = useMemberCount();
-  const featured = members.slice(0, 3);
+  const featured = useCommunityMembers().members.slice(0, 3);
+
 
   return (
     <div className="min-h-screen">
@@ -85,16 +88,19 @@ function Home() {
 
 
 
-      <Section
-        eyebrow="Community"
-        title="Meet a few members"
-        action={<Link to="/members" className="text-sm underline underline-offset-4">All members →</Link>}
-      >
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((m) => <MemberFlipCard key={m.id} member={m} />)}
-        </div>
-        <p className="mt-4 text-xs text-muted-foreground">Tap any card to flip and see details.</p>
-      </Section>
+      {featured.length > 0 && (
+        <Section
+          eyebrow="Community"
+          title="Meet a few members"
+          action={<Link to="/members" className="text-sm underline underline-offset-4">All members →</Link>}
+        >
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((m) => <MemberFlipCard key={m.id} member={m} />)}
+          </div>
+          <p className="mt-4 text-xs text-muted-foreground">Tap any card to flip and see details.</p>
+        </Section>
+      )}
+
 
       <Section
         eyebrow="What's next"
