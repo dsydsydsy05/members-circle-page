@@ -1,69 +1,149 @@
-export function LanyardCard() {
+/**
+ * Realistic 3D name tag ("工牌") — no lanyard strap. Neon green edition.
+ */
+export function LanyardCard({
+  name = "The Room",
+  subtitle = "Member No. 001",
+  price = "$12",
+}: {
+  name?: string;
+  subtitle?: string;
+  price?: string;
+}) {
   return (
-    <div className="pointer-events-none relative select-none [perspective:1600px]">
-      {/* ambient glow behind the card */}
-      <div
-        aria-hidden
-        className="absolute left-1/2 top-1/2 -z-10 h-[130%] w-[130%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-70 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, color-mix(in oklab, var(--neon) 55%, transparent) 0%, transparent 68%)",
-        }}
-      />
+    <div className="perspective-1200 select-none">
+      <div className="preserve-3d animate-tag-spin relative h-[26rem] w-72 sm:h-[30rem] sm:w-80">
+        {/* Thickness layers — stacked slabs behind the front face */}
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 rounded-2xl"
+            style={{
+              transform: `translateZ(${-2 - i * 1.2}px)`,
+              background: "oklch(0.42 0.15 136)",
+              filter: `brightness(${0.55 + i * 0.05})`,
+            }}
+          />
+        ))}
 
-      <div className="animate-real-badge-float relative w-[min(66vw,17rem)] sm:w-[min(30vw,20rem)] [transform-style:preserve-3d]">
+        {/* FRONT */}
         <div
-          className="relative aspect-[3/4.15] w-full overflow-hidden rounded-[1.25rem]"
+          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-black/10"
           style={{
             background:
-              "linear-gradient(150deg, color-mix(in oklab, var(--neon) 92%, white) 0%, var(--neon) 42%, color-mix(in oklab, var(--neon) 82%, black) 100%)",
+              "linear-gradient(160deg, oklch(0.92 0.28 136) 0%, oklch(0.86 0.29 136) 55%, oklch(0.78 0.26 138) 100%)",
             boxShadow:
-              "0 40px 70px -20px oklch(0 0 0 / 0.75), 0 0 60px color-mix(in oklab, var(--neon) 35%, transparent), inset 0 1px 0 oklch(1 0 0 / 0.5), inset 0 -2px 6px oklch(0 0 0 / 0.18)",
+              "0 40px 80px -30px rgba(0,0,0,0.65), 0 12px 24px -12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.12), inset 0 0 0 1px rgba(0,0,0,0.06)",
+            transform: "translateZ(0.5px)",
           }}
         >
-          {/* slot */}
-          <div className="absolute left-1/2 top-[4.5%] h-[1.6%] w-[14%] -translate-x-1/2 rounded-full bg-black/70 shadow-[inset_0_1px_2px_rgba(0,0,0,0.6)]" />
+          {/* Punched hole */}
+          <div className="absolute left-1/2 top-4 -translate-x-1/2">
+            <div
+              className="h-3 w-10 rounded-full"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.6) 100%)",
+                boxShadow:
+                  "inset 0 1.5px 2px rgba(0,0,0,0.9), 0 1px 0 rgba(255,255,255,0.35)",
+              }}
+            />
+          </div>
 
-          {/* gloss sweep */}
+          {/* Gloss sweep */}
           <div
-            aria-hidden
-            className="animate-tag-gloss absolute -inset-y-10 left-0 w-1/2 opacity-60"
+            className="pointer-events-none absolute inset-0 animate-tag-gloss"
             style={{
               background:
-                "linear-gradient(105deg, transparent 0%, oklch(1 0 0 / 0.42) 45%, transparent 80%)",
+                "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.5) 50%, transparent 60%)",
+              mixBlendMode: "screen",
+            }}
+          />
+          {/* Subtle grain */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage:
+                "radial-gradient(rgba(0,0,0,0.9) 1px, transparent 1px)",
+              backgroundSize: "3px 3px",
             }}
           />
 
-          {/* content */}
-          <div className="absolute inset-0 flex flex-col px-[9%] pb-[7%] pt-[13%] text-black">
-            <span className="text-[0.5rem] font-medium tracking-wide opacity-80">
-              No. 001
-            </span>
-
-            <div className="mt-auto">
-              <span className="text-[0.55rem] font-medium tracking-wide opacity-80">
-                member
-              </span>
-              <h2 className="-mt-0.5 text-[1.7rem] font-semibold leading-none tracking-tight sm:text-[2rem]">
-                The Room
-                <sup className="ml-0.5 text-[0.9rem] align-super">~</sup>
-              </h2>
+          <div className="flex h-full flex-col justify-between p-6 pt-10 text-black">
+            <div className="text-sm font-medium">{price}</div>
+            <div>
+              <div className="text-sm font-semibold lowercase tracking-tight opacity-70">
+                the room
+              </div>
+              <div className="mt-1 text-5xl font-semibold tracking-tight sm:text-6xl">
+                {name}
+                <span className="opacity-50">˜</span>
+              </div>
             </div>
-
-            <div className="mt-[8%] rounded-[0.5rem] bg-black/90 p-[5%] text-[0.42rem] leading-snug text-white/90">
-              <p>
-                Member No. 001 — your all-access pass to factory tours, guest
-                salons, and a very small group chat.
-              </p>
-              <div className="mt-2 flex h-4 items-end gap-[1.5px]">
-                {Array.from({ length: 42 }).map((_, i) => (
+            <div
+              className="rounded-lg px-4 py-4 text-[11px] leading-snug text-white"
+              style={{
+                background:
+                  "linear-gradient(180deg, oklch(0.22 0.02 150) 0%, oklch(0.15 0.02 150) 100%)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.4)",
+              }}
+            >
+              {subtitle} — your all-access pass to early drops, factory tours, and a very small group chat.
+              <div className="mt-3 flex h-5 items-end gap-[2px]">
+                {Array.from({ length: 34 }).map((_, i) => (
                   <span
                     key={i}
-                    className="block w-[1.5px] bg-white"
-                    style={{ height: `${i % 3 === 0 ? 100 : i % 2 ? 70 : 88}%` }}
+                    className="block bg-white"
+                    style={{ width: i % 3 === 0 ? 3 : 1, height: `${60 + ((i * 13) % 40)}%` }}
                   />
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* BACK */}
+        <div
+          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl p-6 pt-10 text-white ring-1 ring-black/20"
+          style={{
+            transform: "rotateY(180deg) translateZ(0.5px)",
+            background:
+              "linear-gradient(160deg, oklch(0.26 0.05 150) 0%, oklch(0.19 0.04 150) 60%, oklch(0.14 0.03 150) 100%)",
+            boxShadow:
+              "0 40px 80px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.04)",
+          }}
+        >
+          <div className="absolute left-1/2 top-4 -translate-x-1/2">
+            <div
+              className="h-3 w-10 rounded-full"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,1) 60%)",
+                boxShadow: "inset 0 1.5px 2px rgba(0,0,0,0.95)",
+              }}
+            />
+          </div>
+          <div
+            className="pointer-events-none absolute inset-0 animate-tag-gloss"
+            style={{
+              background:
+                "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.14) 50%, transparent 60%)",
+            }}
+          />
+          <div className="flex h-full flex-col justify-between">
+            <div className="text-xs uppercase tracking-[0.24em] opacity-70">Members Only</div>
+            <div>
+              <div className="text-3xl font-semibold tracking-tight text-[color:var(--neon)]">
+                A quieter<br />place to build.
+              </div>
+              <p className="mt-3 text-xs leading-relaxed opacity-80">
+                Founders, makers, buyers. Real conversations, real resources.
+              </p>
+            </div>
+            <div className="flex items-center justify-between text-[10px] opacity-80">
+              <span>NO. 001</span>
+              <span>EST. 2026</span>
             </div>
           </div>
         </div>
