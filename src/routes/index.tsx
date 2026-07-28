@@ -24,24 +24,26 @@ function Home() {
 
       {/* Hero — tag zooms in on scroll, intro content reveals below */}
       <section className="relative min-h-[150vh]">
-        <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-between overflow-hidden px-6 py-6">
+        <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
           {/* soft ambient glow */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse 60% 50% at 50% 55%, oklch(0.88 0.29 136 / 0.22), transparent 70%)",
+                "radial-gradient(ellipse 45% 35% at 50% 50%, oklch(0.88 0.29 136 / 0.12), transparent 75%)",
+
             }}
           />
 
           {/* Name tag zooms as you scroll */}
-          <div className="animate-tag-zoom flex flex-1 items-center justify-center">
+          <div className="animate-tag-zoom flex items-center justify-center">
             <LanyardCard />
           </div>
 
           {/* Intro content reveals during the zoom */}
-          <div className="animate-content-reveal w-full max-w-6xl">
+          <div className="animate-content-reveal absolute inset-x-0 bottom-6 mx-auto w-full max-w-6xl px-6">
+
             <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
               A members-only community
             </div>
