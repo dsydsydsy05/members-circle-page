@@ -22,6 +22,7 @@ export type Database = {
           full_name: string | null
           id: string
           is_member: boolean
+          member_no: number | null
           onboarded: boolean
           position: string | null
           school: string | null
@@ -37,6 +38,7 @@ export type Database = {
           full_name?: string | null
           id: string
           is_member?: boolean
+          member_no?: number | null
           onboarded?: boolean
           position?: string | null
           school?: string | null
@@ -52,6 +54,7 @@ export type Database = {
           full_name?: string | null
           id?: string
           is_member?: boolean
+          member_no?: number | null
           onboarded?: boolean
           position?: string | null
           school?: string | null
