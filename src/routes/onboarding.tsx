@@ -219,12 +219,25 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
         </div>
 
         <div>
-          <label htmlFor="avatar" className={label}>Avatar image URL</label>
-          <input id="avatar" value={avatarUrl} onChange={(e) => setAvatarUrl(e.target.value)} className={field} placeholder="https://…" maxLength={500} />
-          {avatarUrl.trim() && (
-            <img src={avatarUrl} alt="Avatar preview" className="mt-3 h-16 w-16 rounded-full object-cover ring-1 ring-border" />
-          )}
+          <span className={label}>Avatar</span>
+          <div className="mt-2 flex items-center gap-4">
+            {avatarUrl.trim() ? (
+              <img src={avatarUrl} alt="Avatar preview" className="h-16 w-16 rounded-full object-cover ring-1 ring-border" />
+            ) : (
+              <div className="h-16 w-16 rounded-full border border-dashed border-border" />
+            )}
+            <label className="cursor-pointer rounded-full border border-border px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:border-primary">
+              {uploading ? "Uploading…" : avatarUrl.trim() ? "Change photo" : "Upload photo"}
+              <input type="file" accept="image/*" className="hidden" disabled={uploading} onChange={handleAvatarFile} />
+            </label>
+            {avatarUrl.trim() && (
+              <button type="button" onClick={() => setAvatarUrl("")} className="text-sm text-muted-foreground hover:text-primary">
+                Remove
+              </button>
+            )}
+          </div>
         </div>
+
 
         <div>
           <label htmlFor="school" className={label}>School</label>
