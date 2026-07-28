@@ -15,7 +15,17 @@ const links = [
 ] as const;
 
 export function SiteNav() {
-  const { isMember, join, leave, hydrated } = useMember();
+  const { loading, isSignedIn, isMember } = useAuth();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const handleSignOut = async () => {
+    await queryClient.cancelQueries();
+    await signOut();
+    queryClient.clear();
+    navigate({ to: "/", replace: true });
+  };
+
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
