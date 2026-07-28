@@ -7,9 +7,9 @@ import { members, events, eventPhotos, guests } from "@/lib/community-data";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Insider — a quieter community for builders" },
+      { title: "The Room — a quieter community for builders" },
       { name: "description", content: "Members-only community for founders and makers. Flip cards, factory list, family businesses, and events." },
-      { property: "og:title", content: "Insider — a quieter community" },
+      { property: "og:title", content: "The Room — a quieter community" },
       { property: "og:description", content: "Founders, makers, buyers. Real conversations, real resources." },
     ],
   }),
@@ -49,7 +49,7 @@ function Home() {
               A quieter place<br />to build a brand.
             </h1>
             <p className="mt-4 max-w-md text-sm text-muted-foreground">
-              Insider is a small, invite-friendly community of founders, designers and buyers.
+              The Room is a small, invite-friendly community of founders, designers and buyers.
               Trade factory contacts, share family businesses, and show up at intimate events.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">

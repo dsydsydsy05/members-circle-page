@@ -5,9 +5,9 @@ import { guests } from "@/lib/community-data";
 export const Route = createFileRoute("/guests")({
   head: () => ({
     meta: [
-      { title: "Guests · Insider" },
-      { name: "description", content: "Founders and operators we've hosted at Insider events." },
-      { property: "og:title", content: "Guests · Insider" },
+      { title: "Guests · The Room" },
+      { name: "description", content: "Founders and operators we've hosted at The Room events." },
+      { property: "og:title", content: "Guests · The Room" },
       { property: "og:description", content: "Fireside chats, closed Q&As, and workshops with our guests." },
     ],
   }),

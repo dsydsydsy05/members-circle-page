@@ -3,7 +3,7 @@
  * Thick edges, soft shadows, gloss sweep, gentle auto-rotation.
  */
 export function LanyardCard({
-  name = "Insider",
+  name = "The Room",
   subtitle = "Member No. 001",
   price = "$12",
 }: {
@@ -30,12 +30,12 @@ export function LanyardCard({
 
         {/* FRONT */}
         <div
-          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-white/10"
+          className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-white/20"
           style={{
             background:
               "linear-gradient(160deg, oklch(0.9 0.29 136) 0%, oklch(0.85 0.28 138) 55%, oklch(0.74 0.24 140) 100%)",
             boxShadow:
-              "0 24px 50px -26px oklch(0.88 0.29 136 / 0.4), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.15)",
+              "0 24px 50px -26px oklch(0.88 0.29 136 / 0.4), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.18), inset 0 0 0 1px oklch(0.6 0.2 140 / 0.5)",
             transform: "translateZ(0.5px)",
           }}
         >
@@ -75,7 +75,7 @@ export function LanyardCard({
             <div className="text-sm font-medium text-[color:var(--cocoa)]">{price}</div>
             <div>
               <div className="text-sm font-semibold lowercase tracking-tight text-[color:var(--cocoa)]/80">
-                insider
+                the room
               </div>
               <div className="mt-1 text-6xl font-semibold tracking-tight text-[color:var(--cocoa)]">
                 {name}

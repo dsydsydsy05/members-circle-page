@@ -5,13 +5,13 @@ import { partners, tierMeta, tierOrder, type Partner } from "@/lib/partners-data
 export const Route = createFileRoute("/partners")({
   head: () => ({
     meta: [
-      { title: "Partners & Sponsors — Insider" },
+      { title: "Partners & Sponsors — The Room" },
       {
         name: "description",
         content:
-          "Diamond, Platinum, Gold and Silver sponsors plus ecosystem partners powering the Insider community.",
+          "Diamond, Platinum, Gold and Silver sponsors plus ecosystem partners powering the The Room community.",
       },
-      { property: "og:title", content: "Partners & Sponsors — Insider" },
+      { property: "og:title", content: "Partners & Sponsors — The Room" },
       {
         property: "og:description",
         content: "The brands, funds and studios backing our members-only community.",
@@ -91,7 +91,7 @@ function PartnersPage() {
             Four sponsorship tiers plus an ecosystem track for tools and communities.
           </p>
           <a
-            href="mailto:partners@insider.community"
+            href="mailto:partners@the room.community"
             className="mt-6 inline-block rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
             Get the deck

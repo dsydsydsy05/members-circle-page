@@ -6,10 +6,10 @@ import { members } from "@/lib/community-data";
 export const Route = createFileRoute("/members")({
   head: () => ({
     meta: [
-      { title: "Members · Insider" },
-      { name: "description", content: "Meet the founders, designers and buyers inside the Insider community. Flip a card to see details." },
-      { property: "og:title", content: "Members · Insider" },
-      { property: "og:description", content: "Flip through the Insider member cards." },
+      { title: "Members · The Room" },
+      { name: "description", content: "Meet the founders, designers and buyers inside the The Room community. Flip a card to see details." },
+      { property: "og:title", content: "Members · The Room" },
+      { property: "og:description", content: "Flip through the The Room member cards." },
     ],
   }),
   component: MembersPage,

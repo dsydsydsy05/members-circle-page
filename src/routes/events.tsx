@@ -5,10 +5,10 @@ import { events, eventPhotos } from "@/lib/community-data";
 export const Route = createFileRoute("/events")({
   head: () => ({
     meta: [
-      { title: "Events · Insider" },
-      { name: "description", content: "Upcoming Insider events and past recaps — dinners, factory tours, workshops." },
-      { property: "og:title", content: "Events · Insider" },
-      { property: "og:description", content: "Dinners, factory tours, and workshops with the Insider community." },
+      { title: "Events · The Room" },
+      { name: "description", content: "Upcoming The Room events and past recaps — dinners, factory tours, workshops." },
+      { property: "og:title", content: "Events · The Room" },
+      { property: "og:description", content: "Dinners, factory tours, and workshops with the The Room community." },
     ],
   }),
   component: EventsPage,

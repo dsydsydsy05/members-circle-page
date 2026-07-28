@@ -6,10 +6,10 @@ import { familyBusinesses } from "@/lib/community-data";
 export const Route = createFileRoute("/businesses")({
   head: () => ({
     meta: [
-      { title: "Family Business · Insider" },
-      { name: "description", content: "Businesses run by Insider members. Tap a card to visit their site." },
-      { property: "og:title", content: "Family Business · Insider" },
-      { property: "og:description", content: "Businesses run by members of the Insider community." },
+      { title: "Family Business · The Room" },
+      { name: "description", content: "Businesses run by The Room members. Tap a card to visit their site." },
+      { property: "og:title", content: "Family Business · The Room" },
+      { property: "og:description", content: "Businesses run by members of the The Room community." },
     ],
   }),
   component: BusinessesPage,

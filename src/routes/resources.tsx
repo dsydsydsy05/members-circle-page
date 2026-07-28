@@ -6,9 +6,9 @@ import { factories } from "@/lib/community-data";
 export const Route = createFileRoute("/resources")({
   head: () => ({
     meta: [
-      { title: "Factory List · Insider" },
-      { name: "description", content: "Members-only vetted factory & supplier list, sourced from the Insider community." },
-      { property: "og:title", content: "Factory List · Insider" },
+      { title: "Factory List · The Room" },
+      { name: "description", content: "Members-only vetted factory & supplier list, sourced from the The Room community." },
+      { property: "og:title", content: "Factory List · The Room" },
       { property: "og:description", content: "Vetted factories and suppliers, contributed by members." },
     ],
   }),
