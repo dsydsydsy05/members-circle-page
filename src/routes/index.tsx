@@ -113,15 +113,7 @@ function Home() {
         </ul>
       </Section>
 
-      <Section eyebrow="Recap" title="Event photos">
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-          {eventPhotos.map((p, i) => (
-            <figure key={p.id} className={`overflow-hidden rounded-xl bg-muted ${i === 0 ? "md:col-span-2 md:row-span-2" : ""}`}>
-              <img src={p.src} alt={p.caption} loading="lazy" decoding="async" className="h-full w-full object-cover" />
-            </figure>
-          ))}
-        </div>
-      </Section>
+
 
       <SiteFooter />
     </div>
