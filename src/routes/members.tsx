@@ -20,7 +20,7 @@ export const Route = createFileRoute("/members")({
 });
 
 function MembersPage() {
-  const all = useCommunityMembers();
+  const { members, loading } = useCommunityMembers();
   return (
     <div className="min-h-screen">
       <SiteNav />
@@ -30,10 +30,22 @@ function MembersPage() {
         <p className="mt-3 max-w-2xl text-muted-foreground">
           A small, curated group. Every member has a card — tap to flip and see what they do, then visit their site.
         </p>
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {all.map((m) => <MemberFlipCard key={m.id} member={m} />)}
-        </div>
+        {loading ? (
+          <p className="mt-10 text-sm text-muted-foreground">Loading members…</p>
+        ) : members.length === 0 ? (
+          <div className="mt-10 rounded-2xl border border-border bg-card p-10 text-center">
+            <h2 className="text-2xl font-semibold tracking-tight">No members yet</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              The Room is just opening. Sign up, enter your invitation code, and yours will be the first card here.
+            </p>
+          </div>
+        ) : (
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {members.map((m) => <MemberFlipCard key={m.id} member={m} />)}
+          </div>
+        )}
       </main>
+
 
       <SiteFooter />
     </div>
