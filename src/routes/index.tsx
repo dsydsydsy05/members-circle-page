@@ -25,42 +25,54 @@ function Home() {
       <SiteNav />
 
       {/* Hero — only the badge. Scroll down to reveal the story. */}
-      <section className="relative min-h-[170vh]">
+      <section className="relative min-h-[170vh] bg-black">
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
-          <div className="animate-tag-zoom flex items-center justify-center">
+          {/* Ambient glow behind the card */}
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            style={{
+              width: "26rem",
+              height: "36rem",
+              background: "radial-gradient(circle, oklch(0.88 0.29 136 / 0.22) 0%, oklch(0.88 0.29 136 / 0.05) 45%, transparent 70%)",
+              filter: "blur(40px)",
+            }}
+          />
+          <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
             <LanyardCard />
           </div>
-          <div className="absolute inset-x-0 bottom-6 text-center text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+          <div className="absolute inset-x-0 bottom-6 z-10 text-center text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
             Scroll
           </div>
         </div>
       </section>
 
       {/* Intro — appears after the badge */}
-      <section className="mx-auto max-w-6xl px-6 py-24 animate-zoom-in-view">
-        <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-          A members-only community
-        </div>
-        <h1 className="mt-3 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
-          A quieter place<br />to build a brand.
-        </h1>
-        <p className="mt-5 max-w-xl text-muted-foreground">
-          The Room is a small, invite-friendly community of founders, designers and buyers.
-          Trade factory contacts, share family businesses, and show up at intimate events.
-        </p>
-        <div className="mt-8 grid max-w-3xl grid-cols-2 gap-8 sm:grid-cols-4">
-          <Stat n="120+" label="Members" />
-          <Stat n={`${events.length}`} label="Events" />
-          <Stat n="14" label="Cities" />
-          <Stat n="30+" label="Vetted factories" />
-        </div>
-        <div className="mt-10 flex flex-wrap gap-3">
-          <Link to="/members" className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90">
-            Join The Room
-          </Link>
-          <Link to="/events" className="rounded-full border border-border px-6 py-3 text-sm font-medium hover:bg-secondary">
-            Upcoming events
-          </Link>
+      <section className="bg-cream text-cocoa animate-zoom-in-view">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <div className="text-xs uppercase tracking-[0.24em] text-cocoa/60">
+            A members-only community
+          </div>
+          <h1 className="mt-3 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
+            A quieter place<br />to build a brand.
+          </h1>
+          <p className="mt-5 max-w-xl text-cocoa/70">
+            The Room is a small, invite-friendly community of founders, designers and buyers.
+            Trade factory contacts, share family businesses, and show up at intimate events.
+          </p>
+          <div className="mt-8 grid max-w-3xl grid-cols-2 gap-8 sm:grid-cols-4">
+            <StatLight n="120+" label="Members" />
+            <StatLight n={`${events.length}`} label="Events" />
+            <StatLight n="14" label="Cities" />
+            <StatLight n="30+" label="Vetted factories" />
+          </div>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Link to="/members" className="rounded-full bg-cocoa px-6 py-3 text-sm font-medium text-cream hover:bg-cocoa/90">
+              Join The Room
+            </Link>
+            <Link to="/events" className="rounded-full border border-cocoa/20 px-6 py-3 text-sm font-medium text-cocoa hover:bg-cocoa/5">
+              Upcoming events
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -125,6 +137,15 @@ function Stat({ n, label }: { n: string; label: string }) {
     <div>
       <div className="text-2xl font-semibold tracking-tight">{n}</div>
       <div className="text-xs text-muted-foreground">{label}</div>
+    </div>
+  );
+}
+
+function StatLight({ n, label }: { n: string; label: string }) {
+  return (
+    <div>
+      <div className="text-2xl font-semibold tracking-tight text-cocoa">{n}</div>
+      <div className="text-xs text-cocoa/60">{label}</div>
     </div>
   );
 }
