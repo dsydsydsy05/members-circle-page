@@ -114,6 +114,23 @@
   0%, 100% { transform: translateX(-40%); opacity: 0.0; }
   50%      { transform: translateX(40%);  opacity: 1; }
 }
+/* Lighting locked to the sway: light comes from the upper-left of the scene,
+   so as the card turns the highlight sweeps across the whole surface. */
+@keyframes tag-light {
+  0%, 100% {
+    background-position: 120% 0%;
+    opacity: 0.55;
+  }
+  50% {
+    background-position: -20% 0%;
+    opacity: 1;
+  }
+}
+@keyframes tag-shade {
+  0%, 100% { opacity: 0.55; background-position: 0% 0%; }
+  50%      { opacity: 0.18; background-position: 100% 0%; }
+}
+
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
