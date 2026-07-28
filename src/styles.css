@@ -106,8 +106,8 @@
 }
 
 @keyframes real-badge-float {
-  0%, 100% { transform: translate3d(0, -10px, 0) rotate(-1.6deg); }
-  50%      { transform: translate3d(0, 12px, 0) rotate(1.4deg); }
+  0%, 100% { transform: perspective(1400px) rotate(-4.5deg) rotateY(-9deg) translate3d(0, -6px, 0); filter: brightness(0.96); }
+  50%      { transform: perspective(1400px) rotate(4.5deg) rotateY(9deg) translate3d(0, 6px, 0); filter: brightness(1.05); }
 }
 
 @keyframes tag-gloss {
@@ -148,13 +148,13 @@
 }
 
 @utility animate-real-badge-float {
-  animation: real-badge-float 7.5s ease-in-out infinite;
-  transform-origin: 50% 22%;
-  will-change: transform;
+  animation: real-badge-float 6s ease-in-out infinite;
+  transform-origin: 50% 4%;
+  will-change: transform, filter;
 }
 
 @utility realistic-badge-shadow {
-  filter: drop-shadow(0 28px 42px oklch(0 0 0 / 0.34));
+  filter: drop-shadow(0 34px 40px oklch(0 0 0 / 0.55)) drop-shadow(0 4px 10px oklch(0 0 0 / 0.4));
 }
 
 @utility animate-tag-gloss {
