@@ -6,6 +6,7 @@ import { EventCover } from "@/components/EventCover";
 import { events, guests, factories } from "@/lib/community-data";
 import { useMemberCount } from "@/lib/use-member-count";
 import { useCommunityMembers } from "@/lib/use-community-members";
+import { useFamilyBusinessCount } from "@/lib/use-family-business-count";
 
 
 
