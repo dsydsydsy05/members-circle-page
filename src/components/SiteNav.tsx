@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useMember } from "@/lib/use-member";
+import logo from "@/assets/the-room-logo.png.asset.json";
 
 const links = [
   { to: "/", label: "Home" },
