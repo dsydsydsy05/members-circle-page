@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
-import { events, eventPhotos } from "@/lib/community-data";
+import { events } from "@/lib/community-data";
 import { EventCover } from "@/components/EventCover";
 
 export const Route = createFileRoute("/events")({
