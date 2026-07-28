@@ -154,8 +154,8 @@ function Stat({ n, label }: { n: string; label: string }) {
 function StatLight({ n, label }: { n: string; label: string }) {
   return (
     <div>
-      <div className="text-2xl font-semibold tracking-tight text-white">{n}</div>
-      <div className="text-xs text-white/50">{label}</div>
+      <div className="text-5xl font-semibold leading-none tracking-tight text-white sm:text-6xl">{n}</div>
+      <div className="mt-3 text-xs uppercase tracking-[0.18em] text-white/60">{label}</div>
     </div>
   );
 }
