@@ -3,7 +3,9 @@ import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { LanyardCard } from "@/components/LanyardCard";
 import { MemberFlipCard } from "@/components/MemberFlipCard";
 import { EventCover } from "@/components/EventCover";
-import { members, events, guests } from "@/lib/community-data";
+import { members, events, guests, factories } from "@/lib/community-data";
+import { useMemberCount } from "@/lib/use-member-count";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,7 +22,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const memberCount = useMemberCount();
   const featured = members.slice(0, 3);
+
   return (
     <div className="min-h-screen">
       <SiteNav />
@@ -60,12 +64,14 @@ function Home() {
             The Room is a small, invite-friendly community of founders, designers and buyers.
             Trade factory contacts, share family businesses, and show up at intimate events.
           </p>
-          <div className="mt-8 grid max-w-3xl grid-cols-2 gap-8 sm:grid-cols-4">
-            <StatLight n="120+" label="Members" />
-            <StatLight n={`${events.length}`} label="Events" />
-            <StatLight n="14" label="Cities" />
-            <StatLight n="30+" label="Vetted factories" />
+          <div className="mt-8 grid max-w-3xl grid-cols-2 gap-8 sm:grid-cols-5">
+            <StatLight n={`${memberCount}`} label="Members" />
+            <StatLight n="1" label="Events" />
+            <StatLight n="2" label="Cities" />
+            <StatLight n={`${factories.length}`} label="Vetted factories" />
+            <StatLight n="0" label="Family businesses" />
           </div>
+
           <div className="mt-10 flex flex-wrap gap-3">
             <Link to="/members" className="rounded-full bg-[color:var(--neon)] px-6 py-3 text-sm font-medium text-black hover:opacity-90">
               Join The Room
