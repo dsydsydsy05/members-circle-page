@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { LanyardCard } from "@/components/LanyardCard";
 import { MemberFlipCard } from "@/components/MemberFlipCard";
-import { members, events, eventPhotos, guests } from "@/lib/community-data";
+import { members, events, guests } from "@/lib/community-data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
