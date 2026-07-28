@@ -52,15 +52,6 @@ export function LanyardCard({
             />
           </div>
 
-          {/* Gloss sweep */}
-          <div
-            className="pointer-events-none absolute inset-0 animate-tag-gloss"
-            style={{
-              background:
-                "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.42) 50%, transparent 60%)",
-              mixBlendMode: "screen",
-            }}
-          />
           {/* Subtle grain */}
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.05]"
@@ -70,6 +61,7 @@ export function LanyardCard({
               backgroundSize: "3px 3px",
             }}
           />
+
 
           <div className="flex h-full flex-col gap-3 p-4 pt-12 text-black">
             {/* Top gradient block */}
@@ -155,7 +147,36 @@ export function LanyardCard({
               </div>
             </div>
           </div>
+
+          {/* Unified lighting over the WHOLE card (content included), synced to the sway */}
+          <div
+            className="pointer-events-none absolute inset-0 animate-tag-shade rounded-2xl"
+            style={{
+              background:
+                "linear-gradient(100deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.14) 35%, rgba(0,0,0,0) 65%)",
+              backgroundSize: "220% 100%",
+              mixBlendMode: "multiply",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute inset-0 animate-tag-light rounded-2xl"
+            style={{
+              background:
+                "linear-gradient(100deg, transparent 32%, rgba(255,255,255,0.30) 47%, rgba(255,255,255,0.55) 52%, rgba(255,255,255,0.18) 58%, transparent 74%)",
+              backgroundSize: "220% 100%",
+              mixBlendMode: "screen",
+            }}
+          />
+          {/* Edge falloff so the surface reads as one solid slab */}
+          <div
+            className="pointer-events-none absolute inset-0 rounded-2xl"
+            style={{
+              boxShadow:
+                "inset 0 0 34px rgba(0,0,0,0.14), inset 0 -12px 24px rgba(0,0,0,0.10)",
+            }}
+          />
         </div>
+
 
         {/* BACK */}
         <div
@@ -178,13 +199,6 @@ export function LanyardCard({
               }}
             />
           </div>
-          <div
-            className="pointer-events-none absolute inset-0 animate-tag-gloss"
-            style={{
-              background:
-                "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.14) 50%, transparent 60%)",
-            }}
-          />
           <div className="flex h-full flex-col justify-between">
             <div className="text-xs uppercase tracking-[0.24em] opacity-70">Members Only</div>
             <div>
@@ -200,7 +214,27 @@ export function LanyardCard({
               <span>EST. 2026</span>
             </div>
           </div>
+
+          {/* Unified lighting, synced to the sway */}
+          <div
+            className="pointer-events-none absolute inset-0 animate-tag-shade rounded-2xl"
+            style={{
+              background:
+                "linear-gradient(100deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.18) 40%, rgba(0,0,0,0) 70%)",
+              backgroundSize: "220% 100%",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute inset-0 animate-tag-light rounded-2xl"
+            style={{
+              background:
+                "linear-gradient(100deg, transparent 34%, rgba(255,255,255,0.10) 48%, rgba(255,255,255,0.20) 52%, transparent 70%)",
+              backgroundSize: "220% 100%",
+              mixBlendMode: "screen",
+            }}
+          />
         </div>
+
       </div>
     </div>
   );
