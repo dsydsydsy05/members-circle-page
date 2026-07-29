@@ -31,37 +31,47 @@
   --color-cream: var(--cream);
   --color-cocoa: var(--cocoa);
   --color-neon: var(--neon);
-  --font-display: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Switzer", "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Switzer", "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.875rem;
 
-  /* ICONIC branding: neon green / white / black */
-  --cream: oklch(1 0 0);
-  --cocoa: oklch(0.13 0 0);
-  --neon: oklch(0.88 0.29 136);
+  /* Copper branding: ember orange / warm cocoa / near-black */
+  --cream: #ffffff;
+  --cocoa: #453027;
+  --neon: #ff6d29; /* brand accent (kept token name) */
+  --ember: #ff6d29;
+  --ember-soft: #ffa072;
 
-  --background: oklch(0.11 0 0);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.16 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.16 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.88 0.29 136);
-  --primary-foreground: oklch(0.13 0 0);
-  --secondary: oklch(0.22 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.22 0 0);
-  --muted-foreground: oklch(0.72 0 0);
-  --accent: oklch(0.88 0.29 136);
-  --accent-foreground: oklch(0.13 0 0);
+  --background: #161316;
+  --foreground: #ffffff;
+  --card: #1e1a19;
+  --card-foreground: #ffffff;
+  --popover: #1e1a19;
+  --popover-foreground: #ffffff;
+  --primary: #ff6d29;
+  --primary-foreground: #161316;
+  --secondary: #2a221f;
+  --secondary-foreground: #ffffff;
+  --muted: #2a221f;
+  --muted-foreground: #bababa;
+  --accent: #453027;
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.55 0.2 27);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.26 0 0);
-  --input: oklch(0.26 0 0);
-  --ring: oklch(0.88 0.29 136);
+  --destructive-foreground: #ffffff;
+  --border: #3a2e29;
+  --input: #3a2e29;
+  --ring: #ff6d29;
+
+  /* Material: soft copper mesh + frosted glass */
+  --gradient-ember: linear-gradient(135deg, #ff6d29 0%, #ff9a5c 100%);
+  --mesh-copper:
+    radial-gradient(60rem 40rem at 12% -10%, rgba(255, 109, 41, 0.22), transparent 60%),
+    radial-gradient(50rem 36rem at 92% 8%, rgba(69, 48, 39, 0.75), transparent 62%),
+    radial-gradient(46rem 40rem at 50% 118%, rgba(255, 109, 41, 0.14), transparent 65%);
+  --shadow-warm: 0 30px 70px -30px rgba(255, 109, 41, 0.35), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
 }
 
 
@@ -71,15 +81,32 @@
   }
   html, body {
     background-color: var(--color-background);
+    background-image: var(--mesh-copper);
+    background-attachment: fixed;
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
 }
+
+@utility glass-panel {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(22px) saturate(140%);
+  box-shadow: var(--shadow-warm);
+}
+
+@utility ember-text {
+  background: var(--gradient-ember);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 
 /* 3D helpers for the rotating lanyard card */
 @utility perspective-1200 {
