@@ -254,14 +254,21 @@
   opacity: var(--hero-card-opacity, 1);
   transform: translate3d(0, var(--hero-card-lift, 0), 0) scale(var(--hero-card-scale, 1));
   transform-origin: center center;
-  will-change: transform, opacity;
+  filter: blur(var(--hero-card-blur, 0px));
+  transition: opacity 260ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+              filter 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity, filter;
 }
 
 @utility hero-content-scroll {
   opacity: var(--hero-content-opacity, 0);
   transform: translate3d(0, var(--hero-content-y, 42px), 0);
+  transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
+
 
 @utility hero-glow-primary {
   width: 28rem;
