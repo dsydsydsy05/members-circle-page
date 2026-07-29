@@ -35,8 +35,9 @@ function Home() {
       <SiteNav />
 
       {/* Hero — only the badge. Scroll down to reveal the story. */}
-      <section className="relative min-h-[170vh] overflow-hidden" style={{ background: "linear-gradient(180deg, #1b1512 0%, #2c201a 22%, #5a3d2b 52%, #9c6742 80%, #c08355 100%)" }}>
+      <section className="relative min-h-[135vh]" style={{ background: "linear-gradient(180deg, #1b1512 0%, #2c201a 20%, #5a3d2b 46%, #9c6742 66%, #7a4f36 82%, #221c19 100%)" }}>
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
+
           {/* Diffused studio light filling the lower frame */}
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 top-[18%]"
