@@ -15,7 +15,7 @@ export function LanyardCard({
 }) {
   return (
     <div className="perspective-1200 select-none">
-      <div className="preserve-3d animate-tag-spin relative h-[22rem] w-64 sm:h-[26rem] sm:w-72">
+      <div className="preserve-3d animate-tag-spin relative h-[20rem] w-[15rem] sm:h-[24rem] sm:w-[17rem]">
         {/* Thickness layers — stacked slabs behind the front face */}
         {Array.from({ length: 6 }).map((_, i) => (
           <div
@@ -65,10 +65,10 @@ export function LanyardCard({
 
 
 
-          <div className="flex h-full flex-col gap-3 p-4 pt-12 text-black">
+          <div className="flex h-full flex-col gap-2.5 p-3.5 pt-10 text-black">
             {/* Top gradient block */}
             <div
-              className="relative flex-1 overflow-hidden rounded-xl"
+              className="relative flex-[1.3] overflow-hidden rounded-lg"
               style={{
                 background:
                   "linear-gradient(152deg, #f3d8c2 0%, #e0a77e 18%, #cf7f52 40%, #9c5c3c 62%, #4d382c 82%, #241c19 100%)",
@@ -117,7 +117,7 @@ export function LanyardCard({
 
             {/* Bottom info panel */}
             <div
-              className="relative flex flex-1 flex-col justify-between overflow-hidden rounded-xl p-4 ring-1 ring-black/5"
+              className="relative flex flex-1 flex-col justify-between overflow-hidden rounded-lg p-3.5 ring-1 ring-black/5"
               style={{
                 background:
                   "linear-gradient(160deg, #ffffff 0%, #faf7f4 55%, #efe8e1 100%)",
@@ -130,7 +130,7 @@ export function LanyardCard({
                 {/* Diamond icon */}
                 <svg
                   viewBox="0 0 24 24"
-                  className="h-7 w-7"
+                  className="h-6 w-6"
                   fill="none"
                   stroke="#c9714a"
                   strokeWidth="1.5"
@@ -144,24 +144,24 @@ export function LanyardCard({
                   <path d="M6 3l6 6" />
                   <path d="M18 3l-6 6" />
                 </svg>
-                <span className="text-[10px] font-medium tracking-widest text-black/40">
+                <span className="text-[9px] font-medium tracking-widest text-black/40">
                   NO. {number}
                 </span>
               </div>
 
               <div>
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-black/40">
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-black/40">
                   Member
                 </div>
-                <div className="text-3xl font-semibold leading-none tracking-tight text-black">
+                <div className="text-2xl font-semibold leading-none tracking-tight text-black">
                   {name}
                 </div>
-                <div className="mt-1.5 text-xs font-medium text-black/60">
+                <div className="mt-1 text-[11px] font-medium text-black/60">
                   {role}
                 </div>
               </div>
 
-              <div className="text-[10px] font-medium text-black/40">
+              <div className="text-[9px] font-medium text-black/40">
                 {location}
               </div>
             </div>

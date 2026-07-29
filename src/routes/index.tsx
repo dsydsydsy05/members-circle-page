@@ -35,27 +35,27 @@ function Home() {
       <SiteNav />
 
       {/* Hero — badge floats, grows slightly and fades on scroll */}
-      <section className="relative min-h-[92vh] overflow-hidden">
-        <div className="sticky top-0 flex h-[calc(72svh-65px)] min-h-[420px] flex-col items-center justify-center px-6 py-4">
+      <section className="relative min-h-[110vh] overflow-hidden">
+        <div className="sticky top-0 flex h-[calc(85svh-65px)] min-h-[520px] flex-col items-center px-6 pb-12 pt-20">
           {/* Soft copper glow behind the badge */}
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
+          <div className="pointer-events-none absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
             <div
               className="pointer-events-none"
               style={{
-                width: "30rem",
-                height: "30rem",
+                width: "28rem",
+                height: "28rem",
                 background:
                   "radial-gradient(circle, rgba(190,120,80,0.30) 0%, rgba(160,100,70,0.12) 40%, rgba(120,80,60,0.04) 65%, transparent 80%)",
                 filter: "blur(70px)",
               }}
             />
           </div>
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe" style={{ animationDelay: "1.2s" }}>
+          <div className="pointer-events-none absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe" style={{ animationDelay: "1.2s" }}>
             <div
               className="pointer-events-none"
               style={{
-                width: "14rem",
-                height: "18rem",
+                width: "12rem",
+                height: "16rem",
                 background:
                   "radial-gradient(ellipse at center, rgba(210,140,100,0.32) 0%, rgba(180,115,85,0.13) 50%, transparent 76%)",
                 filter: "blur(45px)",
