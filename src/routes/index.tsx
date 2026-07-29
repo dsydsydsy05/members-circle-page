@@ -35,7 +35,7 @@ function Home() {
       <SiteNav />
 
       {/* Hero — only the badge. Scroll down to reveal the story. */}
-      <section className="relative min-h-[170vh] bg-black">
+      <section className="relative min-h-[170vh] bg-[#161316]">
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
           {/* Soft green backlight behind the badge — brighter, with a slow breath */}
           <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
@@ -45,7 +45,7 @@ function Home() {
                 width: "46rem",
                 height: "46rem",
                 background:
-                  "radial-gradient(circle, oklch(0.88 0.29 136 / 0.34) 0%, oklch(0.88 0.29 136 / 0.16) 35%, oklch(0.88 0.29 136 / 0.05) 60%, transparent 78%)",
+                  "radial-gradient(circle, rgba(255,109,41,0.40) 0%, rgba(255,109,41,0.18) 35%, rgba(255,154,92,0.06) 60%, transparent 78%)",
                 filter: "blur(70px)",
               }}
             />
@@ -57,7 +57,7 @@ function Home() {
                 width: "20rem",
                 height: "28rem",
                 background:
-                  "radial-gradient(ellipse at center, oklch(0.88 0.29 136 / 0.60) 0%, oklch(0.88 0.29 136 / 0.20) 50%, transparent 75%)",
+                  "radial-gradient(ellipse at center, rgba(255,109,41,0.62) 0%, rgba(255,154,92,0.22) 50%, transparent 75%)",
                 filter: "blur(45px)",
               }}
             />
@@ -75,7 +75,7 @@ function Home() {
       </section>
 
       {/* Intro — appears after the badge */}
-      <section className="bg-black text-white animate-zoom-in-view">
+      <section className="relative text-white animate-zoom-in-view">
         <div className="mx-auto max-w-6xl px-6 py-28">
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
             <StatLight n={`${memberCount}`} label="Members" />
@@ -120,7 +120,7 @@ function Home() {
       >
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {events.map((e) => (
-            <article key={e.id} className="group overflow-hidden rounded-xl bg-card ring-1 ring-border">
+            <article key={e.id} className="group glass-panel overflow-hidden rounded-2xl">
               <EventCover
                 image={e.cover}
                 month={e.date.split(" ")[0].toUpperCase()}
@@ -140,7 +140,7 @@ function Home() {
       <Section eyebrow="Guests" title="People we've hosted (and will)"
         action={<Link to="/guests" className="text-sm underline underline-offset-4">Full list →</Link>}
       >
-        <ul className="divide-y divide-border rounded-xl bg-card ring-1 ring-border">
+        <ul className="glass-panel divide-y divide-white/10 rounded-2xl">
           {guests.map((g) => (
             <li key={g.id} className="flex flex-col gap-1 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
               <div>

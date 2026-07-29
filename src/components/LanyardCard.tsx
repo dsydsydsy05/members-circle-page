@@ -23,7 +23,7 @@ export function LanyardCard({
             className="absolute inset-0 rounded-2xl"
             style={{
               transform: `translateZ(${-2 - i * 1.2}px)`,
-              background: "oklch(0.42 0.15 136)",
+              background: "#5a3a28",
               filter: `brightness(${0.55 + i * 0.05})`,
             }}
           />
@@ -69,7 +69,7 @@ export function LanyardCard({
               className="relative flex-1 overflow-hidden rounded-xl"
               style={{
                 background:
-                  "linear-gradient(155deg, oklch(0.88 0.3 136) 0%, oklch(0.76 0.31 136) 25%, oklch(0.55 0.27 140) 50%, oklch(0.32 0.14 145) 72%, oklch(0.16 0.04 150) 100%)",
+                  "linear-gradient(155deg, #ffb98c 0%, #ff8d4a 22%, #ff6d29 46%, #6d4530 74%, #161316 100%)",
                 boxShadow:
                   "inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.2)",
               }}
@@ -113,7 +113,7 @@ export function LanyardCard({
                   viewBox="0 0 24 24"
                   className="h-7 w-7"
                   fill="none"
-                  stroke="oklch(0.72 0.32 136)"
+                  stroke="#ff6d29"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -184,7 +184,7 @@ export function LanyardCard({
           style={{
             transform: "rotateY(180deg) translateZ(0.5px)",
             background:
-              "linear-gradient(160deg, oklch(0.26 0.05 150) 0%, oklch(0.19 0.04 150) 60%, oklch(0.14 0.03 150) 100%)",
+              "linear-gradient(160deg, #453027 0%, #2a1f1a 60%, #161316 100%)",
             boxShadow:
               "0 40px 80px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.04)",
           }}
