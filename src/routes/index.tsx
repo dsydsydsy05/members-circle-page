@@ -35,7 +35,7 @@ function Home() {
       <SiteNav />
 
       {/* Hero + intro share one continuous gradient background */}
-      <div className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #1b1512 0%, #2c201a 22%, #5a3d2b 52%, #9c6742 78%, #c08355 95%, #221c19 100%)" }}>
+      <div className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #1b1512 0%, #2c201a 18%, #5a3d2b 45%, #4a3328 66%, #2b201a 86%, #221c19 100%)" }}>
         <section className="relative min-h-[170vh]">
           <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
             {/* Diffused studio light filling the lower frame */}
