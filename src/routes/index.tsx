@@ -80,7 +80,7 @@ function Home() {
             <StatLight n={`${familyBusinessCount}`} label="Family businesses" />
           </div>
 
-          <div className="mt-16 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-3">
             <Link to="/members" className="rounded-full bg-[color:var(--neon)] px-6 py-3 text-sm font-medium text-black hover:opacity-90">
               Join The Room
             </Link>
