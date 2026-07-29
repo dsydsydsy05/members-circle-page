@@ -70,16 +70,31 @@ export function LanyardCard({
 
 
           <div className="flex h-full flex-col gap-3 p-4 pt-12 text-black">
-            {/* Top gradient block */}
+            {/* Top block — soft misted gradient, like frosted glass over light */}
             <div
               className="relative flex-1 overflow-hidden rounded-xl"
               style={{
                 background:
-                  "linear-gradient(152deg, #f3d8c2 0%, #e0a77e 18%, #cf7f52 40%, #9c5c3c 62%, #4d382c 82%, #241c19 100%)",
+                  "radial-gradient(120% 80% at 20% 0%, rgba(255,231,208,0.95) 0%, rgba(235,175,132,0.85) 30%, transparent 62%)," +
+                  "radial-gradient(110% 70% at 90% 18%, rgba(214,150,120,0.75) 0%, transparent 60%)," +
+                  "radial-gradient(140% 90% at 40% 110%, rgba(24,19,17,0.95) 0%, rgba(58,42,34,0.7) 40%, transparent 72%)," +
+                  "linear-gradient(158deg, #e8bb98 0%, #b9764f 34%, #6a4633 64%, #221a16 100%)",
+                filter: "saturate(105%)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 40px rgba(255,180,120,0.18)",
+                  "inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 50px rgba(255,190,140,0.16)",
               }}
             >
+              {/* Blurred mist veil */}
+              <div
+                className="pointer-events-none absolute -inset-8 opacity-70"
+                style={{
+                  background:
+                    "radial-gradient(40% 30% at 30% 30%, rgba(255,240,222,0.55), transparent 70%)," +
+                    "radial-gradient(45% 35% at 75% 60%, rgba(180,110,80,0.45), transparent 72%)",
+                  filter: "blur(26px)",
+                }}
+              />
+
               {/* Vertical brand text */}
               <div
                 className="absolute bottom-4 left-3 top-4 flex items-center justify-center"
