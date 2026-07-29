@@ -35,8 +35,16 @@ function Home() {
       <SiteNav />
 
       {/* Hero — only the badge. Scroll down to reveal the story. */}
-      <section className="relative min-h-[170vh] bg-[#161316]">
+      <section className="relative min-h-[170vh] overflow-hidden" style={{ background: "linear-gradient(180deg, #1b1512 0%, #2c201a 22%, #5a3d2b 52%, #9c6742 80%, #c08355 100%)" }}>
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
+          {/* Diffused studio light filling the lower frame */}
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 top-[18%]"
+            style={{
+              background:
+                "radial-gradient(88% 100% at 46% 118%, rgba(255,222,190,0.95) 0%, rgba(236,163,110,0.72) 26%, rgba(184,114,76,0.45) 48%, rgba(110,70,50,0.2) 70%, transparent 88%)",
+            }}
+          />
           {/* Soft green backlight behind the badge — brighter, with a slow breath */}
           <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
             <div
@@ -45,7 +53,7 @@ function Home() {
                 width: "46rem",
                 height: "46rem",
                 background:
-                  "radial-gradient(circle, rgba(255,109,41,0.40) 0%, rgba(255,109,41,0.18) 35%, rgba(255,154,92,0.06) 60%, transparent 78%)",
+                  "radial-gradient(circle, rgba(226,150,104,0.34) 0%, rgba(200,120,80,0.16) 38%, rgba(230,170,130,0.05) 62%, transparent 80%)",
                 filter: "blur(70px)",
               }}
             />
@@ -57,7 +65,7 @@ function Home() {
                 width: "20rem",
                 height: "28rem",
                 background:
-                  "radial-gradient(ellipse at center, rgba(255,109,41,0.62) 0%, rgba(255,154,92,0.22) 50%, transparent 75%)",
+                  "radial-gradient(ellipse at center, rgba(235,163,116,0.5) 0%, rgba(220,150,110,0.2) 50%, transparent 76%)",
                 filter: "blur(45px)",
               }}
             />
@@ -68,7 +76,7 @@ function Home() {
           <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
             <LanyardCard />
           </div>
-          <div className="absolute inset-x-0 bottom-6 z-10 text-center text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+          <div className="absolute inset-x-0 bottom-6 z-10 text-center text-[11px] uppercase tracking-[0.24em] text-white/55">
             Scroll
           </div>
         </div>

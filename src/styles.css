@@ -43,9 +43,9 @@
   /* Copper branding: ember orange / warm cocoa / near-black */
   --cream: #ffffff;
   --cocoa: #453027;
-  --neon: #ff6d29; /* brand accent (kept token name) */
-  --ember: #ff6d29;
-  --ember-soft: #ffa072;
+  --neon: #d9784a; /* brand accent (muted copper) */
+  --ember: #d9784a;
+  --ember-soft: #e9a982;
 
   --background: #221c19;
   --foreground: #ffffff;
@@ -53,8 +53,8 @@
   --card-foreground: #ffffff;
   --popover: #2b2320;
   --popover-foreground: #ffffff;
-  --primary: #ff6d29;
-  --primary-foreground: #161316;
+  --primary: #c9714a;
+  --primary-foreground: #ffffff;
   --secondary: #362b26;
   --secondary-foreground: #ffffff;
   --muted: #362b26;
@@ -65,17 +65,16 @@
   --destructive-foreground: #ffffff;
   --border: #4a3a32;
   --input: #4a3a32;
-  --ring: #ff6d29;
+  --ring: #c9714a;
 
   /* Material: soft copper mesh + frosted glass */
-  --gradient-ember: linear-gradient(135deg, #ff6d29 0%, #ff9a5c 100%);
+  --gradient-ember: linear-gradient(135deg, #d9784a 0%, #eaa87f 100%);
   --mesh-copper:
-    radial-gradient(70rem 46rem at 8% -14%, rgba(255, 154, 92, 0.30), transparent 62%),
-    radial-gradient(56rem 40rem at 96% 2%, rgba(255, 109, 41, 0.20), transparent 60%),
-    radial-gradient(60rem 44rem at 62% 34%, rgba(112, 78, 62, 0.55), transparent 68%),
-    radial-gradient(52rem 44rem at 50% 116%, rgba(255, 138, 74, 0.18), transparent 66%),
-    linear-gradient(170deg, #2a221e 0%, #221c19 55%, #1a1614 100%);
-  --shadow-warm: 0 30px 70px -30px rgba(255, 109, 41, 0.35), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+    radial-gradient(80rem 52rem at 50% 108%, rgba(216, 122, 74, 0.55), transparent 68%),
+    radial-gradient(64rem 44rem at 14% 78%, rgba(178, 106, 70, 0.36), transparent 66%),
+    radial-gradient(58rem 40rem at 88% 62%, rgba(150, 96, 68, 0.30), transparent 68%),
+    linear-gradient(180deg, #16110f 0%, #1d1613 34%, #2b201a 62%, #3a2a20 100%);
+  --shadow-warm: 0 30px 70px -30px rgba(196, 122, 82, 0.30), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
 }
 
 

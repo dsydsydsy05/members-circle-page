@@ -69,7 +69,7 @@ export function SiteNav() {
           ) : (
             <Link
               to="/auth"
-              className="rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary-foreground hover:text-primary"
+              className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-colors hover:border-white/40 hover:bg-white/20"
             >
               Sign in
             </Link>

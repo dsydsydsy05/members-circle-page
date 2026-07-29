@@ -71,7 +71,7 @@ export function LanyardCard({
               className="relative flex-1 overflow-hidden rounded-xl"
               style={{
                 background:
-                  "linear-gradient(152deg, #ffcfa8 0%, #ff9a5c 18%, #ff6d29 40%, #b35a2c 62%, #543728 82%, #241c19 100%)",
+                  "linear-gradient(152deg, #f3d8c2 0%, #e0a77e 18%, #cf7f52 40%, #9c5c3c 62%, #4d382c 82%, #241c19 100%)",
                 boxShadow:
                   "inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 40px rgba(255,180,120,0.18)",
               }}
@@ -132,7 +132,7 @@ export function LanyardCard({
                   viewBox="0 0 24 24"
                   className="h-7 w-7"
                   fill="none"
-                  stroke="#ff6d29"
+                  stroke="#c9714a"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
