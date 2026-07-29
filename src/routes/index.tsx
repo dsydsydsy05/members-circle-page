@@ -36,16 +36,15 @@ function Home() {
 
       {/* Hero — only the badge. Scroll down to reveal the story. */}
       <section className="relative min-h-[170vh] overflow-hidden" style={{ background: "linear-gradient(180deg, #191311 0%, #241a16 26%, #4a3325 60%, #8a5735 88%, #a86a41 100%)" }}>
-        {/* Diffused light bloom — soft studio lighting, like a lit backdrop */}
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[70vh]"
-          style={{
-            background:
-              "radial-gradient(60% 100% at 42% 118%, rgba(255,196,150,0.55) 0%, rgba(214,136,88,0.30) 38%, rgba(150,92,62,0.12) 62%, transparent 82%)",
-            filter: "blur(20px)",
-          }}
-        />
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
+          {/* Diffused studio light filling the lower frame */}
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%]"
+            style={{
+              background:
+                "radial-gradient(58% 120% at 46% 116%, rgba(255,205,164,0.60) 0%, rgba(216,138,90,0.34) 34%, rgba(140,88,60,0.14) 60%, transparent 82%)",
+            }}
+          />
           {/* Soft green backlight behind the badge — brighter, with a slow breath */}
           <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
             <div
