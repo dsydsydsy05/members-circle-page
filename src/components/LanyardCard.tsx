@@ -15,7 +15,7 @@ export function LanyardCard({
 }) {
   return (
     <div className="perspective-1200 select-none">
-      <div className="preserve-3d animate-tag-spin relative h-[22rem] w-64 sm:h-[26rem] sm:w-72">
+      <div className="preserve-3d animate-tag-spin relative h-[20rem] w-[15rem] sm:h-[24rem] sm:w-[17rem]">
         {/* Thickness layers — stacked slabs behind the front face */}
         {Array.from({ length: 6 }).map((_, i) => (
           <div
@@ -65,10 +65,10 @@ export function LanyardCard({
 
 
 
-          <div className="flex h-full flex-col gap-3 p-4 pt-12 text-black">
+          <div className="flex h-full flex-col gap-2.5 p-3.5 pt-10 text-black">
             {/* Top gradient block */}
             <div
-              className="relative flex-1 overflow-hidden rounded-xl"
+              className="relative flex-[1.3] overflow-hidden rounded-lg"
               style={{
                 background:
                   "linear-gradient(152deg, #f3d8c2 0%, #e0a77e 18%, #cf7f52 40%, #9c5c3c 62%, #4d382c 82%, #241c19 100%)",
@@ -117,7 +117,7 @@ export function LanyardCard({
 
             {/* Bottom info panel */}
             <div
-              className="relative flex flex-1 flex-col justify-between overflow-hidden rounded-xl p-4 ring-1 ring-black/5"
+              className="relative flex flex-1 flex-col justify-between overflow-hidden rounded-lg p-3.5 ring-1 ring-black/5"
               style={{
                 background:
                   "linear-gradient(160deg, #ffffff 0%, #faf7f4 55%, #efe8e1 100%)",
