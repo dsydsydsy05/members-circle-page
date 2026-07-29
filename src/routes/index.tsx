@@ -35,7 +35,7 @@ function Home() {
       <SiteNav />
 
       {/* Hero — only the badge. Scroll down to reveal the story. */}
-      <section className="relative min-h-[170vh] bg-black">
+      <section className="relative min-h-[170vh] bg-[#161316]">
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
           {/* Soft green backlight behind the badge — brighter, with a slow breath */}
           <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
@@ -45,7 +45,7 @@ function Home() {
                 width: "46rem",
                 height: "46rem",
                 background:
-                  "radial-gradient(circle, oklch(0.88 0.29 136 / 0.34) 0%, oklch(0.88 0.29 136 / 0.16) 35%, oklch(0.88 0.29 136 / 0.05) 60%, transparent 78%)",
+                  "radial-gradient(circle, rgba(255,109,41,0.40) 0%, rgba(255,109,41,0.18) 35%, rgba(255,154,92,0.06) 60%, transparent 78%)",
                 filter: "blur(70px)",
               }}
             />
@@ -57,7 +57,7 @@ function Home() {
                 width: "20rem",
                 height: "28rem",
                 background:
-                  "radial-gradient(ellipse at center, oklch(0.88 0.29 136 / 0.60) 0%, oklch(0.88 0.29 136 / 0.20) 50%, transparent 75%)",
+                  "radial-gradient(ellipse at center, rgba(255,109,41,0.62) 0%, rgba(255,154,92,0.22) 50%, transparent 75%)",
                 filter: "blur(45px)",
               }}
             />
