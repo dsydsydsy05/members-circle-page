@@ -130,7 +130,7 @@ export function LanyardCard({
                 {/* Diamond icon */}
                 <svg
                   viewBox="0 0 24 24"
-                  className="h-7 w-7"
+                  className="h-6 w-6"
                   fill="none"
                   stroke="#c9714a"
                   strokeWidth="1.5"
@@ -144,24 +144,24 @@ export function LanyardCard({
                   <path d="M6 3l6 6" />
                   <path d="M18 3l-6 6" />
                 </svg>
-                <span className="text-[10px] font-medium tracking-widest text-black/40">
+                <span className="text-[9px] font-medium tracking-widest text-black/40">
                   NO. {number}
                 </span>
               </div>
 
               <div>
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-black/40">
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-black/40">
                   Member
                 </div>
-                <div className="text-3xl font-semibold leading-none tracking-tight text-black">
+                <div className="text-2xl font-semibold leading-none tracking-tight text-black">
                   {name}
                 </div>
-                <div className="mt-1.5 text-xs font-medium text-black/60">
+                <div className="mt-1 text-[11px] font-medium text-black/60">
                   {role}
                 </div>
               </div>
 
-              <div className="text-[10px] font-medium text-black/40">
+              <div className="text-[9px] font-medium text-black/40">
                 {location}
               </div>
             </div>
