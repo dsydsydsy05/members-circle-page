@@ -42,7 +42,7 @@ function Home() {
             className="pointer-events-none absolute inset-x-0 bottom-[8%] top-0"
             style={{
               background:
-                "radial-gradient(92% 100% at 50% -18%, rgba(255,226,198,0.85) 0%, rgba(233,164,116,0.55) 24%, rgba(174,108,74,0.30) 46%, rgba(80,52,40,0.12) 68%, transparent 86%)",
+                "radial-gradient(92% 100% at 50% -18%, rgba(255,226,198,0.30) 0%, rgba(233,164,116,0.18) 26%, rgba(174,108,74,0.08) 50%, transparent 78%)",
             }}
           />
           {/* Soft halo behind the badge */}
