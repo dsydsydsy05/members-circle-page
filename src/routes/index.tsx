@@ -177,8 +177,8 @@ function Section({
   eyebrow, title, action, children,
 }: { eyebrow: string; title: string; action?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-16 animate-zoom-in-view">
-      <div className="mb-8 flex items-end justify-between gap-4">
+    <section className="mx-auto max-w-6xl px-6 py-12 animate-zoom-in-view">
+      <div className="mb-6 flex items-end justify-between gap-4">
         <div>
           <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{eyebrow}</div>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
