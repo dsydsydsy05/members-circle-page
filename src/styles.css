@@ -250,6 +250,33 @@
   will-change: transform, opacity;
 }
 
+@utility hero-card-scroll {
+  opacity: var(--hero-card-opacity, 1);
+  transform: translate3d(0, var(--hero-card-lift, 0), 0) scale(var(--hero-card-scale, 1));
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+@utility hero-content-scroll {
+  opacity: var(--hero-content-opacity, 0);
+  transform: translate3d(0, var(--hero-content-y, 42px), 0);
+  will-change: transform, opacity;
+}
+
+@utility hero-glow-primary {
+  width: 28rem;
+  height: 28rem;
+  background: radial-gradient(circle, rgba(190,120,80,0.30) 0%, rgba(160,100,70,0.12) 40%, rgba(120,80,60,0.04) 65%, transparent 80%);
+  filter: blur(70px);
+}
+
+@utility hero-glow-secondary {
+  width: 12rem;
+  height: 16rem;
+  background: radial-gradient(ellipse at center, rgba(210,140,100,0.32) 0%, rgba(180,115,85,0.13) 50%, transparent 76%);
+  filter: blur(45px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
