@@ -177,8 +177,8 @@
 }
 @keyframes tag-zoom {
   0%   { transform: scale(1) translate3d(0, 0, 0); opacity: 1; }
-  55%  { transform: scale(1.06) translate3d(0, 0, 0); opacity: 1; }
-  100% { transform: scale(1.08) translate3d(0, 0, 0); opacity: 0; }
+  50%  { transform: scale(1.12) translate3d(0, 0, 0); opacity: 1; }
+  100% { transform: scale(1.18) translate3d(0, 0, 0); opacity: 0; }
 }
 
 @keyframes content-reveal {
