@@ -35,14 +35,14 @@ function Home() {
       <SiteNav />
 
       {/* Hero — only the badge. Scroll down to reveal the story. */}
-      <section className="relative min-h-[170vh] overflow-hidden" style={{ background: "linear-gradient(180deg, #191311 0%, #241a16 26%, #4a3325 60%, #8a5735 88%, #a86a41 100%)" }}>
+      <section className="relative min-h-[170vh] overflow-hidden" style={{ background: "linear-gradient(180deg, #1b1512 0%, #2c201a 22%, #5a3d2b 52%, #9c6742 80%, #c08355 100%)" }}>
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
           {/* Diffused studio light filling the lower frame */}
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%]"
             style={{
               background:
-                "radial-gradient(58% 120% at 46% 116%, rgba(255,205,164,0.60) 0%, rgba(216,138,90,0.34) 34%, rgba(140,88,60,0.14) 60%, transparent 82%)",
+                "radial-gradient(70% 130% at 46% 112%, rgba(255,214,175,0.85) 0%, rgba(228,152,100,0.55) 30%, rgba(160,100,68,0.26) 55%, transparent 80%)",
             }}
           />
           {/* Soft green backlight behind the badge — brighter, with a slow breath */}
