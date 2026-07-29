@@ -34,57 +34,44 @@ function Home() {
     <div className="min-h-screen">
       <SiteNav />
 
-      {/* Hero — only the badge. Scroll down to reveal the story. */}
-      <section className="relative min-h-[170vh] overflow-hidden" style={{ background: "linear-gradient(180deg, #1b1512 0%, #2c201a 22%, #5a3d2b 52%, #9c6742 80%, #c08355 100%)" }}>
+      {/* Hero — transparent so the copper mesh body background flows through */}
+      <section className="relative min-h-[170vh] overflow-hidden">
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
-          {/* Diffused studio light filling the lower frame */}
-          <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 top-[18%]"
-            style={{
-              background:
-                "radial-gradient(88% 100% at 46% 118%, rgba(255,222,190,0.95) 0%, rgba(236,163,110,0.72) 26%, rgba(184,114,76,0.45) 48%, rgba(110,70,50,0.2) 70%, transparent 88%)",
-            }}
-          />
-          {/* Soft green backlight behind the badge — brighter, with a slow breath */}
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
+          {/* Soft copper glow behind the badge */}
+          <div className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
             <div
               className="pointer-events-none"
               style={{
-                width: "46rem",
-                height: "46rem",
+                width: "40rem",
+                height: "40rem",
                 background:
-                  "radial-gradient(circle, rgba(226,150,104,0.34) 0%, rgba(200,120,80,0.16) 38%, rgba(230,170,130,0.05) 62%, transparent 80%)",
+                  "radial-gradient(circle, rgba(190,120,80,0.35) 0%, rgba(160,100,70,0.15) 40%, rgba(120,80,60,0.05) 65%, transparent 80%)",
                 filter: "blur(70px)",
               }}
             />
           </div>
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe" style={{ animationDelay: "1.2s" }}>
+          <div className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe" style={{ animationDelay: "1.2s" }}>
             <div
               className="pointer-events-none"
               style={{
-                width: "20rem",
-                height: "28rem",
+                width: "18rem",
+                height: "26rem",
                 background:
-                  "radial-gradient(ellipse at center, rgba(235,163,116,0.5) 0%, rgba(220,150,110,0.2) 50%, transparent 76%)",
+                  "radial-gradient(ellipse at center, rgba(210,140,100,0.38) 0%, rgba(180,115,85,0.16) 50%, transparent 76%)",
                 filter: "blur(45px)",
               }}
             />
           </div>
 
-
-
           <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
             <LanyardCard />
-          </div>
-          <div className="absolute inset-x-0 bottom-6 z-10 text-center text-[11px] uppercase tracking-[0.24em] text-white/55">
-            Scroll
           </div>
         </div>
       </section>
 
-      {/* Intro — appears after the badge */}
+      {/* Intro — sits on the same continuous background */}
       <section className="relative text-white animate-zoom-in-view">
-        <div className="mx-auto max-w-6xl px-6 py-28">
+        <div className="mx-auto max-w-6xl px-6 pb-12 pt-20">
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
             <StatLight n={`${memberCount}`} label="Members" />
             <StatLight n="1" label="Events" />
