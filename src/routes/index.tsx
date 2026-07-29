@@ -39,10 +39,10 @@ function Home() {
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
           {/* Diffused studio light filling the lower frame */}
           <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%]"
+            className="pointer-events-none absolute inset-x-0 bottom-0 top-[18%]"
             style={{
               background:
-                "radial-gradient(70% 130% at 46% 112%, rgba(255,214,175,0.85) 0%, rgba(228,152,100,0.55) 30%, rgba(160,100,68,0.26) 55%, transparent 80%)",
+                "radial-gradient(85% 95% at 44% 108%, rgba(255,226,196,1) 0%, rgba(243,171,116,0.9) 22%, rgba(196,120,78,0.6) 45%, rgba(120,74,52,0.28) 68%, transparent 88%)",
             }}
           />
           {/* Soft green backlight behind the badge — brighter, with a slow breath */}
