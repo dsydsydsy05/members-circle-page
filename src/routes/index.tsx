@@ -35,9 +35,8 @@ function Home() {
       <SiteNav />
 
       {/* Hero — only the badge. Scroll down to reveal the story. */}
-      <section className="relative min-h-[135vh]" style={{ background: "linear-gradient(180deg, #1b1512 0%, #2c201a 20%, #5a3d2b 46%, #9c6742 66%, #7a4f36 82%, #221c19 100%)" }}>
+      <section className="relative min-h-[170vh] overflow-hidden" style={{ background: "linear-gradient(180deg, #1b1512 0%, #2c201a 22%, #5a3d2b 52%, #9c6742 80%, #c08355 100%)" }}>
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
-
           {/* Diffused studio light filling the lower frame */}
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 top-[18%]"
@@ -81,17 +80,11 @@ function Home() {
             Scroll
           </div>
         </div>
-        {/* Blend the hero light into the page background */}
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[40vh]"
-          style={{ background: "linear-gradient(180deg, rgba(34,28,25,0) 0%, rgba(34,28,25,0.65) 55%, #221c19 100%)" }}
-        />
       </section>
 
       {/* Intro — appears after the badge */}
-      <section className="relative -mt-px text-white animate-zoom-in-view">
-        <div className="mx-auto max-w-6xl px-6 pb-24 pt-10">
-
+      <section className="relative text-white animate-zoom-in-view">
+        <div className="mx-auto max-w-6xl px-6 py-28">
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
             <StatLight n={`${memberCount}`} label="Members" />
             <StatLight n="1" label="Events" />
