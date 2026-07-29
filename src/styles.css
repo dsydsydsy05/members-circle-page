@@ -70,8 +70,10 @@
   /* Material: soft copper mesh + frosted glass */
   --gradient-ember: linear-gradient(135deg, #d9784a 0%, #eaa87f 100%);
   --mesh-copper:
-    linear-gradient(180deg, #4a3527 0%, #33241c 30%, #201915 64%, #151110 100%);
-
+    radial-gradient(80rem 52rem at 50% 108%, rgba(216, 122, 74, 0.55), transparent 68%),
+    radial-gradient(64rem 44rem at 14% 78%, rgba(178, 106, 70, 0.36), transparent 66%),
+    radial-gradient(58rem 40rem at 88% 62%, rgba(150, 96, 68, 0.30), transparent 68%),
+    linear-gradient(180deg, #16110f 0%, #1d1613 34%, #2b201a 62%, #3a2a20 100%);
   --shadow-warm: 0 30px 70px -30px rgba(196, 122, 82, 0.30), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
 }
 
@@ -256,36 +258,3 @@
   }
 }
 
-
-/* ---- Ambient light field: slow drift + scroll-linked wash ---- */
-@keyframes drift-a {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.85; }
-  33%      { transform: translate3d(6vw, 5vh, 0) scale(1.12); opacity: 1; }
-  66%      { transform: translate3d(-4vw, 9vh, 0) scale(0.95); opacity: 0.75; }
-}
-@keyframes drift-b {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); opacity: 0.7; }
-  50%      { transform: translate3d(-8vw, 12vh, 0) scale(0.92); opacity: 1; }
-}
-@keyframes drift-c {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(0.95); opacity: 0.6; }
-  50%      { transform: translate3d(9vw, -10vh, 0) scale(1.15); opacity: 0.9; }
-}
-@keyframes light-scroll {
-  from { transform: translate3d(0, -6%, 0) scale(1); opacity: 0.55; }
-  to   { transform: translate3d(0, 14%, 0) scale(1.35); opacity: 1; }
-}
-
-@utility animate-drift-a { animation: drift-a 26s ease-in-out infinite; will-change: transform, opacity; }
-@utility animate-drift-b { animation: drift-b 34s ease-in-out infinite; will-change: transform, opacity; }
-@utility animate-drift-c { animation: drift-c 30s ease-in-out infinite; will-change: transform, opacity; }
-@utility animate-light-scroll {
-  animation: light-scroll linear both;
-  animation-timeline: scroll(root);
-  animation-range: 0% 100%;
-  will-change: transform, opacity;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-drift-a, .animate-drift-b, .animate-drift-c { animation: none; }
-}
