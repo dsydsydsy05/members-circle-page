@@ -47,32 +47,34 @@
   --ember: #ff6d29;
   --ember-soft: #ffa072;
 
-  --background: #161316;
+  --background: #221c19;
   --foreground: #ffffff;
-  --card: #1e1a19;
+  --card: #2b2320;
   --card-foreground: #ffffff;
-  --popover: #1e1a19;
+  --popover: #2b2320;
   --popover-foreground: #ffffff;
   --primary: #ff6d29;
   --primary-foreground: #161316;
-  --secondary: #2a221f;
+  --secondary: #362b26;
   --secondary-foreground: #ffffff;
-  --muted: #2a221f;
+  --muted: #362b26;
   --muted-foreground: #bababa;
   --accent: #453027;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.55 0.2 27);
   --destructive-foreground: #ffffff;
-  --border: #3a2e29;
-  --input: #3a2e29;
+  --border: #4a3a32;
+  --input: #4a3a32;
   --ring: #ff6d29;
 
   /* Material: soft copper mesh + frosted glass */
   --gradient-ember: linear-gradient(135deg, #ff6d29 0%, #ff9a5c 100%);
   --mesh-copper:
-    radial-gradient(60rem 40rem at 12% -10%, rgba(255, 109, 41, 0.22), transparent 60%),
-    radial-gradient(50rem 36rem at 92% 8%, rgba(69, 48, 39, 0.75), transparent 62%),
-    radial-gradient(46rem 40rem at 50% 118%, rgba(255, 109, 41, 0.14), transparent 65%);
+    radial-gradient(70rem 46rem at 8% -14%, rgba(255, 154, 92, 0.30), transparent 62%),
+    radial-gradient(56rem 40rem at 96% 2%, rgba(255, 109, 41, 0.20), transparent 60%),
+    radial-gradient(60rem 44rem at 62% 34%, rgba(112, 78, 62, 0.55), transparent 68%),
+    radial-gradient(52rem 44rem at 50% 116%, rgba(255, 138, 74, 0.18), transparent 66%),
+    linear-gradient(170deg, #2a221e 0%, #221c19 55%, #1a1614 100%);
   --shadow-warm: 0 30px 70px -30px rgba(255, 109, 41, 0.35), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
 }
 
@@ -96,8 +98,8 @@
 }
 
 @utility glass-panel {
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.035) 45%, rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.13);
   backdrop-filter: blur(22px) saturate(140%);
   box-shadow: var(--shadow-warm);
 }
