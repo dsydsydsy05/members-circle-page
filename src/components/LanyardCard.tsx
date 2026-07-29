@@ -33,7 +33,8 @@ export function LanyardCard({
         <div
           className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-black/10"
           style={{
-            background: "oklch(0.95 0 0)",
+            background:
+              "linear-gradient(150deg, #ffffff 0%, #f6f1ec 38%, #ece3db 62%, #f8f5f2 100%)",
             boxShadow:
               "0 40px 80px -30px rgba(0,0,0,0.65), 0 12px 24px -12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)",
             transform: "translateZ(0.5px)",
@@ -52,15 +53,16 @@ export function LanyardCard({
             />
           </div>
 
-          {/* Subtle grain */}
+          {/* Pearlescent sheen — soft iridescent bands instead of a dot grid */}
           <div
-            className="pointer-events-none absolute inset-0 opacity-[0.05]"
+            className="pointer-events-none absolute inset-0 opacity-70"
             style={{
-              backgroundImage:
-                "radial-gradient(rgba(0,0,0,0.9) 1px, transparent 1px)",
-              backgroundSize: "3px 3px",
+              background:
+                "linear-gradient(118deg, rgba(255,255,255,0) 18%, rgba(255,214,183,0.35) 34%, rgba(255,255,255,0.65) 42%, rgba(226,232,240,0.30) 50%, rgba(255,255,255,0) 66%)",
+              mixBlendMode: "soft-light",
             }}
           />
+
 
 
           <div className="flex h-full flex-col gap-3 p-4 pt-12 text-black">
