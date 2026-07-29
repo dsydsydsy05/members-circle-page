@@ -42,7 +42,7 @@ function Home() {
             className="pointer-events-none absolute inset-x-0 bottom-0 top-[18%]"
             style={{
               background:
-                "radial-gradient(85% 95% at 44% 108%, rgba(255,226,196,1) 0%, rgba(243,171,116,0.9) 22%, rgba(196,120,78,0.6) 45%, rgba(120,74,52,0.28) 68%, transparent 88%)",
+                "radial-gradient(88% 100% at 46% 118%, rgba(255,222,190,0.95) 0%, rgba(236,163,110,0.72) 26%, rgba(184,114,76,0.45) 48%, rgba(110,70,50,0.2) 70%, transparent 88%)",
             }}
           />
           {/* Soft green backlight behind the badge — brighter, with a slow breath */}
@@ -76,7 +76,7 @@ function Home() {
           <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
             <LanyardCard />
           </div>
-          <div className="absolute inset-x-0 bottom-6 z-10 text-center text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+          <div className="absolute inset-x-0 bottom-6 z-10 text-center text-[11px] uppercase tracking-[0.24em] text-white/70 mix-blend-difference">
             Scroll
           </div>
         </div>
