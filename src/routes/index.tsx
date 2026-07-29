@@ -76,7 +76,7 @@ function Home() {
           <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
             <LanyardCard />
           </div>
-          <div className="absolute inset-x-0 bottom-6 z-10 text-center text-[11px] uppercase tracking-[0.24em] text-white/70 mix-blend-difference">
+          <div className="absolute inset-x-0 bottom-6 z-10 text-center text-[11px] uppercase tracking-[0.24em] text-white/55">
             Scroll
           </div>
         </div>
