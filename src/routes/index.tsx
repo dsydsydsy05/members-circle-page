@@ -146,8 +146,8 @@ function HomeHero({
     };
   }, []);
 
-  const cardFade = smoothStep(0.34, 0.92, progress);
-  const contentReveal = smoothStep(0.12, 0.78, progress);
+  const cardFade = smoothStep(0.05, 0.45, progress);
+  const contentReveal = smoothStep(0.48, 0.85, progress);
   const heroStyle = {
     "--hero-card-scale": (1 + progress * 0.24).toFixed(3),
     "--hero-card-opacity": (1 - cardFade).toFixed(3),
@@ -171,7 +171,10 @@ function HomeHero({
         </div>
       </div>
 
-      <div className="hero-content-scroll absolute inset-x-0 bottom-8 z-20 text-white sm:bottom-12">
+      <div
+        className="hero-content-scroll absolute inset-x-0 bottom-8 z-20 text-white sm:bottom-12"
+        style={{ pointerEvents: contentReveal > 0.05 ? "auto" : "none" }}
+      >
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
             <StatLight n={`${memberCount}`} label="Members" />
