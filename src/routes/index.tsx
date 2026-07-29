@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { LanyardCard } from "@/components/LanyardCard";
 import { MemberFlipCard } from "@/components/MemberFlipCard";
@@ -29,67 +30,14 @@ function Home() {
   const featured = useCommunityMembers().members.slice(0, 3);
   const familyBusinessCount = useFamilyBusinessCount();
 
-
   return (
     <div className="min-h-screen">
       <SiteNav />
 
-      {/* Hero — badge floats, grows slightly and fades on scroll */}
-      <section className="relative min-h-[110vh] overflow-hidden">
-        <div className="sticky top-0 flex h-[calc(85svh-65px)] min-h-[520px] flex-col items-center px-6 pb-12 pt-20">
-          {/* Soft copper glow behind the badge */}
-          <div className="pointer-events-none absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
-            <div
-              className="pointer-events-none"
-              style={{
-                width: "28rem",
-                height: "28rem",
-                background:
-                  "radial-gradient(circle, rgba(190,120,80,0.30) 0%, rgba(160,100,70,0.12) 40%, rgba(120,80,60,0.04) 65%, transparent 80%)",
-                filter: "blur(70px)",
-              }}
-            />
-          </div>
-          <div className="pointer-events-none absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe" style={{ animationDelay: "1.2s" }}>
-            <div
-              className="pointer-events-none"
-              style={{
-                width: "12rem",
-                height: "16rem",
-                background:
-                  "radial-gradient(ellipse at center, rgba(210,140,100,0.32) 0%, rgba(180,115,85,0.13) 50%, transparent 76%)",
-                filter: "blur(45px)",
-              }}
-            />
-          </div>
-
-          <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
-            <LanyardCard />
-          </div>
-        </div>
-      </section>
-
-      {/* Intro — sits on the same continuous background */}
-      <section className="relative text-white animate-zoom-in-view">
-        <div className="mx-auto max-w-6xl px-6 pb-8 pt-4">
-          <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
-            <StatLight n={`${memberCount}`} label="Members" />
-            <StatLight n="1" label="Events" />
-            <StatLight n="2" label="Cities" />
-            <StatLight n={`${factories.length}`} label="Vetted factories" />
-            <StatLight n={`${familyBusinessCount}`} label="Family businesses" />
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/members" className="rounded-full bg-[color:var(--neon)] px-6 py-3 text-sm font-medium text-black hover:opacity-90">
-              Join The Room
-            </Link>
-            <Link to="/events" className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white hover:bg-white/5">
-              Upcoming events
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HomeHero
+        memberCount={memberCount}
+        familyBusinessCount={familyBusinessCount}
+      />
 
 
 
@@ -155,6 +103,107 @@ function Home() {
   );
 }
 
+function HomeHero({
+  memberCount,
+  familyBusinessCount,
+}: {
+  memberCount: number;
+  familyBusinessCount: number;
+}) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateProgress = () => {
+      frame = 0;
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || 1;
+      const nextProgress = clamp(-rect.top / (viewportHeight * 0.68), 0, 1);
+
+      setProgress((current) => (
+        Math.abs(current - nextProgress) < 0.003 ? current : nextProgress
+      ));
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateProgress);
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+    };
+  }, []);
+
+  const cardFade = smoothStep(0.34, 0.92, progress);
+  const contentReveal = smoothStep(0.12, 0.78, progress);
+  const heroStyle = {
+    "--hero-card-scale": (1 + progress * 0.24).toFixed(3),
+    "--hero-card-opacity": (1 - cardFade).toFixed(3),
+    "--hero-card-lift": `${(-progress * 10).toFixed(1)}px`,
+    "--hero-content-opacity": contentReveal.toFixed(3),
+    "--hero-content-y": `${((1 - contentReveal) * 42).toFixed(1)}px`,
+  } as CSSProperties;
+
+  return (
+    <section ref={sectionRef} className="relative min-h-[122svh] overflow-visible" style={heroStyle}>
+      <div className="sticky top-0 flex h-[68svh] min-h-[500px] flex-col items-center px-6 pt-20 sm:h-[70svh]">
+        <div className="pointer-events-none absolute left-1/2 top-[43%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
+          <div className="hero-glow-primary" />
+        </div>
+        <div className="pointer-events-none absolute left-1/2 top-[43%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe [animation-delay:1.2s]">
+          <div className="hero-glow-secondary" />
+        </div>
+
+        <div className="hero-card-scroll relative z-10 flex items-center justify-center">
+          <LanyardCard />
+        </div>
+      </div>
+
+      <div className="hero-content-scroll absolute inset-x-0 bottom-8 z-20 text-white sm:bottom-12">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
+            <StatLight n={`${memberCount}`} label="Members" />
+            <StatLight n="1" label="Events" />
+            <StatLight n="2" label="Cities" />
+            <StatLight n={`${factories.length}`} label="Vetted factories" />
+            <StatLight n={`${familyBusinessCount}`} label="Family businesses" />
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link to="/members" className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90">
+              Join The Room
+            </Link>
+            <Link to="/events" className="rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground hover:bg-secondary/60">
+              Upcoming events
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function smoothStep(edge0: number, edge1: number, value: number) {
+  const amount = clamp((value - edge0) / (edge1 - edge0), 0, 1);
+  return amount * amount * (3 - 2 * amount);
+}
+
 function Stat({ n, label }: { n: string; label: string }) {
   return (
     <div>
@@ -175,7 +224,7 @@ function StatLight({ n, label }: { n: string; label: string }) {
 
 function Section({
   eyebrow, title, action, children,
-}: { eyebrow: string; title: string; action?: React.ReactNode; children: React.ReactNode }) {
+}: { eyebrow: string; title: string; action?: ReactNode; children: ReactNode }) {
   return (
     <section className="mx-auto max-w-6xl px-6 py-12 animate-zoom-in-view">
       <div className="mb-6 flex items-end justify-between gap-4">
