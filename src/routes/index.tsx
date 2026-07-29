@@ -34,64 +34,62 @@ function Home() {
     <div className="min-h-screen">
       <SiteNav />
 
-      {/* Hero + intro share one continuous background */}
-      <div className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #1b1512 0%, #221c19 40%, #2b201a 75%, #221c19 100%)" }}>
-        <section className="relative min-h-[170vh]">
-          <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
-            {/* Soft copper glow behind the badge — centered and diffused */}
-            <div className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
-              <div
-                className="pointer-events-none"
-                style={{
-                  width: "40rem",
-                  height: "40rem",
-                  background:
-                    "radial-gradient(circle, rgba(190,120,80,0.35) 0%, rgba(160,100,70,0.15) 40%, rgba(120,80,60,0.05) 65%, transparent 80%)",
-                  filter: "blur(70px)",
-                }}
-              />
-            </div>
-            <div className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe" style={{ animationDelay: "1.2s" }}>
-              <div
-                className="pointer-events-none"
-                style={{
-                  width: "18rem",
-                  height: "26rem",
-                  background:
-                    "radial-gradient(ellipse at center, rgba(210,140,100,0.38) 0%, rgba(180,115,85,0.16) 50%, transparent 76%)",
-                  filter: "blur(45px)",
-                }}
-              />
-            </div>
-
-            <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
-              <LanyardCard />
-            </div>
+      {/* Hero — transparent so the copper mesh body background flows through */}
+      <section className="relative min-h-[170vh] overflow-hidden">
+        <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
+          {/* Soft copper glow behind the badge */}
+          <div className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
+            <div
+              className="pointer-events-none"
+              style={{
+                width: "40rem",
+                height: "40rem",
+                background:
+                  "radial-gradient(circle, rgba(190,120,80,0.35) 0%, rgba(160,100,70,0.15) 40%, rgba(120,80,60,0.05) 65%, transparent 80%)",
+                filter: "blur(70px)",
+              }}
+            />
           </div>
-        </section>
-
-        {/* Intro — appears after the badge, on the same continuous background */}
-        <section className="relative text-white animate-zoom-in-view">
-          <div className="mx-auto max-w-6xl px-6 pb-12 pt-20">
-            <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
-              <StatLight n={`${memberCount}`} label="Members" />
-              <StatLight n="1" label="Events" />
-              <StatLight n="2" label="Cities" />
-              <StatLight n={`${factories.length}`} label="Vetted factories" />
-              <StatLight n={`${familyBusinessCount}`} label="Family businesses" />
-            </div>
-
-            <div className="mt-16 flex flex-wrap gap-3">
-              <Link to="/members" className="rounded-full bg-[color:var(--neon)] px-6 py-3 text-sm font-medium text-black hover:opacity-90">
-                Join The Room
-              </Link>
-              <Link to="/events" className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white hover:bg-white/5">
-                Upcoming events
-              </Link>
-            </div>
+          <div className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe" style={{ animationDelay: "1.2s" }}>
+            <div
+              className="pointer-events-none"
+              style={{
+                width: "18rem",
+                height: "26rem",
+                background:
+                  "radial-gradient(ellipse at center, rgba(210,140,100,0.38) 0%, rgba(180,115,85,0.16) 50%, transparent 76%)",
+                filter: "blur(45px)",
+              }}
+            />
           </div>
-        </section>
-      </div>
+
+          <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
+            <LanyardCard />
+          </div>
+        </div>
+      </section>
+
+      {/* Intro — sits on the same continuous background */}
+      <section className="relative text-white animate-zoom-in-view">
+        <div className="mx-auto max-w-6xl px-6 pb-12 pt-20">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
+            <StatLight n={`${memberCount}`} label="Members" />
+            <StatLight n="1" label="Events" />
+            <StatLight n="2" label="Cities" />
+            <StatLight n={`${factories.length}`} label="Vetted factories" />
+            <StatLight n={`${familyBusinessCount}`} label="Family businesses" />
+          </div>
+
+          <div className="mt-16 flex flex-wrap gap-3">
+            <Link to="/members" className="rounded-full bg-[color:var(--neon)] px-6 py-3 text-sm font-medium text-black hover:opacity-90">
+              Join The Room
+            </Link>
+            <Link to="/events" className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white hover:bg-white/5">
+              Upcoming events
+            </Link>
+          </div>
+        </div>
+      </section>
 
 
 
