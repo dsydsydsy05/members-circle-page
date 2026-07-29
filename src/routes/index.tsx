@@ -34,39 +34,31 @@ function Home() {
     <div className="min-h-screen">
       <SiteNav />
 
-      {/* Hero + intro share one continuous gradient background */}
-      <div className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #1b1512 0%, #2c201a 18%, #5a3d2b 45%, #4a3328 66%, #2b201a 86%, #221c19 100%)" }}>
+      {/* Hero + intro share one continuous background */}
+      <div className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #1b1512 0%, #221c19 40%, #2b201a 75%, #221c19 100%)" }}>
         <section className="relative min-h-[170vh]">
           <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
-            {/* Diffused studio light filling the lower frame */}
-            <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 top-[18%]"
-              style={{
-                background:
-                  "radial-gradient(88% 100% at 46% 118%, rgba(255,222,190,0.95) 0%, rgba(236,163,110,0.72) 26%, rgba(184,114,76,0.45) 48%, rgba(110,70,50,0.2) 70%, transparent 88%)",
-              }}
-            />
-            {/* Soft copper backlight behind the badge — brighter, with a slow breath */}
-            <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
+            {/* Soft copper glow behind the badge — centered and diffused */}
+            <div className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
               <div
                 className="pointer-events-none"
                 style={{
-                  width: "46rem",
-                  height: "46rem",
+                  width: "40rem",
+                  height: "40rem",
                   background:
-                    "radial-gradient(circle, rgba(226,150,104,0.34) 0%, rgba(200,120,80,0.16) 38%, rgba(230,170,130,0.05) 62%, transparent 80%)",
+                    "radial-gradient(circle, rgba(190,120,80,0.35) 0%, rgba(160,100,70,0.15) 40%, rgba(120,80,60,0.05) 65%, transparent 80%)",
                   filter: "blur(70px)",
                 }}
               />
             </div>
-            <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe" style={{ animationDelay: "1.2s" }}>
+            <div className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe" style={{ animationDelay: "1.2s" }}>
               <div
                 className="pointer-events-none"
                 style={{
-                  width: "20rem",
-                  height: "28rem",
+                  width: "18rem",
+                  height: "26rem",
                   background:
-                    "radial-gradient(ellipse at center, rgba(235,163,116,0.5) 0%, rgba(220,150,110,0.2) 50%, transparent 76%)",
+                    "radial-gradient(ellipse at center, rgba(210,140,100,0.38) 0%, rgba(180,115,85,0.16) 50%, transparent 76%)",
                   filter: "blur(45px)",
                 }}
               />
