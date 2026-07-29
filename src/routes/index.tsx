@@ -34,18 +34,18 @@ function Home() {
     <div className="min-h-screen">
       <SiteNav />
 
-      {/* Hero — only the badge. Scroll down to reveal the story. */}
-      <section className="relative min-h-[170vh] overflow-hidden" style={{ background: "linear-gradient(180deg, #1b1512 0%, #2c201a 22%, #5a3d2b 52%, #9c6742 80%, #c08355 100%)" }}>
+      {/* Hero — only the badge. Light lives at the top, dark settles below. */}
+      <section className="relative min-h-[140vh]">
         <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
-          {/* Diffused studio light filling the lower frame */}
+          {/* Diffused studio light pouring in from above */}
           <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 top-[18%]"
+            className="pointer-events-none absolute inset-x-0 bottom-[8%] top-0"
             style={{
               background:
-                "radial-gradient(88% 100% at 46% 118%, rgba(255,222,190,0.95) 0%, rgba(236,163,110,0.72) 26%, rgba(184,114,76,0.45) 48%, rgba(110,70,50,0.2) 70%, transparent 88%)",
+                "radial-gradient(92% 100% at 50% -18%, rgba(255,226,198,0.85) 0%, rgba(233,164,116,0.55) 24%, rgba(174,108,74,0.30) 46%, rgba(80,52,40,0.12) 68%, transparent 86%)",
             }}
           />
-          {/* Soft green backlight behind the badge — brighter, with a slow breath */}
+          {/* Soft halo behind the badge */}
           <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
             <div
               className="pointer-events-none"
@@ -53,7 +53,7 @@ function Home() {
                 width: "46rem",
                 height: "46rem",
                 background:
-                  "radial-gradient(circle, rgba(226,150,104,0.34) 0%, rgba(200,120,80,0.16) 38%, rgba(230,170,130,0.05) 62%, transparent 80%)",
+                  "radial-gradient(circle, rgba(238,170,126,0.30) 0%, rgba(200,120,80,0.14) 38%, rgba(230,170,130,0.05) 62%, transparent 80%)",
                 filter: "blur(70px)",
               }}
             />
@@ -65,13 +65,11 @@ function Home() {
                 width: "20rem",
                 height: "28rem",
                 background:
-                  "radial-gradient(ellipse at center, rgba(235,163,116,0.5) 0%, rgba(220,150,110,0.2) 50%, transparent 76%)",
+                  "radial-gradient(ellipse at center, rgba(245,190,150,0.42) 0%, rgba(220,150,110,0.18) 50%, transparent 76%)",
                 filter: "blur(45px)",
               }}
             />
           </div>
-
-
 
           <div className="animate-tag-zoom relative z-10 flex items-center justify-center">
             <LanyardCard />
@@ -81,6 +79,7 @@ function Home() {
           </div>
         </div>
       </section>
+
 
       {/* Intro — appears after the badge */}
       <section className="relative text-white animate-zoom-in-view">
