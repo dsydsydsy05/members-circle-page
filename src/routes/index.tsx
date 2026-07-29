@@ -126,7 +126,7 @@ function HomeHero({
       const nextProgress = clamp(-rect.top / (viewportHeight * 0.68), 0, 1);
 
       setProgress((current) => (
-        Math.abs(current - nextProgress) < 0.003 ? current : nextProgress
+        Math.abs(current - nextProgress) < 0.001 ? current : nextProgress
       ));
     };
 
@@ -146,15 +146,17 @@ function HomeHero({
     };
   }, []);
 
-  const cardFade = smoothStep(0.05, 0.45, progress);
-  const contentReveal = smoothStep(0.48, 0.85, progress);
+  const cardFade = smoothStep(0.08, 0.5, progress);
+  const contentReveal = smoothStep(0.4, 0.82, progress);
   const heroStyle = {
     "--hero-card-scale": (1 + progress * 0.24).toFixed(3),
     "--hero-card-opacity": (1 - cardFade).toFixed(3),
+    "--hero-card-blur": `${(cardFade * 10).toFixed(1)}px`,
     "--hero-card-lift": `${(-progress * 10).toFixed(1)}px`,
     "--hero-content-opacity": contentReveal.toFixed(3),
     "--hero-content-y": `${((1 - contentReveal) * 42).toFixed(1)}px`,
   } as CSSProperties;
+
 
   return (
     <section ref={sectionRef} className="relative min-h-[122svh] overflow-visible" style={heroStyle}>
