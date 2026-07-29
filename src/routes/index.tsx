@@ -34,18 +34,18 @@ function Home() {
     <div className="min-h-screen">
       <SiteNav />
 
-      {/* Hero — transparent so the copper mesh body background flows through */}
-      <section className="relative min-h-[170vh] overflow-hidden">
-        <div className="sticky top-0 flex h-[calc(100svh-65px)] flex-col items-center justify-center px-6 py-6">
+      {/* Hero — tighter so the badge and stats sit closer together */}
+      <section className="relative min-h-[100vh] overflow-hidden">
+        <div className="sticky top-0 flex h-[calc(78svh-65px)] flex-col items-center justify-center px-6 py-4">
           {/* Soft copper glow behind the badge */}
           <div className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
             <div
               className="pointer-events-none"
               style={{
-                width: "40rem",
-                height: "40rem",
+                width: "36rem",
+                height: "36rem",
                 background:
-                  "radial-gradient(circle, rgba(190,120,80,0.35) 0%, rgba(160,100,70,0.15) 40%, rgba(120,80,60,0.05) 65%, transparent 80%)",
+                  "radial-gradient(circle, rgba(190,120,80,0.32) 0%, rgba(160,100,70,0.13) 40%, rgba(120,80,60,0.04) 65%, transparent 80%)",
                 filter: "blur(70px)",
               }}
             />
@@ -54,10 +54,10 @@ function Home() {
             <div
               className="pointer-events-none"
               style={{
-                width: "18rem",
-                height: "26rem",
+                width: "16rem",
+                height: "22rem",
                 background:
-                  "radial-gradient(ellipse at center, rgba(210,140,100,0.38) 0%, rgba(180,115,85,0.16) 50%, transparent 76%)",
+                  "radial-gradient(ellipse at center, rgba(210,140,100,0.34) 0%, rgba(180,115,85,0.14) 50%, transparent 76%)",
                 filter: "blur(45px)",
               }}
             />
@@ -71,7 +71,7 @@ function Home() {
 
       {/* Intro — sits on the same continuous background */}
       <section className="relative text-white animate-zoom-in-view">
-        <div className="mx-auto max-w-6xl px-6 pb-12 pt-20">
+        <div className="mx-auto max-w-6xl px-6 pb-10 pt-8">
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
             <StatLight n={`${memberCount}`} label="Members" />
             <StatLight n="1" label="Events" />
