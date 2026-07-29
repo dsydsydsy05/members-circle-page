@@ -70,7 +70,7 @@
   /* Material: soft copper mesh + frosted glass */
   --gradient-ember: linear-gradient(135deg, #d9784a 0%, #eaa87f 100%);
   --mesh-copper:
-    linear-gradient(180deg, #322419 0%, #251c16 34%, #191411 68%, #120f0d 100%);
+    linear-gradient(180deg, #4a3527 0%, #33241c 30%, #201915 64%, #151110 100%);
 
   --shadow-warm: 0 30px 70px -30px rgba(196, 122, 82, 0.30), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
 }

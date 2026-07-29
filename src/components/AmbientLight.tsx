@@ -10,8 +10,8 @@ export function AmbientLight() {
         className="animate-light-scroll absolute -inset-[20%]"
         style={{
           background:
-            "radial-gradient(58% 46% at 50% 6%, rgba(255,216,182,0.55), transparent 70%)," +
-            "radial-gradient(52% 40% at 18% 30%, rgba(214,132,92,0.40), transparent 72%)",
+            "radial-gradient(58% 46% at 50% 6%, rgba(255,220,190,0.85), transparent 70%)," +
+            "radial-gradient(52% 40% at 18% 30%, rgba(224,146,102,0.55), transparent 72%)",
           filter: "blur(60px)",
         }}
       />
@@ -21,7 +21,7 @@ export function AmbientLight() {
         className="animate-drift-a absolute left-[8%] top-[-14%] h-[46rem] w-[46rem] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(250,192,150,0.46) 0%, rgba(200,120,80,0.16) 44%, transparent 74%)",
+            "radial-gradient(circle, rgba(255,205,165,0.70) 0%, rgba(214,134,92,0.30) 44%, transparent 74%)",
           filter: "blur(80px)",
         }}
       />
@@ -29,7 +29,7 @@ export function AmbientLight() {
         className="animate-drift-b absolute right-[-8%] top-[6%] h-[38rem] w-[38rem] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(228,152,110,0.38) 0%, rgba(150,90,64,0.14) 48%, transparent 76%)",
+            "radial-gradient(circle, rgba(240,168,124,0.55) 0%, rgba(170,104,74,0.24) 48%, transparent 76%)",
           filter: "blur(90px)",
         }}
       />
@@ -37,7 +37,7 @@ export function AmbientLight() {
         className="animate-drift-c absolute bottom-[-18%] left-[26%] h-[42rem] w-[42rem] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(190,116,84,0.30) 0%, rgba(90,58,44,0.12) 50%, transparent 78%)",
+            "radial-gradient(circle, rgba(205,128,92,0.42) 0%, rgba(110,70,52,0.20) 50%, transparent 78%)",
           filter: "blur(100px)",
         }}
       />
