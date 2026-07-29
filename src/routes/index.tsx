@@ -71,7 +71,7 @@ function Home() {
 
       {/* Intro — sits on the same continuous background */}
       <section className="relative text-white animate-zoom-in-view">
-        <div className="mx-auto max-w-6xl px-6 pb-10 pt-8">
+        <div className="mx-auto max-w-6xl px-6 pb-8 pt-4">
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
             <StatLight n={`${memberCount}`} label="Members" />
             <StatLight n="1" label="Events" />
