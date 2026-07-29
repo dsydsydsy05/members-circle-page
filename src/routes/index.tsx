@@ -34,30 +34,30 @@ function Home() {
     <div className="min-h-screen">
       <SiteNav />
 
-      {/* Hero — tighter so the badge and stats sit closer together */}
-      <section className="relative min-h-[100vh] overflow-hidden">
-        <div className="sticky top-0 flex h-[calc(78svh-65px)] flex-col items-center justify-center px-6 py-4">
+      {/* Hero — badge floats, grows slightly and fades on scroll */}
+      <section className="relative min-h-[80vh] overflow-hidden">
+        <div className="sticky top-0 flex h-[calc(62svh-65px)] min-h-[380px] flex-col items-center justify-center px-6 py-4">
           {/* Soft copper glow behind the badge */}
-          <div className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
             <div
               className="pointer-events-none"
               style={{
-                width: "36rem",
-                height: "36rem",
+                width: "32rem",
+                height: "32rem",
                 background:
-                  "radial-gradient(circle, rgba(190,120,80,0.32) 0%, rgba(160,100,70,0.13) 40%, rgba(120,80,60,0.04) 65%, transparent 80%)",
+                  "radial-gradient(circle, rgba(190,120,80,0.28) 0%, rgba(160,100,70,0.11) 40%, rgba(120,80,60,0.03) 65%, transparent 80%)",
                 filter: "blur(70px)",
               }}
             />
           </div>
-          <div className="pointer-events-none absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe" style={{ animationDelay: "1.2s" }}>
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-glow-breathe" style={{ animationDelay: "1.2s" }}>
             <div
               className="pointer-events-none"
               style={{
-                width: "16rem",
-                height: "22rem",
+                width: "14rem",
+                height: "18rem",
                 background:
-                  "radial-gradient(ellipse at center, rgba(210,140,100,0.34) 0%, rgba(180,115,85,0.14) 50%, transparent 76%)",
+                  "radial-gradient(ellipse at center, rgba(210,140,100,0.30) 0%, rgba(180,115,85,0.12) 50%, transparent 76%)",
                 filter: "blur(45px)",
               }}
             />
