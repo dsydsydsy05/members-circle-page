@@ -69,10 +69,12 @@ export function SiteNav() {
           ) : (
             <Link
               to="/auth"
-              className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-colors hover:border-white/40 hover:bg-white/20"
+              className="rounded-full border border-white/15 px-4 py-1.5 text-xs font-semibold text-white shadow-[0_6px_18px_-8px_rgba(217,120,74,0.9)] transition-opacity hover:opacity-90"
+              style={{ background: "linear-gradient(135deg, #d9784a 0%, #e9a982 100%)" }}
             >
               Sign in
             </Link>
+
           )}
         </div>
 
