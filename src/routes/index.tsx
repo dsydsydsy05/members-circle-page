@@ -75,7 +75,7 @@ function Home() {
       </section>
 
       {/* Intro — appears after the badge */}
-      <section className="bg-black text-white animate-zoom-in-view">
+      <section className="relative text-white animate-zoom-in-view">
         <div className="mx-auto max-w-6xl px-6 py-28">
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
             <StatLight n={`${memberCount}`} label="Members" />
@@ -120,7 +120,7 @@ function Home() {
       >
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {events.map((e) => (
-            <article key={e.id} className="group overflow-hidden rounded-xl bg-card ring-1 ring-border">
+            <article key={e.id} className="group glass-panel overflow-hidden rounded-2xl">
               <EventCover
                 image={e.cover}
                 month={e.date.split(" ")[0].toUpperCase()}
@@ -140,7 +140,7 @@ function Home() {
       <Section eyebrow="Guests" title="People we've hosted (and will)"
         action={<Link to="/guests" className="text-sm underline underline-offset-4">Full list →</Link>}
       >
-        <ul className="divide-y divide-border rounded-xl bg-card ring-1 ring-border">
+        <ul className="glass-panel divide-y divide-white/10 rounded-2xl">
           {guests.map((g) => (
             <li key={g.id} className="flex flex-col gap-1 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
