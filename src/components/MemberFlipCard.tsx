@@ -83,7 +83,20 @@ function Papers({ lifted }: { lifted: boolean }) {
 /** Translucent frosted folder: dark shell + fanned papers + glass front pocket. */
 function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
   return (
-    <div className="relative h-full w-full">
+    <div
+      className="relative h-full w-full"
+      style={{ perspective: "1100px" }}
+    >
+      <div
+        className="relative h-full w-full"
+        style={{
+          transformStyle: "preserve-3d",
+          transform: lifted
+            ? "rotateX(6deg) rotateY(-5deg) translateZ(10px)"
+            : "rotateX(3deg) rotateY(-2deg)",
+          transition: "transform 700ms cubic-bezier(0.22,1,0.36,1)",
+        }}
+      >
       {/* svg clip for the notched pocket shape */}
       <svg width="0" height="0" className="absolute">
         <defs>
@@ -98,38 +111,75 @@ function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
         className="absolute inset-x-[4%] bottom-[3%] top-[1%] rounded-[1.6rem]"
         style={{
           background:
-            "linear-gradient(160deg, #3a3835 0%, #2a2725 45%, #1b1917 100%)",
+            "linear-gradient(160deg, #46423e 0%, #2c2926 45%, #15130f 100%)",
           boxShadow:
-            "0 40px 70px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.10)",
+            "0 46px 80px -34px rgba(0,0,0,0.85), 0 6px 0 -2px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -20px 40px -24px rgba(0,0,0,0.9)",
+          transform: "translateZ(-14px)",
         }}
       />
 
       <Papers lifted={!!lifted} />
 
       {/* frosted front pocket */}
-      <div className="absolute inset-x-0 bottom-0 top-0 z-20">
+      <div
+        className="absolute inset-x-0 bottom-0 top-0 z-20"
+        style={{ transform: "translateZ(22px)" }}
+      >
+        {/* thickness / bottom edge of the glass slab */}
         <div
           className="absolute inset-0"
           style={{
             clipPath: "url(#folder-pocket-clip)",
             WebkitClipPath: "url(#folder-pocket-clip)",
             background:
-              "linear-gradient(155deg, rgba(255,255,255,0.34) 0%, rgba(226,214,205,0.20) 40%, rgba(60,52,47,0.42) 100%)",
-            backdropFilter: "blur(22px) saturate(150%)",
-            boxShadow: "0 26px 50px -26px rgba(0,0,0,0.6)",
+              "linear-gradient(180deg, rgba(120,104,94,0.55) 0%, rgba(40,34,30,0.9) 100%)",
+            transform: "translate3d(0, 6px, 0)",
+            filter: "blur(0.4px)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: "url(#folder-pocket-clip)",
+            WebkitClipPath: "url(#folder-pocket-clip)",
+            background:
+              "linear-gradient(155deg, rgba(255,255,255,0.42) 0%, rgba(232,219,209,0.20) 38%, rgba(70,58,50,0.44) 100%)",
+            backdropFilter: "blur(24px) saturate(165%)",
+            boxShadow:
+              "0 30px 55px -26px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.55), inset 0 -1px 1px rgba(255,255,255,0.2), inset 0 -30px 60px -40px rgba(0,0,0,0.7)",
+          }}
+        />
+        {/* specular sheen across the top of the glass */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            clipPath: "url(#folder-pocket-clip)",
+            WebkitClipPath: "url(#folder-pocket-clip)",
+            background:
+              "radial-gradient(120% 70% at 12% 22%, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0.10) 34%, rgba(255,255,255,0) 62%)",
+            mixBlendMode: "screen",
+            opacity: lifted ? 0.95 : 0.75,
+            transition: "opacity 600ms ease",
           }}
         />
         {/* stroked outline for the glass edge */}
         <svg
           viewBox="0 0 1 1"
           preserveAspectRatio="none"
-          className="absolute inset-0 h-full w-full"
+          className="pointer-events-none absolute inset-0 h-full w-full"
         >
+          <defs>
+            <linearGradient id="glass-edge" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0%" stopColor="rgba(255,255,255,0.85)" />
+              <stop offset="45%" stopColor="rgba(255,255,255,0.28)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,0.55)" />
+            </linearGradient>
+          </defs>
           <path
             d={POCKET_PATH}
             fill="none"
-            stroke="rgba(255,255,255,0.45)"
-            strokeWidth="0.004"
+            stroke="url(#glass-edge)"
+            strokeWidth="1.2"
             vectorEffect="non-scaling-stroke"
           />
         </svg>
@@ -169,9 +219,11 @@ function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
           </div>
         </div>
       </div>
+      </div>
     </div>
   );
 }
+
 
 
 /** The white member document, pulled out of the folder and centered. */
