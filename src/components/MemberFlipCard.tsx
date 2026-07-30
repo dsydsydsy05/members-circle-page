@@ -135,7 +135,7 @@ function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
         </svg>
 
         {/* pocket content */}
-        <div className="absolute inset-x-0 bottom-0 top-[24%] flex flex-col justify-between px-[9%] pb-[7%] pt-[6%]">
+        <div className="absolute inset-x-0 bottom-0 top-[40%] flex flex-col justify-between px-[9%] pb-[7%] pt-[4%]">
           <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.34em] text-[color:var(--cream,#f2ece6)]/85">
             <span>THE ROOM</span>
             <span className="tracking-[0.22em]">NO. {no(member.memberNo)}</span>
