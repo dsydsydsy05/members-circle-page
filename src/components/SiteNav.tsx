@@ -31,28 +31,31 @@ export function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6">
-        <Link to="/" aria-label="The Room — home" className="flex items-center">
-          <img
-            src={logo.url}
-            alt="The Room"
-            width={240}
-            height={32}
-            className="h-6 w-auto invert"
-          />
-        </Link>
-        <nav className="hidden gap-6 md:flex">
-          {links.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className="text-sm text-cream/80 transition-colors hover:text-primary"
-              activeProps={{ className: "text-sm text-cream/80 transition-colors hover:text-primary" }}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 items-center gap-6">
+          <Link to="/" aria-label="The Room — home" className="flex shrink-0 items-center">
+            <img
+              src={logo.url}
+              alt="The Room"
+              width={240}
+              height={32}
+              className="h-5 w-auto invert sm:h-6"
+            />
+          </Link>
+          <nav className="hidden gap-6 md:flex">
+            {links.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className="whitespace-nowrap text-sm text-cream/80 transition-colors hover:text-primary"
+                activeProps={{ className: "whitespace-nowrap text-sm text-primary" }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+
           {!loading && isSignedIn ? (
             <>
               {isAdmin && (
