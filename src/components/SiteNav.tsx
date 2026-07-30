@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuth, signOut } from "@/lib/use-auth";
+import { useIsAdmin } from "@/lib/use-admin";
 import logo from "@/assets/the-room-logo-transparent.png.asset.json";
 
 
@@ -16,6 +17,7 @@ const links = [
 
 export function SiteNav() {
   const { loading, isSignedIn, isMember } = useAuth();
+  const { isAdmin } = useIsAdmin();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -53,6 +55,14 @@ export function SiteNav() {
         <div className="flex items-center gap-2">
           {!loading && isSignedIn ? (
             <>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="hidden rounded-full border border-primary/50 px-3 py-1.5 text-xs text-primary transition-colors hover:bg-primary/10 sm:inline-block"
+                >
+                  Admin
+                </Link>
+              )}
               <Link
                 to="/onboarding"
                 className="hidden text-xs text-muted-foreground transition-colors hover:text-primary sm:inline"
