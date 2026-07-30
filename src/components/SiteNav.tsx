@@ -21,6 +21,13 @@ export function SiteNav() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+  const mobileLinks: { to: string; label: string }[] = [
+    ...links.map((l) => ({ to: l.to as string, label: l.label as string })),
+    ...(isSignedIn ? [{ to: "/onboarding", label: isMember ? "Edit card" : "Enter code" }] : []),
+    ...(isAdmin ? [{ to: "/admin", label: "Admin" }] : []),
+  ];
+
+
   const handleSignOut = async () => {
     await queryClient.cancelQueries();
     await signOut();
@@ -30,29 +37,32 @@ export function SiteNav() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-        <Link to="/" aria-label="The Room — home" className="flex items-center">
-          <img
-            src={logo.url}
-            alt="The Room"
-            width={240}
-            height={32}
-            className="h-6 w-auto invert"
-          />
-        </Link>
-        <nav className="hidden gap-6 md:flex">
-          {links.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className="text-sm text-cream/80 transition-colors hover:text-primary"
-              activeProps={{ className: "text-sm text-cream/80 transition-colors hover:text-primary" }}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex items-center gap-2">
+      <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6">
+        <div className="flex min-w-0 items-center gap-6">
+          <Link to="/" aria-label="The Room — home" className="flex shrink-0 items-center">
+            <img
+              src={logo.url}
+              alt="The Room"
+              width={240}
+              height={32}
+              className="h-5 w-auto invert sm:h-6"
+            />
+          </Link>
+          <nav className="hidden gap-6 md:flex">
+            {links.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className="whitespace-nowrap text-sm text-cream/80 transition-colors hover:text-primary"
+                activeProps={{ className: "whitespace-nowrap text-sm text-primary" }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+
           {!loading && isSignedIn ? (
             <>
               {isAdmin && (
@@ -71,7 +81,7 @@ export function SiteNav() {
               </Link>
               <button
                 onClick={handleSignOut}
-                className="rounded-full border border-border px-3 py-1.5 text-xs transition-colors hover:bg-primary-foreground hover:text-primary"
+                className="whitespace-nowrap rounded-full border border-border px-3 py-1.5 text-xs transition-colors hover:bg-primary-foreground hover:text-primary"
               >
                 Sign out
               </button>
@@ -79,7 +89,7 @@ export function SiteNav() {
           ) : (
             <Link
               to="/auth"
-              className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-colors hover:border-white/40 hover:bg-white/20"
+              className="whitespace-nowrap rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-colors hover:border-white/40 hover:bg-white/20"
             >
               Sign in
             </Link>
@@ -87,6 +97,26 @@ export function SiteNav() {
         </div>
 
       </div>
+
+      {/* Mobile section bar */}
+      <nav
+        aria-label="Sections"
+        className="-mb-px flex gap-2 overflow-x-auto border-t border-border/50 px-4 py-2 [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden"
+      >
+        {mobileLinks.map((l) => (
+          <Link
+            key={l.to}
+            to={l.to as never}
+            className="shrink-0 whitespace-nowrap rounded-full border border-border/70 px-3 py-1.5 text-xs text-cream/80 transition-colors"
+            activeProps={{
+              className:
+                "shrink-0 whitespace-nowrap rounded-full border border-primary/60 bg-primary/15 px-3 py-1.5 text-xs text-primary",
+            }}
+          >
+            {l.label}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }

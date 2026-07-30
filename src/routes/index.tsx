@@ -169,7 +169,7 @@ function HomeHero({
 
   return (
     <section ref={sectionRef} className="relative min-h-[122svh] overflow-visible" style={heroStyle}>
-      <div className="sticky top-0 flex h-[68svh] min-h-[500px] flex-col items-center px-6 pt-20 sm:h-[70svh]">
+      <div className="sticky top-0 flex h-[68svh] min-h-[440px] flex-col items-center px-4 pt-16 sm:min-h-[500px] sm:px-6 sm:pt-20 sm:h-[70svh]">
         <div className="pointer-events-none absolute left-1/2 top-[43%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
           <div className="hero-glow-primary" />
         </div>
@@ -186,8 +186,8 @@ function HomeHero({
         className="hero-content-scroll absolute inset-x-0 bottom-8 z-20 text-white sm:bottom-12"
         style={{ pointerEvents: contentReveal > 0.05 ? "auto" : "none" }}
       >
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-5">
             <StatLight n={`${memberCount}`} label="Members" />
             <StatLight n={`${eventCount}`} label="Events" />
             <StatLight n="2" label="Cities" />
@@ -196,10 +196,10 @@ function HomeHero({
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/members" className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90">
+            <Link to="/members" className="whitespace-nowrap rounded-full bg-primary px-5 py-3 text-sm font-medium sm:px-6 text-primary-foreground hover:opacity-90">
               Join The Room
             </Link>
-            <Link to="/events" className="rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground hover:bg-secondary/60">
+            <Link to="/events" className="whitespace-nowrap rounded-full border border-border px-5 py-3 text-sm font-medium sm:px-6 text-foreground hover:bg-secondary/60">
               Upcoming events
             </Link>
           </div>
@@ -230,8 +230,8 @@ function Stat({ n, label }: { n: string; label: string }) {
 function StatLight({ n, label }: { n: string; label: string }) {
   return (
     <div>
-      <div className="text-5xl font-semibold leading-none tracking-tight text-white sm:text-6xl">{n}</div>
-      <div className="mt-3 text-xs uppercase tracking-[0.18em] text-white/60">{label}</div>
+      <div className="text-4xl font-semibold leading-none tracking-tight text-white sm:text-6xl">{n}</div>
+      <div className="mt-2 whitespace-nowrap text-[10px] uppercase tracking-[0.12em] text-white/60 sm:mt-3 sm:text-xs sm:tracking-[0.18em]">{label}</div>
     </div>
   );
 }
@@ -240,11 +240,11 @@ function Section({
   eyebrow, title, action, children,
 }: { eyebrow: string; title: string; action?: ReactNode; children: ReactNode }) {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-12 animate-zoom-in-view">
-      <div className="mb-6 flex items-end justify-between gap-4">
+    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 animate-zoom-in-view">
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
         <div>
           <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{eyebrow}</div>
-          <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
         </div>
         {action}
       </div>

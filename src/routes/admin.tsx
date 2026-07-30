@@ -383,7 +383,7 @@ function AdminPage() {
   return (
     <div className="min-h-screen">
       <SiteNav />
-      <main className="mx-auto max-w-5xl px-6 py-16">
+      <main className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
         <div className="text-xs uppercase tracking-[0.22em] text-primary">Control room</div>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">Admin</h1>
 
