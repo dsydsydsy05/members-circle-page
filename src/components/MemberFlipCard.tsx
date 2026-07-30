@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { Member } from "@/lib/community-data";
 
@@ -83,7 +83,20 @@ function Papers({ lifted }: { lifted: boolean }) {
 /** Translucent frosted folder: dark shell + fanned papers + glass front pocket. */
 function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
   return (
-    <div className="relative h-full w-full">
+    <div
+      className="relative h-full w-full"
+      style={{ perspective: "1100px" }}
+    >
+      <div
+        className="relative h-full w-full"
+        style={{
+          transformStyle: "preserve-3d",
+          transform: lifted
+            ? "rotateX(6deg) rotateY(-5deg) translateZ(10px)"
+            : "rotateX(3deg) rotateY(-2deg)",
+          transition: "transform 700ms cubic-bezier(0.22,1,0.36,1)",
+        }}
+      >
       {/* svg clip for the notched pocket shape */}
       <svg width="0" height="0" className="absolute">
         <defs>
@@ -98,38 +111,75 @@ function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
         className="absolute inset-x-[4%] bottom-[3%] top-[1%] rounded-[1.6rem]"
         style={{
           background:
-            "linear-gradient(160deg, #3a3835 0%, #2a2725 45%, #1b1917 100%)",
+            "linear-gradient(160deg, #46423e 0%, #2c2926 45%, #15130f 100%)",
           boxShadow:
-            "0 40px 70px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.10)",
+            "0 46px 80px -34px rgba(0,0,0,0.85), 0 6px 0 -2px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -20px 40px -24px rgba(0,0,0,0.9)",
+          transform: "translateZ(-14px)",
         }}
       />
 
       <Papers lifted={!!lifted} />
 
       {/* frosted front pocket */}
-      <div className="absolute inset-x-0 bottom-0 top-0 z-20">
+      <div
+        className="absolute inset-x-0 bottom-0 top-0 z-20"
+        style={{ transform: "translateZ(22px)" }}
+      >
+        {/* thickness / bottom edge of the glass slab */}
         <div
           className="absolute inset-0"
           style={{
             clipPath: "url(#folder-pocket-clip)",
             WebkitClipPath: "url(#folder-pocket-clip)",
             background:
-              "linear-gradient(155deg, rgba(255,255,255,0.34) 0%, rgba(226,214,205,0.20) 40%, rgba(60,52,47,0.42) 100%)",
-            backdropFilter: "blur(22px) saturate(150%)",
-            boxShadow: "0 26px 50px -26px rgba(0,0,0,0.6)",
+              "linear-gradient(180deg, rgba(120,104,94,0.55) 0%, rgba(40,34,30,0.9) 100%)",
+            transform: "translate3d(0, 6px, 0)",
+            filter: "blur(0.4px)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: "url(#folder-pocket-clip)",
+            WebkitClipPath: "url(#folder-pocket-clip)",
+            background:
+              "linear-gradient(155deg, rgba(255,255,255,0.42) 0%, rgba(232,219,209,0.20) 38%, rgba(70,58,50,0.44) 100%)",
+            backdropFilter: "blur(24px) saturate(165%)",
+            boxShadow:
+              "0 30px 55px -26px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.55), inset 0 -1px 1px rgba(255,255,255,0.2), inset 0 -30px 60px -40px rgba(0,0,0,0.7)",
+          }}
+        />
+        {/* specular sheen across the top of the glass */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            clipPath: "url(#folder-pocket-clip)",
+            WebkitClipPath: "url(#folder-pocket-clip)",
+            background:
+              "radial-gradient(120% 70% at 12% 22%, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0.10) 34%, rgba(255,255,255,0) 62%)",
+            mixBlendMode: "screen",
+            opacity: lifted ? 0.95 : 0.75,
+            transition: "opacity 600ms ease",
           }}
         />
         {/* stroked outline for the glass edge */}
         <svg
           viewBox="0 0 1 1"
           preserveAspectRatio="none"
-          className="absolute inset-0 h-full w-full"
+          className="pointer-events-none absolute inset-0 h-full w-full"
         >
+          <defs>
+            <linearGradient id="glass-edge" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0%" stopColor="rgba(255,255,255,0.85)" />
+              <stop offset="45%" stopColor="rgba(255,255,255,0.28)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,0.55)" />
+            </linearGradient>
+          </defs>
           <path
             d={POCKET_PATH}
             fill="none"
-            stroke="rgba(255,255,255,0.45)"
-            strokeWidth="0.004"
+            stroke="url(#glass-edge)"
+            strokeWidth="1.2"
             vectorEffect="non-scaling-stroke"
           />
         </svg>
@@ -169,13 +219,23 @@ function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
           </div>
         </div>
       </div>
+      </div>
     </div>
   );
 }
 
 
+
 /** The white member document, pulled out of the folder and centered. */
-function DocumentSheet({ member, shown }: { member: Member; shown: boolean }) {
+function DocumentSheet({
+  member,
+  shown,
+  from,
+}: {
+  member: Member;
+  shown: boolean;
+  from: string;
+}) {
   return (
     <div
       className="w-full overflow-hidden rounded-2xl"
@@ -183,14 +243,17 @@ function DocumentSheet({ member, shown }: { member: Member; shown: boolean }) {
         background: "linear-gradient(180deg, #ffffff 0%, #f5f2ef 100%)",
         boxShadow:
           "0 50px 110px -40px rgba(0,0,0,0.85), 0 2px 0 rgba(255,255,255,0.6) inset",
+        transformOrigin: "center bottom",
         transform: shown
-          ? "translateY(0) scale(1) rotate(0deg)"
-          : "translateY(90px) scale(0.9) rotate(-2deg)",
+          ? "translate3d(0,0,0) scale(1) rotate(0deg)"
+          : from,
         opacity: shown ? 1 : 0,
         transition:
-          "transform 620ms cubic-bezier(0.22,1,0.36,1), opacity 380ms ease",
+          "transform 780ms cubic-bezier(0.16,1,0.3,1), opacity 300ms ease",
+        willChange: "transform, opacity",
       }}
     >
+
       <div className="flex max-h-[82vh] flex-col gap-5 overflow-y-auto p-8 text-[#221a15]">
         <div className="flex items-center justify-between border-b border-black/10 pb-4 text-[10px] uppercase tracking-[0.3em] text-black/45">
           <span>THE ROOM</span>
@@ -265,12 +328,33 @@ export function MemberFlipCard({ member }: { member: Member }) {
   const [open, setOpen] = useState(false);
   const [entered, setEntered] = useState(false);
   const [hover, setHover] = useState(false);
+  const [from, setFrom] = useState(
+    "translate3d(0, 120px, 0) scale(0.35) rotate(-4deg)"
+  );
+  const cardRef = useRef<HTMLButtonElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+
+  const openFile = () => {
+    const r = cardRef.current?.getBoundingClientRect();
+    if (r) {
+      // start where the papers sit inside the folder, scaled to its size
+      const originX = r.left + r.width / 2 - window.innerWidth / 2;
+      const originY = r.top + r.height * 0.42 - window.innerHeight / 2;
+      const scale = Math.max(0.18, Math.min(0.5, r.width / 620));
+      setFrom(
+        `translate3d(${originX}px, ${originY}px, 0) scale(${scale}) rotate(-6deg)`
+      );
+    }
+    setOpen(true);
+  };
 
   useEffect(() => {
     if (!open) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const raf = requestAnimationFrame(() => setEntered(true));
+    const raf = requestAnimationFrame(() =>
+      requestAnimationFrame(() => setEntered(true))
+    );
     return () => {
       cancelAnimationFrame(raf);
       document.body.style.overflow = original;
@@ -278,8 +362,8 @@ export function MemberFlipCard({ member }: { member: Member }) {
   }, [open]);
 
   const close = () => {
-    setOpen(false);
     setEntered(false);
+    window.setTimeout(() => setOpen(false), 380);
   };
 
   useEffect(() => {
@@ -294,8 +378,9 @@ export function MemberFlipCard({ member }: { member: Member }) {
     <>
       <div className="aspect-[6/5]">
         <button
+          ref={cardRef}
           type="button"
-          onClick={() => setOpen(true)}
+          onClick={openFile}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           className="relative h-full w-full text-left transition-transform duration-500 hover:-translate-y-1"
@@ -315,8 +400,10 @@ export function MemberFlipCard({ member }: { member: Member }) {
             role="dialog"
             aria-modal="true"
             aria-label={`${member.name} member file`}
+            style={{ perspective: "1400px" }}
           >
             <div
+              ref={sheetRef}
               className="relative w-full max-w-md"
               onClick={(e) => e.stopPropagation()}
             >
@@ -330,7 +417,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
               >
                 <CloseIcon className="h-6 w-6" />
               </button>
-              <DocumentSheet member={member} shown={entered} />
+              <DocumentSheet member={member} shown={entered} from={from} />
             </div>
           </div>,
           document.body
@@ -338,3 +425,4 @@ export function MemberFlipCard({ member }: { member: Member }) {
     </>
   );
 }
+
