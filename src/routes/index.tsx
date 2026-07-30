@@ -87,8 +87,8 @@ function Home() {
           {guests.map((g) => (
             <li key={g.id} className="flex flex-col gap-1 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <div className="font-medium">{g.name}</div>
-                <div className="text-sm text-muted-foreground">{g.title}</div>
+                <div className="font-medium blur-sm select-none">{g.name}</div>
+                <div className="text-sm text-muted-foreground blur-sm select-none">{g.title}</div>
               </div>
               <div className="text-sm text-muted-foreground">{g.event} · <span className="text-foreground">{g.date}</span></div>
             </li>

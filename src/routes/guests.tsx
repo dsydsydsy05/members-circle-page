@@ -56,9 +56,9 @@ function GuestsPage() {
                         on ? "text-primary" : ""
                       }`}
                     >
-                      {g.name}
+                      <span className="blur-sm select-none">{g.name}</span>
                     </button>
-                    <div className="text-sm text-muted-foreground">{g.title}</div>
+                    <div className="text-sm text-muted-foreground blur-sm select-none">{g.title}</div>
                   </div>
                 </div>
                 <div className="text-right sm:pl-6">
