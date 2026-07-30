@@ -34,38 +34,41 @@ function CloseIcon({ className }: { className?: string }) {
 
 const no = (n?: number | null) => (n ? String(n).padStart(4, "0") : "----");
 
+const POCKET_PATH =
+  "M0.05,0.235 H0.50 C0.545,0.235 0.545,0.375 0.585,0.375 H0.955 C0.98,0.375 1,0.395 1,0.42 V0.955 C1,0.98 0.98,1 0.955,1 H0.045 C0.02,1 0,0.98 0,0.955 V0.26 C0,0.238 0.022,0.235 0.05,0.235 Z";
+
 /** Fanned white sheets peeking out of the folder, staggered to the right. */
 function Papers({ lifted }: { lifted: boolean }) {
   const sheets = [
-    { rot: 3.5, x: 30, y: 10, w: 46, o: 0.82 },
-    { rot: 2, x: 16, y: 5, w: 50, o: 0.9 },
-    { rot: -1.5, x: 0, y: 0, w: 54, o: 1 },
+    { rot: 13, x: 60, y: 12, w: 30, o: 1, z: 12 },
+    { rot: 7, x: 40, y: 5, w: 32, o: 1, z: 11 },
+    { rot: -3, x: 12, y: 0, w: 34, o: 1, z: 10 },
   ];
   return (
     <>
       {sheets.map((s, i) => (
         <div
           key={i}
-          className="absolute left-[12%] rounded-2xl"
+          className="absolute rounded-[1.1rem]"
           style={{
             width: `${s.w}%`,
-            top: `${(lifted ? -1 : 4) + s.y * 0.5}%`,
-            height: "62%",
-            background:
-              "linear-gradient(180deg, #ffffff 0%, #f6f4f2 100%)",
+            left: `${s.x}%`,
+            top: `${(lifted ? -2 : 3) + s.y * 0.4}%`,
+            height: "42%",
+            background: "linear-gradient(180deg, #ffffff 0%, #f2f2f3 100%)",
             opacity: s.o,
-            boxShadow: "0 18px 34px -22px rgba(0,0,0,0.7)",
-            transform: `translateX(${s.x}%) rotate(${s.rot}deg)`,
+            boxShadow: "0 14px 26px -18px rgba(0,0,0,0.55)",
+            transform: `rotate(${s.rot}deg)`,
             transformOrigin: "bottom center",
             transition: "top 600ms cubic-bezier(0.22,1,0.36,1)",
-            zIndex: 10 + i,
+            zIndex: s.z,
           }}
         >
-          <div className="flex h-full flex-col gap-[6px] p-5 pt-6">
-            {[62, 40, 78, 34].map((w, k) => (
+          <div className="flex h-full flex-col gap-[9%] p-[12%] pt-[16%]">
+            {[70, 46, 58, 34].map((w, k) => (
               <div
                 key={k}
-                className="h-[7px] rounded-full bg-[#000]/10"
+                className="h-[6px] rounded-full bg-black/[0.09]"
                 style={{ width: `${w}%` }}
               />
             ))}
@@ -76,77 +79,99 @@ function Papers({ lifted }: { lifted: boolean }) {
   );
 }
 
-/** Warm translucent folder: dark shell + fanned papers + frosted front pocket. */
+/** Translucent frosted folder: dark shell + fanned papers + glass front pocket. */
 function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
   return (
     <div className="relative h-full w-full">
+      {/* svg clip for the notched pocket shape */}
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <clipPath id="folder-pocket-clip" clipPathUnits="objectBoundingBox">
+            <path d={POCKET_PATH} />
+          </clipPath>
+        </defs>
+      </svg>
+
       {/* dark back shell */}
       <div
-        className="absolute inset-x-0 bottom-0 top-[2%] rounded-[2rem]"
+        className="absolute inset-x-[4%] bottom-[3%] top-[1%] rounded-[1.6rem]"
         style={{
           background:
-            "linear-gradient(155deg, #43342c 0%, #2b211c 45%, #1b1512 100%)",
+            "linear-gradient(160deg, #3a3835 0%, #2a2725 45%, #1b1917 100%)",
           boxShadow:
-            "0 40px 70px -34px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.10)",
+            "0 40px 70px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.10)",
         }}
       />
 
       <Papers lifted={!!lifted} />
 
       {/* frosted front pocket */}
-      <div
-        className="absolute inset-x-0 bottom-[2%] z-20 flex flex-col justify-between overflow-hidden rounded-[1.8rem] border border-white/25 p-6"
-        style={{
-          height: "72%",
-          background:
-            "linear-gradient(160deg, rgba(255,255,255,0.30) 0%, rgba(233,169,130,0.14) 45%, rgba(45,32,26,0.42) 100%)",
-          backdropFilter: "blur(18px) saturate(150%)",
-          boxShadow:
-            "0 26px 50px -26px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.55)",
-        }}
-      >
-        <div className="flex items-start justify-between">
-          <span className="text-[10px] uppercase tracking-[0.34em] text-[color:var(--cream)]/85">
-            THE ROOM
-          </span>
-        </div>
+      <div className="absolute inset-x-0 bottom-0 top-0 z-20">
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: "url(#folder-pocket-clip)",
+            WebkitClipPath: "url(#folder-pocket-clip)",
+            background:
+              "linear-gradient(155deg, rgba(255,255,255,0.34) 0%, rgba(226,214,205,0.20) 40%, rgba(60,52,47,0.42) 100%)",
+            backdropFilter: "blur(22px) saturate(150%)",
+            boxShadow: "0 26px 50px -26px rgba(0,0,0,0.6)",
+          }}
+        />
+        {/* stroked outline for the glass edge */}
+        <svg
+          viewBox="0 0 1 1"
+          preserveAspectRatio="none"
+          className="absolute inset-0 h-full w-full"
+        >
+          <path
+            d={POCKET_PATH}
+            fill="none"
+            stroke="rgba(255,255,255,0.45)"
+            strokeWidth="0.004"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
 
-        <div className="flex items-center justify-end text-[10px] tracking-[0.24em] text-[color:var(--cream)]/70">
-          NO. {no(member.memberNo)}
-        </div>
+        {/* pocket content */}
+        <div className="absolute inset-x-0 bottom-0 top-[24%] flex flex-col justify-between px-[9%] pb-[7%] pt-[6%]">
+          <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.34em] text-[color:var(--cream,#f2ece6)]/85">
+            <span>THE ROOM</span>
+            <span className="tracking-[0.22em]">NO. {no(member.memberNo)}</span>
+          </div>
 
-        <div className="flex items-center gap-4">
-          {member.avatarUrl ? (
-            <img
-              src={member.avatarUrl}
-              alt={member.name}
-              className="h-14 w-14 shrink-0 rounded-full object-cover ring-1 ring-white/40"
-            />
-          ) : (
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/25 text-base font-semibold text-[color:var(--cream)]">
-              {member.initials}
-            </div>
-          )}
-          <div className="min-w-0">
-            <div className="truncate text-xl font-semibold tracking-tight text-[color:var(--cream)]">
-              {member.name}
-            </div>
-            <div className="truncate text-[13px] text-[color:var(--cream)]/70">
-              {member.role}
+          <div className="flex items-center gap-4">
+            {member.avatarUrl ? (
+              <img
+                src={member.avatarUrl}
+                alt={member.name}
+                className="h-[4.2rem] w-[4.2rem] shrink-0 rounded-full object-cover ring-1 ring-white/40"
+              />
+            ) : (
+              <div className="flex h-[4.2rem] w-[4.2rem] shrink-0 items-center justify-center rounded-full bg-white/25 text-lg font-semibold text-[color:var(--cream,#f2ece6)]">
+                {member.initials}
+              </div>
+            )}
+            <div className="min-w-0">
+              <div className="truncate text-2xl font-bold tracking-tight text-white">
+                {member.name}
+              </div>
+              <div className="truncate text-[15px] text-white/70">
+                {member.role}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex items-end justify-between text-[12px] text-[color:var(--cream)]/65">
-          <span className="truncate">{member.city}</span>
-          <span className="shrink-0 text-[11px] uppercase tracking-[0.2em] opacity-80">
-            Open file →
-          </span>
+          <div className="flex items-end justify-between text-[14px] text-white/80">
+            <span className="truncate">{member.city}</span>
+            <span className="shrink-0">Open file →</span>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
 
 /** The white member document, pulled out of the folder and centered. */
 function DocumentSheet({ member, shown }: { member: Member; shown: boolean }) {
