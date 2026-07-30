@@ -106,7 +106,7 @@ export function SiteNav() {
         {mobileLinks.map((l) => (
           <Link
             key={l.to}
-            to={l.to}
+            to={l.to as never}
             className="shrink-0 whitespace-nowrap rounded-full border border-border/70 px-3 py-1.5 text-xs text-cream/80 transition-colors"
             activeProps={{
               className:
