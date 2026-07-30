@@ -34,79 +34,96 @@ function CloseIcon({ className }: { className?: string }) {
 
 const no = (n?: number | null) => (n ? String(n).padStart(4, "0") : "----");
 
-/** The paper "file" that sits inside the folder pocket. */
-function FileSheet({
-  member,
-  pulled,
-  detailed,
-}: {
-  member: Member;
-  pulled: boolean;
-  detailed: boolean;
-}) {
+/** Dark folder shell: tab + body, sitting behind the papers. */
+function FolderBack() {
   return (
-    <div
-      className="absolute inset-x-[6%] top-0 rounded-xl border border-white/15 bg-[color:var(--cocoa)]/80 p-5 text-[color:var(--cream)] shadow-[0_24px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl"
-      style={{
-        height: detailed ? "88%" : "78%",
-        transform: pulled ? "translateY(-46%)" : "translateY(-12%)",
-        transition: "transform 700ms cubic-bezier(0.22, 1, 0.36, 1), height 700ms cubic-bezier(0.22, 1, 0.36, 1)",
-      }}
-    >
-      <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] opacity-60">
-        <span>Member file</span>
-        <span>NO. {no(member.memberNo)}</span>
-      </div>
-
-      {detailed ? (
-        <div className="mt-4 flex h-[calc(100%-2.5rem)] flex-col gap-3 overflow-y-auto pr-1">
-          <div>
-            <div className="text-2xl font-semibold tracking-tight">{member.name}</div>
-            <div className="text-sm opacity-70">{member.role}</div>
-            {member.city ? <div className="text-sm opacity-60">{member.city}</div> : null}
-          </div>
-          {member.bio ? (
-            <div>
-              <div className="text-[10px] uppercase tracking-[0.2em] opacity-60">About</div>
-              <p className="mt-1 text-sm leading-relaxed opacity-95">{member.bio}</p>
-            </div>
-          ) : null}
-          {member.tags.length ? (
-            <div className="flex flex-wrap gap-1.5">
-              {member.tags.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full border border-white/20 bg-white/5 px-2.5 py-0.5 text-[11px] backdrop-blur-md"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          ) : null}
-          {member.website ? (
-            <a
-              href={normalizeUrl(member.website)}
-              target="_blank"
-              rel="noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="mt-auto inline-flex items-center justify-between rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm font-medium backdrop-blur-md transition-colors hover:bg-white/20"
-            >
-              Visit {hostnameOf(member.website)}
-              <span>→</span>
-            </a>
-          ) : null}
-        </div>
-      ) : (
-        <div className="mt-3">
-          <div className="text-base font-semibold tracking-tight">{member.name}</div>
-          <div className="text-xs opacity-70">{member.role}</div>
-        </div>
-      )}
+    <div className="absolute inset-x-0 bottom-0 top-[10%]">
+      {/* tab */}
+      <div
+        className="absolute -top-[7%] left-0 h-[16%] w-[46%] rounded-t-2xl"
+        style={{
+          background: "linear-gradient(150deg, #3b2b23 0%, #241b17 100%)",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12)",
+        }}
+      />
+      <div
+        className="absolute inset-0 rounded-2xl"
+        style={{
+          background:
+            "linear-gradient(155deg, #43302a 0%, #2a1f1a 45%, #161316 100%)",
+          boxShadow:
+            "0 30px 70px -30px rgba(0,0,0,0.95), inset 0 1px 0 rgba(255,255,255,0.10), inset 0 0 0 1px rgba(255,255,255,0.05)",
+        }}
+      />
     </div>
   );
 }
 
-/** Frosted glass folder pocket that covers the lower part of the file. */
+/** Fanned paper sheets peeking above the pocket. */
+function Papers({ member, lifted }: { member: Member; lifted: boolean }) {
+  const sheets = [
+    { rot: -7, x: -14, delay: 0 },
+    { rot: 5, x: 16, delay: 0 },
+    { rot: -1, x: 1, delay: 0 },
+  ];
+  return (
+    <>
+      {sheets.map((s, i) => {
+        const front = i === sheets.length - 1;
+        return (
+          <div
+            key={i}
+            className="absolute left-[10%] right-[10%] rounded-lg border border-black/5"
+            style={{
+              top: lifted ? "2%" : "12%",
+              height: "62%",
+              background:
+                "linear-gradient(170deg, #ffffff 0%, #f4f0ea 55%, #e6ded4 100%)",
+              boxShadow: "0 14px 30px -18px rgba(0,0,0,0.7)",
+              transform: `translateX(${s.x}px) rotate(${s.rot}deg)`,
+              transition: "top 650ms cubic-bezier(0.22,1,0.36,1)",
+              zIndex: 10 + i,
+            }}
+          >
+            {front ? (
+              <div className="flex h-full flex-col gap-2 p-4 text-[color:var(--ink,#1a1512)]">
+                <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.22em] text-black/40">
+                  <span>Member file</span>
+                  <span>NO. {no(member.memberNo)}</span>
+                </div>
+                <div className="mt-1 text-lg font-semibold leading-tight tracking-tight text-black">
+                  {member.name}
+                </div>
+                <div className="text-[11px] text-black/55">{member.role}</div>
+                <div className="mt-1 space-y-1.5">
+                  {[88, 72, 94, 64].map((w, k) => (
+                    <div
+                      key={k}
+                      className="h-[3px] rounded-full bg-black/10"
+                      style={{ width: `${w}%` }}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="flex h-full flex-col gap-2 p-4">
+                {[70, 90, 55, 80, 40].map((w, k) => (
+                  <div
+                    key={k}
+                    className="h-[3px] rounded-full bg-black/10"
+                    style={{ width: `${w}%` }}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+/** Frosted glass front pocket. */
 function FolderPocket({
   member,
   expanded,
@@ -116,18 +133,21 @@ function FolderPocket({
 }) {
   return (
     <div
-      className={`absolute inset-x-0 bottom-0 flex flex-col justify-between rounded-2xl border border-white/25 bg-white/10 shadow-[0_20px_50px_-25px_rgba(0,0,0,0.8)] backdrop-blur-2xl ${
-        expanded ? "p-7" : "p-5"
+      className={`absolute inset-x-0 bottom-0 z-20 flex flex-col justify-between overflow-hidden rounded-2xl border border-white/25 ${
+        expanded ? "p-6" : "p-4"
       }`}
       style={{
-        height: "68%",
-        backgroundImage:
-          "linear-gradient(160deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.14) 100%)",
+        height: "58%",
+        background:
+          "linear-gradient(165deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.10) 40%, rgba(60,42,34,0.35) 100%)",
+        backdropFilter: "blur(18px) saturate(140%)",
+        boxShadow:
+          "0 24px 50px -25px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.45)",
       }}
     >
       <div
-        className={`flex items-center justify-between text-[color:var(--cream)]/70 ${
-          expanded ? "text-xs" : "text-[11px]"
+        className={`flex items-center justify-between uppercase tracking-[0.2em] text-[color:var(--cream)]/75 ${
+          expanded ? "text-[11px]" : "text-[9px]"
         }`}
       >
         <span>THE ROOM</span>
@@ -139,14 +159,14 @@ function FolderPocket({
           <img
             src={member.avatarUrl}
             alt={member.name}
-            className={`shrink-0 rounded-full object-cover ring-1 ring-white/30 ${
-              expanded ? "h-16 w-16" : "h-12 w-12"
+            className={`shrink-0 rounded-full object-cover ring-1 ring-white/40 ${
+              expanded ? "h-16 w-16" : "h-11 w-11"
             }`}
           />
         ) : (
           <div
-            className={`flex shrink-0 items-center justify-center rounded-full bg-white/20 font-semibold text-[color:var(--cream)] backdrop-blur-md ${
-              expanded ? "h-16 w-16 text-xl" : "h-12 w-12 text-base"
+            className={`flex shrink-0 items-center justify-center rounded-full bg-white/25 font-semibold text-[color:var(--cream)] ${
+              expanded ? "h-16 w-16 text-xl" : "h-11 w-11 text-sm"
             }`}
           >
             {member.initials}
@@ -155,12 +175,16 @@ function FolderPocket({
         <div className="min-w-0">
           <div
             className={`truncate font-semibold tracking-tight text-[color:var(--cream)] ${
-              expanded ? "text-2xl" : "text-lg"
+              expanded ? "text-2xl" : "text-base"
             }`}
           >
             {member.name}
           </div>
-          <div className={`truncate text-[color:var(--cream)]/70 ${expanded ? "text-sm" : "text-xs"}`}>
+          <div
+            className={`truncate text-[color:var(--cream)]/70 ${
+              expanded ? "text-sm" : "text-[11px]"
+            }`}
+          >
             {member.role}
           </div>
         </div>
@@ -168,11 +192,70 @@ function FolderPocket({
 
       <div
         className={`flex items-center justify-between text-[color:var(--cream)]/60 ${
-          expanded ? "text-xs" : "text-[11px]"
+          expanded ? "text-xs" : "text-[10px]"
         }`}
       >
         <span className="truncate">{member.city}</span>
         <span className="shrink-0">{expanded ? "Pull the file ↑" : "Open folder →"}</span>
+      </div>
+    </div>
+  );
+}
+
+/** The detail sheet that slides fully out of the folder when opened. */
+function DetailSheet({ member, pulled }: { member: Member; pulled: boolean }) {
+  return (
+    <div
+      className="absolute inset-x-[7%] top-0 z-30 overflow-hidden rounded-xl border border-black/5"
+      style={{
+        height: "82%",
+        background:
+          "linear-gradient(170deg, #ffffff 0%, #f6f2ec 55%, #eae2d8 100%)",
+        boxShadow: "0 30px 60px -25px rgba(0,0,0,0.8)",
+        transform: pulled ? "translateY(-40%)" : "translateY(6%)",
+        transition: "transform 750ms cubic-bezier(0.22,1,0.36,1)",
+      }}
+    >
+      <div className="flex h-full flex-col gap-3 overflow-y-auto p-6 text-black">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-black/40">
+          <span>Member file</span>
+          <span>NO. {no(member.memberNo)}</span>
+        </div>
+        <div>
+          <div className="text-2xl font-semibold tracking-tight">{member.name}</div>
+          <div className="text-sm text-black/60">{member.role}</div>
+          {member.city ? <div className="text-sm text-black/45">{member.city}</div> : null}
+        </div>
+        {member.bio ? (
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.2em] text-black/40">About</div>
+            <p className="mt-1 text-sm leading-relaxed text-black/80">{member.bio}</p>
+          </div>
+        ) : null}
+        {member.tags.length ? (
+          <div className="flex flex-wrap gap-1.5">
+            {member.tags.map((t) => (
+              <span
+                key={t}
+                className="rounded-full border border-black/10 bg-black/[0.04] px-2.5 py-0.5 text-[11px] text-black/70"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        ) : null}
+        {member.website ? (
+          <a
+            href={normalizeUrl(member.website)}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="mt-auto inline-flex items-center justify-between rounded-lg bg-black px-4 py-3 text-sm font-medium text-white transition-opacity hover:opacity-85"
+          >
+            Visit {hostnameOf(member.website)}
+            <span>→</span>
+          </a>
+        ) : null}
       </div>
     </div>
   );
@@ -193,7 +276,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const raf = requestAnimationFrame(() => setEntered(true));
-    const t = setTimeout(() => setPulled(true), 320);
+    const t = setTimeout(() => setPulled(true), 340);
     return () => {
       cancelAnimationFrame(raf);
       clearTimeout(t);
@@ -244,7 +327,8 @@ export function MemberFlipCard({ member }: { member: Member }) {
           className="relative h-full w-full text-left"
           aria-label={`Open folder for ${member.name}`}
         >
-          <FileSheet member={member} pulled={hover} detailed={false} />
+          <FolderBack />
+          <Papers member={member} lifted={hover} />
           <FolderPocket member={member} expanded={false} />
         </button>
       </div>
@@ -286,7 +370,12 @@ export function MemberFlipCard({ member }: { member: Member }) {
                 className="relative h-full w-full cursor-pointer"
                 onClick={() => setPulled((p) => !p)}
               >
-                <FileSheet member={member} pulled={pulled} detailed={entered} />
+                <FolderBack />
+                {entered ? (
+                  <DetailSheet member={member} pulled={pulled} />
+                ) : (
+                  <Papers member={member} lifted />
+                )}
                 <FolderPocket member={member} expanded={entered} />
               </div>
             </div>
