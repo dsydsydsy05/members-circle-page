@@ -28,7 +28,7 @@ function MembersPage() {
         <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Community</div>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">Members</h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          A small, curated group. Every member has a card — tap to flip and see what they do, then visit their site.
+          A small, curated group. Every member has a folder — open the file to read their story, then visit their site.
         </p>
         {loading ? (
           <p className="mt-10 text-sm text-muted-foreground">Loading members…</p>
