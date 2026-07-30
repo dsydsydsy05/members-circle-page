@@ -333,6 +333,7 @@ function BusinessesSection() {
     toast.success("Deleted");
     qc.invalidateQueries({ queryKey: ["admin-businesses"] });
     qc.invalidateQueries({ queryKey: ["family-businesses"] });
+    qc.invalidateQueries({ queryKey: ["family-business-count"] });
   };
 
   return (
