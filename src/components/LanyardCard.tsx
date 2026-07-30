@@ -80,18 +80,14 @@ export function LanyardCard({
             >
               {/* Vertical brand logo */}
               <div
-                className="absolute bottom-4 left-3 top-4 flex items-center justify-center"
-                style={{
-                  writingMode: "vertical-rl",
-                  textOrientation: "mixed",
-                }}
+                className="absolute bottom-2 left-1 top-2 flex items-center justify-center"
               >
                 <img
                   src={logo.url}
                   alt="The Room"
                   width={300}
                   height={40}
-                  className="w-20 h-auto invert opacity-95"
+                  className="h-32 w-auto invert opacity-100 drop-shadow-md"
                   style={{ transform: "rotate(90deg)" }}
                 />
               </div>
