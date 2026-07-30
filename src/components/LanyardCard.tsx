@@ -78,7 +78,7 @@ export function LanyardCard({
                   "inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 40px rgba(255,180,120,0.18)",
               }}
             >
-              {/* Vertical brand text */}
+              {/* Vertical brand logo */}
               <div
                 className="absolute bottom-4 left-3 top-4 flex items-center justify-center"
                 style={{
@@ -86,9 +86,14 @@ export function LanyardCard({
                   textOrientation: "mixed",
                 }}
               >
-                <span className="text-sm font-semibold tracking-[0.22em] text-white/95">
-                  the room
-                </span>
+                <img
+                  src={logo.url}
+                  alt="The Room"
+                  width={300}
+                  height={40}
+                  className="w-20 h-auto invert opacity-95"
+                  style={{ transform: "rotate(90deg)" }}
+                />
               </div>
 
               {/* Anisotropic metal sweep */}
