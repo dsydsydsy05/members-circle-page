@@ -63,9 +63,6 @@ export function LanyardCard({
               mixBlendMode: "soft-light",
             }}
           />
-
-
-
           <div className="flex h-full flex-col gap-2.5 p-3.5 pt-10 text-black">
             {/* Top gradient block */}
             <div
