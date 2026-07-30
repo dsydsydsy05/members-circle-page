@@ -34,36 +34,38 @@ function CloseIcon({ className }: { className?: string }) {
 
 const no = (n?: number | null) => (n ? String(n).padStart(4, "0") : "----");
 
-/** Fanned paper sheets peeking above the pocket, like the macOS folder icon. */
+/** Fanned white sheets peeking out of the folder, staggered to the right. */
 function Papers({ lifted }: { lifted: boolean }) {
   const sheets = [
-    { rot: 8, x: 26, y: 6, w: 62 },
-    { rot: 4, x: 14, y: 2, w: 66 },
-    { rot: -2, x: -2, y: 0, w: 70 },
+    { rot: 3.5, x: 30, y: 10, w: 46, o: 0.82 },
+    { rot: 2, x: 16, y: 5, w: 50, o: 0.9 },
+    { rot: -1.5, x: 0, y: 0, w: 54, o: 1 },
   ];
   return (
     <>
       {sheets.map((s, i) => (
         <div
           key={i}
-          className="absolute left-[8%] rounded-xl border border-white/50"
+          className="absolute left-[12%] rounded-2xl"
           style={{
             width: `${s.w}%`,
-            top: `${(lifted ? 2 : 9) + s.y}%`,
-            height: "58%",
+            top: `${(lifted ? -1 : 4) + s.y * 0.5}%`,
+            height: "62%",
             background:
-              "linear-gradient(165deg, rgba(255,255,255,0.94) 0%, rgba(244,238,231,0.9) 60%, rgba(228,216,206,0.88) 100%)",
-            boxShadow: "0 16px 30px -20px rgba(0,0,0,0.65)",
-            transform: `translateX(${s.x}px) rotate(${s.rot}deg)`,
+              "linear-gradient(180deg, #ffffff 0%, #f6f4f2 100%)",
+            opacity: s.o,
+            boxShadow: "0 18px 34px -22px rgba(0,0,0,0.7)",
+            transform: `translateX(${s.x}%) rotate(${s.rot}deg)`,
+            transformOrigin: "bottom center",
             transition: "top 600ms cubic-bezier(0.22,1,0.36,1)",
             zIndex: 10 + i,
           }}
         >
-          <div className="flex h-full flex-col gap-2 p-4">
-            {[70, 88, 52, 78].map((w, k) => (
+          <div className="flex h-full flex-col gap-[6px] p-5 pt-6">
+            {[62, 40, 78, 34].map((w, k) => (
               <div
                 key={k}
-                className="h-[4px] rounded-full bg-[color:var(--cocoa)]/15"
+                className="h-[7px] rounded-full bg-[#000]/10"
                 style={{ width: `${w}%` }}
               />
             ))}
@@ -74,108 +76,98 @@ function Papers({ lifted }: { lifted: boolean }) {
   );
 }
 
-/** Warm translucent folder: back shell + fanned papers + frosted front pocket. */
-function Folder({
-  member,
-  lifted,
-  className = "",
-}: {
-  member: Member;
-  lifted?: boolean;
-  className?: string;
-}) {
+/** Warm translucent folder: dark shell + fanned papers + frosted front pocket. */
+function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
   return (
-    <div className={`relative h-full w-full ${className}`}>
-      {/* back shell (with tab) */}
-      <div className="absolute inset-x-0 bottom-0 top-[8%]">
-        <div
-          className="absolute -top-[6%] left-[3%] h-[14%] w-[42%] rounded-t-[1.1rem]"
-          style={{
-            background: "linear-gradient(160deg, #5a4034 0%, #3a2a22 100%)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.16)",
-          }}
-        />
-        <div
-          className="absolute inset-0 rounded-[1.5rem]"
-          style={{
-            background:
-              "linear-gradient(160deg, #5c4034 0%, #3d2c24 46%, #2a1f1a 100%)",
-            boxShadow:
-              "0 34px 70px -30px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 0 1px rgba(255,255,255,0.06)",
-          }}
-        />
-      </div>
+    <div className="relative h-full w-full">
+      {/* dark back shell */}
+      <div
+        className="absolute inset-x-0 bottom-0 top-[2%] rounded-[2rem]"
+        style={{
+          background:
+            "linear-gradient(155deg, #43342c 0%, #2b211c 45%, #1b1512 100%)",
+          boxShadow:
+            "0 40px 70px -34px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.10)",
+        }}
+      />
 
       <Papers lifted={!!lifted} />
 
       {/* frosted front pocket */}
       <div
-        className="absolute inset-x-0 bottom-0 z-20 flex flex-col justify-between overflow-hidden rounded-[1.5rem] border border-white/25 p-5"
+        className="absolute inset-x-0 bottom-[2%] z-20 flex flex-col justify-between overflow-hidden rounded-[1.8rem] border border-white/25 p-6"
         style={{
-          height: "60%",
+          height: "72%",
           background:
-            "linear-gradient(165deg, rgba(255,255,255,0.34) 0%, rgba(233,169,130,0.16) 42%, rgba(69,48,39,0.32) 100%)",
-          backdropFilter: "blur(16px) saturate(150%)",
+            "linear-gradient(160deg, rgba(255,255,255,0.30) 0%, rgba(233,169,130,0.14) 45%, rgba(45,32,26,0.42) 100%)",
+          backdropFilter: "blur(18px) saturate(150%)",
           boxShadow:
-            "0 26px 50px -26px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.5)",
+            "0 26px 50px -26px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.55)",
         }}
       >
-        <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.24em] text-[color:var(--cream)]/75">
-          <span>THE ROOM</span>
-          <span>NO. {no(member.memberNo)}</span>
+        <div className="flex items-start justify-between">
+          <span className="text-[10px] uppercase tracking-[0.34em] text-[color:var(--cream)]/85">
+            THE ROOM
+          </span>
         </div>
 
-        <div className="flex items-end gap-3">
+        <div className="flex items-center justify-end text-[10px] tracking-[0.24em] text-[color:var(--cream)]/70">
+          NO. {no(member.memberNo)}
+        </div>
+
+        <div className="flex items-center gap-4">
           {member.avatarUrl ? (
             <img
               src={member.avatarUrl}
               alt={member.name}
-              className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-white/50"
+              className="h-14 w-14 shrink-0 rounded-full object-cover ring-1 ring-white/40"
             />
           ) : (
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/25 text-sm font-semibold text-[color:var(--cream)]">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/25 text-base font-semibold text-[color:var(--cream)]">
               {member.initials}
             </div>
           )}
           <div className="min-w-0">
-            <div className="truncate text-base font-semibold tracking-tight text-[color:var(--cream)]">
+            <div className="truncate text-xl font-semibold tracking-tight text-[color:var(--cream)]">
               {member.name}
             </div>
-            <div className="truncate text-[11px] text-[color:var(--cream)]/70">
+            <div className="truncate text-[13px] text-[color:var(--cream)]/70">
               {member.role}
             </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-[10px] text-[color:var(--cream)]/60">
+        <div className="flex items-end justify-between text-[12px] text-[color:var(--cream)]/65">
           <span className="truncate">{member.city}</span>
-          <span className="shrink-0">Open file →</span>
+          <span className="shrink-0 text-[11px] uppercase tracking-[0.2em] opacity-80">
+            Open file →
+          </span>
         </div>
       </div>
     </div>
   );
 }
 
-/** The member detail sheet, shown centered over a blurred backdrop. */
-function DetailSheet({ member, shown }: { member: Member; shown: boolean }) {
+/** The white member document, pulled out of the folder and centered. */
+function DocumentSheet({ member, shown }: { member: Member; shown: boolean }) {
   return (
     <div
-      className="w-full overflow-hidden rounded-2xl border border-white/25"
+      className="w-full overflow-hidden rounded-2xl"
       style={{
-        background:
-          "linear-gradient(165deg, rgba(255,255,255,0.20) 0%, rgba(233,169,130,0.12) 45%, rgba(40,30,25,0.45) 100%)",
-        backdropFilter: "blur(26px) saturate(160%)",
+        background: "linear-gradient(180deg, #ffffff 0%, #f5f2ef 100%)",
         boxShadow:
-          "0 40px 90px -40px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.4)",
-        transform: shown ? "translateY(0) scale(1)" : "translateY(18px) scale(0.96)",
+          "0 50px 110px -40px rgba(0,0,0,0.85), 0 2px 0 rgba(255,255,255,0.6) inset",
+        transform: shown
+          ? "translateY(0) scale(1) rotate(0deg)"
+          : "translateY(90px) scale(0.9) rotate(-2deg)",
         opacity: shown ? 1 : 0,
         transition:
-          "transform 520ms cubic-bezier(0.22,1,0.36,1), opacity 420ms ease",
+          "transform 620ms cubic-bezier(0.22,1,0.36,1), opacity 380ms ease",
       }}
     >
-      <div className="flex max-h-[80vh] flex-col gap-4 overflow-y-auto p-7 text-[color:var(--cream)]">
-        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.24em] text-[color:var(--cream)]/60">
-          <span>Member file</span>
+      <div className="flex max-h-[82vh] flex-col gap-5 overflow-y-auto p-8 text-[#221a15]">
+        <div className="flex items-center justify-between border-b border-black/10 pb-4 text-[10px] uppercase tracking-[0.3em] text-black/45">
+          <span>THE ROOM</span>
           <span>NO. {no(member.memberNo)}</span>
         </div>
 
@@ -184,10 +176,10 @@ function DetailSheet({ member, shown }: { member: Member; shown: boolean }) {
             <img
               src={member.avatarUrl}
               alt={member.name}
-              className="h-16 w-16 shrink-0 rounded-full object-cover ring-1 ring-white/40"
+              className="h-16 w-16 shrink-0 rounded-full object-cover ring-1 ring-black/10"
             />
           ) : (
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white/20 text-xl font-semibold">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-black/8 text-xl font-semibold">
               {member.initials}
             </div>
           )}
@@ -195,23 +187,19 @@ function DetailSheet({ member, shown }: { member: Member; shown: boolean }) {
             <div className="truncate text-2xl font-semibold tracking-tight">
               {member.name}
             </div>
-            <div className="truncate text-sm text-[color:var(--cream)]/70">
-              {member.role}
-            </div>
+            <div className="truncate text-sm text-black/60">{member.role}</div>
             {member.city ? (
-              <div className="truncate text-sm text-[color:var(--cream)]/50">
-                {member.city}
-              </div>
+              <div className="truncate text-sm text-black/40">{member.city}</div>
             ) : null}
           </div>
         </div>
 
         {member.bio ? (
           <div>
-            <div className="text-[10px] uppercase tracking-[0.22em] text-[color:var(--cream)]/50">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-black/40">
               About
             </div>
-            <p className="mt-1 text-sm leading-relaxed text-[color:var(--cream)]/85">
+            <p className="mt-1 text-sm leading-relaxed text-black/75">
               {member.bio}
             </p>
           </div>
@@ -222,7 +210,7 @@ function DetailSheet({ member, shown }: { member: Member; shown: boolean }) {
             {member.tags.map((t) => (
               <span
                 key={t}
-                className="rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-[11px] text-[color:var(--cream)]/80"
+                className="rounded-full border border-black/10 bg-black/[0.04] px-2.5 py-0.5 text-[11px] text-black/70"
               >
                 {t}
               </span>
@@ -236,7 +224,7 @@ function DetailSheet({ member, shown }: { member: Member; shown: boolean }) {
             target="_blank"
             rel="noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="mt-2 inline-flex items-center justify-between rounded-xl border border-white/25 bg-white/15 px-4 py-3 text-sm font-medium transition-colors hover:bg-white/25"
+            className="mt-1 inline-flex items-center justify-between rounded-xl border border-black/10 bg-black/[0.04] px-4 py-3 text-sm font-medium transition-colors hover:bg-black/[0.08]"
           >
             Visit {hostnameOf(member.website)}
             <span>→</span>
@@ -278,7 +266,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
 
   return (
     <>
-      <div className="h-80">
+      <div className="aspect-[4/3]">
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -295,7 +283,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
         createPortal(
           <div
             className={`fixed inset-0 z-50 flex items-center justify-center p-6 transition-all duration-500 ${
-              entered ? "bg-black/60 backdrop-blur-xl" : "bg-black/0"
+              entered ? "bg-black/55 backdrop-blur-2xl" : "bg-black/0"
             }`}
             onClick={close}
             role="dialog"
@@ -316,7 +304,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
               >
                 <CloseIcon className="h-6 w-6" />
               </button>
-              <DetailSheet member={member} shown={entered} />
+              <DocumentSheet member={member} shown={entered} />
             </div>
           </div>,
           document.body
