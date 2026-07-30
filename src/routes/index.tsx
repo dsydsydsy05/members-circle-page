@@ -169,7 +169,7 @@ function HomeHero({
 
   return (
     <section ref={sectionRef} className="relative min-h-[122svh] overflow-visible" style={heroStyle}>
-      <div className="sticky top-0 flex h-[68svh] min-h-[440px] flex-col items-center px-4 pt-16 sm:min-h-[500px] sm:px-6 sm:pt-20 sm:h-[70svh]">
+      <div className="sticky top-0 flex h-[78svh] min-h-[520px] flex-col items-center px-4 pt-28 sm:min-h-[600px] sm:px-6 sm:pt-36 sm:h-[80svh]">
         <div className="pointer-events-none absolute left-1/2 top-[43%] -translate-x-1/2 -translate-y-1/2 animate-glow-breathe">
           <div className="hero-glow-primary" />
         </div>

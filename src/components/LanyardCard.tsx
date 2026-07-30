@@ -17,7 +17,7 @@ export function LanyardCard({
 }) {
   return (
     <div className="perspective-1200 select-none">
-      <div className="preserve-3d animate-tag-spin relative h-[20rem] w-[15rem] sm:h-[24rem] sm:w-[17rem]">
+      <div className="preserve-3d animate-tag-spin relative h-[24rem] w-[18rem] sm:h-[29rem] sm:w-[20.5rem]">
         {/* Thickness layers — warm cream slab edge behind the front face */}
         {Array.from({ length: 7 }).map((_, i) => (
           <div
