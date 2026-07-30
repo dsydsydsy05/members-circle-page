@@ -353,14 +353,14 @@ export function MemberFlipCard({ member }: { member: Member }) {
 
   return (
     <>
-      <div className="aspect-[6/5]">
+      <div className="aspect-[1.22/1]">
         <button
           ref={cardRef}
           type="button"
           onClick={openFile}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          className="relative h-full w-full text-left transition-transform duration-500 hover:-translate-y-1"
+          className="group relative h-full w-full text-left transition-transform duration-500 hover:-translate-y-1"
           aria-label={`Open file for ${member.name}`}
         >
           <Folder member={member} lifted={hover} />
