@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import type { Member } from "@/lib/community-data";
 
@@ -34,223 +34,209 @@ function CloseIcon({ className }: { className?: string }) {
 
 const no = (n?: number | null) => (n ? String(n).padStart(4, "0") : "----");
 
-/** Dark folder shell: tab + body, sitting behind the papers. */
-function FolderBack() {
-  return (
-    <div className="absolute inset-x-0 bottom-0 top-[10%]">
-      {/* tab */}
-      <div
-        className="absolute -top-[7%] left-0 h-[16%] w-[46%] rounded-t-2xl"
-        style={{
-          background: "linear-gradient(150deg, #3b2b23 0%, #241b17 100%)",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12)",
-        }}
-      />
-      <div
-        className="absolute inset-0 rounded-2xl"
-        style={{
-          background:
-            "linear-gradient(155deg, #43302a 0%, #2a1f1a 45%, #161316 100%)",
-          boxShadow:
-            "0 30px 70px -30px rgba(0,0,0,0.95), inset 0 1px 0 rgba(255,255,255,0.10), inset 0 0 0 1px rgba(255,255,255,0.05)",
-        }}
-      />
-    </div>
-  );
-}
-
-/** Fanned paper sheets peeking above the pocket. */
-function Papers({ member, lifted }: { member: Member; lifted: boolean }) {
+/** Fanned paper sheets peeking above the pocket, like the macOS folder icon. */
+function Papers({ lifted }: { lifted: boolean }) {
   const sheets = [
-    { rot: -7, x: -14, delay: 0 },
-    { rot: 5, x: 16, delay: 0 },
-    { rot: -1, x: 1, delay: 0 },
+    { rot: 8, x: 26, y: 6, w: 62 },
+    { rot: 4, x: 14, y: 2, w: 66 },
+    { rot: -2, x: -2, y: 0, w: 70 },
   ];
   return (
     <>
-      {sheets.map((s, i) => {
-        const front = i === sheets.length - 1;
-        return (
-          <div
-            key={i}
-            className="absolute left-[10%] right-[10%] rounded-lg border border-black/5"
-            style={{
-              top: lifted ? "2%" : "12%",
-              height: "62%",
-              background:
-                "linear-gradient(170deg, #ffffff 0%, #f4f0ea 55%, #e6ded4 100%)",
-              boxShadow: "0 14px 30px -18px rgba(0,0,0,0.7)",
-              transform: `translateX(${s.x}px) rotate(${s.rot}deg)`,
-              transition: "top 650ms cubic-bezier(0.22,1,0.36,1)",
-              zIndex: 10 + i,
-            }}
-          >
-            {front ? (
-              <div className="flex h-full flex-col gap-2 p-4 text-[color:var(--ink,#1a1512)]">
-                <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.22em] text-black/40">
-                  <span>Member file</span>
-                  <span>NO. {no(member.memberNo)}</span>
-                </div>
-                <div className="mt-1 text-lg font-semibold leading-tight tracking-tight text-black">
-                  {member.name}
-                </div>
-                <div className="text-[11px] text-black/55">{member.role}</div>
-                <div className="mt-1 space-y-1.5">
-                  {[88, 72, 94, 64].map((w, k) => (
-                    <div
-                      key={k}
-                      className="h-[3px] rounded-full bg-black/10"
-                      style={{ width: `${w}%` }}
-                    />
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="flex h-full flex-col gap-2 p-4">
-                {[70, 90, 55, 80, 40].map((w, k) => (
-                  <div
-                    key={k}
-                    className="h-[3px] rounded-full bg-black/10"
-                    style={{ width: `${w}%` }}
-                  />
-                ))}
-              </div>
-            )}
+      {sheets.map((s, i) => (
+        <div
+          key={i}
+          className="absolute left-[8%] rounded-xl border border-white/50"
+          style={{
+            width: `${s.w}%`,
+            top: `${(lifted ? 2 : 9) + s.y}%`,
+            height: "58%",
+            background:
+              "linear-gradient(165deg, rgba(255,255,255,0.94) 0%, rgba(244,238,231,0.9) 60%, rgba(228,216,206,0.88) 100%)",
+            boxShadow: "0 16px 30px -20px rgba(0,0,0,0.65)",
+            transform: `translateX(${s.x}px) rotate(${s.rot}deg)`,
+            transition: "top 600ms cubic-bezier(0.22,1,0.36,1)",
+            zIndex: 10 + i,
+          }}
+        >
+          <div className="flex h-full flex-col gap-2 p-4">
+            {[70, 88, 52, 78].map((w, k) => (
+              <div
+                key={k}
+                className="h-[4px] rounded-full bg-[color:var(--cocoa)]/15"
+                style={{ width: `${w}%` }}
+              />
+            ))}
           </div>
-        );
-      })}
+        </div>
+      ))}
     </>
   );
 }
 
-/** Frosted glass front pocket. */
-function FolderPocket({
+/** Warm translucent folder: back shell + fanned papers + frosted front pocket. */
+function Folder({
   member,
-  expanded,
+  lifted,
+  className = "",
 }: {
   member: Member;
-  expanded: boolean;
+  lifted?: boolean;
+  className?: string;
 }) {
   return (
-    <div
-      className={`absolute inset-x-0 bottom-0 z-20 flex flex-col justify-between overflow-hidden rounded-2xl border border-white/25 ${
-        expanded ? "p-6" : "p-4"
-      }`}
-      style={{
-        height: "58%",
-        background:
-          "linear-gradient(165deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.10) 40%, rgba(60,42,34,0.35) 100%)",
-        backdropFilter: "blur(18px) saturate(140%)",
-        boxShadow:
-          "0 24px 50px -25px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.45)",
-      }}
-    >
-      <div
-        className={`flex items-center justify-between uppercase tracking-[0.2em] text-[color:var(--cream)]/75 ${
-          expanded ? "text-[11px]" : "text-[9px]"
-        }`}
-      >
-        <span>THE ROOM</span>
-        <span>NO. {no(member.memberNo)}</span>
+    <div className={`relative h-full w-full ${className}`}>
+      {/* back shell (with tab) */}
+      <div className="absolute inset-x-0 bottom-0 top-[8%]">
+        <div
+          className="absolute -top-[6%] left-[3%] h-[14%] w-[42%] rounded-t-[1.1rem]"
+          style={{
+            background: "linear-gradient(160deg, #5a4034 0%, #3a2a22 100%)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.16)",
+          }}
+        />
+        <div
+          className="absolute inset-0 rounded-[1.5rem]"
+          style={{
+            background:
+              "linear-gradient(160deg, #5c4034 0%, #3d2c24 46%, #2a1f1a 100%)",
+            boxShadow:
+              "0 34px 70px -30px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 0 1px rgba(255,255,255,0.06)",
+          }}
+        />
       </div>
 
-      <div className="flex items-end gap-3">
-        {member.avatarUrl ? (
-          <img
-            src={member.avatarUrl}
-            alt={member.name}
-            className={`shrink-0 rounded-full object-cover ring-1 ring-white/40 ${
-              expanded ? "h-16 w-16" : "h-11 w-11"
-            }`}
-          />
-        ) : (
-          <div
-            className={`flex shrink-0 items-center justify-center rounded-full bg-white/25 font-semibold text-[color:var(--cream)] ${
-              expanded ? "h-16 w-16 text-xl" : "h-11 w-11 text-sm"
-            }`}
-          >
-            {member.initials}
-          </div>
-        )}
-        <div className="min-w-0">
-          <div
-            className={`truncate font-semibold tracking-tight text-[color:var(--cream)] ${
-              expanded ? "text-2xl" : "text-base"
-            }`}
-          >
-            {member.name}
-          </div>
-          <div
-            className={`truncate text-[color:var(--cream)]/70 ${
-              expanded ? "text-sm" : "text-[11px]"
-            }`}
-          >
-            {member.role}
+      <Papers lifted={!!lifted} />
+
+      {/* frosted front pocket */}
+      <div
+        className="absolute inset-x-0 bottom-0 z-20 flex flex-col justify-between overflow-hidden rounded-[1.5rem] border border-white/25 p-5"
+        style={{
+          height: "60%",
+          background:
+            "linear-gradient(165deg, rgba(255,255,255,0.34) 0%, rgba(233,169,130,0.16) 42%, rgba(69,48,39,0.32) 100%)",
+          backdropFilter: "blur(16px) saturate(150%)",
+          boxShadow:
+            "0 26px 50px -26px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.5)",
+        }}
+      >
+        <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.24em] text-[color:var(--cream)]/75">
+          <span>THE ROOM</span>
+          <span>NO. {no(member.memberNo)}</span>
+        </div>
+
+        <div className="flex items-end gap-3">
+          {member.avatarUrl ? (
+            <img
+              src={member.avatarUrl}
+              alt={member.name}
+              className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-white/50"
+            />
+          ) : (
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/25 text-sm font-semibold text-[color:var(--cream)]">
+              {member.initials}
+            </div>
+          )}
+          <div className="min-w-0">
+            <div className="truncate text-base font-semibold tracking-tight text-[color:var(--cream)]">
+              {member.name}
+            </div>
+            <div className="truncate text-[11px] text-[color:var(--cream)]/70">
+              {member.role}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div
-        className={`flex items-center justify-between text-[color:var(--cream)]/60 ${
-          expanded ? "text-xs" : "text-[10px]"
-        }`}
-      >
-        <span className="truncate">{member.city}</span>
-        <span className="shrink-0">{expanded ? "Pull the file ↑" : "Open folder →"}</span>
+        <div className="flex items-center justify-between text-[10px] text-[color:var(--cream)]/60">
+          <span className="truncate">{member.city}</span>
+          <span className="shrink-0">Open file →</span>
+        </div>
       </div>
     </div>
   );
 }
 
-/** The detail sheet that slides fully out of the folder when opened. */
-function DetailSheet({ member, pulled }: { member: Member; pulled: boolean }) {
+/** The member detail sheet, shown centered over a blurred backdrop. */
+function DetailSheet({ member, shown }: { member: Member; shown: boolean }) {
   return (
     <div
-      className="absolute inset-x-[7%] top-0 z-30 overflow-hidden rounded-xl border border-black/5"
+      className="w-full overflow-hidden rounded-2xl border border-white/25"
       style={{
-        height: "82%",
         background:
-          "linear-gradient(170deg, #ffffff 0%, #f6f2ec 55%, #eae2d8 100%)",
-        boxShadow: "0 30px 60px -25px rgba(0,0,0,0.8)",
-        transform: pulled ? "translateY(-40%)" : "translateY(6%)",
-        transition: "transform 750ms cubic-bezier(0.22,1,0.36,1)",
+          "linear-gradient(165deg, rgba(255,255,255,0.20) 0%, rgba(233,169,130,0.12) 45%, rgba(40,30,25,0.45) 100%)",
+        backdropFilter: "blur(26px) saturate(160%)",
+        boxShadow:
+          "0 40px 90px -40px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.4)",
+        transform: shown ? "translateY(0) scale(1)" : "translateY(18px) scale(0.96)",
+        opacity: shown ? 1 : 0,
+        transition:
+          "transform 520ms cubic-bezier(0.22,1,0.36,1), opacity 420ms ease",
       }}
     >
-      <div className="flex h-full flex-col gap-3 overflow-y-auto p-6 text-black">
-        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-black/40">
+      <div className="flex max-h-[80vh] flex-col gap-4 overflow-y-auto p-7 text-[color:var(--cream)]">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.24em] text-[color:var(--cream)]/60">
           <span>Member file</span>
           <span>NO. {no(member.memberNo)}</span>
         </div>
-        <div>
-          <div className="text-2xl font-semibold tracking-tight">{member.name}</div>
-          <div className="text-sm text-black/60">{member.role}</div>
-          {member.city ? <div className="text-sm text-black/45">{member.city}</div> : null}
+
+        <div className="flex items-center gap-4">
+          {member.avatarUrl ? (
+            <img
+              src={member.avatarUrl}
+              alt={member.name}
+              className="h-16 w-16 shrink-0 rounded-full object-cover ring-1 ring-white/40"
+            />
+          ) : (
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white/20 text-xl font-semibold">
+              {member.initials}
+            </div>
+          )}
+          <div className="min-w-0">
+            <div className="truncate text-2xl font-semibold tracking-tight">
+              {member.name}
+            </div>
+            <div className="truncate text-sm text-[color:var(--cream)]/70">
+              {member.role}
+            </div>
+            {member.city ? (
+              <div className="truncate text-sm text-[color:var(--cream)]/50">
+                {member.city}
+              </div>
+            ) : null}
+          </div>
         </div>
+
         {member.bio ? (
           <div>
-            <div className="text-[10px] uppercase tracking-[0.2em] text-black/40">About</div>
-            <p className="mt-1 text-sm leading-relaxed text-black/80">{member.bio}</p>
+            <div className="text-[10px] uppercase tracking-[0.22em] text-[color:var(--cream)]/50">
+              About
+            </div>
+            <p className="mt-1 text-sm leading-relaxed text-[color:var(--cream)]/85">
+              {member.bio}
+            </p>
           </div>
         ) : null}
+
         {member.tags.length ? (
           <div className="flex flex-wrap gap-1.5">
             {member.tags.map((t) => (
               <span
                 key={t}
-                className="rounded-full border border-black/10 bg-black/[0.04] px-2.5 py-0.5 text-[11px] text-black/70"
+                className="rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-[11px] text-[color:var(--cream)]/80"
               >
                 {t}
               </span>
             ))}
           </div>
         ) : null}
+
         {member.website ? (
           <a
             href={normalizeUrl(member.website)}
             target="_blank"
             rel="noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="mt-auto inline-flex items-center justify-between rounded-lg bg-black px-4 py-3 text-sm font-medium text-white transition-opacity hover:opacity-85"
+            className="mt-2 inline-flex items-center justify-between rounded-xl border border-white/25 bg-white/15 px-4 py-3 text-sm font-medium transition-colors hover:bg-white/25"
           >
             Visit {hostnameOf(member.website)}
             <span>→</span>
@@ -264,22 +250,15 @@ function DetailSheet({ member, pulled }: { member: Member; pulled: boolean }) {
 export function MemberFlipCard({ member }: { member: Member }) {
   const [open, setOpen] = useState(false);
   const [entered, setEntered] = useState(false);
-  const [pulled, setPulled] = useState(false);
   const [hover, setHover] = useState(false);
-  const [motionBox, setMotionBox] = useState<{
-    start: { left: number; top: number; width: number; height: number };
-    end: { left: number; top: number; width: number; height: number };
-  } | null>(null);
 
   useEffect(() => {
     if (!open) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const raf = requestAnimationFrame(() => setEntered(true));
-    const t = setTimeout(() => setPulled(true), 340);
     return () => {
       cancelAnimationFrame(raf);
-      clearTimeout(t);
       document.body.style.overflow = original;
     };
   }, [open]);
@@ -287,7 +266,6 @@ export function MemberFlipCard({ member }: { member: Member }) {
   const close = () => {
     setOpen(false);
     setEntered(false);
-    setPulled(false);
   };
 
   useEffect(() => {
@@ -298,86 +276,47 @@ export function MemberFlipCard({ member }: { member: Member }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const openFolder = (event: MouseEvent<HTMLButtonElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const width = Math.min(460, Math.max(280, window.innerWidth - 48));
-    const height = Math.min(560, Math.max(420, window.innerHeight - 120));
-    setMotionBox({
-      start: { left: rect.left, top: rect.top, width: rect.width, height: rect.height },
-      end: {
-        left: (window.innerWidth - width) / 2,
-        top: Math.max(56, (window.innerHeight - height) / 2),
-        width,
-        height,
-      },
-    });
-    setEntered(false);
-    setPulled(false);
-    setOpen(true);
-  };
-
   return (
     <>
       <div className="h-80">
         <button
           type="button"
-          onClick={openFolder}
+          onClick={() => setOpen(true)}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          className="relative h-full w-full text-left"
-          aria-label={`Open folder for ${member.name}`}
+          className="relative h-full w-full text-left transition-transform duration-500 hover:-translate-y-1"
+          aria-label={`Open file for ${member.name}`}
         >
-          <FolderBack />
-          <Papers member={member} lifted={hover} />
-          <FolderPocket member={member} expanded={false} />
+          <Folder member={member} lifted={hover} />
         </button>
       </div>
 
-      {open && motionBox &&
+      {open &&
         createPortal(
           <div
-            className={`fixed inset-0 z-50 backdrop-blur-sm transition-[background-color] duration-500 ${
-              entered ? "bg-black/70" : "bg-black/0"
+            className={`fixed inset-0 z-50 flex items-center justify-center p-6 transition-all duration-500 ${
+              entered ? "bg-black/60 backdrop-blur-xl" : "bg-black/0"
             }`}
             onClick={close}
             role="dialog"
             aria-modal="true"
-            aria-label={`${member.name} member folder`}
+            aria-label={`${member.name} member file`}
           >
             <div
-              className="fixed"
+              className="relative w-full max-w-md"
               onClick={(e) => e.stopPropagation()}
-              style={{
-                left: `${entered ? motionBox.end.left : motionBox.start.left}px`,
-                top: `${entered ? motionBox.end.top : motionBox.start.top}px`,
-                width: `${entered ? motionBox.end.width : motionBox.start.width}px`,
-                height: `${entered ? motionBox.end.height : motionBox.start.height}px`,
-                transition:
-                  "left 800ms cubic-bezier(0.22, 1, 0.36, 1), top 800ms cubic-bezier(0.22, 1, 0.36, 1), width 800ms cubic-bezier(0.22, 1, 0.36, 1), height 800ms cubic-bezier(0.22, 1, 0.36, 1)",
-              }}
             >
               <button
                 type="button"
                 onClick={close}
-                className={`absolute -top-12 right-0 rounded-full p-2 text-white/80 transition-opacity duration-300 hover:bg-white/10 hover:text-white ${
+                className={`absolute -top-11 right-0 rounded-full p-2 text-white/80 transition-opacity duration-300 hover:bg-white/10 hover:text-white ${
                   entered ? "opacity-100" : "pointer-events-none opacity-0"
                 }`}
-                aria-label="Close folder"
+                aria-label="Close file"
               >
                 <CloseIcon className="h-6 w-6" />
               </button>
-              <div
-                className="relative h-full w-full cursor-pointer"
-                onClick={() => setPulled((p) => !p)}
-              >
-                <FolderBack />
-                {entered ? (
-                  <DetailSheet member={member} pulled={pulled} />
-                ) : (
-                  <Papers member={member} lifted />
-                )}
-                <FolderPocket member={member} expanded={entered} />
-              </div>
+              <DetailSheet member={member} shown={entered} />
             </div>
           </div>,
           document.body
