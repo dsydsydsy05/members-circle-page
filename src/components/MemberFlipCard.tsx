@@ -34,41 +34,41 @@ function CloseIcon({ className }: { className?: string }) {
 
 const no = (n?: number | null) => (n ? String(n).padStart(4, "0") : "----");
 
-/** Notched folder-pocket outline (objectBoundingBox units). */
+/** Notched folder-pocket outline (objectBoundingBox units), traced from the design. */
 const POCKET_PATH =
-  "M0.035,0.205 H0.505 C0.545,0.205 0.556,0.216 0.567,0.238 L0.60,0.355 C0.611,0.377 0.622,0.388 0.66,0.388 H0.962 C0.985,0.388 1,0.403 1,0.425 V0.955 C1,0.978 0.985,0.993 0.962,0.993 H0.038 C0.015,0.993 0,0.978 0,0.955 V0.243 C0,0.22 0.015,0.205 0.038,0.205 Z";
+  "M0.075,0.215 H0.525 C0.552,0.215 0.565,0.226 0.575,0.246 L0.605,0.352 C0.615,0.372 0.63,0.383 0.655,0.383 H0.935 C0.962,0.383 0.98,0.401 0.98,0.428 V0.925 C0.98,0.952 0.962,0.97 0.935,0.97 H0.075 C0.048,0.97 0.03,0.952 0.03,0.925 V0.26 C0.03,0.233 0.048,0.215 0.075,0.215 Z";
 
 /** White sheets peeking out of the folder. */
 function Papers({ lifted }: { lifted: boolean }) {
   const sheets = [
-    { rot: -4, x: 11, w: 42, top: 2, z: 12 },
-    { rot: 5, x: 37, w: 36, top: 5, z: 11 },
-    { rot: 10, x: 52, w: 30, top: 11, z: 10 },
+    { rot: -4, x: 13, w: 44, top: 1.5, z: 12 },
+    { rot: 6, x: 42, w: 33, top: 6, z: 11 },
+    { rot: 11, x: 58, w: 28, top: 15, z: 10 },
   ];
   return (
     <>
       {sheets.map((s, i) => (
         <div
           key={i}
-          className="absolute rounded-[1.4rem]"
+          className="absolute rounded-[3cqw]"
           style={{
             width: `${s.w}%`,
             left: `${s.x}%`,
             top: `${s.top + (lifted ? -3 : 0)}%`,
-            height: "40%",
-            background: "#fdfdfd",
+            height: "36%",
+            background: "linear-gradient(150deg, #ffffff 0%, #f3f3f4 100%)",
             transform: `rotate(${s.rot}deg)`,
             transformOrigin: "bottom center",
-            boxShadow: "0 10px 22px -16px rgba(0,0,0,0.45)",
+            boxShadow: "0 2cqw 4cqw -3cqw rgba(0,0,0,0.35)",
             transition: "top 500ms cubic-bezier(0.22,1,0.36,1)",
             zIndex: s.z,
           }}
         >
-          <div className="flex h-full flex-col gap-[10%] p-[11%] pt-[14%]">
-            {[76, 52, 40, 28].map((w, k) => (
+          <div className="flex h-full flex-col gap-[9%] p-[13%] pt-[16%]">
+            {[78, 55, 40, 26].map((w, k) => (
               <div
                 key={k}
-                className="h-[7%] min-h-[6px] rounded-full bg-[#e6e6e6]"
+                className="h-[1.6cqw] rounded-full bg-[#e4e4e6]"
                 style={{ width: `${w}%` }}
               />
             ))}
@@ -79,10 +79,10 @@ function Papers({ lifted }: { lifted: boolean }) {
   );
 }
 
-/** Dark folder shell + white sheets + frosted notched front pocket. */
+/** Dark folder shell + white sheets + gradient glass front pocket. */
 function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full" style={{ containerType: "inline-size" }}>
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="folder-pocket-clip" clipPathUnits="objectBoundingBox">
@@ -93,16 +93,17 @@ function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
 
       {/* dark back shell */}
       <div
-        className="absolute inset-x-[5%] bottom-[2%] top-[2%] rounded-[2rem]"
+        className="absolute left-[7.5%] right-[8%] top-[3%] bottom-[8%] rounded-[4.5cqw]"
         style={{
-          background: "linear-gradient(150deg, #3a3a3c 0%, #232325 60%, #1a1a1c 100%)",
-          boxShadow: "0 30px 60px -34px rgba(0,0,0,0.55)",
+          background:
+            "linear-gradient(145deg, #4b4b4d 0%, #333335 30%, #232325 62%, #151517 100%)",
+          boxShadow: "0 4cqw 8cqw -4cqw rgba(0,0,0,0.6)",
         }}
       />
 
       <Papers lifted={!!lifted} />
 
-      {/* frosted front pocket */}
+      {/* gradient glass front pocket */}
       <div className="absolute inset-0 z-20">
         <div
           className="absolute inset-0"
@@ -110,8 +111,19 @@ function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
             clipPath: "url(#folder-pocket-clip)",
             WebkitClipPath: "url(#folder-pocket-clip)",
             background:
-              "linear-gradient(160deg, rgba(190,190,192,0.55) 0%, rgba(150,150,152,0.50) 45%, rgba(96,96,99,0.62) 100%)",
-            backdropFilter: "blur(18px) saturate(120%)",
+              "linear-gradient(150deg, rgba(214,214,216,0.62) 0%, rgba(178,178,181,0.55) 28%, rgba(126,126,130,0.58) 62%, rgba(74,74,78,0.68) 100%)",
+            backdropFilter: "blur(16px) saturate(115%)",
+            boxShadow: "0 3cqw 7cqw -4cqw rgba(0,0,0,0.55)",
+          }}
+        />
+        {/* soft top-left sheen */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            clipPath: "url(#folder-pocket-clip)",
+            WebkitClipPath: "url(#folder-pocket-clip)",
+            background:
+              "linear-gradient(155deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.06) 38%, rgba(255,255,255,0) 70%)",
           }}
         />
         <svg
@@ -122,47 +134,48 @@ function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
           <path
             d={POCKET_PATH}
             fill="none"
-            stroke="rgba(255,255,255,0.5)"
+            stroke="rgba(255,255,255,0.55)"
             strokeWidth="1"
             vectorEffect="non-scaling-stroke"
           />
         </svg>
 
-        {/* pocket content */}
-        <div className="absolute inset-x-0 bottom-0 top-[42%] flex flex-col justify-between px-[13%] pb-[9%] pt-[2%] text-white">
-          <div className="flex items-center justify-between text-[13px] font-medium uppercase tracking-[0.42em]">
+        {/* pocket content — proportions traced from the design */}
+        <div className="absolute inset-0 text-white">
+          <div className="absolute left-[13.5%] right-[12%] top-[43%] flex items-center justify-between text-[2.05cqw] font-medium uppercase leading-none tracking-[0.34em]">
             <span>THE ROOM</span>
-            <span className="tracking-[0.18em]">NO. {no(member.memberNo)}</span>
+            <span className="tracking-[0.16em]">NO. {no(member.memberNo)}</span>
           </div>
 
-          <div className="flex items-center gap-5">
+          <div className="absolute left-[14.5%] right-[9%] top-[54%] flex items-center gap-[4cqw]">
             {member.avatarUrl ? (
               <img
                 src={member.avatarUrl}
                 alt={member.name}
-                className="h-[4.6rem] w-[4.6rem] shrink-0 rounded-full object-cover ring-1 ring-white/50"
+                className="h-[18cqw] w-[18cqw] shrink-0 rounded-full object-cover ring-1 ring-white/45"
               />
             ) : (
-              <div className="flex h-[4.6rem] w-[4.6rem] shrink-0 items-center justify-center rounded-full bg-white/20 text-lg font-semibold ring-1 ring-white/40">
+              <div className="flex h-[18cqw] w-[18cqw] shrink-0 items-center justify-center rounded-full bg-white/20 text-[4cqw] font-semibold ring-1 ring-white/40">
                 {member.initials}
               </div>
             )}
             <div className="min-w-0">
-              <div className="truncate text-[1.85rem] font-bold leading-tight tracking-tight">
+              <div className="truncate text-[4.6cqw] font-bold leading-[1.15] tracking-[-0.01em]">
                 {member.name}
               </div>
-              <div className="truncate text-[1rem] text-white/80">
+              <div className="truncate text-[2.9cqw] font-normal leading-tight text-white/85">
                 {member.role}
               </div>
             </div>
           </div>
 
-          <div className="flex items-end justify-between text-[15px] text-white/95">
+          <div className="absolute inset-x-0 bottom-[9%] flex items-end justify-between px-[13.5%] text-[2.75cqw] leading-none text-white/95">
             <span className="truncate">{member.city}</span>
             <span className="shrink-0">Open file →</span>
           </div>
         </div>
       </div>
+
     </div>
   );
 }
