@@ -21,6 +21,13 @@ export function SiteNav() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+  const mobileLinks: { to: string; label: string }[] = [
+    ...links.map((l) => ({ to: l.to as string, label: l.label as string })),
+    ...(isSignedIn ? [{ to: "/onboarding", label: isMember ? "Edit card" : "Enter code" }] : []),
+    ...(isAdmin ? [{ to: "/admin", label: "Admin" }] : []),
+  ];
+
+
   const handleSignOut = async () => {
     await queryClient.cancelQueries();
     await signOut();
