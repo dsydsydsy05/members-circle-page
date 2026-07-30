@@ -22,10 +22,9 @@ export function LanyardCard({
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className="absolute inset-0 rounded-2xl"
+            className="absolute inset-0 rounded-2xl bg-[color:var(--cocoa)]/70"
             style={{
               transform: `translateZ(${-2 - i * 1.2}px)`,
-              background: "#5a3a28",
               filter: `brightness(${0.55 + i * 0.05})`,
             }}
           />
