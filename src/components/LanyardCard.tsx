@@ -1,4 +1,4 @@
-import logo from "@/assets/the-room-logo-transparent.png.asset.json";
+/**
 
 /**
  * Realistic 3D name tag ("工牌") — no lanyard strap.
