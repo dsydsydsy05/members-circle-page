@@ -56,7 +56,7 @@ function PartnersPage() {
   return (
     <div className="min-h-screen">
       <SiteNav />
-      <main className="mx-auto max-w-6xl px-6 py-16">
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
         <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
           Partners
         </div>

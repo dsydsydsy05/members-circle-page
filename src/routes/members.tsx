@@ -24,7 +24,7 @@ function MembersPage() {
   return (
     <div className="min-h-screen">
       <SiteNav />
-      <main className="mx-auto max-w-6xl px-6 py-16">
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
         <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Community</div>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">Members</h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
