@@ -77,14 +77,6 @@ export function LanyardCard({
                   "inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 40px rgba(255,180,120,0.18)",
               }}
             >
-              {/* Anisotropic metal sweep */}
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(112deg, transparent 22%, rgba(255,255,255,0.10) 34%, rgba(255,255,255,0.42) 44%, rgba(255,255,255,0.08) 52%, transparent 70%)",
-                }}
-              />
               {/* Warm bloom in the upper-left */}
               <div
                 className="pointer-events-none absolute inset-0"
