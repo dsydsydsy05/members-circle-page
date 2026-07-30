@@ -328,12 +328,33 @@ export function MemberFlipCard({ member }: { member: Member }) {
   const [open, setOpen] = useState(false);
   const [entered, setEntered] = useState(false);
   const [hover, setHover] = useState(false);
+  const [from, setFrom] = useState(
+    "translate3d(0, 120px, 0) scale(0.35) rotate(-4deg)"
+  );
+  const cardRef = useRef<HTMLButtonElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+
+  const openFile = () => {
+    const r = cardRef.current?.getBoundingClientRect();
+    if (r) {
+      // start where the papers sit inside the folder, scaled to its size
+      const originX = r.left + r.width / 2 - window.innerWidth / 2;
+      const originY = r.top + r.height * 0.42 - window.innerHeight / 2;
+      const scale = Math.max(0.18, Math.min(0.5, r.width / 620));
+      setFrom(
+        `translate3d(${originX}px, ${originY}px, 0) scale(${scale}) rotate(-6deg)`
+      );
+    }
+    setOpen(true);
+  };
 
   useEffect(() => {
     if (!open) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const raf = requestAnimationFrame(() => setEntered(true));
+    const raf = requestAnimationFrame(() =>
+      requestAnimationFrame(() => setEntered(true))
+    );
     return () => {
       cancelAnimationFrame(raf);
       document.body.style.overflow = original;
@@ -341,8 +362,8 @@ export function MemberFlipCard({ member }: { member: Member }) {
   }, [open]);
 
   const close = () => {
-    setOpen(false);
     setEntered(false);
+    window.setTimeout(() => setOpen(false), 380);
   };
 
   useEffect(() => {
@@ -357,8 +378,9 @@ export function MemberFlipCard({ member }: { member: Member }) {
     <>
       <div className="aspect-[6/5]">
         <button
+          ref={cardRef}
           type="button"
-          onClick={() => setOpen(true)}
+          onClick={openFile}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           className="relative h-full w-full text-left transition-transform duration-500 hover:-translate-y-1"
@@ -378,8 +400,10 @@ export function MemberFlipCard({ member }: { member: Member }) {
             role="dialog"
             aria-modal="true"
             aria-label={`${member.name} member file`}
+            style={{ perspective: "1400px" }}
           >
             <div
+              ref={sheetRef}
               className="relative w-full max-w-md"
               onClick={(e) => e.stopPropagation()}
             >
@@ -393,7 +417,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
               >
                 <CloseIcon className="h-6 w-6" />
               </button>
-              <DocumentSheet member={member} shown={entered} />
+              <DocumentSheet member={member} shown={entered} from={from} />
             </div>
           </div>,
           document.body
@@ -401,3 +425,4 @@ export function MemberFlipCard({ member }: { member: Member }) {
     </>
   );
 }
+
