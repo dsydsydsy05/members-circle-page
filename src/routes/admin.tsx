@@ -129,7 +129,7 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
       const v = draft[id]?.[f.key];
       patch[f.key] = f.type === "number" ? Number(v) || 0 : v ?? "";
     });
-    const { error } = await supabase.from(section.table).update(patch).eq("id", id);
+    const { error } = await (supabase.from(section.table) as any).update(patch).eq("id", id);
     if (error) return toast.error(error.message);
     toast.success("Saved");
     refresh();
