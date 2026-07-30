@@ -35,9 +35,9 @@ export function SiteNav() {
           <img
             src={logo.url}
             alt="The Room"
-            width={300}
-            height={40}
-            className="h-7 w-auto invert"
+            width={240}
+            height={32}
+            className="h-6 w-auto invert"
           />
         </Link>
         <nav className="hidden gap-6 md:flex">
