@@ -29,7 +29,7 @@ function BusinessesPage() {
         </p>
 
         <div className="mt-10">
-          <MemberGate title="Members only">
+          <MemberGate title="Family Business">
             <BusinessGrid />
           </MemberGate>
         </div>
