@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuth, signOut } from "@/lib/use-auth";
-import logo from "@/assets/the-room-logo.png.asset.json";
+import logo from "@/assets/the-room-logo-transparent.png.asset.json";
 
 
 const links = [
