@@ -87,7 +87,7 @@ export function LanyardCard({
                   alt="The Room"
                   width={300}
                   height={40}
-                  className="h-32 w-auto invert opacity-100 drop-shadow-md"
+                  className="h-28 w-auto invert opacity-100 drop-shadow-md"
                   style={{ transform: "rotate(90deg)" }}
                 />
               </div>
