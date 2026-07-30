@@ -25,10 +25,9 @@ export type Guest = {
 };
 
 export const guests: Guest[] = [
-  { id: "g1", name: "Emily Weiss", title: "Founder, Glossier", event: "Fireside: Building Cult Brands", date: "Aug 14" },
-  { id: "g2", name: "Tobi Lütke", title: "CEO, Shopify", event: "Closed Q&A", date: "Sep 03" },
-  { id: "g3", name: "Yvon Chouinard", title: "Founder, Patagonia", event: "On Values & Manufacturing", date: "Oct 21" },
-  { id: "g4", name: "Rin Iwasaki", title: "Creative Director", event: "Design Workshop", date: "Nov 09" },
+  { id: "g1", name: "Coming Soon", title: "Guest speaker TBA", event: "The Room Opening: Our First Guest", date: "Sep 15" },
+  { id: "g2", name: "Coming Soon", title: "Guest speaker TBA", event: "How to Raise Funding", date: "Oct 15" },
+  { id: "g3", name: "Coming Soon", title: "Guest speaker TBA", event: "How to Take a Company Public", date: "Nov 15" },
 ];
 
 export type EventItem = {
