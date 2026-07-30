@@ -36,7 +36,7 @@ export function SiteNav() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
+    <header className="sticky top-0 z-40 bg-transparent">
       <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6">
         <div className="flex min-w-0 items-center gap-6">
           <Link to="/" aria-label="The Room — home" className="flex shrink-0 items-center">
@@ -101,7 +101,7 @@ export function SiteNav() {
       {/* Mobile section bar */}
       <nav
         aria-label="Sections"
-        className="-mb-px flex gap-2 overflow-x-auto border-t border-border/50 px-4 py-2 [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden"
+        className="-mb-px flex gap-2 overflow-x-auto px-4 py-2 [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden"
       >
         {mobileLinks.map((l) => (
           <Link
