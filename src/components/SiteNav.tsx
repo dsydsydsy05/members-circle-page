@@ -35,7 +35,7 @@ export function SiteNav() {
             alt="The Room"
             width={300}
             height={40}
-            className="h-7 w-auto brightness-110 contrast-125"
+            className="h-7 w-auto invert"
           />
         </Link>
         <nav className="hidden gap-6 md:flex">
