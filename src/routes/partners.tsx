@@ -30,7 +30,7 @@ function PartnerLogo({ partner, height }: { partner: Partner; height: string }) 
       href={partner.url}
       target="_blank"
       rel="noreferrer"
-      className={`group relative flex ${height} flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-border bg-card px-4 text-center transition-colors hover:border-primary/60`}
+      className={`group relative flex ${height} flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-border bg-card px-4 text-center transition-colors hover:border-primary/60 blur-sm select-none`}
     >
       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
         {initials}
@@ -54,10 +54,6 @@ function PartnersPage() {
         <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
           Backed by people<br />who build things.
         </h1>
-        <p className="mt-4 max-w-lg text-sm text-muted-foreground">
-          Our sponsors and ecosystem partners fund the events, the factory vetting, and the
-          space where members meet. Logos below are placeholders for now.
-        </p>
 
         <div className="mt-14 space-y-14">
           {tierOrder.map((tier) => {

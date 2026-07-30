@@ -14,31 +14,31 @@ export const tierMeta: Record<
 > = {
   diamond: {
     label: "Diamond",
-    note: "Title sponsor ·全年独家合作",
+    note: "Title sponsor · exclusive year-round partner",
     cols: "grid-cols-1",
     height: "h-44 sm:h-56",
   },
   platinum: {
     label: "Platinum",
-    note: "主赞助商",
+    note: "Lead sponsor",
     cols: "grid-cols-1 sm:grid-cols-2",
     height: "h-36 sm:h-44",
   },
   gold: {
     label: "Gold",
-    note: "活动赞助商",
+    note: "Event sponsor",
     cols: "grid-cols-2 sm:grid-cols-3",
     height: "h-28 sm:h-32",
   },
   silver: {
     label: "Silver",
-    note: "支持伙伴",
+    note: "Supporting partner",
     cols: "grid-cols-2 sm:grid-cols-4",
     height: "h-24 sm:h-28",
   },
   ecosystem: {
     label: "Ecosystem Partner",
-    note: "生态与社区伙伴",
+    note: "Tools & community partners",
     cols: "grid-cols-2 sm:grid-cols-4",
     height: "h-24 sm:h-28",
   },
