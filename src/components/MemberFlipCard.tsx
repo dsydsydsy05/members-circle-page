@@ -34,151 +34,171 @@ function CloseIcon({ className }: { className?: string }) {
 
 const no = (n?: number | null) => (n ? String(n).padStart(4, "0") : "----");
 
-/** Notched folder-pocket outline (objectBoundingBox units), traced from the design. */
-const POCKET_PATH =
-  "M0.075,0.215 H0.525 C0.552,0.215 0.565,0.226 0.575,0.246 L0.605,0.352 C0.615,0.372 0.63,0.383 0.655,0.383 H0.935 C0.962,0.383 0.98,0.401 0.98,0.428 V0.925 C0.98,0.952 0.962,0.97 0.935,0.97 H0.075 C0.048,0.97 0.03,0.952 0.03,0.925 V0.26 C0.03,0.233 0.048,0.215 0.075,0.215 Z";
-
-/** White sheets peeking out of the folder. */
+/** White sheets peeking out of the folder (geometry from the approved reference). */
 function Papers({ lifted }: { lifted: boolean }) {
   const sheets = [
-    { rot: -4, x: 13, w: 44, top: 1.5, z: 12 },
-    { rot: 6, x: 42, w: 33, top: 6, z: 11 },
-    { rot: 11, x: 58, w: 28, top: 15, z: 10 },
+    { w: 50, h: 39, left: 11, top: 4, rot: -7, lines: [[15, 34, 64], [68, 71, 13]] },
+    { w: 31, h: 37, left: 56, top: 7, rot: 0, lines: [[17, 37, 64], [18, 67, 32], [18, 82, 24]] },
+    { w: 30, h: 28, left: 60, top: 17, rot: 5, lines: [[16, 48, 54]] },
   ];
   return (
     <>
       {sheets.map((s, i) => (
         <div
           key={i}
-          className="absolute rounded-[3cqw]"
+          className="absolute overflow-hidden"
           style={{
             width: `${s.w}%`,
-            left: `${s.x}%`,
-            top: `${s.top + (lifted ? -3 : 0)}%`,
-            height: "36%",
-            background: "linear-gradient(150deg, #ffffff 0%, #f3f3f4 100%)",
+            height: `${s.h}%`,
+            left: `${s.left}%`,
+            top: `${s.top + (lifted ? -2.5 : 0)}%`,
             transform: `rotate(${s.rot}deg)`,
-            transformOrigin: "bottom center",
-            boxShadow: "0 2cqw 4cqw -3cqw rgba(0,0,0,0.35)",
+            borderRadius: "3.6cqw",
+            background:
+              "linear-gradient(145deg, rgba(255,255,255,.98), rgba(245,245,247,.92))",
+            border: "1px solid rgba(210,210,214,.8)",
+            boxShadow:
+              "0 1.5cqw 3cqw rgba(44,44,48,.14), inset 0 1px 0 rgba(255,255,255,1)",
             transition: "top 500ms cubic-bezier(0.22,1,0.36,1)",
-            zIndex: s.z,
+            zIndex: 2,
           }}
         >
-          <div className="flex h-full flex-col gap-[9%] p-[13%] pt-[16%]">
-            {[78, 55, 40, 26].map((w, k) => (
-              <div
-                key={k}
-                className="h-[1.6cqw] rounded-full bg-[#e4e4e6]"
-                style={{ width: `${w}%` }}
-              />
-            ))}
-          </div>
+          {s.lines.map(([l, t, w], k) => (
+            <span
+              key={k}
+              className="absolute block rounded-full"
+              style={{
+                left: `${l}%`,
+                top: `${t}%`,
+                width: `${w}%`,
+                height: "7%",
+                background: "rgba(190,190,194,.55)",
+              }}
+            />
+          ))}
         </div>
       ))}
     </>
   );
 }
 
-/** Dark folder shell + white sheets + gradient glass front pocket. */
+/** Dark folder shell + white sheets + frosted glass front, matching the approved design. */
 function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
   return (
-    <div className="relative h-full w-full" style={{ containerType: "inline-size" }}>
-      <svg width="0" height="0" className="absolute">
-        <defs>
-          <clipPath id="folder-pocket-clip" clipPathUnits="objectBoundingBox">
-            <path d={POCKET_PATH} />
-          </clipPath>
-        </defs>
-      </svg>
-
-      {/* dark back shell */}
+    <div
+      className="relative h-full w-full"
+      style={{
+        containerType: "inline-size",
+        filter: "drop-shadow(0 2cqw 2.4cqw rgba(31,31,34,0.18))",
+      }}
+    >
+      {/* rear dark folder */}
       <div
-        className="absolute left-[7.5%] right-[8%] top-[3%] bottom-[8%] rounded-[4.5cqw]"
+        className="absolute"
         style={{
-          background:
-            "linear-gradient(145deg, #4b4b4d 0%, #333335 30%, #232325 62%, #151517 100%)",
-          boxShadow: "0 4cqw 8cqw -4cqw rgba(0,0,0,0.6)",
+          inset: "0 4.5% 45% 4.5%",
+          borderRadius: "5.4cqw 5.4cqw 2.3cqw 2.3cqw",
+          background: "linear-gradient(180deg, rgba(20,20,22,.94), rgba(35,35,38,.98))",
+          border: "1px solid rgba(255,255,255,.22)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1.6cqw 2.9cqw rgba(0,0,0,.18)",
         }}
       />
 
       <Papers lifted={!!lifted} />
 
-      {/* gradient glass front pocket */}
-      <div className="absolute inset-0 z-20">
-        <div
-          className="absolute inset-0"
-          style={{
-            clipPath: "url(#folder-pocket-clip)",
-            WebkitClipPath: "url(#folder-pocket-clip)",
-            background:
-              "linear-gradient(150deg, rgba(214,214,216,0.62) 0%, rgba(178,178,181,0.55) 28%, rgba(126,126,130,0.58) 62%, rgba(74,74,78,0.68) 100%)",
-            backdropFilter: "blur(16px) saturate(115%)",
-            boxShadow: "0 3cqw 7cqw -4cqw rgba(0,0,0,0.55)",
-          }}
-        />
-        {/* soft top-left sheen */}
+      {/* frosted glass tab (notched top-left) */}
+      <div
+        className="absolute"
+        style={{
+          zIndex: 3,
+          left: 0,
+          top: "22%",
+          width: "59%",
+          height: "32%",
+          borderRadius: "5.1cqw 0 0 0",
+          background:
+            "linear-gradient(128deg, rgba(245,245,247,.56), rgba(155,157,162,.43) 52%, rgba(80,82,87,.40))",
+          borderTop: "1px solid rgba(255,255,255,.58)",
+          borderLeft: "1px solid rgba(255,255,255,.42)",
+          backdropFilter: "blur(28px) saturate(120%)",
+          WebkitBackdropFilter: "blur(28px) saturate(120%)",
+          clipPath: "polygon(0 0, 58% 0, 72% 0, 92% 55%, 100% 55%, 100% 100%, 0 100%)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,.45), inset 0 -1.6cqw 3.7cqw rgba(0,0,0,.09)",
+        }}
+      />
+
+      {/* frosted glass front pocket */}
+      <div
+        className="absolute flex flex-col overflow-hidden text-white"
+        style={{
+          zIndex: 4,
+          inset: "38% 0 0",
+          padding: "6.2% 9.6% 6.7%",
+          borderRadius: "3.8cqw 3.8cqw 5.2cqw 5.2cqw",
+          background:
+            "linear-gradient(118deg, rgba(35,36,39,.73) 0%, rgba(111,112,116,.47) 48%, rgba(22,23,26,.76) 100%)",
+          border: "1px solid rgba(255,255,255,.48)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,.45), inset 0 -3.7cqw 5.7cqw rgba(0,0,0,.23), 0 1.8cqw 3.1cqw rgba(0,0,0,.13)",
+          backdropFilter: "blur(30px) saturate(115%)",
+          WebkitBackdropFilter: "blur(30px) saturate(115%)",
+        }}
+      >
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            clipPath: "url(#folder-pocket-clip)",
-            WebkitClipPath: "url(#folder-pocket-clip)",
             background:
-              "linear-gradient(155deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.06) 38%, rgba(255,255,255,0) 70%)",
+              "radial-gradient(circle at 49% 20%, rgba(255,255,255,.18), transparent 37%), linear-gradient(90deg, rgba(255,255,255,.04), transparent 28%, rgba(255,255,255,.03))",
           }}
         />
-        <svg
-          viewBox="0 0 1 1"
-          preserveAspectRatio="none"
-          className="pointer-events-none absolute inset-0 h-full w-full"
-        >
-          <path
-            d={POCKET_PATH}
-            fill="none"
-            stroke="rgba(255,255,255,0.55)"
-            strokeWidth="1"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
 
-        {/* pocket content — proportions traced from the design */}
-        <div className="absolute inset-0 text-white">
-          <div className="absolute left-[13.5%] right-[12%] top-[43%] flex items-center justify-between text-[2.05cqw] font-medium uppercase leading-none tracking-[0.34em]">
-            <span>THE ROOM</span>
-            <span className="tracking-[0.16em]">NO. {no(member.memberNo)}</span>
-          </div>
+        <header className="relative z-[1] flex items-center justify-between whitespace-nowrap text-[2.2cqw] font-normal tracking-[0.28em]">
+          <span>THE ROOM</span>
+          <span>NO. {no(member.memberNo)}</span>
+        </header>
 
-          <div className="absolute left-[14.5%] right-[9%] top-[54%] flex items-center gap-[4cqw]">
-            {member.avatarUrl ? (
-              <img
-                src={member.avatarUrl}
-                alt={member.name}
-                className="h-[18cqw] w-[18cqw] shrink-0 rounded-full object-cover ring-1 ring-white/45"
-              />
-            ) : (
-              <div className="flex h-[18cqw] w-[18cqw] shrink-0 items-center justify-center rounded-full bg-white/20 text-[4cqw] font-semibold ring-1 ring-white/40">
-                {member.initials}
-              </div>
-            )}
-            <div className="min-w-0">
-              <div className="truncate text-[4.6cqw] font-bold leading-[1.15] tracking-[-0.01em]">
-                {member.name}
-              </div>
-              <div className="truncate text-[2.9cqw] font-normal leading-tight text-white/85">
-                {member.role}
-              </div>
+        <div className="relative z-[1] mt-[5.5cqw] flex items-center gap-[4.4cqw]">
+          {member.avatarUrl ? (
+            <img
+              src={member.avatarUrl}
+              alt={member.name}
+              className="aspect-square w-[16cqw] shrink-0 rounded-full object-cover"
+              style={{
+                border: "3px solid rgba(255,255,255,.68)",
+                boxShadow: "0 1cqw 2.2cqw rgba(0,0,0,.14)",
+              }}
+            />
+          ) : (
+            <div
+              className="flex aspect-square w-[16cqw] shrink-0 items-center justify-center rounded-full bg-white/20 text-[4cqw] font-semibold"
+              style={{ border: "3px solid rgba(255,255,255,.68)" }}
+            >
+              {member.initials}
             </div>
-          </div>
-
-          <div className="absolute inset-x-0 bottom-[9%] flex items-end justify-between px-[13.5%] text-[2.75cqw] leading-none text-white/95">
-            <span className="truncate">{member.city}</span>
-            <span className="shrink-0">Open file →</span>
+          )}
+          <div className="min-w-0">
+            <h3 className="truncate text-[6cqw] font-semibold leading-[.98] tracking-[-0.045em]">
+              {member.name}
+            </h3>
+            <p className="mt-[1.8cqw] truncate text-[2.9cqw] font-light leading-[1.15] text-white/75">
+              {member.role}
+            </p>
           </div>
         </div>
-      </div>
 
+        <footer className="relative z-[1] mt-auto flex items-center justify-between text-[2.7cqw] text-white/80">
+          <span className="truncate">{member.city}</span>
+          <span className="shrink-0 transition-transform duration-200 group-hover:translate-x-[3px]">
+            Open file →
+          </span>
+        </footer>
+      </div>
     </div>
   );
 }
+
 
 
 
