@@ -70,7 +70,7 @@ function Home() {
           {events.map((e) => (
             <article key={e.id} className="group glass-panel overflow-hidden rounded-2xl">
               <EventCover
-                image={e.cover_url ?? undefined}
+                image={e.cover_url ?? ""}
                 month={e.date_label.split(" ")[0].toUpperCase()}
                 year="2026"
                 caption="This Photo Contains Something You May Find Exciting"

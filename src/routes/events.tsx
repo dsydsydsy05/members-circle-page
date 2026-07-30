@@ -31,7 +31,7 @@ function EventsPage() {
           {events.map((e) => (
             <article key={e.id} className="group overflow-hidden rounded-xl bg-card ring-1 ring-border">
               <EventCover
-                image={e.cover_url ?? undefined}
+                image={e.cover_url ?? ""}
                 month={e.date_label.split(" ")[0].toUpperCase()}
                 year="2026"
                 caption="This Photo Contains Something You May Find Exciting"
