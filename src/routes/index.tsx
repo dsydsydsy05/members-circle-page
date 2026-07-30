@@ -29,6 +29,9 @@ function Home() {
   const memberCount = useMemberCount();
   const featured = useCommunityMembers().members.slice(0, 3);
   const familyBusinessCount = useFamilyBusinessCount();
+  const { data: events = [] } = useEvents();
+  const { data: guests = [] } = useGuests();
+  const { data: factories = [] } = useFactories();
 
   return (
     <div className="min-h-screen">
@@ -37,6 +40,8 @@ function Home() {
       <HomeHero
         memberCount={memberCount}
         familyBusinessCount={familyBusinessCount}
+        eventCount={events.length}
+        factoryCount={factories.length}
       />
 
 
@@ -106,7 +111,11 @@ function Home() {
 function HomeHero({
   memberCount,
   familyBusinessCount,
+  eventCount,
+  factoryCount,
 }: {
+  eventCount: number;
+  factoryCount: number;
   memberCount: number;
   familyBusinessCount: number;
 }) {
@@ -180,9 +189,9 @@ function HomeHero({
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
             <StatLight n={`${memberCount}`} label="Members" />
-            <StatLight n="1" label="Events" />
+            <StatLight n={`${eventCount}`} label="Events" />
             <StatLight n="2" label="Cities" />
-            <StatLight n={`${factories.length}`} label="Vetted factories" />
+            <StatLight n={`${factoryCount}`} label="Vetted factories" />
             <StatLight n={`${familyBusinessCount}`} label="Family businesses" />
           </div>
 
