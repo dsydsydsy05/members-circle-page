@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
-import { guests } from "@/lib/community-data";
+import { useGuests } from "@/lib/use-site-content";
 
 export const Route = createFileRoute("/guests")({
   head: () => ({
@@ -19,6 +19,7 @@ export const Route = createFileRoute("/guests")({
 
 function GuestsPage() {
   const [active, setActive] = useState<string | null>(null);
+  const { data: guests = [] } = useGuests();
 
   return (
     <div className="min-h-screen">
@@ -63,7 +64,7 @@ function GuestsPage() {
                 </div>
                 <div className="text-right sm:pl-6">
                   <div className={`text-sm transition-colors ${on ? "text-primary" : ""}`}>{g.event}</div>
-                  <div className="text-xs text-muted-foreground">{g.date}</div>
+                  <div className="text-xs text-muted-foreground">{g.date_label}</div>
                 </div>
               </li>
             );

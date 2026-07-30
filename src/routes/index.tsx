@@ -4,7 +4,7 @@ import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { LanyardCard } from "@/components/LanyardCard";
 import { MemberFlipCard } from "@/components/MemberFlipCard";
 import { EventCover } from "@/components/EventCover";
-import { events, guests, factories } from "@/lib/community-data";
+import { useEvents, useGuests, useFactories } from "@/lib/use-site-content";
 import { useMemberCount } from "@/lib/use-member-count";
 import { useCommunityMembers } from "@/lib/use-community-members";
 import { useFamilyBusinessCount } from "@/lib/use-family-business-count";
@@ -65,14 +65,14 @@ function Home() {
           {events.map((e) => (
             <article key={e.id} className="group glass-panel overflow-hidden rounded-2xl">
               <EventCover
-                image={e.cover}
-                month={e.date.split(" ")[0].toUpperCase()}
+                image={e.cover_url ?? undefined}
+                month={e.date_label.split(" ")[0].toUpperCase()}
                 year="2026"
                 caption="This Photo Contains Something You May Find Exciting"
                 cta="Comment your guesses!"
               />
               <div className="p-4">
-                <div className="text-xs text-muted-foreground">{e.date} · {e.city}</div>
+                <div className="text-xs text-muted-foreground">{e.date_label} · {e.city}</div>
                 <div className="mt-1 text-lg font-semibold tracking-tight">{e.title}</div>
               </div>
             </article>
@@ -90,7 +90,7 @@ function Home() {
                 <div className="font-medium blur-sm select-none">{g.name}</div>
                 <div className="text-sm text-muted-foreground blur-sm select-none">{g.title}</div>
               </div>
-              <div className="text-sm text-muted-foreground">{g.event} · <span className="text-foreground">{g.date}</span></div>
+              <div className="text-sm text-muted-foreground">{g.event} · <span className="text-foreground">{g.date_label}</span></div>
             </li>
           ))}
         </ul>

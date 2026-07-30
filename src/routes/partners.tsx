@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
-import { partners, tierMeta, tierOrder, type Partner } from "@/lib/partners-data";
+import { tierMeta, tierOrder, type Partner, type PartnerTier } from "@/lib/partners-data";
+import { usePartners } from "@/lib/use-site-content";
 
 export const Route = createFileRoute("/partners")({
   head: () => ({
@@ -44,6 +45,14 @@ function PartnerLogo({ partner, height }: { partner: Partner; height: string }) 
 }
 
 function PartnersPage() {
+  const { data: rows = [] } = usePartners();
+  const partners: Partner[] = rows.map((p) => ({
+    id: p.id,
+    name: p.name,
+    tier: p.tier as PartnerTier,
+    blurb: p.blurb,
+    url: p.url ?? "#",
+  }));
   return (
     <div className="min-h-screen">
       <SiteNav />
