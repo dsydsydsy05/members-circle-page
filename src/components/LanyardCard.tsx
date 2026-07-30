@@ -1,11 +1,13 @@
+import logo from "@/assets/the-room-logo-transparent.png.asset.json";
+
 /**
  * Realistic 3D name tag ("工牌") — no lanyard strap.
  * Surface layout inspired by the premium green-to-black gradient badge.
  */
 export function LanyardCard({
   name = "Member Name",
-  role = "Founding Member",
-  location = "City, State Zip",
+  role = "Company Name",
+  location = "School",
   number = "001",
 }: {
   name?: string;
