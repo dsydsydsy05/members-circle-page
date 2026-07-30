@@ -1,17 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { useServerFn } from "@tanstack/react-start";
+import { getFamilyBusinessCount } from "./site.functions";
 
 /** Number of family businesses submitted by members. */
 export function useFamilyBusinessCount() {
+  const countFn = useServerFn(getFamilyBusinessCount);
   const { data } = useQuery({
     queryKey: ["family-business-count"],
-    queryFn: async () => {
-      const { count, error } = await supabase
-        .from("family_businesses")
-        .select("id", { count: "exact", head: true });
-      if (error) throw error;
-      return count ?? 0;
-    },
+    queryFn: () => countFn({ data: undefined }),
     staleTime: 0,
     refetchOnMount: "always",
   });
