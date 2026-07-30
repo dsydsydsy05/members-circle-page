@@ -291,7 +291,7 @@ export function MemberFlipCard({ member }: { member: Member }) {
 
   return (
     <>
-      <div className="aspect-[4/3]">
+      <div className="aspect-[6/5]">
         <button
           type="button"
           onClick={() => setOpen(true)}
