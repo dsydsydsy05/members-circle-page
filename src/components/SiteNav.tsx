@@ -91,7 +91,7 @@ export function SiteFooter() {
             alt="The Room"
             width={300}
             height={40}
-            className="h-5 w-auto brightness-110 contrast-125"
+            className="h-5 w-auto invert"
           />
           <span>© {new Date().getFullYear()}</span>
         </div>
