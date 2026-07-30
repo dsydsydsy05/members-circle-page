@@ -227,7 +227,15 @@ function Folder({ member, lifted }: { member: Member; lifted?: boolean }) {
 
 
 /** The white member document, pulled out of the folder and centered. */
-function DocumentSheet({ member, shown }: { member: Member; shown: boolean }) {
+function DocumentSheet({
+  member,
+  shown,
+  from,
+}: {
+  member: Member;
+  shown: boolean;
+  from: string;
+}) {
   return (
     <div
       className="w-full overflow-hidden rounded-2xl"
@@ -235,14 +243,17 @@ function DocumentSheet({ member, shown }: { member: Member; shown: boolean }) {
         background: "linear-gradient(180deg, #ffffff 0%, #f5f2ef 100%)",
         boxShadow:
           "0 50px 110px -40px rgba(0,0,0,0.85), 0 2px 0 rgba(255,255,255,0.6) inset",
+        transformOrigin: "center bottom",
         transform: shown
-          ? "translateY(0) scale(1) rotate(0deg)"
-          : "translateY(90px) scale(0.9) rotate(-2deg)",
+          ? "translate3d(0,0,0) scale(1) rotate(0deg)"
+          : from,
         opacity: shown ? 1 : 0,
         transition:
-          "transform 620ms cubic-bezier(0.22,1,0.36,1), opacity 380ms ease",
+          "transform 780ms cubic-bezier(0.16,1,0.3,1), opacity 300ms ease",
+        willChange: "transform, opacity",
       }}
     >
+
       <div className="flex max-h-[82vh] flex-col gap-5 overflow-y-auto p-8 text-[#221a15]">
         <div className="flex items-center justify-between border-b border-black/10 pb-4 text-[10px] uppercase tracking-[0.3em] text-black/45">
           <span>THE ROOM</span>
