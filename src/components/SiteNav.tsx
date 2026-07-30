@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuth, signOut } from "@/lib/use-auth";
-import logo from "@/assets/the-room-logo.png.asset.json";
+import logo from "@/assets/the-room-logo-transparent.png.asset.json";
 
 
 const links = [
@@ -35,7 +35,7 @@ export function SiteNav() {
             alt="The Room"
             width={300}
             height={40}
-            className="h-7 w-auto brightness-110 contrast-125"
+            className="h-7 w-auto invert"
           />
         </Link>
         <nav className="hidden gap-6 md:flex">
@@ -91,7 +91,7 @@ export function SiteFooter() {
             alt="The Room"
             width={300}
             height={40}
-            className="h-5 w-auto brightness-110 contrast-125"
+            className="h-5 w-auto invert"
           />
           <span>© {new Date().getFullYear()}</span>
         </div>
