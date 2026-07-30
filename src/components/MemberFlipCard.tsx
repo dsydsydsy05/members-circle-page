@@ -41,9 +41,9 @@ const POCKET_PATH =
 /** White sheets peeking out of the folder. */
 function Papers({ lifted }: { lifted: boolean }) {
   const sheets = [
-    { rot: -4, x: 12, w: 46, top: 0, z: 12 },
-    { rot: 6, x: 44, w: 40, top: 4, z: 11 },
-    { rot: 11, x: 60, w: 34, top: 12, z: 10 },
+    { rot: -4, x: 11, w: 42, top: 2, z: 12 },
+    { rot: 5, x: 37, w: 36, top: 5, z: 11 },
+    { rot: 10, x: 52, w: 30, top: 11, z: 10 },
   ];
   return (
     <>
