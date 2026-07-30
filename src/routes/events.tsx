@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
-import { events } from "@/lib/community-data";
+import { useEvents } from "@/lib/use-site-content";
 import { EventCover } from "@/components/EventCover";
 
 export const Route = createFileRoute("/events")({
@@ -18,6 +18,7 @@ export const Route = createFileRoute("/events")({
 });
 
 function EventsPage() {
+  const { data: events = [] } = useEvents();
   return (
     <div className="min-h-screen">
       <SiteNav />
@@ -30,14 +31,14 @@ function EventsPage() {
           {events.map((e) => (
             <article key={e.id} className="group overflow-hidden rounded-xl bg-card ring-1 ring-border">
               <EventCover
-                image={e.cover}
-                month={e.date.split(" ")[0].toUpperCase()}
+                image={e.cover_url ?? ""}
+                month={e.date_label.split(" ")[0].toUpperCase()}
                 year="2026"
                 caption="This Photo Contains Something You May Find Exciting"
                 cta="Comment your guesses!"
               />
               <div className="p-4">
-                <div className="text-xs text-muted-foreground">{e.date} · {e.city}</div>
+                <div className="text-xs text-muted-foreground">{e.date_label} · {e.city}</div>
                 <div className="mt-1 text-lg font-semibold tracking-tight">{e.title}</div>
                 <button className="mt-3 rounded-full border border-border px-3 py-1 text-xs hover:bg-secondary">RSVP</button>
               </div>

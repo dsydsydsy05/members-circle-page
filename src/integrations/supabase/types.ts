@@ -14,6 +14,108 @@ export type Database = {
   }
   public: {
     Tables: {
+      event_photos: {
+        Row: {
+          caption: string
+          created_at: string
+          id: string
+          sort_order: number
+          src: string
+          updated_at: string
+        }
+        Insert: {
+          caption?: string
+          created_at?: string
+          id?: string
+          sort_order?: number
+          src: string
+          updated_at?: string
+        }
+        Update: {
+          caption?: string
+          created_at?: string
+          id?: string
+          sort_order?: number
+          src?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          city: string
+          cover_url: string | null
+          created_at: string
+          date_label: string
+          id: string
+          sort_order: number
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          city?: string
+          cover_url?: string | null
+          created_at?: string
+          date_label?: string
+          id?: string
+          sort_order?: number
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          city?: string
+          cover_url?: string | null
+          created_at?: string
+          date_label?: string
+          id?: string
+          sort_order?: number
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      factories: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          location: string
+          moq: string
+          name: string
+          notes: string
+          sort_order: number
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          id?: string
+          location?: string
+          moq?: string
+          name: string
+          notes?: string
+          sort_order?: number
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          location?: string
+          moq?: string
+          name?: string
+          notes?: string
+          sort_order?: number
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       family_businesses: {
         Row: {
           category: string
@@ -50,6 +152,72 @@ export type Database = {
           updated_at?: string
           user_id?: string
           website?: string | null
+        }
+        Relationships: []
+      }
+      guests: {
+        Row: {
+          created_at: string
+          date_label: string
+          event: string
+          id: string
+          name: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          date_label?: string
+          event?: string
+          id?: string
+          name?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          date_label?: string
+          event?: string
+          id?: string
+          name?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      partners: {
+        Row: {
+          blurb: string
+          created_at: string
+          id: string
+          name: string
+          sort_order: number
+          tier: string
+          updated_at: string
+          url: string | null
+        }
+        Insert: {
+          blurb?: string
+          created_at?: string
+          id?: string
+          name: string
+          sort_order?: number
+          tier?: string
+          updated_at?: string
+          url?: string | null
+        }
+        Update: {
+          blurb?: string
+          created_at?: string
+          id?: string
+          name?: string
+          sort_order?: number
+          tier?: string
+          updated_at?: string
+          url?: string | null
         }
         Relationships: []
       }
@@ -104,15 +272,43 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       redeem_invitation_code: { Args: { _code: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -239,6 +435,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const

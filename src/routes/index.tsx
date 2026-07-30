@@ -4,7 +4,7 @@ import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { LanyardCard } from "@/components/LanyardCard";
 import { MemberFlipCard } from "@/components/MemberFlipCard";
 import { EventCover } from "@/components/EventCover";
-import { events, guests, factories } from "@/lib/community-data";
+import { useEvents, useGuests, useFactories } from "@/lib/use-site-content";
 import { useMemberCount } from "@/lib/use-member-count";
 import { useCommunityMembers } from "@/lib/use-community-members";
 import { useFamilyBusinessCount } from "@/lib/use-family-business-count";
@@ -29,6 +29,9 @@ function Home() {
   const memberCount = useMemberCount();
   const featured = useCommunityMembers().members.slice(0, 3);
   const familyBusinessCount = useFamilyBusinessCount();
+  const { data: events = [] } = useEvents();
+  const { data: guests = [] } = useGuests();
+  const { data: factories = [] } = useFactories();
 
   return (
     <div className="min-h-screen">
@@ -37,6 +40,8 @@ function Home() {
       <HomeHero
         memberCount={memberCount}
         familyBusinessCount={familyBusinessCount}
+        eventCount={events.length}
+        factoryCount={factories.length}
       />
 
 
@@ -65,14 +70,14 @@ function Home() {
           {events.map((e) => (
             <article key={e.id} className="group glass-panel overflow-hidden rounded-2xl">
               <EventCover
-                image={e.cover}
-                month={e.date.split(" ")[0].toUpperCase()}
+                image={e.cover_url ?? ""}
+                month={e.date_label.split(" ")[0].toUpperCase()}
                 year="2026"
                 caption="This Photo Contains Something You May Find Exciting"
                 cta="Comment your guesses!"
               />
               <div className="p-4">
-                <div className="text-xs text-muted-foreground">{e.date} · {e.city}</div>
+                <div className="text-xs text-muted-foreground">{e.date_label} · {e.city}</div>
                 <div className="mt-1 text-lg font-semibold tracking-tight">{e.title}</div>
               </div>
             </article>
@@ -90,7 +95,7 @@ function Home() {
                 <div className="font-medium blur-sm select-none">{g.name}</div>
                 <div className="text-sm text-muted-foreground blur-sm select-none">{g.title}</div>
               </div>
-              <div className="text-sm text-muted-foreground">{g.event} · <span className="text-foreground">{g.date}</span></div>
+              <div className="text-sm text-muted-foreground">{g.event} · <span className="text-foreground">{g.date_label}</span></div>
             </li>
           ))}
         </ul>
@@ -106,7 +111,11 @@ function Home() {
 function HomeHero({
   memberCount,
   familyBusinessCount,
+  eventCount,
+  factoryCount,
 }: {
+  eventCount: number;
+  factoryCount: number;
   memberCount: number;
   familyBusinessCount: number;
 }) {
@@ -180,9 +189,9 @@ function HomeHero({
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
             <StatLight n={`${memberCount}`} label="Members" />
-            <StatLight n="1" label="Events" />
+            <StatLight n={`${eventCount}`} label="Events" />
             <StatLight n="2" label="Cities" />
-            <StatLight n={`${factories.length}`} label="Vetted factories" />
+            <StatLight n={`${factoryCount}`} label="Vetted factories" />
             <StatLight n={`${familyBusinessCount}`} label="Family businesses" />
           </div>
 

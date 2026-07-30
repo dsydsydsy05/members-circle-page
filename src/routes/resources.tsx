@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { MemberGate } from "@/components/MemberGate";
-import { factories } from "@/lib/community-data";
+import { useFactories } from "@/lib/use-site-content";
 
 export const Route = createFileRoute("/resources")({
   head: () => ({
@@ -18,6 +18,7 @@ export const Route = createFileRoute("/resources")({
 });
 
 function ResourcesPage() {
+  const { data: factories = [] } = useFactories();
   return (
     <div className="min-h-screen">
       <SiteNav />
@@ -45,7 +46,7 @@ function ResourcesPage() {
                   {factories.map((f) => (
                     <tr key={f.id} className="hover:bg-secondary/40">
                       <td className="px-5 py-4 font-medium">
-                        <a href={f.website} target="_blank" rel="noreferrer" className="hover:underline">{f.name}</a>
+                        <a href={f.website ?? "#"} target="_blank" rel="noreferrer" className="hover:underline">{f.name}</a>
                       </td>
                       <td className="px-5 py-4 text-muted-foreground">{f.category}</td>
                       <td className="px-5 py-4 text-muted-foreground">{f.location}</td>
