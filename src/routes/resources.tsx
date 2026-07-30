@@ -30,7 +30,7 @@ function ResourcesPage() {
         </p>
 
         <div className="mt-10">
-          <MemberGate title="Members only">
+          <MemberGate title="Factory List">
             <div className="overflow-hidden rounded-2xl bg-card ring-1 ring-border">
               <table className="w-full text-sm">
                 <thead className="bg-secondary text-xs uppercase tracking-wider text-muted-foreground">
