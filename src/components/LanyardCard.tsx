@@ -112,7 +112,7 @@ export function LanyardCard({
                   viewBox="0 0 24 24"
                   className="h-6 w-6"
                   fill="none"
-                  stroke="#a87a5a"
+                  stroke="#7BA23F"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
