@@ -40,41 +40,41 @@
 :root {
   --radius: 0.875rem;
 
-  /* Copper branding: ember orange / warm cocoa / near-black */
+  /* The Room branding: accent green / charcoal / white */
   --cream: #ffffff;
-  --cocoa: #453027;
-  --neon: #d9784a; /* brand accent (muted copper) */
-  --ember: #d9784a;
-  --ember-soft: #e9a982;
+  --cocoa: #1c2018;
+  --neon: #7ba23f; /* accent green */
+  --ember: #7ba23f;
+  --ember-soft: #a8c977;
 
-  --background: #221c19;
+  --background: #121416;
   --foreground: #ffffff;
-  --card: #2b2320;
+  --card: #1a1d1f;
   --card-foreground: #ffffff;
-  --popover: #2b2320;
+  --popover: #1a1d1f;
   --popover-foreground: #ffffff;
-  --primary: #c9714a;
-  --primary-foreground: #ffffff;
-  --secondary: #362b26;
+  --primary: #7ba23f;
+  --primary-foreground: #0e1013;
+  --secondary: #212526;
   --secondary-foreground: #ffffff;
-  --muted: #362b26;
-  --muted-foreground: #bababa;
-  --accent: #453027;
+  --muted: #212526;
+  --muted-foreground: #a3aaa5;
+  --accent: #2a2f28;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.55 0.2 27);
   --destructive-foreground: #ffffff;
-  --border: #4a3a32;
-  --input: #4a3a32;
-  --ring: #c9714a;
+  --border: #2e3335;
+  --input: #2e3335;
+  --ring: #7ba23f;
 
-  /* Material: soft copper mesh + frosted glass */
-  --gradient-ember: linear-gradient(135deg, #d9784a 0%, #eaa87f 100%);
+  /* Material: soft green light-beam mesh + frosted glass */
+  --gradient-ember: linear-gradient(135deg, #7ba23f 0%, #a8c977 100%);
   --mesh-copper:
-    radial-gradient(80rem 52rem at 50% 108%, rgba(216, 122, 74, 0.55), transparent 68%),
-    radial-gradient(64rem 44rem at 14% 78%, rgba(178, 106, 70, 0.36), transparent 66%),
-    radial-gradient(58rem 40rem at 88% 62%, rgba(150, 96, 68, 0.30), transparent 68%),
-    linear-gradient(180deg, #16110f 0%, #1d1613 34%, #2b201a 62%, #3a2a20 100%);
-  --shadow-warm: 0 30px 70px -30px rgba(196, 122, 82, 0.30), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+    radial-gradient(80rem 52rem at 50% 108%, rgba(123, 162, 63, 0.42), transparent 68%),
+    radial-gradient(64rem 44rem at 14% 78%, rgba(123, 162, 63, 0.20), transparent 66%),
+    radial-gradient(58rem 40rem at 88% 62%, rgba(168, 201, 119, 0.14), transparent 68%),
+    linear-gradient(180deg, #0d0f10 0%, #121416 34%, #171b18 62%, #1d231b 100%);
+  --shadow-warm: 0 30px 70px -30px rgba(123, 162, 63, 0.28), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
 }
 
 
@@ -273,14 +273,14 @@
 @utility hero-glow-primary {
   width: 28rem;
   height: 28rem;
-  background: radial-gradient(circle, rgba(190,120,80,0.30) 0%, rgba(160,100,70,0.12) 40%, rgba(120,80,60,0.04) 65%, transparent 80%);
+  background: radial-gradient(circle, rgba(123,162,63,0.32) 0%, rgba(123,162,63,0.13) 40%, rgba(100,130,55,0.04) 65%, transparent 80%);
   filter: blur(70px);
 }
 
 @utility hero-glow-secondary {
   width: 12rem;
   height: 16rem;
-  background: radial-gradient(ellipse at center, rgba(210,140,100,0.32) 0%, rgba(180,115,85,0.13) 50%, transparent 76%);
+  background: radial-gradient(ellipse at center, rgba(168,201,119,0.34) 0%, rgba(123,162,63,0.14) 50%, transparent 76%);
   filter: blur(45px);
 }
 
