@@ -73,17 +73,17 @@ export function LanyardCard({
               className="relative flex-[1.3] overflow-hidden rounded-lg"
               style={{
                 background:
-                  "linear-gradient(152deg, #f8e5d6 0%, #eeb892 18%, #d98c66 40%, #b06b4e 62%, #6a4739 82%, #2b1f1b 100%)",
+                  "linear-gradient(152deg, #a8b476 0%, #8fa35a 22%, #7a8f4a 45%, #5c6f3a 68%, #3f4a28 90%, #2a331b 100%)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 40px rgba(220,160,120,0.18)",
+                  "inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(0,0,0,0.18), inset 0 0 40px rgba(90,110,45,0.12)",
               }}
             >
-              {/* Warm bloom in the upper-left */}
+              {/* Soft top-left bloom */}
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(70% 60% at 18% 8%, rgba(255,245,235,0.42), transparent 70%)",
+                    "radial-gradient(65% 55% at 16% 10%, rgba(255,255,255,0.35), transparent 70%)",
                 }}
               />
               {/* Bottom edge vignette */}
@@ -91,29 +91,28 @@ export function LanyardCard({
                 className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 25%)",
+                    "linear-gradient(to top, rgba(0,0,0,0.25) 0%, transparent 28%)",
                 }}
               />
             </div>
 
             {/* Bottom info panel */}
             <div
-              className="relative flex flex-1 flex-col justify-between overflow-hidden rounded-lg p-3.5 ring-1 ring-black/5"
+              className="relative flex flex-1 flex-col justify-between overflow-hidden rounded-lg p-3.5 ring-1 ring-black/[0.04]"
               style={{
                 background:
-                  "linear-gradient(160deg, #ffffff 0%, #faf8f5 55%, #f5f0eb 100%)",
+                  "linear-gradient(160deg, #ffffff 0%, #fafafa 55%, #f5f5f5 100%)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,1), inset 0 -10px 22px rgba(180,140,110,0.07)",
+                  "inset 0 1px 0 rgba(255,255,255,1), inset 0 -10px 22px rgba(120,120,120,0.04)",
               }}
             >
-
               <div className="flex items-start justify-between">
                 {/* Diamond icon */}
                 <svg
                   viewBox="0 0 24 24"
                   className="h-6 w-6"
                   fill="none"
-                  stroke="#7ba23f"
+                  stroke="#a87a5a"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -125,7 +124,7 @@ export function LanyardCard({
                   <path d="M6 3l6 6" />
                   <path d="M18 3l-6 6" />
                 </svg>
-                <span className="text-[9px] font-medium tracking-widest text-black/40">
+                <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-black/40">
                   NO. {number}
                 </span>
               </div>
@@ -142,7 +141,7 @@ export function LanyardCard({
                 </div>
               </div>
 
-              <div className="text-[9px] font-medium text-black/40">
+              <div className="text-[9px] font-medium uppercase tracking-wider text-black/40">
                 {location}
               </div>
             </div>
