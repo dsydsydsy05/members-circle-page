@@ -184,9 +184,9 @@ export function LanyardCard({
           style={{
             transform: "rotateY(180deg) translateZ(0.5px)",
             background:
-              "linear-gradient(160deg, #5a3d32 0%, #36261f 60%, #1c1715 100%)",
+              "linear-gradient(160deg, #1a2218 0%, #121416 55%, #0a0c0a 100%)",
             boxShadow:
-              "0 40px 80px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.04)",
+              "0 40px 80px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(123,162,63,0.12), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 0 0 1px rgba(123,162,63,0.06)",
           }}
         >
           <div className="absolute left-1/2 top-4 -translate-x-1/2">
