@@ -73,9 +73,9 @@ export function LanyardCard({
               className="relative flex-[1.3] overflow-hidden rounded-lg"
               style={{
                 background:
-                  "linear-gradient(152deg, #f3d8c2 0%, #e0a77e 18%, #cf7f52 40%, #9c5c3c 62%, #4d382c 82%, #241c19 100%)",
+                  "linear-gradient(152deg, #f8e5d6 0%, #eeb892 18%, #d98c66 40%, #b06b4e 62%, #6a4739 82%, #2b1f1b 100%)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 40px rgba(150,190,90,0.18)",
+                  "inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 40px rgba(220,160,120,0.18)",
               }}
             >
               {/* Warm bloom in the upper-left */}
