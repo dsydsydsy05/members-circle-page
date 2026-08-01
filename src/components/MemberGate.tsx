@@ -20,7 +20,7 @@ export function MemberGate({ title, children }: { title: string; children: React
       <div className="relative flex flex-col items-center text-center">
         <div className="relative">
           <div className="absolute inset-0 animate-pulse rounded-full bg-primary/30 blur-xl" />
-          <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-primary/40 bg-primary/15 shadow-[0_0_40px_-12px_rgba(201,113,74,0.5)]">
+          <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-primary/40 bg-primary/15 shadow-[0_0_40px_-12px_rgba(123,162,63,0.5)]">
             <Lock className="h-9 w-9 text-primary" strokeWidth={1.5} />
           </div>
         </div>
@@ -38,7 +38,7 @@ export function MemberGate({ title, children }: { title: string; children: React
 
         <Link
           to={ctaTo}
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground shadow-[0_0_32px_-8px_rgba(201,113,74,0.6)] transition-all hover:bg-primary/90 hover:shadow-[0_0_40px_-6px_rgba(201,113,74,0.7)]"
+          className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground shadow-[0_0_32px_-8px_rgba(123,162,63,0.6)] transition-all hover:bg-primary/90 hover:shadow-[0_0_40px_-6px_rgba(123,162,63,0.7)]"
         >
           {ctaLabel}
         </Link>

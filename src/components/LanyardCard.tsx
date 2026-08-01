@@ -63,7 +63,7 @@ export function LanyardCard({
             className="pointer-events-none absolute inset-0 opacity-70"
             style={{
               background:
-                "linear-gradient(118deg, rgba(255,255,255,0) 18%, rgba(255,214,183,0.35) 34%, rgba(255,255,255,0.65) 42%, rgba(226,232,240,0.30) 50%, rgba(255,255,255,0) 66%)",
+                "linear-gradient(118deg, rgba(255,255,255,0) 18%, rgba(214,232,183,0.35) 34%, rgba(255,255,255,0.65) 42%, rgba(226,232,240,0.30) 50%, rgba(255,255,255,0) 66%)",
               mixBlendMode: "soft-light",
             }}
           />
@@ -75,7 +75,7 @@ export function LanyardCard({
                 background:
                   "linear-gradient(152deg, #f3d8c2 0%, #e0a77e 18%, #cf7f52 40%, #9c5c3c 62%, #4d382c 82%, #241c19 100%)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 40px rgba(255,180,120,0.18)",
+                  "inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 40px rgba(150,190,90,0.18)",
               }}
             >
               {/* Warm bloom in the upper-left */}
@@ -83,7 +83,7 @@ export function LanyardCard({
                 className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(70% 60% at 18% 8%, rgba(255,236,214,0.42), transparent 70%)",
+                    "radial-gradient(70% 60% at 18% 8%, rgba(236,246,214,0.42), transparent 70%)",
                 }}
               />
               {/* Bottom edge vignette */}
@@ -103,7 +103,7 @@ export function LanyardCard({
                 background:
                   "linear-gradient(160deg, #ffffff 0%, #faf7f4 55%, #efe8e1 100%)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,1), inset 0 -10px 22px rgba(120,80,55,0.07)",
+                  "inset 0 1px 0 rgba(255,255,255,1), inset 0 -10px 22px rgba(70,90,50,0.07)",
               }}
             >
 
@@ -113,7 +113,7 @@ export function LanyardCard({
                   viewBox="0 0 24 24"
                   className="h-6 w-6"
                   fill="none"
-                  stroke="#c9714a"
+                  stroke="#7ba23f"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
