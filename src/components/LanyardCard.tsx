@@ -26,7 +26,7 @@ export function LanyardCard({
             style={{
               transform: `translateZ(${-2 - i * 1.8}px)`,
               background:
-                "linear-gradient(180deg, #ede6de 0%, #e0d4c8 45%, #d4c7b8 100%)",
+                "linear-gradient(180deg, #f5ede4 0%, #e8ddd1 45%, #ddd0c2 100%)",
               boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.03)",
               filter: `brightness(${0.98 - i * 0.02})`,
             }}
