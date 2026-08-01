@@ -83,7 +83,7 @@ export function LanyardCard({
                 className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(70% 60% at 18% 8%, rgba(236,246,214,0.42), transparent 70%)",
+                    "radial-gradient(70% 60% at 18% 8%, rgba(255,245,235,0.42), transparent 70%)",
                 }}
               />
               {/* Bottom edge vignette */}
@@ -101,9 +101,9 @@ export function LanyardCard({
               className="relative flex flex-1 flex-col justify-between overflow-hidden rounded-lg p-3.5 ring-1 ring-black/5"
               style={{
                 background:
-                  "linear-gradient(160deg, #ffffff 0%, #faf7f4 55%, #efe8e1 100%)",
+                  "linear-gradient(160deg, #ffffff 0%, #faf8f5 55%, #f5f0eb 100%)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,1), inset 0 -10px 22px rgba(70,90,50,0.07)",
+                  "inset 0 1px 0 rgba(255,255,255,1), inset 0 -10px 22px rgba(180,140,110,0.07)",
               }}
             >
 
