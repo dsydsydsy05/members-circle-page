@@ -39,7 +39,7 @@ export function LanyardCard({
           className="backface-hidden absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-black/10"
           style={{
             background:
-              "linear-gradient(150deg, #ffffff 0%, #f6f1ec 38%, #ece3db 62%, #f8f5f2 100%)",
+              "linear-gradient(150deg, #ffffff 0%, #faf5f0 38%, #f4ece4 62%, #f9f6f3 100%)",
             boxShadow:
               "0 40px 80px -30px rgba(0,0,0,0.65), 0 12px 24px -12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)",
             transform: "translateZ(0.5px)",
