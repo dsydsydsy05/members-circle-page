@@ -35,7 +35,7 @@ function PartnerLogo({ partner, height }: { partner: Partner; height: string }) 
     >
       {hasLogo ? (
         <img
-          src={partner.logoUrl}
+          src={partner.logoUrl ?? undefined}
           alt={`${partner.name} logo`}
           className="h-3/5 w-auto max-w-[80%] object-contain transition-transform duration-300 group-hover:scale-105"
         />
