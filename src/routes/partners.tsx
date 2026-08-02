@@ -40,7 +40,7 @@ function PartnerLogo({ partner }: { partner: Partner }) {
           className="h-24 w-auto max-w-[90%] object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-105"
         />
       ) : (
-        <div className="flex h-24 w-24 items-center justify-center text-xl font-semibold tracking-tight text-white/80">
+        <div className="flex h-24 w-24 items-center justify-center text-sm font-semibold tracking-widest text-white/60">
           {partner.name.replace(/[^A-Z]/g, "").slice(0, 2) || "IC"}
         </div>
       )}
