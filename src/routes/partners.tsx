@@ -59,6 +59,7 @@ function PartnersPage() {
     tier: p.tier as PartnerTier,
     blurb: p.blurb,
     url: p.url ?? "#",
+    logoUrl: p.logo_url,
   }));
   return (
     <div className="min-h-screen">
