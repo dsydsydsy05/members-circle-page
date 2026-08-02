@@ -6,6 +6,7 @@ export type Partner = {
   tier: PartnerTier;
   blurb: string;
   url: string;
+  logoUrl?: string | null;
 };
 
 export const tierMeta: Record<
