@@ -1,21 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
-import { type Partner } from "@/lib/partners-data";
+import { tierMeta, tierOrder, type Partner, type PartnerTier } from "@/lib/partners-data";
 import { usePartners } from "@/lib/use-site-content";
 
 export const Route = createFileRoute("/partners")({
   head: () => ({
     meta: [
-      { title: "Partners — The Room" },
+      { title: "Partners & Sponsors — The Room" },
       {
         name: "description",
         content:
-          "Partners, communities and media powering the The Room community.",
+          "Diamond, Platinum, Gold and Silver sponsors plus ecosystem partners powering the The Room community.",
       },
-      { property: "og:title", content: "Partners — The Room" },
+      { property: "og:title", content: "Partners & Sponsors — The Room" },
       {
         property: "og:description",
-        content: "The brands, communities and media backing our members.",
+        content: "The brands, funds and studios backing our members-only community.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -24,29 +24,27 @@ export const Route = createFileRoute("/partners")({
   component: PartnersPage,
 });
 
-function PartnerLogo({ partner }: { partner: Partner }) {
+function PartnerLogo({ partner, height }: { partner: Partner; height: string }) {
   const hasLogo = !!partner.logoUrl;
   return (
     <a
       href={partner.url}
       target="_blank"
       rel="noreferrer"
-      className="group flex flex-col items-center justify-start gap-3 text-center select-none"
+      className={`group relative flex ${height} flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border border-border bg-card px-4 text-center transition-colors hover:border-primary/60 ${hasLogo ? "" : "blur-sm"} select-none`}
     >
       {hasLogo ? (
         <img
           src={partner.logoUrl ?? undefined}
           alt={`${partner.name} logo`}
-          className="h-24 w-auto max-w-[90%] object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-105"
+          className="h-2/3 w-auto max-w-[90%] object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-105"
         />
       ) : (
-        <div className="flex h-24 w-24 items-center justify-center text-sm font-semibold tracking-widest text-white/60">
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
           {partner.name.replace(/[^A-Z]/g, "").slice(0, 2) || "IC"}
         </div>
       )}
-      <div className="text-xs font-medium tracking-tight text-white/70 group-hover:text-white">
-        {partner.name}
-      </div>
+      <div className="text-xs font-semibold tracking-[0.18em]">{partner.name}</div>
     </a>
   );
 }
@@ -56,35 +54,58 @@ function PartnersPage() {
   const partners: Partner[] = rows.map((p) => ({
     id: p.id,
     name: p.name,
-    tier: p.tier as Partner["tier"],
+    tier: p.tier as PartnerTier,
     blurb: p.blurb,
     url: p.url ?? "#",
     logoUrl: p.logo_url,
   }));
-
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <SiteNav />
-      <main className="mx-auto max-w-7xl px-6 py-16 sm:py-20">
-        <div className="text-xs uppercase tracking-[0.24em] text-primary">
-          Community
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
+        <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+          Partners
         </div>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Partners, Communities & Media
+        <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+          Backed by people<br />who build things.
         </h1>
 
-        <div className="mt-16 grid grid-cols-3 gap-x-6 gap-y-12 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
-          {partners.map((p) => (
-            <PartnerLogo key={p.id} partner={p} />
-          ))}
+        <div className="mt-14 space-y-14">
+          {tierOrder.map((tier) => {
+            const meta = tierMeta[tier];
+            const list = partners.filter((p) => p.tier === tier);
+            if (!list.length) return null;
+            return (
+              <section key={tier}>
+                <div className="mb-5 flex items-baseline justify-between gap-4 border-b border-border pb-3">
+                  <h2 className="text-xl font-semibold tracking-tight">
+                    {meta.label}
+                    <span className="ml-2 text-xs font-normal text-primary">
+                      {list.length}
+                    </span>
+                  </h2>
+                  <div className="text-xs text-muted-foreground">{meta.note}</div>
+                </div>
+                <div className={`grid gap-4 ${meta.cols}`}>
+                  {list.map((p) => (
+                    <PartnerLogo key={p.id} partner={p} height={meta.height} />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
 
-        <div className="mt-20 text-center">
+        <div className="mt-20 rounded-2xl border border-primary/30 bg-card p-8 text-center">
+          <h2 className="text-2xl font-semibold tracking-tight">Want to partner with us?</h2>
+          <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+            Four sponsorship tiers plus an ecosystem track for tools and communities.
+          </p>
           <a
-            href="mailto:partners@theroom.community"
-            className="inline-block rounded-full border border-primary/50 px-6 py-2.5 text-sm font-medium text-primary hover:bg-primary/10 transition-colors"
+            href="mailto:partners@the room.community"
+            className="mt-6 inline-block rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
-            Become a partner
+            Get the deck
           </a>
         </div>
       </main>
