@@ -25,17 +25,25 @@ export const Route = createFileRoute("/partners")({
 });
 
 function PartnerLogo({ partner, height }: { partner: Partner; height: string }) {
-  const initials = partner.name.replace(/[^A-Z]/g, "").slice(0, 2) || "IC";
+  const hasLogo = !!partner.logoUrl;
   return (
     <a
       href={partner.url}
       target="_blank"
       rel="noreferrer"
-      className={`group relative flex ${height} flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-border bg-card px-4 text-center transition-colors hover:border-primary/60 blur-sm select-none`}
+      className={`group relative flex ${height} flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-border bg-card px-4 text-center transition-colors hover:border-primary/60 ${hasLogo ? "" : "blur-sm"} select-none`}
     >
-      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
-        {initials}
-      </div>
+      {hasLogo ? (
+        <img
+          src={partner.logoUrl ?? undefined}
+          alt={`${partner.name} logo`}
+          className="h-1/2 w-auto max-w-[80%] object-contain transition-transform duration-300 group-hover:scale-105"
+        />
+      ) : (
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
+          {partner.name.replace(/[^A-Z]/g, "").slice(0, 2) || "IC"}
+        </div>
+      )}
       <div className="text-sm font-semibold tracking-[0.18em]">{partner.name}</div>
       <div className="px-2 text-[11px] leading-snug text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         {partner.blurb}
@@ -52,6 +60,7 @@ function PartnersPage() {
     tier: p.tier as PartnerTier,
     blurb: p.blurb,
     url: p.url ?? "#",
+    logoUrl: p.logo_url,
   }));
   return (
     <div className="min-h-screen">

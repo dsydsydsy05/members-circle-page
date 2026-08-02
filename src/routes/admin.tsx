@@ -88,9 +88,10 @@ const SECTIONS: {
       { key: "tier", label: "Tier (diamond/platinum/gold/silver/ecosystem)" },
       { key: "blurb", label: "Blurb", type: "textarea" },
       { key: "url", label: "URL" },
+      { key: "logo_url", label: "Logo URL" },
       { key: "sort_order", label: "Order", type: "number" },
     ],
-    defaults: { name: "New partner", tier: "silver", blurb: "", url: "", sort_order: 99 },
+    defaults: { name: "New partner", tier: "silver", blurb: "", url: "", logo_url: "", sort_order: 99 },
   },
 ];
 

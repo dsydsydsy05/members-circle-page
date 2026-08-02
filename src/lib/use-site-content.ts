@@ -44,6 +44,7 @@ export type PartnerRow = {
   tier: string;
   blurb: string;
   url: string | null;
+  logo_url: string | null;
   sort_order: number;
 };
 
