@@ -37,7 +37,7 @@ function PartnerLogo({ partner }: { partner: Partner }) {
         <img
           src={partner.logoUrl ?? undefined}
           alt={`${partner.name} logo`}
-          className="h-16 w-auto max-w-[85%] object-contain transition-transform duration-300 group-hover:scale-105"
+          className="h-16 w-auto max-w-[85%] object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-105"
         />
       ) : (
         <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-border/50 bg-card/50 text-sm font-semibold">
