@@ -31,20 +31,20 @@ function PartnerLogo({ partner }: { partner: Partner }) {
       href={partner.url}
       target="_blank"
       rel="noreferrer"
-      className="group flex flex-col items-center justify-center gap-3 text-center select-none"
+      className="group flex flex-col items-center justify-start gap-3 text-center select-none"
     >
       {hasLogo ? (
         <img
           src={partner.logoUrl ?? undefined}
           alt={`${partner.name} logo`}
-          className="h-16 w-auto max-w-[85%] object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-105"
+          className="h-24 w-auto max-w-[90%] object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-105"
         />
       ) : (
-        <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-border/50 bg-card/50 text-sm font-semibold">
+        <div className="flex h-24 w-24 items-center justify-center text-xl font-semibold tracking-tight text-white/80">
           {partner.name.replace(/[^A-Z]/g, "").slice(0, 2) || "IC"}
         </div>
       )}
-      <div className="text-sm font-medium tracking-tight text-white/90">
+      <div className="text-xs font-medium tracking-tight text-white/70 group-hover:text-white">
         {partner.name}
       </div>
     </a>
