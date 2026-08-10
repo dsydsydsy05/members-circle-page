@@ -1,75 +1,78 @@
-import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { SiteNav, SiteFooter } from "@/components/SiteNav";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { SiteFooter, SiteNav } from "@/components/SiteNav";
 import { useGuests } from "@/lib/use-site-content";
 
 export const Route = createFileRoute("/guests")({
   head: () => ({
     meta: [
-      { title: "Guests · The Room" },
-      { name: "description", content: "Founders and operators we've hosted at The Room events." },
-      { property: "og:title", content: "Guests · The Room" },
-      { property: "og:description", content: "Fireside chats, closed Q&As, and workshops with our guests." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { title: "Conversations · The Room" },
+      { name: "description", content: "Guests invited into The Room for specific conversations." },
     ],
+    links: [{ rel: "canonical", href: "https://theroomcommunity.org/guests" }],
   }),
   component: GuestsPage,
 });
 
 function GuestsPage() {
-  const [active, setActive] = useState<string | null>(null);
-  const { data: guests = [] } = useGuests();
+  const { data: guests = [], isLoading } = useGuests();
+  const verified = guests.filter(
+    (guest) =>
+      guest.name.toLowerCase() !== "coming soon" && !guest.title.toLowerCase().includes("tba"),
+  );
 
   return (
-    <div className="min-h-screen">
-      <SiteNav />
-      <main className="mx-auto max-w-4xl px-4 sm:px-6 py-16">
-        <div className="text-xs uppercase tracking-[0.22em] text-primary">Guests</div>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
-          People we've <span className="text-primary">hosted</span>
-        </h1>
-        <p className="mt-3 text-muted-foreground">
-          Small-format conversations with people we admire. No stages, no slides.
-        </p>
-
-        <ul className="mt-10 divide-y divide-border overflow-hidden rounded-2xl bg-card ring-1 ring-border">
-          {guests.map((g) => {
-            const on = active === g.id;
-            return (
-              <li
-                key={g.id}
-                className={`grid grid-cols-1 gap-2 px-6 py-5 transition-colors sm:grid-cols-[1fr_auto] sm:items-center ${
-                  on ? "bg-primary/5" : ""
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    className={`h-6 w-[3px] rounded-full transition-colors ${on ? "bg-primary" : "bg-transparent"}`}
-                    aria-hidden
-                  />
-                  <div>
-                    <button
-                      type="button"
-                      aria-pressed={on}
-                      onClick={() => setActive(on ? null : g.id)}
-                      className={`text-left text-lg font-semibold tracking-tight transition-colors hover:text-primary ${
-                        on ? "text-primary" : ""
-                      }`}
-                    >
-                      <span className="blur-sm select-none">{g.name}</span>
-                    </button>
-                    <div className="text-sm text-muted-foreground blur-sm select-none">{g.title}</div>
-                  </div>
-                </div>
-                <div className="text-right sm:pl-6">
-                  <div className={`text-sm transition-colors ${on ? "text-primary" : ""}`}>{g.event}</div>
-                  <div className="text-xs text-muted-foreground">{g.date_label}</div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+    <div className="depth-page">
+      <SiteNav tone="light" />
+      <main>
+        <header className="depth-hero">
+          <div className="page-shell depth-hero__grid">
+            <div className="eyebrow">Guests / Conversations</div>
+            <div className="depth-hero__main">
+              <h1 className="editorial-title">People who’ve walked through the door.</h1>
+              <p>
+                A guest was invited into The Room. A member belongs to it. This archive records the
+                conversations, not a network of names.
+              </p>
+            </div>
+          </div>
+        </header>
+        <section className="page-section">
+          <div className="page-shell">
+            {isLoading ? (
+              <p className="empty-truth">Loading conversations…</p>
+            ) : verified.length === 0 ? (
+              <div className="empty-truth">
+                <p>
+                  No verified guest conversations have been published yet. Database placeholders
+                  remain hidden.
+                </p>
+                <Link to="/events" className="text-link mt-6">
+                  See announced events ↗
+                </Link>
+              </div>
+            ) : (
+              <div className="border-t border-black/20">
+                {verified.map((guest, index) => (
+                  <article
+                    key={guest.id}
+                    className="grid gap-5 border-b border-black/20 py-8 md:grid-cols-[80px_1fr_1fr]"
+                  >
+                    <span className="text-xs text-[var(--signal)]">
+                      /{String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h2 className="font-editorial text-4xl">{guest.name}</h2>
+                    <div>
+                      <p>{guest.title}</p>
+                      <p className="mt-2 text-sm text-black/45">
+                        {guest.event} / {guest.date_label}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </div>

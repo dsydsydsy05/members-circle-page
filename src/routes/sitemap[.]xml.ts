@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
-const BASE_URL = "";
+const BASE_URL = "https://theroomcommunity.org";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -9,11 +9,12 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const entries = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
+          { path: "/about", changefreq: "monthly", priority: "0.8" },
+          { path: "/projects", changefreq: "weekly", priority: "0.9" },
           { path: "/members", changefreq: "weekly", priority: "0.8" },
           { path: "/guests", changefreq: "monthly", priority: "0.6" },
           { path: "/events", changefreq: "weekly", priority: "0.8" },
-          { path: "/resources", changefreq: "monthly", priority: "0.5" },
-          { path: "/businesses", changefreq: "monthly", priority: "0.6" },
+          { path: "/partners", changefreq: "monthly", priority: "0.5" },
         ];
         const urls = entries.map(
           (e) =>

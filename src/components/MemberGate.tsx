@@ -46,7 +46,10 @@ export function MemberGate({ title, children }: { title: string; children: React
         {!isSignedIn && (
           <p className="mt-4 text-xs text-muted-foreground">
             Already a member?{" "}
-            <Link to="/auth" className="text-primary underline underline-offset-4 hover:text-primary/80">
+            <Link
+              to="/auth"
+              className="text-primary underline underline-offset-4 hover:text-primary/80"
+            >
               Sign in
             </Link>
           </p>

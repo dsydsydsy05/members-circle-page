@@ -141,35 +141,86 @@ function BusinessForm({
     <div className="mt-5 space-y-4 border-t border-border pt-5">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="biz-name" className={label}>Business name *</label>
-          <input id="biz-name" value={name} onChange={(e) => setName(e.target.value)} className={field} maxLength={120} />
+          <label htmlFor="biz-name" className={label}>
+            Business name *
+          </label>
+          <input
+            id="biz-name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className={field}
+            maxLength={120}
+          />
         </div>
         <div>
-          <label htmlFor="biz-cat" className={label}>Category</label>
-          <select id="biz-cat" value={category} onChange={(e) => setCategory(e.target.value)} className={field}>
+          <label htmlFor="biz-cat" className={label}>
+            Category
+          </label>
+          <select
+            id="biz-cat"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className={field}
+          >
             {CATEGORIES.map((c) => (
-              <option key={c} value={c}>{c}</option>
+              <option key={c} value={c}>
+                {c}
+              </option>
             ))}
           </select>
         </div>
         <div>
-          <label htmlFor="biz-owner" className={label}>Owner / run by</label>
-          <input id="biz-owner" value={ownerName} onChange={(e) => setOwnerName(e.target.value)} className={field} maxLength={80} />
+          <label htmlFor="biz-owner" className={label}>
+            Owner / run by
+          </label>
+          <input
+            id="biz-owner"
+            value={ownerName}
+            onChange={(e) => setOwnerName(e.target.value)}
+            className={field}
+            maxLength={80}
+          />
         </div>
         <div>
-          <label htmlFor="biz-loc" className={label}>Location</label>
-          <input id="biz-loc" value={location} onChange={(e) => setLocation(e.target.value)} className={field} placeholder="Shanghai, CN" maxLength={120} />
+          <label htmlFor="biz-loc" className={label}>
+            Location
+          </label>
+          <input
+            id="biz-loc"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className={field}
+            placeholder="Shanghai, CN"
+            maxLength={120}
+          />
         </div>
       </div>
 
       <div>
-        <label htmlFor="biz-site" className={label}>Website</label>
-        <input id="biz-site" value={website} onChange={(e) => setWebsite(e.target.value)} className={field} placeholder="https://…" maxLength={300} />
+        <label htmlFor="biz-site" className={label}>
+          Website
+        </label>
+        <input
+          id="biz-site"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+          className={field}
+          placeholder="https://…"
+          maxLength={300}
+        />
       </div>
 
       <div>
-        <label htmlFor="biz-desc" className={label}>Short description</label>
-        <textarea id="biz-desc" value={description} onChange={(e) => setDescription(e.target.value)} className={`${field} min-h-[80px]`} maxLength={300} />
+        <label htmlFor="biz-desc" className={label}>
+          Short description
+        </label>
+        <textarea
+          id="biz-desc"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className={`${field} min-h-[80px]`}
+          maxLength={300}
+        />
       </div>
 
       {error && <p className="text-sm text-red-400">{error}</p>}

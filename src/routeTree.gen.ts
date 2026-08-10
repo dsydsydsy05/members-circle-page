@@ -9,61 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ResourcesRouteImport } from './routes/resources'
-import { Route as PartnersRouteImport } from './routes/partners'
-import { Route as OnboardingRouteImport } from './routes/onboarding'
-import { Route as MembersRouteImport } from './routes/members'
-import { Route as GuestsRouteImport } from './routes/guests'
-import { Route as EventsRouteImport } from './routes/events'
-import { Route as BusinessesRouteImport } from './routes/businesses'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BusinessesRouteImport } from './routes/businesses'
+import { Route as EventsRouteImport } from './routes/events'
+import { Route as GuestsRouteImport } from './routes/guests'
+import { Route as MembersRouteImport } from './routes/members'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as PartnersRouteImport } from './routes/partners'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as MemberMemberIdRouteImport } from './routes/member.$memberId'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResourcesRoute = ResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PartnersRoute = PartnersRouteImport.update({
-  id: '/partners',
-  path: '/partners',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingRoute = OnboardingRouteImport.update({
-  id: '/onboarding',
-  path: '/onboarding',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MembersRoute = MembersRouteImport.update({
-  id: '/members',
-  path: '/members',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GuestsRoute = GuestsRouteImport.update({
-  id: '/guests',
-  path: '/guests',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EventsRoute = EventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BusinessesRoute = BusinessesRouteImport.update({
-  id: '/businesses',
-  path: '/businesses',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -71,14 +39,65 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessesRoute = BusinessesRouteImport.update({
+  id: '/businesses',
+  path: '/businesses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuestsRoute = GuestsRouteImport.update({
+  id: '/guests',
+  path: '/guests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembersRoute = MembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MemberMemberIdRoute = MemberMemberIdRouteImport.update({
+  id: '/member/$memberId',
+  path: '/member/$memberId',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
@@ -87,11 +106,14 @@ export interface FileRoutesByFullPath {
   '/members': typeof MembersRoute
   '/onboarding': typeof OnboardingRoute
   '/partners': typeof PartnersRoute
+  '/projects': typeof ProjectsRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/member/$memberId': typeof MemberMemberIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
@@ -100,12 +122,15 @@ export interface FileRoutesByTo {
   '/members': typeof MembersRoute
   '/onboarding': typeof OnboardingRoute
   '/partners': typeof PartnersRoute
+  '/projects': typeof ProjectsRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/member/$memberId': typeof MemberMemberIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
@@ -114,13 +139,16 @@ export interface FileRoutesById {
   '/members': typeof MembersRoute
   '/onboarding': typeof OnboardingRoute
   '/partners': typeof PartnersRoute
+  '/projects': typeof ProjectsRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/member/$memberId': typeof MemberMemberIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/admin'
     | '/auth'
     | '/businesses'
@@ -129,11 +157,14 @@ export interface FileRouteTypes {
     | '/members'
     | '/onboarding'
     | '/partners'
+    | '/projects'
     | '/resources'
     | '/sitemap.xml'
+    | '/member/$memberId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/admin'
     | '/auth'
     | '/businesses'
@@ -142,11 +173,14 @@ export interface FileRouteTypes {
     | '/members'
     | '/onboarding'
     | '/partners'
+    | '/projects'
     | '/resources'
     | '/sitemap.xml'
+    | '/member/$memberId'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/admin'
     | '/auth'
     | '/businesses'
@@ -155,12 +189,15 @@ export interface FileRouteTypes {
     | '/members'
     | '/onboarding'
     | '/partners'
+    | '/projects'
     | '/resources'
     | '/sitemap.xml'
+    | '/member/$memberId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
   BusinessesRoute: typeof BusinessesRoute
@@ -169,73 +206,26 @@ export interface RootRouteChildren {
   MembersRoute: typeof MembersRoute
   OnboardingRoute: typeof OnboardingRoute
   PartnersRoute: typeof PartnersRoute
+  ProjectsRoute: typeof ProjectsRoute
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  MemberMemberIdRoute: typeof MemberMemberIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/partners': {
-      id: '/partners'
-      path: '/partners'
-      fullPath: '/partners'
-      preLoaderRoute: typeof PartnersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding': {
-      id: '/onboarding'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof OnboardingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/members': {
-      id: '/members'
-      path: '/members'
-      fullPath: '/members'
-      preLoaderRoute: typeof MembersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/guests': {
-      id: '/guests'
-      path: '/guests'
-      fullPath: '/guests'
-      preLoaderRoute: typeof GuestsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/businesses': {
-      id: '/businesses'
-      path: '/businesses'
-      fullPath: '/businesses'
-      preLoaderRoute: typeof BusinessesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -245,11 +235,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/businesses': {
+      id: '/businesses'
+      path: '/businesses'
+      fullPath: '/businesses'
+      preLoaderRoute: typeof BusinessesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guests': {
+      id: '/guests'
+      path: '/guests'
+      fullPath: '/guests'
+      preLoaderRoute: typeof GuestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/members': {
+      id: '/members'
+      path: '/members'
+      fullPath: '/members'
+      preLoaderRoute: typeof MembersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/member/$memberId': {
+      id: '/member/$memberId'
+      path: '/member/$memberId'
+      fullPath: '/member/$memberId'
+      preLoaderRoute: typeof MemberMemberIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -257,6 +317,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
   BusinessesRoute: BusinessesRoute,
@@ -265,8 +326,10 @@ const rootRouteChildren: RootRouteChildren = {
   MembersRoute: MembersRoute,
   OnboardingRoute: OnboardingRoute,
   PartnersRoute: PartnersRoute,
+  ProjectsRoute: ProjectsRoute,
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  MemberMemberIdRoute: MemberMemberIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
