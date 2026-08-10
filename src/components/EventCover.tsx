@@ -30,7 +30,9 @@ export function EventCover({
         loading="lazy"
         decoding="async"
         className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ${
-          revealed ? "scale-100 opacity-80 blur-0" : "scale-110 opacity-45 blur-md grayscale-[0.4]"
+          revealed
+            ? "scale-100 opacity-80 blur-0"
+            : "scale-110 opacity-45 blur-md grayscale-[0.4]"
         }`}
       />
       {/* Vignette */}

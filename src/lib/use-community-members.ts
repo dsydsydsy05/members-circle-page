@@ -18,9 +18,7 @@ export function useCommunityMembers(): { members: Member[]; loading: boolean } {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("profiles")
-        .select(
-          "id, member_no, full_name, avatar_url, school, startup, position, website, tags, about",
-        )
+        .select("id, member_no, full_name, avatar_url, school, startup, position, website, tags, about")
         .eq("onboarded", true)
         .order("created_at", { ascending: false });
       if (error) throw error;

@@ -13,15 +13,9 @@ export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
       { title: "Admin · The Room" },
-      {
-        name: "description",
-        content: "Manage The Room events, guests, photos, factory list, partners and members.",
-      },
+      { name: "description", content: "Manage The Room events, guests, photos, factory list, partners and members." },
       { property: "og:title", content: "Admin · The Room" },
-      {
-        property: "og:description",
-        content: "Internal control room for The Room content and members.",
-      },
+      { property: "og:description", content: "Internal control room for The Room content and members." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -48,14 +42,7 @@ const SECTIONS: {
       { key: "cover_url", label: "Cover image URL" },
       { key: "sort_order", label: "Order", type: "number" },
     ],
-    defaults: {
-      title: "New event",
-      date_label: "",
-      city: "",
-      status: "upcoming",
-      cover_url: "",
-      sort_order: 99,
-    },
+    defaults: { title: "New event", date_label: "", city: "", status: "upcoming", cover_url: "", sort_order: 99 },
   },
   {
     table: "guests",
@@ -67,13 +54,7 @@ const SECTIONS: {
       { key: "date_label", label: "Date" },
       { key: "sort_order", label: "Order", type: "number" },
     ],
-    defaults: {
-      name: "Coming Soon",
-      title: "Guest speaker TBA",
-      event: "",
-      date_label: "",
-      sort_order: 99,
-    },
+    defaults: { name: "Coming Soon", title: "Guest speaker TBA", event: "", date_label: "", sort_order: 99 },
   },
   {
     table: "event_photos",
@@ -97,15 +78,7 @@ const SECTIONS: {
       { key: "website", label: "Website" },
       { key: "sort_order", label: "Order", type: "number" },
     ],
-    defaults: {
-      name: "New factory",
-      category: "",
-      location: "",
-      moq: "",
-      notes: "",
-      website: "",
-      sort_order: 99,
-    },
+    defaults: { name: "New factory", category: "", location: "", moq: "", notes: "", website: "", sort_order: 99 },
   },
   {
     table: "partners",
@@ -118,28 +91,12 @@ const SECTIONS: {
       { key: "logo_url", label: "Logo URL" },
       { key: "sort_order", label: "Order", type: "number" },
     ],
-    defaults: {
-      name: "New partner",
-      tier: "silver",
-      blurb: "",
-      url: "",
-      logo_url: "",
-      sort_order: 99,
-    },
+    defaults: { name: "New partner", tier: "silver", blurb: "", url: "", logo_url: "", sort_order: 99 },
   },
 ];
 
 const inputCls =
   "w-full rounded-lg border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary";
-
-type ContentRecord = { id: string } & Record<string, string | number | null>;
-type MutationResult = PromiseLike<{ error: { message: string } | null }>;
-type ContentMutationClient = {
-  update: (values: Record<string, unknown>) => {
-    eq: (column: string, value: string) => MutationResult;
-  };
-  insert: (values: Record<string, unknown>) => MutationResult;
-};
 
 function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
   const qc = useQueryClient();
@@ -154,27 +111,26 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
         .order("sort_order", { ascending: true })
         .order("created_at", { ascending: true });
       if (error) throw error;
-      return (data ?? []) as unknown as ContentRecord[];
+      return (data ?? []) as Record<string, any>[];
     },
   });
 
-  const [draft, setDraft] = useState<Record<string, ContentRecord>>({});
+  const [draft, setDraft] = useState<Record<string, Record<string, any>>>({});
   useEffect(() => {
-    const next: Record<string, ContentRecord> = {};
-    rows.forEach((r) => (next[r.id] = { ...r }));
+    const next: Record<string, Record<string, any>> = {};
+    rows.forEach((r) => (next[r.id as string] = { ...r }));
     setDraft(next);
   }, [rows]);
 
   const refresh = () => qc.invalidateQueries({ queryKey: key });
 
   const save = async (id: string) => {
-    const patch: Record<string, unknown> = {};
+    const patch: Record<string, any> = {};
     section.fields.forEach((f) => {
       const v = draft[id]?.[f.key];
-      patch[f.key] = f.type === "number" ? Number(v) || 0 : (v ?? "");
+      patch[f.key] = f.type === "number" ? Number(v) || 0 : v ?? "";
     });
-    const client = supabase.from(section.table) as unknown as ContentMutationClient;
-    const { error } = await client.update(patch).eq("id", id);
+    const { error } = await (supabase.from(section.table) as any).update(patch).eq("id", id);
     if (error) return toast.error(error.message);
     toast.success("Saved");
     refresh();
@@ -189,8 +145,7 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
   };
 
   const add = async () => {
-    const client = supabase.from(section.table) as unknown as ContentMutationClient;
-    const { error } = await client.insert(section.defaults);
+    const { error } = await supabase.from(section.table).insert(section.defaults as any);
     if (error) return toast.error(error.message);
     refresh();
   };
@@ -317,7 +272,7 @@ function MembersSection() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {rows.map((p) => (
+              {rows.map((p: any) => (
                 <tr key={p.id}>
                   <td className="px-4 py-3 text-muted-foreground">
                     {p.member_no ? String(p.member_no).padStart(4, "0") : "—"}
@@ -389,7 +344,7 @@ function BusinessesSection() {
         <div className="text-sm text-muted-foreground">Loading…</div>
       ) : (
         <div className="space-y-2">
-          {rows.map((b) => (
+          {rows.map((b: any) => (
             <div
               key={b.id}
               className="flex items-center justify-between rounded-xl border border-border bg-card/60 px-4 py-3 text-sm"
@@ -427,8 +382,8 @@ function AdminPage() {
   const section = useMemo(() => SECTIONS.find((s) => s.table === tab), [tab]);
 
   return (
-    <div className="portal-page">
-      <SiteNav space="member" />
+    <div className="min-h-screen">
+      <SiteNav />
       <main className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
         <div className="text-xs uppercase tracking-[0.22em] text-primary">Control room</div>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">Admin</h1>

@@ -12,16 +12,9 @@ export const Route = createFileRoute("/onboarding")({
   head: () => ({
     meta: [
       { title: "Your member card · The Room" },
-      {
-        name: "description",
-        content:
-          "Enter your invitation code and fill in the details that appear on your The Room member card.",
-      },
+      { name: "description", content: "Enter your invitation code and fill in the details that appear on your The Room member card." },
       { property: "og:title", content: "Your member card · The Room" },
-      {
-        property: "og:description",
-        content: "Invitation code and member card details for The Room.",
-      },
+      { property: "og:description", content: "Invitation code and member card details for The Room." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -40,8 +33,8 @@ function OnboardingPage() {
 
   if (loading) {
     return (
-      <div className="portal-page">
-        <SiteNav space="member" />
+      <div className="min-h-screen">
+        <SiteNav />
         <main className="mx-auto max-w-xl px-6 py-24 text-sm text-muted-foreground">Loading…</main>
       </div>
     );
@@ -49,8 +42,8 @@ function OnboardingPage() {
 
   if (!isSignedIn) {
     return (
-      <div className="portal-page">
-        <SiteNav space="member" />
+      <div className="min-h-screen">
+        <SiteNav />
         <main className="mx-auto max-w-xl px-6 py-24 text-center">
           <h1 className="text-3xl font-semibold tracking-tight">Sign in first</h1>
           <p className="mt-3 text-sm text-muted-foreground">
@@ -69,8 +62,8 @@ function OnboardingPage() {
   }
 
   return (
-    <div className="portal-page">
-      <SiteNav space="member" />
+    <div className="min-h-screen">
+      <SiteNav />
       <main className="mx-auto max-w-xl px-6 py-16">
         {step === "code" ? (
           <CodeStep
@@ -119,8 +112,8 @@ function CodeStep({ onSuccess, onSkip }: { onSuccess: () => void; onSkip: () => 
       <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Step 1 of 2</div>
       <h1 className="mt-2 text-4xl font-semibold tracking-tight">Invitation code</h1>
       <p className="mt-3 text-sm text-muted-foreground">
-        Members unlock the vetted factory list and the family business directory. You can skip this
-        — you'll still be signed in, but those two sections stay locked.
+        Members unlock the vetted factory list and the family business directory. You can skip this —
+        you'll still be signed in, but those two sections stay locked.
       </p>
       <form onSubmit={submit} className="mt-8 space-y-4">
         <input
@@ -175,6 +168,12 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+
+
+
+
+
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim()) {
@@ -217,8 +216,7 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
     }
   };
 
-  const field =
-    "mt-1 w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-primary";
+  const field = "mt-1 w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-primary";
   const label = "text-xs uppercase tracking-wider text-muted-foreground";
 
   return (
@@ -231,102 +229,48 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
 
       <form onSubmit={submit} className="mt-8 space-y-5">
         <div>
-          <label htmlFor="name" className={label}>
-            Name *
-          </label>
-          <input
-            id="name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            className={field}
-            maxLength={80}
-          />
+          <label htmlFor="name" className={label}>Name *</label>
+          <input id="name" value={fullName} onChange={(e) => setFullName(e.target.value)} className={field} maxLength={80} />
         </div>
 
         <AvatarUploader value={avatarUrl} onChange={setAvatarUrl} />
 
+
+
         <div>
-          <label htmlFor="school" className={label}>
-            School
-          </label>
-          <input
-            id="school"
-            value={school}
-            onChange={(e) => setSchool(e.target.value)}
-            className={field}
-            maxLength={120}
-          />
+          <label htmlFor="school" className={label}>School</label>
+          <input id="school" value={school} onChange={(e) => setSchool(e.target.value)} className={field} maxLength={120} />
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
-            <label htmlFor="startup" className={label}>
-              Startup (optional)
-            </label>
-            <input
-              id="startup"
-              value={startup}
-              onChange={(e) => setStartup(e.target.value)}
-              className={field}
-              maxLength={120}
-            />
+            <label htmlFor="startup" className={label}>Startup (optional)</label>
+            <input id="startup" value={startup} onChange={(e) => setStartup(e.target.value)} className={field} maxLength={120} />
           </div>
           <div>
-            <label htmlFor="position" className={label}>
-              Position (optional)
-            </label>
-            <input
-              id="position"
-              value={position}
-              onChange={(e) => setPosition(e.target.value)}
-              className={field}
-              maxLength={120}
-            />
+            <label htmlFor="position" className={label}>Position (optional)</label>
+            <input id="position" value={position} onChange={(e) => setPosition(e.target.value)} className={field} maxLength={120} />
           </div>
         </div>
 
         <div>
-          <label htmlFor="website" className={label}>
-            Website
-          </label>
-          <input
-            id="website"
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-            className={field}
-            placeholder="https://…"
-            maxLength={300}
-          />
+          <label htmlFor="website" className={label}>Website</label>
+          <input id="website" value={website} onChange={(e) => setWebsite(e.target.value)} className={field} placeholder="https://…" maxLength={300} />
         </div>
 
         <div>
-          <label htmlFor="tags" className={label}>
-            Tags (comma separated)
-          </label>
-          <input
-            id="tags"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-            className={field}
-            placeholder="Design, DTC, Founder"
-          />
+          <label htmlFor="tags" className={label}>Tags (comma separated)</label>
+          <input id="tags" value={tags} onChange={(e) => setTags(e.target.value)} className={field} placeholder="Design, DTC, Founder" />
         </div>
 
         <div>
-          <label htmlFor="about" className={label}>
-            About — two sentences
-          </label>
-          <textarea
-            id="about"
-            value={about}
-            onChange={(e) => setAbout(e.target.value)}
-            rows={3}
-            maxLength={400}
-            className={field}
-          />
+          <label htmlFor="about" className={label}>About — two sentences</label>
+          <textarea id="about" value={about} onChange={(e) => setAbout(e.target.value)} rows={3} maxLength={400} className={field} />
         </div>
 
         <FamilyBusinessSection defaultOwner={fullName} />
+
+
 
         {error && <p className="text-sm text-red-400">{error}</p>}
 

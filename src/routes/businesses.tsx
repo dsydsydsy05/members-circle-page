@@ -7,15 +7,9 @@ export const Route = createFileRoute("/businesses")({
   head: () => ({
     meta: [
       { title: "Family Business · The Room" },
-      {
-        name: "description",
-        content: "Businesses run by The Room members. Tap a card to visit their site.",
-      },
+      { name: "description", content: "Businesses run by The Room members. Tap a card to visit their site." },
       { property: "og:title", content: "Family Business · The Room" },
-      {
-        property: "og:description",
-        content: "Businesses run by members of the The Room community.",
-      },
+      { property: "og:description", content: "Businesses run by members of the The Room community." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -25,12 +19,10 @@ export const Route = createFileRoute("/businesses")({
 
 function BusinessesPage() {
   return (
-    <div className="portal-page">
-      <SiteNav space="member" />
+    <div className="min-h-screen">
+      <SiteNav />
       <main className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
-        <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
-          Members only
-        </div>
+        <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Members only</div>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">Family Business</h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
           Businesses built by our members. Tap a badge to open the site.
@@ -71,19 +63,13 @@ function BusinessGrid() {
           <>
             <div className="flex items-center justify-between text-[11px] text-muted-foreground">
               <span>THE ROOM · {b.category.toUpperCase()}</span>
-              {href && (
-                <span className="opacity-0 transition-opacity group-hover:opacity-100">→</span>
-              )}
+              {href && <span className="opacity-0 transition-opacity group-hover:opacity-100">→</span>}
             </div>
             <div className="mt-6">
               <div className="text-xl font-semibold tracking-tight">{b.name}</div>
-              {b.owner_name && (
-                <div className="text-sm text-muted-foreground">by {b.owner_name}</div>
-              )}
+              {b.owner_name && <div className="text-sm text-muted-foreground">by {b.owner_name}</div>}
               {b.description && (
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {b.description}
-                </p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{b.description}</p>
               )}
             </div>
             <div className="mt-6 flex items-center justify-between text-xs text-muted-foreground">

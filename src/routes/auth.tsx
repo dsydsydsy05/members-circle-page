@@ -4,15 +4,12 @@ import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 
+
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Sign in · The Room" },
-      {
-        name: "description",
-        content:
-          "Sign in or create an account to join The Room and unlock the members-only factory list and family business directory.",
-      },
+      { name: "description", content: "Sign in or create an account to join The Room and unlock the members-only factory list and family business directory." },
       { property: "og:title", content: "Sign in · The Room" },
       { property: "og:description", content: "Email sign-in for The Room members." },
       { property: "og:type", content: "website" },
@@ -84,8 +81,8 @@ function AuthPage() {
   };
 
   return (
-    <div className="portal-page">
-      <SiteNav space="member" />
+    <div className="min-h-screen">
+      <SiteNav />
       <main className="mx-auto flex max-w-md flex-col px-6 py-20">
         <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">The Room</div>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight">
@@ -102,22 +99,10 @@ function AuthPage() {
           className="mt-8 flex w-full items-center justify-center gap-3 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium transition-colors hover:border-primary hover:text-primary disabled:opacity-50"
         >
           <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
-            <path
-              fill="#EA4335"
-              d="M12 10.2v3.9h5.5a4.7 4.7 0 0 1-2 3.1l3.2 2.5c1.9-1.7 3-4.3 3-7.3 0-.7-.1-1.4-.2-2H12z"
-            />
-            <path
-              fill="#34A853"
-              d="M6.6 14.3 5.9 14l-2.3 1.8A9 9 0 0 0 12 21c2.4 0 4.5-.8 6-2.2l-3.2-2.5c-.8.6-1.9.9-2.8.9-2.3 0-4.3-1.5-5-3.6z"
-            />
-            <path
-              fill="#FBBC05"
-              d="M3.6 8.2A9 9 0 0 0 3 12c0 1.4.3 2.7.9 3.8L6.6 13a5.4 5.4 0 0 1 0-3.4z"
-            />
-            <path
-              fill="#4285F4"
-              d="M12 6.6c1.3 0 2.5.5 3.4 1.3l2.6-2.6A9 9 0 0 0 3.6 8.2L6.6 10c.7-2.1 2.7-3.4 5.4-3.4z"
-            />
+            <path fill="#EA4335" d="M12 10.2v3.9h5.5a4.7 4.7 0 0 1-2 3.1l3.2 2.5c1.9-1.7 3-4.3 3-7.3 0-.7-.1-1.4-.2-2H12z" />
+            <path fill="#34A853" d="M6.6 14.3 5.9 14l-2.3 1.8A9 9 0 0 0 12 21c2.4 0 4.5-.8 6-2.2l-3.2-2.5c-.8.6-1.9.9-2.8.9-2.3 0-4.3-1.5-5-3.6z" />
+            <path fill="#FBBC05" d="M3.6 8.2A9 9 0 0 0 3 12c0 1.4.3 2.7.9 3.8L6.6 13a5.4 5.4 0 0 1 0-3.4z" />
+            <path fill="#4285F4" d="M12 6.6c1.3 0 2.5.5 3.4 1.3l2.6-2.6A9 9 0 0 0 3.6 8.2L6.6 10c.7-2.1 2.7-3.4 5.4-3.4z" />
           </svg>
           Continue with Google
         </button>
@@ -129,11 +114,9 @@ function AuthPage() {
         </div>
 
         <form onSubmit={submit} className="space-y-4">
+
           <div>
-            <label
-              htmlFor="email"
-              className="text-xs uppercase tracking-wider text-muted-foreground"
-            >
+            <label htmlFor="email" className="text-xs uppercase tracking-wider text-muted-foreground">
               Email
             </label>
             <input
@@ -147,10 +130,7 @@ function AuthPage() {
             />
           </div>
           <div>
-            <label
-              htmlFor="password"
-              className="text-xs uppercase tracking-wider text-muted-foreground"
-            >
+            <label htmlFor="password" className="text-xs uppercase tracking-wider text-muted-foreground">
               Password
             </label>
             <input
@@ -189,10 +169,7 @@ function AuthPage() {
           {mode === "signin" ? "No account yet? Create one" : "Already a member? Sign in"}
         </button>
 
-        <Link
-          to="/"
-          className="mt-2 text-sm text-muted-foreground transition-colors hover:text-primary"
-        >
+        <Link to="/" className="mt-2 text-sm text-muted-foreground transition-colors hover:text-primary">
           ← Back home
         </Link>
       </main>

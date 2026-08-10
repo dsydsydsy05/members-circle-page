@@ -48,13 +48,7 @@ export type PartnerRow = {
   sort_order: number;
 };
 
-export const CONTENT_TABLES = [
-  "events",
-  "guests",
-  "event_photos",
-  "factories",
-  "partners",
-] as const;
+export const CONTENT_TABLES = ["events", "guests", "event_photos", "factories", "partners"] as const;
 export type ContentTable = (typeof CONTENT_TABLES)[number];
 
 function contentQuery<T>(table: ContentTable) {

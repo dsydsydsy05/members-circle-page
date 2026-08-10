@@ -1,51 +1,32 @@
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuth, signOut } from "@/lib/use-auth";
 import { useIsAdmin } from "@/lib/use-admin";
-import { BrandMark } from "@/components/BrandMark";
+import logo from "@/assets/the-room-logo-transparent.png.asset.json";
 
-const publicLinks = [
-  { to: "/about", label: "About" },
-  { to: "/projects", label: "Projects" },
+
+const links = [
+  { to: "/", label: "Home" },
+  { to: "/members", label: "Members" },
+  { to: "/guests", label: "Guests" },
   { to: "/events", label: "Events" },
-] as const;
-
-const memberLinks = [
-  { to: "/members", label: "Directory" },
   { to: "/resources", label: "Factory List" },
   { to: "/businesses", label: "Family Business" },
-  { to: "/events", label: "Events" },
+  { to: "/partners", label: "Partners" },
 ] as const;
 
-export function SiteNav({
-  space = "public",
-  tone = "dark",
-}: {
-  space?: "public" | "member";
-  tone?: "dark" | "light";
-}) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+export function SiteNav() {
   const { loading, isSignedIn, isMember } = useAuth();
   const { isAdmin } = useIsAdmin();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const links = space === "member" ? memberLinks : publicLinks;
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 18);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const mobileLinks: { to: string; label: string }[] = [
+    ...links.map((l) => ({ to: l.to as string, label: l.label as string })),
+    ...(isSignedIn ? [{ to: "/onboarding", label: isMember ? "Edit card" : "Enter code" }] : []),
+    ...(isAdmin ? [{ to: "/admin", label: "Admin" }] : []),
+  ];
 
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
 
   const handleSignOut = async () => {
     await queryClient.cancelQueries();
@@ -55,116 +36,104 @@ export function SiteNav({
   };
 
   return (
-    <header
-      className={`site-nav ${tone === "light" ? "site-nav--light" : ""} ${scrolled ? "site-nav--scrolled" : ""}`}
-    >
-      <div className="site-nav__inner">
-        <Link to="/" aria-label="The Room — home" className="site-nav__brand">
-          <BrandMark className="h-auto w-[146px]" />
-        </Link>
-
-        <nav
-          className="site-nav__links"
-          aria-label={space === "member" ? "Member space" : "Primary"}
-        >
-          {space === "member" && <span className="site-nav__space-label">Member space</span>}
-          {links.map((link) => (
+    <header className="sticky top-0 z-40 bg-transparent">
+      <div className="mx-auto grid max-w-6xl grid-cols-[auto_1fr_auto] items-center gap-4 px-4 py-3 sm:px-6">
+        <div className="flex shrink-0 items-center">
+          <Link to="/" aria-label="The Room — home" className="flex shrink-0 items-center">
+            <img
+              src={logo.url}
+              alt="The Room"
+              width={240}
+              height={32}
+              className="h-5 w-auto invert sm:h-6"
+            />
+          </Link>
+        </div>
+        <nav className="hidden justify-center gap-6 md:flex">
+          {links.map((l) => (
             <Link
-              key={link.to}
-              to={link.to}
-              className="site-nav__link"
-              activeProps={{ className: "site-nav__link site-nav__link--active" }}
+              key={l.to}
+              to={l.to}
+              className="whitespace-nowrap text-sm text-cream/80 transition-colors hover:text-primary"
+              activeProps={{ className: "whitespace-nowrap text-sm text-primary" }}
             >
-              {link.label}
+              {l.label}
             </Link>
           ))}
         </nav>
-
-        <div className="site-nav__actions">
+        <div className="flex shrink-0 items-center justify-end gap-2">
           {!loading && isSignedIn ? (
             <>
               {isAdmin && (
-                <Link to="/admin" className="utility-link">
+                <Link
+                  to="/admin"
+                  className="hidden rounded-full border border-primary/50 px-3 py-1.5 text-xs text-primary transition-colors hover:bg-primary/10 sm:inline-block"
+                >
                   Admin
                 </Link>
               )}
-              <Link to="/onboarding" className="utility-link">
-                {isMember ? "My pass" : "Enter code"}
+              <Link
+                to="/onboarding"
+                className="hidden text-xs text-muted-foreground transition-colors hover:text-primary sm:inline"
+              >
+                {isMember ? "Member · Edit card" : "Enter code"}
               </Link>
-              <button type="button" onClick={handleSignOut} className="utility-link">
+              <button
+                onClick={handleSignOut}
+                className="whitespace-nowrap rounded-full border border-border px-3 py-1.5 text-xs transition-colors hover:bg-primary-foreground hover:text-primary"
+              >
                 Sign out
               </button>
             </>
           ) : (
-            <Link to="/auth" className="utility-link">
-              Member sign in
+            <Link
+              to="/auth"
+              className="whitespace-nowrap rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-colors hover:border-white/40 hover:bg-white/20"
+            >
+              Sign in
             </Link>
           )}
-          <Link to="/auth" className="signal-link">
-            Enter <span aria-hidden="true">↗</span>
-          </Link>
-          <button
-            type="button"
-            className="menu-toggle"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            <span />
-            <span />
-          </button>
         </div>
       </div>
 
-      <div className={`mobile-menu ${menuOpen ? "mobile-menu--open" : ""}`} aria-hidden={!menuOpen}>
-        <nav aria-label="Mobile navigation">
-          {publicLinks.map((link, index) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={() => setMenuOpen(false)}
-              className="mobile-menu__link"
-            >
-              <span>0{index + 1}</span>
-              {link.label}
-            </Link>
-          ))}
-          <Link to="/members" onClick={() => setMenuOpen(false)} className="mobile-menu__link">
-            <span>04</span>Members
+      {/* Mobile section bar */}
+      <nav
+        aria-label="Sections"
+        className="-mb-px flex gap-2 overflow-x-auto px-4 py-2 [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden"
+      >
+        {mobileLinks.map((l) => (
+          <Link
+            key={l.to}
+            to={l.to as never}
+            className="shrink-0 whitespace-nowrap rounded-full border border-border/70 px-3 py-1.5 text-xs text-cream/80 transition-colors"
+            activeProps={{
+              className:
+                "shrink-0 whitespace-nowrap rounded-full border border-primary/60 bg-primary/15 px-3 py-1.5 text-xs text-primary",
+            }}
+          >
+            {l.label}
           </Link>
-          {isMember && (
-            <Link to="/resources" onClick={() => setMenuOpen(false)} className="mobile-menu__link">
-              <span>05</span>Member space
-            </Link>
-          )}
-        </nav>
-        <Link to="/auth" onClick={() => setMenuOpen(false)} className="mobile-menu__enter">
-          Enter the room ↗
-        </Link>
-      </div>
+        ))}
+      </nav>
     </header>
   );
 }
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer">
-      <div className="site-footer__top">
-        <BrandMark className="h-auto w-[180px]" />
-        <p>
-          Private by design.
-          <br />
-          Builder-first by choice.
-        </p>
-      </div>
-      <div className="site-footer__bottom">
-        <span>© {new Date().getFullYear()} The Room</span>
-        <div>
-          <Link to="/about">About</Link>
-          <Link to="/members">Members</Link>
-          <Link to="/partners">Partners</Link>
-          <Link to="/auth">Member sign in</Link>
+    <footer className="mt-24 border-t border-border/60">
+      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-10 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-3">
+          <img
+            src={logo.url}
+            alt="The Room"
+            width={300}
+            height={40}
+            className="h-5 w-auto invert"
+          />
+          <span>© {new Date().getFullYear()}</span>
         </div>
+        <div>Made with care. For members, by members.</div>
       </div>
     </footer>
   );
