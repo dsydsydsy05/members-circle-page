@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { useEvents } from "@/lib/use-site-content";
 import { EventCover } from "@/components/EventCover";
-import { WaicRecap } from "@/components/WaicRecap";
+import { PastEvents } from "@/components/PastEvents";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
@@ -27,10 +27,8 @@ function EventsPage() {
         <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Calendar</div>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">Events</h1>
 
-        <h2 className="mt-12 text-xl font-semibold tracking-tight">Featured</h2>
-        <WaicRecap />
+        <h2 className="mt-12 text-xl font-semibold tracking-tight">Upcoming</h2>
 
-        <h2 className="mt-14 text-xl font-semibold tracking-tight">Upcoming</h2>
 
         <div className="mt-4 grid grid-cols-1 gap-5 md:grid-cols-3">
           {events.map((e) => (
@@ -50,7 +48,11 @@ function EventsPage() {
             </article>
           ))}
         </div>
+
+        <h2 className="mt-14 text-xl font-semibold tracking-tight">Past Events</h2>
+        <PastEvents />
       </main>
+
 
       <SiteFooter />
     </div>
