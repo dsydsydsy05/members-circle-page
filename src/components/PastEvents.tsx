@@ -120,7 +120,7 @@ export function PastEvents() {
                     alt="Guests at the Founder's Dinner during WAIC 2026 in Shanghai"
                     loading="lazy"
                     decoding="async"
-                    className="mt-2 w-full rounded-xl object-cover blur-[3px] ring-1 ring-white/10"
+                    className="mt-2 h-[22rem] w-full rounded-xl object-cover blur-[3px] ring-1 ring-white/10 sm:h-[26rem]"
                   />
                 </div>
               </div>
