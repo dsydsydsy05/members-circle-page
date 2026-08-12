@@ -132,9 +132,6 @@ export function SiteFooter() {
               height={40}
               className="h-5 w-auto invert"
             />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              A quieter community for founders. The right room, the right people, the right resources.
-            </p>
           </div>
 
           <div>
