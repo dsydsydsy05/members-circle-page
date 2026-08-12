@@ -114,14 +114,6 @@ export function PastEvents() {
                     This dinner is the first in a series of curated, high-caliber gatherings planned
                     throughout 2026.
                   </p>
-
-                  <img
-                    src={photoAsset.url}
-                    alt="Guests at the Founder's Dinner during WAIC 2026 in Shanghai"
-                    loading="lazy"
-                    decoding="async"
-                    className="mt-2 h-[22rem] w-full rounded-xl object-cover blur-[3px] ring-1 ring-white/10 sm:h-[26rem]"
-                  />
                 </div>
               </div>
             </div>,
