@@ -75,13 +75,13 @@ export function PastEvents() {
                     alt="Founder's Dinner at WAIC 2026 — on-site photo"
                     loading="lazy"
                     decoding="async"
-                    className="absolute inset-0 h-full w-full scale-105 object-cover opacity-70 blur-[6px]"
+                    className="absolute inset-0 h-full w-full scale-105 object-cover opacity-45 blur-[7px]"
                   />
                   <div
                     className="absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 55%, rgba(18,20,22,0.98) 100%)",
+                        "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 55%, rgba(18,20,22,0.98) 100%)",
                     }}
                   />
                   <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
@@ -114,14 +114,6 @@ export function PastEvents() {
                     This dinner is the first in a series of curated, high-caliber gatherings planned
                     throughout 2026.
                   </p>
-
-                  <img
-                    src={photoAsset.url}
-                    alt="Guests at the Founder's Dinner during WAIC 2026 in Shanghai"
-                    loading="lazy"
-                    decoding="async"
-                    className="mt-2 h-[22rem] w-full rounded-xl object-cover blur-[3px] ring-1 ring-white/10 sm:h-[26rem]"
-                  />
                 </div>
               </div>
             </div>,
