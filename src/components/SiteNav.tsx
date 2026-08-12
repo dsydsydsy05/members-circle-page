@@ -122,18 +122,53 @@ export function SiteNav() {
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border/60">
-      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-10 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-3">
-          <img
-            src={logo.url}
-            alt="The Room"
-            width={300}
-            height={40}
-            className="h-5 w-auto invert"
-          />
-          <span>© {new Date().getFullYear()}</span>
+      <div className="mx-auto max-w-6xl px-6 py-12 sm:py-16">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div>
+            <img
+              src={logo.url}
+              alt="The Room"
+              width={300}
+              height={40}
+              className="h-5 w-auto invert"
+            />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+              A quieter community for founders. The right room, the right people, the right resources.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold tracking-tight text-foreground">Explore</h3>
+            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              {links.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} className="transition-colors hover:text-primary">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold tracking-tight text-foreground">Contact Us</h3>
+            <div className="mt-4 space-y-3 text-sm text-muted-foreground">
+              <p>Have a question or want to partner with us?</p>
+              <a
+                href="mailto:theroomcommunityofficial@gmail.com"
+                className="inline-flex items-center gap-2 text-foreground transition-colors hover:text-primary"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                theroomcommunityofficial@gmail.com
+              </a>
+            </div>
+          </div>
         </div>
-        <div>Made with care. For members, by members.</div>
+
+        <div className="mt-12 flex flex-col gap-2 border-t border-border/40 pt-8 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <span>© {new Date().getFullYear()} The Room. All rights reserved.</span>
+          <span>Made with care. For members, by members.</span>
+        </div>
       </div>
     </footer>
   );

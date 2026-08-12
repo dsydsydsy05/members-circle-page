@@ -44,7 +44,7 @@ function Home() {
         factoryCount={factories.length}
       />
 
-
+      <ManifestoSection />
 
 
       {featured.length > 0 && (
@@ -249,6 +249,60 @@ function Section({
         {action}
       </div>
       {children}
+    </section>
+  );
+}
+
+const manifestoLines = [
+  "The Room is a founder community born in Boston in 2026.",
+  "We believe founders don't need more noise.",
+  "They need the right room.",
+  "A room to ask.",
+  "A room to meet people who've done it before.",
+  "A room for capital, opportunities, and resources.",
+  "A room for whatever you need next.",
+  "We create outside-the-box events and open up the resources we receive back to the founder community — so the right things can reach the right people.",
+  "Find the room you need.",
+  "Be in the right room.",
+];
+
+function ManifestoSection() {
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 animate-zoom-in-view">
+      <div className="glass-panel relative overflow-hidden rounded-3xl px-6 py-12 sm:px-12 sm:py-20">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/10 blur-[80px]" />
+        <div className="pointer-events-none absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-primary/5 blur-[100px]" />
+
+        <div className="relative z-10">
+          <div className="mb-10 text-xs uppercase tracking-[0.22em] text-primary">Manifesto</div>
+
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <h2 className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+                Founders don't need more noise. <span className="ember-text">They need the right room.</span>
+              </h2>
+            </div>
+
+            <div className="space-y-5">
+              {manifestoLines.map((line, i) => {
+                const isHook = line.startsWith("A room");
+                return (
+                  <p
+                    key={i}
+                    className={`leading-relaxed ${
+                      isHook
+                        ? "text-lg font-medium text-foreground sm:text-xl"
+                        : "text-sm text-muted-foreground sm:text-base"
+                    }`}
+                  >
+                    {line}
+                  </p>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
