@@ -106,8 +106,9 @@ export function PastEvents() {
                   <p>
                     Guests included senior executives from leading global tech companies and a formerly
                     NYSE-listed enterprise, PhD researchers from Tsinghua University&apos;s top AI labs,
-                    partners from top-tier investment institutions, influential creators, and one of the
-                    world&apos;s youngest founders to bring a product into clinical trials.
+                    partners from top-tier investment institutions, influential tech creators, LP
+                    investors from leading VC funds, current leaders of family businesses, and one of
+                    the world&apos;s youngest founders to bring a product into clinical trials.
                   </p>
                   <p className="border-l-2 border-[color:var(--neon)]/60 pl-4 text-foreground">
                     This dinner is the first in a series of curated, high-caliber gatherings planned
