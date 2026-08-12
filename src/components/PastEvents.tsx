@@ -110,10 +110,6 @@ export function PastEvents() {
                     investors from leading VC funds, current leaders of family businesses, and one of
                     the world&apos;s youngest founders to bring a product into clinical trials.
                   </p>
-                  <p className="border-l-2 border-[color:var(--neon)]/60 pl-4 text-foreground">
-                    This dinner is the first in a series of curated, high-caliber gatherings planned
-                    throughout 2026.
-                  </p>
                 </div>
               </div>
             </div>,
