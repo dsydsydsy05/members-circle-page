@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 import { useEvents } from "@/lib/use-site-content";
 import { EventCover } from "@/components/EventCover";
+import { WaicRecap } from "@/components/WaicRecap";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
