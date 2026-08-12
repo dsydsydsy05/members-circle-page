@@ -44,7 +44,7 @@ function Home() {
         factoryCount={factories.length}
       />
 
-
+      <ManifestoSection />
 
 
       {featured.length > 0 && (
