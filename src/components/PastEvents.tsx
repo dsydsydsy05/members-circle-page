@@ -75,13 +75,13 @@ export function PastEvents() {
                     alt="Founder's Dinner at WAIC 2026 — on-site photo"
                     loading="lazy"
                     decoding="async"
-                    className="absolute inset-0 h-full w-full scale-105 object-cover opacity-45 blur-[7px]"
+                    className="absolute inset-0 h-full w-full scale-105 object-cover opacity-85 blur-[3px]"
                   />
                   <div
                     className="absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 55%, rgba(18,20,22,0.98) 100%)",
+                        "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.45) 55%, rgba(18,20,22,0.92) 100%)",
                     }}
                   />
                   <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
@@ -100,9 +100,8 @@ export function PastEvents() {
                     <span className="font-medium text-foreground">SHANGHAI — July 18, 2026 —</span>{" "}
                     During the World Artificial Intelligence Conference (WAIC), we hosted an
                     invitation-only Founder&apos;s Dinner bringing together 30 of the most accomplished
-                    founders, investors, and researchers in AI. Nearly 400 applied for 30 seats — an
-                    acceptance rate under 8%, making it one of the most selective private gatherings of
-                    WAIC week.
+                    founders, investors, and researchers in AI. Nearly 400 applied for 30 seats,
+                    making it one of the most carefully curated private gatherings of WAIC week.
                   </p>
                   <p>
                     Guests included senior executives from leading global tech companies and a formerly
