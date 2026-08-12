@@ -48,7 +48,11 @@ function EventsPage() {
             </article>
           ))}
         </div>
+
+        <h2 className="mt-14 text-xl font-semibold tracking-tight">Past Events</h2>
+        <PastEvents />
       </main>
+
 
       <SiteFooter />
     </div>
