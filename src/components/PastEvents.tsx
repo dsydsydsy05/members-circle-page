@@ -75,13 +75,13 @@ export function PastEvents() {
                     alt="Founder's Dinner at WAIC 2026 — on-site photo"
                     loading="lazy"
                     decoding="async"
-                    className="absolute inset-0 h-full w-full scale-105 object-cover opacity-70 blur-[6px]"
+                    className="absolute inset-0 h-full w-full scale-105 object-cover opacity-45 blur-[7px]"
                   />
                   <div
                     className="absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 55%, rgba(18,20,22,0.98) 100%)",
+                        "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 55%, rgba(18,20,22,0.98) 100%)",
                     }}
                   />
                   <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
