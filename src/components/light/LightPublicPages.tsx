@@ -6,7 +6,6 @@ import { LightPastEventStory } from "@/components/light/LightPastEventStory";
 import { LightPartnerLogoGrid } from "@/components/light/LightPartnerLogoGrid";
 import { LightButton, LightPage, LightPageHero } from "@/components/light/LightSite";
 import { useEvents, useGuests, type EventRow } from "@/lib/use-site-content";
-import { includeWaicPastEvent } from "@/lib/waic-event";
 import { SPONSOR_GMAIL_URL } from "@/lib/contact";
 
 export function LightAboutPage() {
@@ -120,7 +119,7 @@ export function LightEventsPage() {
   const { data: events = [], isLoading } = useEvents();
   const [selectedEvent, setSelectedEvent] = useState<EventRow | null>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
-  const publishedEvents = includeWaicPastEvent(events);
+  const publishedEvents = events;
   const upcoming = publishedEvents.filter((event) => event.status.toLowerCase() !== "past");
   const past = publishedEvents.filter((event) => event.status.toLowerCase() === "past");
   return (
