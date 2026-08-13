@@ -6,3 +6,21 @@ export function XiaohongshuIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+/** Monochrome Gmail mark, kept in the site's restrained visual language. */
+export function GmailIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden="true">
+      <path
+        d="M3.25 6.75 12 13.2l8.75-6.45v10.5h-3.3V10.9L12 14.92 6.55 10.9v6.35h-3.3V6.75Z"
+        fill="currentColor"
+      />
+      <path
+        d="M3.25 6.75 12 13.2l8.75-6.45"
+        stroke="currentColor"
+        strokeWidth="1.35"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

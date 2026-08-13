@@ -7,6 +7,7 @@ import { LightPartnerLogoGrid } from "@/components/light/LightPartnerLogoGrid";
 import { LightButton, LightPage, LightPageHero } from "@/components/light/LightSite";
 import { useEvents, useGuests, type EventRow } from "@/lib/use-site-content";
 import { includeWaicPastEvent } from "@/lib/waic-event";
+import { SPONSOR_MAILTO } from "@/lib/contact";
 
 export function LightAboutPage() {
   const roomIndex = [
@@ -273,12 +274,7 @@ export function LightPartnersPage() {
           title={<>Ecosystem Partners.</>}
           copy="The organizations helping founders reach the right people, resources, and opportunities."
           tools={
-            <a
-              className="light-button light-button--small"
-              href="https://www.instagram.com/theroomcommunityofficial"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a className="light-button light-button--small" href={SPONSOR_MAILTO}>
               Apply to sponsor ↗
             </a>
           }

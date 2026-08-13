@@ -2,7 +2,8 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
 import { BrandMark } from "@/components/BrandMark";
-import { XiaohongshuIcon } from "@/components/SocialIcons";
+import { GmailIcon, XiaohongshuIcon } from "@/components/SocialIcons";
+import { CONTACT_EMAIL, CONTACT_MAILTO } from "@/lib/contact";
 import { useAuth } from "@/lib/use-auth";
 
 const links = [
@@ -69,6 +70,9 @@ export function LightSiteFooter() {
       <div className="light-shell light-footer__top">
         <BrandMark className="light-footer__mark" />
         <div className="light-footer__social">
+          <a href={CONTACT_MAILTO} aria-label={`Email ${CONTACT_EMAIL}`}>
+            <GmailIcon />
+          </a>
           <a
             href="https://www.instagram.com/theroomcommunityofficial?igsh=MXM2MmJhYjViOWxqZg%3D%3D&utm_source=qr"
             target="_blank"
