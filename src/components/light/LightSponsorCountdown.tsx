@@ -17,21 +17,12 @@ function getParts(now: number): Parts {
   };
 }
 
-function FlapGroup({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="light-flap-group">
-      <div className="light-flap-group__tiles">
-        {value.split("").map((char, index) => (
-          <span key={`${label}-${index}`} className="light-flap" data-char={char}>
-            <i aria-hidden="true" />
-            <b>{char}</b>
-          </span>
-        ))}
-      </div>
-      <span className="light-flap-group__label">{label}</span>
-    </div>
-  );
-}
+const groups: { key: keyof Parts; label: string }[] = [
+  { key: "days", label: "Days" },
+  { key: "hours", label: "Hours" },
+  { key: "minutes", label: "Minutes" },
+  { key: "seconds", label: "Seconds" },
+];
 
 export function LightSponsorCountdown() {
   const [parts, setParts] = useState<Parts>(() => getParts(DEADLINE));
@@ -43,20 +34,19 @@ export function LightSponsorCountdown() {
   }, []);
 
   return (
-    <div className="light-flap-board" role="timer" aria-label="Sponsorship application deadline">
-      <div className="light-flap-board__head">
-        <span>Sponsorship window / closes</span>
-        <span>Sep 15, 2026 · 00:00 ET</span>
-      </div>
-      <div className="light-flap-board__row">
-        <FlapGroup value={parts.days} label="Days" />
-        <FlapGroup value={parts.hours} label="Hours" />
-        <FlapGroup value={parts.minutes} label="Minutes" />
-        <FlapGroup value={parts.seconds} label="Seconds" />
-      </div>
-      <div className="light-flap-board__rail" aria-hidden="true">
-        {Array.from({ length: 22 }).map((_, index) => (
-          <span key={index} />
+    <div className="light-countdown" role="timer" aria-label="Sponsorship application deadline">
+      <div className="light-countdown__grid">
+        {groups.map(({ key, label }) => (
+          <div key={key} className="light-countdown__cell">
+            <div className="light-countdown__digits" aria-label={`${label}: ${parts[key]}`}>
+              {parts[key].split("").map((char, index) => (
+                <span key={`${key}-${index}`} className="light-countdown__digit">
+                  {char}
+                </span>
+              ))}
+            </div>
+            <span className="light-countdown__label">{label}</span>
+          </div>
         ))}
       </div>
     </div>
