@@ -20,6 +20,13 @@ export function LightIdentityPass({
   const progress = Math.min(1, Math.max(0, flipProgress));
   const side = Math.abs(Math.sin(progress * Math.PI * 2));
 
+  const dragState = useRef({ dragging: false, lastX: 0, velocity: 0 });
+  const angleRef = useRef(0);
+  const applyAngle = (value: number) => {
+    const rotor = rotorRef.current;
+    if (rotor) rotor.style.setProperty("--identity-engine-spin", `${value.toFixed(3)}deg`);
+  };
+
   useEffect(() => {
     const rotor = rotorRef.current;
     if (!rotor) return;
@@ -27,7 +34,6 @@ export function LightIdentityPass({
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
     let visible = true;
-    let angle = 0;
     let lastFrameAt = performance.now();
 
     const tick = (now: number) => {
@@ -38,9 +44,16 @@ export function LightIdentityPass({
       lastFrameAt = now;
 
       const idleVelocity = 11;
-      angle = (angle + idleVelocity * elapsed) % 360;
+      const drag = dragState.current;
+      if (drag.dragging) {
+        // angle is driven directly by the pointer while dragging
+      } else {
+        // ease released momentum back into the idle drift
+        drag.velocity += (idleVelocity - drag.velocity) * Math.min(1, elapsed * 2.2);
+        angleRef.current = (angleRef.current + drag.velocity * elapsed) % 360;
+        applyAngle(angleRef.current);
+      }
 
-      rotor.style.setProperty("--identity-engine-spin", `${angle.toFixed(3)}deg`);
       frame = requestAnimationFrame(tick);
     };
 
@@ -54,7 +67,7 @@ export function LightIdentityPass({
       if (reducedMotion.matches) {
         if (frame) cancelAnimationFrame(frame);
         frame = 0;
-        rotor.style.setProperty("--identity-engine-spin", "0deg");
+        applyAngle(0);
       } else {
         start();
       }
@@ -84,8 +97,37 @@ export function LightIdentityPass({
     };
   }, []);
 
+  const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    dragState.current.dragging = true;
+    dragState.current.lastX = event.clientX;
+    dragState.current.velocity = 0;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    reset();
+  };
+
+  const onDragMove = (event: PointerEvent<HTMLDivElement>) => {
+    const drag = dragState.current;
+    if (!drag.dragging) return;
+    const delta = event.clientX - drag.lastX;
+    drag.lastX = event.clientX;
+    angleRef.current = (angleRef.current + delta * 0.55) % 360;
+    drag.velocity = delta * 14;
+    applyAngle(angleRef.current);
+  };
+
+  const endDrag = (event: PointerEvent<HTMLDivElement>) => {
+    if (!dragState.current.dragging) return;
+    dragState.current.dragging = false;
+    dragState.current.velocity = Math.max(-900, Math.min(900, dragState.current.velocity));
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+  };
+
+
   const move = (event: PointerEvent<HTMLDivElement>) => {
+    onDragMove(event);
     if (
+      dragState.current.dragging ||
       event.pointerType === "touch" ||
       (progress > 0.08 && progress < 0.92) ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -117,11 +159,20 @@ export function LightIdentityPass({
         {
           "--identity-flip": `${progress * 360}deg`,
           "--identity-side": side.toFixed(3),
+          touchAction: "pan-y",
+          cursor: "grab",
         } as CSSProperties
       }
+      onPointerDown={onPointerDown}
       onPointerMove={move}
-      onPointerLeave={reset}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+      onPointerLeave={(event) => {
+        endDrag(event);
+        reset();
+      }}
     >
+
       <div className="light-identity-float">
         <div ref={rotorRef} className="light-identity-rotor">
           <div ref={tiltRef} className="light-identity-tilt">
