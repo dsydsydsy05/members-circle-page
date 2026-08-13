@@ -43,35 +43,47 @@ export type Database = {
       }
       events: {
         Row: {
+          body: string | null
           city: string
           cover_url: string | null
           created_at: string
           date_label: string
+          detail_image_url: string | null
           id: string
+          slug: string | null
           sort_order: number
           status: string
+          summary: string | null
           title: string
           updated_at: string
         }
         Insert: {
+          body?: string | null
           city?: string
           cover_url?: string | null
           created_at?: string
           date_label?: string
+          detail_image_url?: string | null
           id?: string
+          slug?: string | null
           sort_order?: number
           status?: string
+          summary?: string | null
           title: string
           updated_at?: string
         }
         Update: {
+          body?: string | null
           city?: string
           cover_url?: string | null
           created_at?: string
           date_label?: string
+          detail_image_url?: string | null
           id?: string
+          slug?: string | null
           sort_order?: number
           status?: string
+          summary?: string | null
           title?: string
           updated_at?: string
         }
@@ -230,6 +242,8 @@ export type Database = {
           avatar_url: string | null
           created_at: string
           full_name: string | null
+          home_featured: boolean
+          home_featured_order: number
           id: string
           is_member: boolean
           member_no: number | null
@@ -246,6 +260,8 @@ export type Database = {
           avatar_url?: string | null
           created_at?: string
           full_name?: string | null
+          home_featured?: boolean
+          home_featured_order?: number
           id: string
           is_member?: boolean
           member_no?: number | null
@@ -262,6 +278,8 @@ export type Database = {
           avatar_url?: string | null
           created_at?: string
           full_name?: string | null
+          home_featured?: boolean
+          home_featured_order?: number
           id?: string
           is_member?: boolean
           member_no?: number | null
@@ -301,6 +319,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_set_home_featured: {
+        Args: { _featured: boolean; _order?: number; _profile_id: string }
+        Returns: undefined
+      }
+      get_public_directory_counts: {
+        Args: never
+        Returns: {
+          family_businesses: number
+          vetted_factories: number
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
