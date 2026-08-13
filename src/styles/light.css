@@ -4997,12 +4997,13 @@
 
 .light-sponsor-countdown h1 {
   margin: 0;
-  max-width: 18ch;
-  font-size: clamp(1.6rem, 4.2vw, 3rem);
+  max-width: none;
+  font-size: clamp(1.35rem, 3.4vw, 2.4rem);
   font-weight: 540;
   line-height: 1.05;
   letter-spacing: -0.03em;
   color: var(--light-ink);
+  white-space: nowrap;
 }
 
 .light-countdown {
