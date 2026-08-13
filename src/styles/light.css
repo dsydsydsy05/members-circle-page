@@ -391,7 +391,7 @@
 
 /* Home hero */
 .light-home-hero {
-  height: 150svh;
+  height: 100svh;
   position: relative;
   z-index: 1;
   padding: 0;
