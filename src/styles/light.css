@@ -5068,18 +5068,31 @@
   font-size: 11px;
 }
 
+.light-sponsor-countdown h1 {
+  font-family: "JetBrains Mono", var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111111;
+}
+
+.light-sponsor-countdown .light-button--large {
+  background: #111111;
+  border-color: #111111;
+  color: #ffffff;
+  font-family: "JetBrains Mono", var(--font-mono);
+  font-weight: 700;
+}
+
 @media (max-width: 640px) {
   .light-countdown__grid {
     gap: 0.875rem 1rem;
   }
   .light-countdown__digits {
-    padding: 0.5rem 0.625rem;
-    border-radius: 10px;
+    padding: 0;
   }
   .light-countdown__digit {
-    width: 1.55rem;
-    height: 2.2rem;
-    font-size: 1.25rem;
-    border-radius: 5px;
+    width: 1.5rem;
+    height: 2rem;
+    font-size: 1.45rem;
   }
 }
