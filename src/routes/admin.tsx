@@ -182,6 +182,11 @@ function mutationMessage(error: unknown) {
   return error instanceof Error ? error.message : "The database change could not be saved";
 }
 
+function textValue(value: string | number | boolean | null | undefined) {
+  if (value === null || value === undefined || typeof value === "boolean") return "";
+  return String(value);
+}
+
 function ImageField({
   table,
   value,
@@ -351,7 +356,7 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
                       {f.type === "textarea" ? (
                         <textarea
                           className={`${inputCls} mt-1 min-h-[70px]`}
-                          value={draft[id]?.[f.key] ?? ""}
+                          value={textValue(draft[id]?.[f.key])}
                           onChange={(e) =>
                             setDraft((d) => ({ ...d, [id]: { ...d[id], [f.key]: e.target.value } }))
                           }
@@ -384,7 +389,7 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
                       ) : f.type === "select" ? (
                         <select
                           className={`${inputCls} mt-1`}
-                          value={draft[id]?.[f.key] ?? ""}
+                          value={textValue(draft[id]?.[f.key])}
                           onChange={(e) =>
                             setDraft((d) => ({ ...d, [id]: { ...d[id], [f.key]: e.target.value } }))
                           }
@@ -399,7 +404,7 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
                         <input
                           type={f.type === "number" ? "number" : "text"}
                           className={`${inputCls} mt-1`}
-                          value={draft[id]?.[f.key] ?? ""}
+                          value={textValue(draft[id]?.[f.key])}
                           onChange={(e) =>
                             setDraft((d) => ({ ...d, [id]: { ...d[id], [f.key]: e.target.value } }))
                           }
