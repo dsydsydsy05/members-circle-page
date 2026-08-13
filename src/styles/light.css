@@ -102,24 +102,16 @@
     background 0.25s ease;
 }
 .light-nav__links a::after {
+  content: none;
   display: none;
 }
-.light-nav__links a:hover,
-.light-nav__links .light-nav__link--active {
+.light-nav__links a:hover {
   color: var(--light-ink);
   background: rgba(255, 255, 255, 0.46);
 }
-.light-nav__links .light-nav__link--active::after {
-  content: "";
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  display: block;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--light-green);
-  transform: translateX(-50%);
+.light-nav__links a.light-nav__link--active {
+  color: var(--light-green);
+  background: rgba(255, 255, 255, 0.46);
 }
 .light-nav__actions {
   display: flex;
