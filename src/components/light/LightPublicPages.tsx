@@ -265,24 +265,32 @@ export function LightProjectsPage() {
 
 export function LightPartnersPage() {
   return (
-    <LightPage className="light-public-page light-partners-page">
+    <LightPage className="light-public-page light-partners-page light-partners-page--countdown">
       <main>
-        <LightPageHero
-          index="01"
-          eyebrow="Sponsors / Ecosystem"
-          title={<>Ecosystem Partners.</>}
-          copy="The organizations helping founders reach the right people, resources, and opportunities."
-          tools={
-            <a
-              className="light-button light-button--small"
-              href={SPONSOR_GMAIL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Apply to sponsor ↗
-            </a>
-          }
-        />
+        <section className="light-sponsor-countdown">
+          <div className="light-shell light-sponsor-countdown__inner">
+            <div className="light-kicker">
+              <span>01</span>
+              Sponsors / Ecosystem
+            </div>
+            <h1>Sponsorship applications close in</h1>
+            <LightSponsorCountdown />
+            <div className="light-sponsor-countdown__foot">
+              <p>
+                The organizations helping founders reach the right people, resources, and
+                opportunities. Applications for the 2026 ecosystem close Sep 15, 2026 at 00:00 ET.
+              </p>
+              <a
+                className="light-button"
+                href={SPONSOR_GMAIL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Apply to sponsor ↗
+              </a>
+            </div>
+          </div>
+        </section>
         <section className="light-partners-directory">
           <div className="light-shell">
             <LightPartnerLogoGrid />
