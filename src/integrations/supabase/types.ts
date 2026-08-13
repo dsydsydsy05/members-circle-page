@@ -211,6 +211,7 @@ export type Database = {
           blurb: string
           created_at: string
           id: string
+          is_published: boolean
           logo_url: string | null
           name: string
           sort_order: number
@@ -222,6 +223,7 @@ export type Database = {
           blurb?: string
           created_at?: string
           id?: string
+          is_published?: boolean
           logo_url?: string | null
           name: string
           sort_order?: number
@@ -233,6 +235,7 @@ export type Database = {
           blurb?: string
           created_at?: string
           id?: string
+          is_published?: boolean
           logo_url?: string | null
           name?: string
           sort_order?: number
