@@ -4974,152 +4974,119 @@
 }
 
 /* Sponsorship countdown board */
+.light-partners-main {
+  display: grid;
+  place-items: center;
+  min-height: calc(100svh - var(--light-public-nav-band) - var(--light-public-gutter) * 2);
+}
+
 .light-sponsor-countdown {
-  padding: clamp(7rem, 14vh, 11rem) 0 clamp(3rem, 6vh, 5rem);
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: clamp(3rem, 8vh, 6rem) 0;
+  text-align: center;
 }
 
 .light-sponsor-countdown__inner {
   display: flex;
   flex-direction: column;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: center;
+  gap: clamp(2rem, 5vh, 3.5rem);
 }
 
 .light-sponsor-countdown h1 {
   margin: 0;
-  font-size: clamp(1.9rem, 4.4vw, 3.4rem);
-  line-height: 1.02;
+  max-width: 18ch;
+  font-size: clamp(1.6rem, 4.2vw, 3rem);
+  font-weight: 540;
+  line-height: 1.05;
   letter-spacing: -0.03em;
+  color: var(--light-ink);
 }
 
-.light-flap-board {
-  position: relative;
-  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
-  border-radius: 14px;
-  background: color-mix(in srgb, currentColor 4%, transparent);
-  padding: clamp(1rem, 2.4vw, 1.75rem);
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.9rem, 2vw, 1.4rem);
-  overflow: hidden;
+.light-countdown {
+  width: 100%;
 }
 
-.light-flap-board__head {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  opacity: 0.55;
-}
-
-.light-flap-board__row {
+.light-countdown__grid {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
-  gap: clamp(0.9rem, 2.4vw, 2rem);
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(1rem, 3vw, 2.5rem);
 }
 
-.light-flap-group {
+.light-countdown__cell {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.light-flap-group__tiles {
+.light-countdown__digits {
   display: flex;
-  gap: clamp(0.25rem, 0.7vw, 0.5rem);
+  gap: clamp(0.25rem, 0.6vw, 0.5rem);
+  padding: clamp(0.6rem, 1.4vw, 1rem) clamp(0.75rem, 1.8vw, 1.25rem);
+  border: 1px solid color-mix(in srgb, var(--light-green) 22%, transparent);
+  border-radius: 14px;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--light-green) 8%, transparent) 0%,
+      color-mix(in srgb, var(--light-green) 14%, transparent) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 18px 44px -22px color-mix(in srgb, var(--light-green) 45%, transparent);
 }
 
-.light-flap-group__label {
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  opacity: 0.5;
-}
-
-.light-flap {
-  position: relative;
+.light-countdown__digit {
   display: grid;
   place-items: center;
-  width: clamp(2.1rem, 6vw, 4.2rem);
-  height: clamp(3rem, 8.6vw, 6rem);
-  border-radius: 6px;
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, currentColor 90%, transparent) 0%,
-    color-mix(in srgb, currentColor 90%, transparent) 49.6%,
-    color-mix(in srgb, currentColor 78%, transparent) 50.4%,
-    color-mix(in srgb, currentColor 82%, transparent) 100%
-  );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 10px 24px -18px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
-}
-
-.light-flap > i {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.45);
-}
-
-.light-flap > b {
-  position: relative;
-  font-weight: 500;
+  width: clamp(2rem, 5.5vw, 3.6rem);
+  height: clamp(2.8rem, 7.5vw, 5rem);
+  border-radius: 8px;
+  background: var(--light-green);
+  color: var(--light-paper);
+  font-family: var(--font-mono);
+  font-size: clamp(1.6rem, 4.6vw, 3rem);
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
-  font-size: clamp(1.5rem, 4.6vw, 3.1rem);
   line-height: 1;
-  color: var(--light-bg, #f6f4ef);
-  animation: light-flap-in 0.35s ease-out;
+  letter-spacing: -0.02em;
+  box-shadow:
+    inset 0 -2px 0 rgba(0, 0, 0, 0.12),
+    0 4px 12px -6px color-mix(in srgb, var(--light-green) 60%, transparent);
 }
 
-@keyframes light-flap-in {
-  0% {
-    transform: rotateX(-72deg);
-    opacity: 0.35;
-  }
-  100% {
-    transform: rotateX(0deg);
-    opacity: 1;
-  }
+.light-countdown__label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--light-muted);
 }
 
-.light-flap-board__rail {
-  display: flex;
-  gap: 4px;
-}
-
-.light-flap-board__rail span {
-  flex: 1;
-  height: 12px;
-  border-radius: 3px;
-  background: color-mix(in srgb, currentColor 12%, transparent);
-}
-
-.light-sponsor-countdown__foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.25rem;
-}
-
-.light-sponsor-countdown__foot p {
-  margin: 0;
-  max-width: 42ch;
-  opacity: 0.72;
+.light-sponsor-countdown .light-button--large {
+  min-height: 54px;
+  padding-inline: 28px;
+  font-size: 11px;
 }
 
 @media (max-width: 640px) {
-  .light-flap-board__row {
-    gap: 0.75rem 1rem;
+  .light-countdown__grid {
+    gap: 0.875rem 1rem;
   }
-  .light-sponsor-countdown__foot {
-    flex-direction: column;
-    align-items: flex-start;
+  .light-countdown__digits {
+    padding: 0.5rem 0.625rem;
+    border-radius: 10px;
+  }
+  .light-countdown__digit {
+    width: 1.55rem;
+    height: 2.2rem;
+    font-size: 1.25rem;
+    border-radius: 5px;
   }
 }
