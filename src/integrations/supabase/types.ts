@@ -92,36 +92,42 @@ export type Database = {
       factories: {
         Row: {
           category: string
+          contact: string
           created_at: string
           id: string
           location: string
           moq: string
           name: string
           notes: string
+          sample_time: string
           sort_order: number
           updated_at: string
           website: string | null
         }
         Insert: {
           category?: string
+          contact?: string
           created_at?: string
           id?: string
           location?: string
           moq?: string
           name: string
           notes?: string
+          sample_time?: string
           sort_order?: number
           updated_at?: string
           website?: string | null
         }
         Update: {
           category?: string
+          contact?: string
           created_at?: string
           id?: string
           location?: string
           moq?: string
           name?: string
           notes?: string
+          sample_time?: string
           sort_order?: number
           updated_at?: string
           website?: string | null
