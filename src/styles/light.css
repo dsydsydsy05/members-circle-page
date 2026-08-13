@@ -2266,7 +2266,8 @@
   width: 100vw;
   margin: 0;
 }
-.light-partner-logo-grid > a {
+.light-partner-logo-grid > a,
+.light-partner-logo-grid__item {
   position: relative;
   display: flex;
   align-items: center;
@@ -2279,6 +2280,22 @@
   transition:
     background-color 180ms ease,
     color 180ms ease;
+}
+.light-partner-logo-grid__empty {
+  display: grid;
+  min-height: clamp(150px, 18vw, 240px);
+  place-items: center;
+  border-top: 1px solid var(--light-line);
+  background: var(--light-paper);
+  color: var(--light-muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.light-partner-logo-grid__empty--loading {
+  color: var(--light-green);
 }
 @keyframes light-logo-in {
   from {
@@ -2304,6 +2321,13 @@
   transition:
     filter 180ms ease,
     transform 180ms ease;
+}
+.light-partner-logo-grid__item strong {
+  max-width: 72%;
+  font-size: clamp(20px, 3vw, 42px);
+  font-weight: 560;
+  letter-spacing: -0.045em;
+  text-align: center;
 }
 .light-partner-logo-grid > a:hover img,
 .light-partner-logo-grid > a:focus-visible img {
