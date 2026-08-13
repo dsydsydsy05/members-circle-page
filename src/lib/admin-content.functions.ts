@@ -160,8 +160,9 @@ function sanitizeValues(table: ContentTable, values: ContentValues): ContentValu
 }
 
 type MutationError = { message: string };
+type MutationRow = Record<string, string | number | boolean | null>;
 type MutationResult = PromiseLike<{
-  data: Record<string, unknown> | null;
+  data: MutationRow | null;
   error: MutationError | null;
 }>;
 type SingleBuilder = { single: () => MutationResult };
