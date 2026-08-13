@@ -227,8 +227,8 @@ export function LightIdentityPass({
                 <span className="light-identity-back-code">R / {number}</span>
                 <div className="light-identity-statement">
                   <strong>
-                    A quieter
-                    <br /> place to build.
+                    Be in the
+                    <br /> right room.
                   </strong>
                   <p>Founders, builders, operators. Real conversations, real work.</p>
                 </div>

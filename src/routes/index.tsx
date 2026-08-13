@@ -4,12 +4,12 @@ import { LightHome } from "@/components/light/LightHome";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "The Room — A quieter place to build" },
+      { title: "The Room — Be in the right room" },
       {
         name: "description",
         content: "A private community for founders, builders and people creating what’s next.",
       },
-      { property: "og:title", content: "The Room — A quieter place to build" },
+      { property: "og:title", content: "The Room — Be in the right room" },
       { property: "og:description", content: "Join the room, now." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://theroomcommunity.org/" },
