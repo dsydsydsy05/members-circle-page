@@ -5053,7 +5053,7 @@
 }
 
 .light-countdown__label {
-  font-family: "JetBrains Mono", var(--font-mono);
+  font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.24em;
@@ -5069,7 +5069,6 @@
 }
 
 .light-sponsor-countdown h1 {
-  font-family: "JetBrains Mono", var(--font-mono);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: #111111;
@@ -5079,7 +5078,6 @@
   background: #111111;
   border-color: #111111;
   color: #ffffff;
-  font-family: "JetBrains Mono", var(--font-mono);
   font-weight: 700;
 }
 
