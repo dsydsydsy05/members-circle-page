@@ -4,6 +4,7 @@ import { DoorSignal } from "@/components/BrandMark";
 import { LightEventStudies } from "@/components/light/LightEventStudies";
 import { LightPastEventStory } from "@/components/light/LightPastEventStory";
 import { LightPartnerLogoGrid } from "@/components/light/LightPartnerLogoGrid";
+import { LightSponsorCountdown } from "@/components/light/LightSponsorCountdown";
 import { LightButton, LightPage, LightPageHero } from "@/components/light/LightSite";
 import { useEvents, useGuests, type EventRow } from "@/lib/use-site-content";
 import { SPONSOR_GMAIL_URL } from "@/lib/contact";
