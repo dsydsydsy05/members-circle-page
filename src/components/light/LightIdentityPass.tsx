@@ -1,4 +1,4 @@
-import { useRef, type CSSProperties, type PointerEvent } from "react";
+import { useEffect, useRef, type CSSProperties, type PointerEvent } from "react";
 
 const edgeLayers = [-3, -2, -1, 0, 1, 2, 3];
 
@@ -16,8 +16,73 @@ export function LightIdentityPass({
   flipProgress: number;
 }) {
   const tiltRef = useRef<HTMLDivElement>(null);
+  const rotorRef = useRef<HTMLDivElement>(null);
   const progress = Math.min(1, Math.max(0, flipProgress));
-  const side = Math.sin(progress * Math.PI);
+  const side = Math.abs(Math.sin(progress * Math.PI * 2));
+
+  useEffect(() => {
+    const rotor = rotorRef.current;
+    if (!rotor) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let visible = true;
+    let angle = 0;
+    let lastFrameAt = performance.now();
+
+    const tick = (now: number) => {
+      frame = 0;
+      if (!visible || reducedMotion.matches) return;
+
+      const elapsed = Math.min((now - lastFrameAt) / 1000, 0.05);
+      lastFrameAt = now;
+
+      const idleVelocity = 11;
+      angle = (angle + idleVelocity * elapsed) % 360;
+
+      rotor.style.setProperty("--identity-engine-spin", `${angle.toFixed(3)}deg`);
+      frame = requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+      if (frame || !visible || reducedMotion.matches) return;
+      lastFrameAt = performance.now();
+      frame = requestAnimationFrame(tick);
+    };
+
+    const onMotionPreferenceChange = () => {
+      if (reducedMotion.matches) {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+        rotor.style.setProperty("--identity-engine-spin", "0deg");
+      } else {
+        start();
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) {
+          start();
+        } else if (frame) {
+          cancelAnimationFrame(frame);
+          frame = 0;
+        }
+      },
+      { rootMargin: "20% 0px" },
+    );
+
+    observer.observe(rotor);
+    reducedMotion.addEventListener("change", onMotionPreferenceChange);
+    start();
+
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      observer.disconnect();
+      reducedMotion.removeEventListener("change", onMotionPreferenceChange);
+    };
+  }, []);
 
   const move = (event: PointerEvent<HTMLDivElement>) => {
     if (
@@ -50,7 +115,7 @@ export function LightIdentityPass({
       className="light-identity-stage"
       style={
         {
-          "--identity-flip": `${progress * 180}deg`,
+          "--identity-flip": `${progress * 360}deg`,
           "--identity-side": side.toFixed(3),
         } as CSSProperties
       }
@@ -58,7 +123,7 @@ export function LightIdentityPass({
       onPointerLeave={reset}
     >
       <div className="light-identity-float">
-        <div className="light-identity-rotor">
+        <div ref={rotorRef} className="light-identity-rotor">
           <div ref={tiltRef} className="light-identity-tilt">
             {edgeLayers.map((depth) => (
               <span

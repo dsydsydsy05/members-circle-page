@@ -134,16 +134,9 @@ export function LightPastEventStory({
           </dl>
 
           <div className="light-event-story__body">
-            <aside>
-              <span>Nearly 400 applications</span>
-              <strong>30</strong>
-              <p>seats around one table</p>
-            </aside>
             <div>
-              {paragraphs.map((paragraph, index) => (
-                <p key={paragraph} className={index === 0 ? "light-event-story__lead" : undefined}>
-                  {paragraph}
-                </p>
+              {paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
           </div>

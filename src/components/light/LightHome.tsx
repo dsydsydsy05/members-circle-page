@@ -86,7 +86,7 @@ function LightFlipHero() {
     };
   }, []);
 
-  const flipProgress = clamp((progress - 0.06) / 0.72);
+  const flipProgress = clamp(progress / 0.94);
 
   return (
     <section

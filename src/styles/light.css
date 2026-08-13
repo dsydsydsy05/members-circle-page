@@ -391,7 +391,7 @@
 
 /* Home hero */
 .light-home-hero {
-  height: 170svh;
+  height: 150svh;
   position: relative;
   z-index: 1;
   padding: 0;
@@ -485,7 +485,7 @@
   animation: light-identity-float 7s ease-in-out 1s infinite;
 }
 .light-identity-rotor {
-  transform: rotateY(var(--identity-flip));
+  transform: rotateY(calc(var(--identity-flip) + var(--identity-engine-spin, 0deg)));
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -1996,7 +1996,7 @@
   z-index: 100;
   inset: 0;
   display: grid;
-  padding: 18px;
+  padding: 36px;
   overflow: hidden;
   place-items: center;
   background: rgba(74, 75, 70, 0.34);
@@ -2009,8 +2009,8 @@
   pointer-events: auto;
 }
 .light-event-story {
-  width: min(100%, 1460px);
-  max-height: calc(100svh - 36px);
+  width: min(100%, 1120px);
+  max-height: calc(100svh - 72px);
   overflow-x: hidden;
   overflow-y: auto;
   border: 1px solid rgba(17, 19, 17, 0.1);
@@ -2034,7 +2034,7 @@
 .light-event-story__hero {
   position: relative;
   display: flex;
-  min-height: clamp(420px, 56svh, 610px);
+  min-height: clamp(320px, 42svh, 430px);
   align-items: flex-end;
   overflow: hidden;
   background: #deddd8;
@@ -2088,8 +2088,8 @@
 .light-event-story__heading {
   position: relative;
   z-index: 2;
-  width: min(100%, 980px);
-  padding: clamp(32px, 4.4vw, 62px);
+  width: min(100%, 820px);
+  padding: clamp(30px, 3.6vw, 48px);
 }
 .light-event-story__heading > p {
   margin: 0 0 17px;
@@ -2103,7 +2103,7 @@
   max-width: 17ch;
   margin: 0;
   color: #fff;
-  font-size: clamp(42px, 5vw, 78px);
+  font-size: clamp(40px, 4.3vw, 66px);
   font-weight: 530;
   letter-spacing: -0.065em;
   line-height: 0.94;
@@ -2118,7 +2118,7 @@
   line-height: 1.45;
 }
 .light-event-story__content {
-  padding: 0 clamp(28px, 6vw, 82px) clamp(48px, 7vw, 96px);
+  padding: 0 clamp(28px, 4vw, 54px) clamp(42px, 5vw, 64px);
   background: #fbfaf6;
 }
 .light-event-story__file-line {
@@ -2162,47 +2162,19 @@
   font-size: 14px;
 }
 .light-event-story__body {
-  display: grid;
-  grid-template-columns: minmax(180px, 0.48fr) minmax(0, 1.52fr);
-  gap: clamp(44px, 7vw, 112px);
-  padding: clamp(52px, 7vw, 92px) 0;
-}
-.light-event-story__body aside {
-  align-self: start;
-  color: #777a73;
-  font-family: var(--font-mono);
-  font-size: 8px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.light-event-story__body aside strong {
-  display: block;
-  margin: 22px 0 8px;
-  color: #718f3e;
-  font-family: var(--font-display);
-  font-size: clamp(88px, 11vw, 152px);
-  font-weight: 500;
-  letter-spacing: -0.08em;
-  line-height: 0.74;
-}
-.light-event-story__body aside p {
-  margin: 0;
+  padding: clamp(38px, 4vw, 52px) 0;
 }
 .light-event-story__body > div {
-  max-width: 830px;
+  max-width: 780px;
+  margin-inline: auto;
 }
 .light-event-story__body > div p {
-  margin: 0 0 26px;
-  color: #666962;
+  margin: 0 0 20px;
+  color: #3f413d;
   font-family: var(--font-sans);
-  font-size: clamp(15px, 1.2vw, 18px);
-  line-height: 1.66;
-}
-.light-event-story__body > div .light-event-story__lead {
-  color: #1a1c18;
-  font-size: clamp(18px, 1.7vw, 25px);
-  letter-spacing: -0.025em;
-  line-height: 1.48;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.62;
 }
 .light-event-story__footer {
   display: flex;
@@ -4366,7 +4338,7 @@
     width: 125px;
   }
   .light-home-hero {
-    height: 160svh;
+    height: 145svh;
     padding: 0;
   }
   .light-home-hero__frame {
