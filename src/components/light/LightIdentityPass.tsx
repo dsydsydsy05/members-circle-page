@@ -125,7 +125,9 @@ export function LightIdentityPass({
 
 
   const move = (event: PointerEvent<HTMLDivElement>) => {
+    onDragMove(event);
     if (
+      dragState.current.dragging ||
       event.pointerType === "touch" ||
       (progress > 0.08 && progress < 0.92) ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -157,11 +159,20 @@ export function LightIdentityPass({
         {
           "--identity-flip": `${progress * 360}deg`,
           "--identity-side": side.toFixed(3),
+          touchAction: "pan-y",
+          cursor: "grab",
         } as CSSProperties
       }
+      onPointerDown={onPointerDown}
       onPointerMove={move}
-      onPointerLeave={reset}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+      onPointerLeave={(event) => {
+        endDrag(event);
+        reset();
+      }}
     >
+
       <div className="light-identity-float">
         <div ref={rotorRef} className="light-identity-rotor">
           <div ref={tiltRef} className="light-identity-tilt">
