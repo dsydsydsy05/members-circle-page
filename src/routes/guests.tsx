@@ -1,77 +1,13 @@
-import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteNav, SiteFooter } from "@/components/SiteNav";
-import { useGuests } from "@/lib/use-site-content";
+import { LightGuestsPage } from "@/components/light/LightPublicPages";
 
 export const Route = createFileRoute("/guests")({
   head: () => ({
     meta: [
-      { title: "Guests · The Room" },
-      { name: "description", content: "Founders and operators we've hosted at The Room events." },
-      { property: "og:title", content: "Guests · The Room" },
-      { property: "og:description", content: "Fireside chats, closed Q&As, and workshops with our guests." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { title: "Conversations · The Room" },
+      { name: "description", content: "Guests invited into The Room for specific conversations." },
     ],
+    links: [{ rel: "canonical", href: "https://theroomcommunity.org/guests" }],
   }),
-  component: GuestsPage,
+  component: LightGuestsPage,
 });
-
-function GuestsPage() {
-  const [active, setActive] = useState<string | null>(null);
-  const { data: guests = [] } = useGuests();
-
-  return (
-    <div className="min-h-screen">
-      <SiteNav />
-      <main className="mx-auto max-w-4xl px-4 sm:px-6 py-16">
-        <div className="text-xs uppercase tracking-[0.22em] text-primary">Guests</div>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
-          People we've <span className="text-primary">hosted</span>
-        </h1>
-        <p className="mt-3 text-muted-foreground">
-          Small-format conversations with people we admire. No stages, no slides.
-        </p>
-
-        <ul className="mt-10 divide-y divide-border overflow-hidden rounded-2xl bg-card ring-1 ring-border">
-          {guests.map((g) => {
-            const on = active === g.id;
-            return (
-              <li
-                key={g.id}
-                className={`grid grid-cols-1 gap-2 px-6 py-5 transition-colors sm:grid-cols-[1fr_auto] sm:items-center ${
-                  on ? "bg-primary/5" : ""
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    className={`h-6 w-[3px] rounded-full transition-colors ${on ? "bg-primary" : "bg-transparent"}`}
-                    aria-hidden
-                  />
-                  <div>
-                    <button
-                      type="button"
-                      aria-pressed={on}
-                      onClick={() => setActive(on ? null : g.id)}
-                      className={`text-left text-lg font-semibold tracking-tight transition-colors hover:text-primary ${
-                        on ? "text-primary" : ""
-                      }`}
-                    >
-                      <span className="blur-sm select-none">{g.name}</span>
-                    </button>
-                    <div className="text-sm text-muted-foreground blur-sm select-none">{g.title}</div>
-                  </div>
-                </div>
-                <div className="text-right sm:pl-6">
-                  <div className={`text-sm transition-colors ${on ? "text-primary" : ""}`}>{g.event}</div>
-                  <div className="text-xs text-muted-foreground">{g.date_label}</div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </main>
-      <SiteFooter />
-    </div>
-  );
-}

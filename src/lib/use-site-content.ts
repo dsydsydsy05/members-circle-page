@@ -3,11 +3,15 @@ import { supabase } from "@/integrations/supabase/client";
 
 export type EventRow = {
   id: string;
+  slug?: string | null;
   title: string;
   date_label: string;
   city: string;
   status: string;
   cover_url: string | null;
+  detail_image_url?: string | null;
+  summary?: string | null;
+  body?: string | null;
   sort_order: number;
 };
 
@@ -33,6 +37,8 @@ export type FactoryRow = {
   category: string;
   location: string;
   moq: string;
+  sample_time: string;
+  contact: string;
   notes: string;
   website: string | null;
   sort_order: number;
@@ -48,7 +54,13 @@ export type PartnerRow = {
   sort_order: number;
 };
 
-export const CONTENT_TABLES = ["events", "guests", "event_photos", "factories", "partners"] as const;
+export const CONTENT_TABLES = [
+  "events",
+  "guests",
+  "event_photos",
+  "factories",
+  "partners",
+] as const;
 export type ContentTable = (typeof CONTENT_TABLES)[number];
 
 function contentQuery<T>(table: ContentTable) {

@@ -12,8 +12,11 @@ export type Profile = {
   website: string | null;
   tags: string[];
   about: string | null;
+  member_no: number | null;
   is_member: boolean;
   onboarded: boolean;
+  home_featured?: boolean;
+  home_featured_order?: number;
 };
 
 export const AUTH_QUERY_KEY = ["auth-session-profile"] as const;

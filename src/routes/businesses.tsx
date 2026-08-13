@@ -1,15 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteNav, SiteFooter } from "@/components/SiteNav";
-import { MemberGate } from "@/components/MemberGate";
+import { MemberPortalShell } from "@/components/light/LightMemberPortal";
 import { useFamilyBusinesses, normalizeUrl, hostOf } from "@/lib/use-family-businesses";
 
 export const Route = createFileRoute("/businesses")({
   head: () => ({
     meta: [
       { title: "Family Business · The Room" },
-      { name: "description", content: "Businesses run by The Room members. Tap a card to visit their site." },
+      {
+        name: "description",
+        content: "Businesses run by The Room members. Tap a card to visit their site.",
+      },
       { property: "og:title", content: "Family Business · The Room" },
-      { property: "og:description", content: "Businesses run by members of the The Room community." },
+      {
+        property: "og:description",
+        content: "Businesses run by members of the The Room community.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -19,23 +24,19 @@ export const Route = createFileRoute("/businesses")({
 
 function BusinessesPage() {
   return (
-    <div className="min-h-screen">
-      <SiteNav />
-      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
-        <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Members only</div>
+    <MemberPortalShell className="portal-page">
+      <main className="light-member-main mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-6 sm:pt-10">
+        <div className="text-xs uppercase tracking-[0.22em] text-[#718f3e]">Members only</div>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">Family Business</h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
           Businesses built by our members. Tap a badge to open the site.
         </p>
 
         <div className="mt-10">
-          <MemberGate title="Family Business">
-            <BusinessGrid />
-          </MemberGate>
+          <BusinessGrid />
         </div>
       </main>
-      <SiteFooter />
-    </div>
+    </MemberPortalShell>
   );
 }
 
@@ -62,14 +63,22 @@ function BusinessGrid() {
         const Card = (
           <>
             <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-              <span>THE ROOM · {b.category.toUpperCase()}</span>
-              {href && <span className="opacity-0 transition-opacity group-hover:opacity-100">→</span>}
+              <span className="text-[#718f3e]">THE ROOM · {b.category.toUpperCase()}</span>
+              {href && (
+                <span className="text-[#718f3e] opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100">
+                  →
+                </span>
+              )}
             </div>
             <div className="mt-6">
               <div className="text-xl font-semibold tracking-tight">{b.name}</div>
-              {b.owner_name && <div className="text-sm text-muted-foreground">by {b.owner_name}</div>}
+              {b.owner_name && (
+                <div className="text-sm text-muted-foreground">by {b.owner_name}</div>
+              )}
               {b.description && (
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{b.description}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {b.description}
+                </p>
               )}
             </div>
             <div className="mt-6 flex items-center justify-between text-xs text-muted-foreground">
@@ -80,7 +89,7 @@ function BusinessGrid() {
         );
 
         const cls =
-          "group flex flex-col justify-between rounded-xl bg-card p-5 ring-1 ring-border transition-all hover:-translate-y-0.5 hover:shadow-md";
+          "group flex flex-col justify-between rounded-xl bg-card p-5 ring-1 ring-border transition-all hover:-translate-y-0.5 hover:ring-[#718f3e]/45 hover:shadow-md focus-visible:outline-none focus-visible:ring-[#718f3e]/65";
 
         return href ? (
           <a key={b.id} href={href} target="_blank" rel="noreferrer" className={cls}>

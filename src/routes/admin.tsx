@@ -2,10 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { SiteNav, SiteFooter } from "@/components/SiteNav";
+import { MemberPortalShell } from "@/components/light/LightMemberPortal";
 import { useIsAdmin } from "@/lib/use-admin";
 import { useAuth } from "@/lib/use-auth";
 import { deleteAppUser } from "@/lib/admin.functions";
+import { mutateAdminContent } from "@/lib/admin-content.functions";
 import { CONTENT_TABLES, type ContentTable } from "@/lib/use-site-content";
 import { toast } from "sonner";
 
@@ -13,9 +14,15 @@ export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
       { title: "Admin · The Room" },
-      { name: "description", content: "Manage The Room events, guests, photos, factory list, partners and members." },
+      {
+        name: "description",
+        content: "Manage The Room events, guests, photos, factory list, partners and members.",
+      },
       { property: "og:title", content: "Admin · The Room" },
-      { property: "og:description", content: "Internal control room for The Room content and members." },
+      {
+        property: "og:description",
+        content: "Internal control room for The Room content and members.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -23,26 +30,55 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-type Field = { key: string; label: string; type?: "text" | "textarea" | "number" };
+type EditableValue = string | number | null;
+type Field = {
+  key: string;
+  label: string;
+  type?: "text" | "textarea" | "number" | "select";
+  options?: Array<{ value: string; label: string }>;
+};
 
 const SECTIONS: {
   table: ContentTable;
   label: string;
   fields: Field[];
-  defaults: Record<string, unknown>;
+  defaults: Record<string, EditableValue>;
 }[] = [
   {
     table: "events",
     label: "Events",
     fields: [
+      { key: "slug", label: "Archive slug" },
       { key: "title", label: "Title" },
       { key: "date_label", label: "Date (e.g. Sep 15)" },
       { key: "city", label: "City" },
-      { key: "status", label: "Status (upcoming / past)" },
+      {
+        key: "status",
+        label: "Placement",
+        type: "select",
+        options: [
+          { value: "upcoming", label: "Upcoming / Announced" },
+          { value: "past", label: "Past / Archive" },
+        ],
+      },
       { key: "cover_url", label: "Cover image URL" },
+      { key: "detail_image_url", label: "Detail image URL" },
+      { key: "summary", label: "Short introduction", type: "textarea" },
+      { key: "body", label: "Event story", type: "textarea" },
       { key: "sort_order", label: "Order", type: "number" },
     ],
-    defaults: { title: "New event", date_label: "", city: "", status: "upcoming", cover_url: "", sort_order: 99 },
+    defaults: {
+      slug: "",
+      title: "New event",
+      date_label: "",
+      city: "",
+      status: "upcoming",
+      cover_url: "",
+      detail_image_url: "",
+      summary: "",
+      body: "",
+      sort_order: 99,
+    },
   },
   {
     table: "guests",
@@ -54,7 +90,13 @@ const SECTIONS: {
       { key: "date_label", label: "Date" },
       { key: "sort_order", label: "Order", type: "number" },
     ],
-    defaults: { name: "Coming Soon", title: "Guest speaker TBA", event: "", date_label: "", sort_order: 99 },
+    defaults: {
+      name: "Coming Soon",
+      title: "Guest speaker TBA",
+      event: "",
+      date_label: "",
+      sort_order: 99,
+    },
   },
   {
     table: "event_photos",
@@ -74,11 +116,23 @@ const SECTIONS: {
       { key: "category", label: "Category" },
       { key: "location", label: "Location" },
       { key: "moq", label: "MOQ" },
+      { key: "sample_time", label: "Sample production time" },
+      { key: "contact", label: "Contact", type: "textarea" },
       { key: "notes", label: "Notes", type: "textarea" },
       { key: "website", label: "Website" },
       { key: "sort_order", label: "Order", type: "number" },
     ],
-    defaults: { name: "New factory", category: "", location: "", moq: "", notes: "", website: "", sort_order: 99 },
+    defaults: {
+      name: "New factory",
+      category: "",
+      location: "",
+      moq: "",
+      sample_time: "",
+      contact: "",
+      notes: "",
+      website: "",
+      sort_order: 99,
+    },
   },
   {
     table: "partners",
@@ -91,16 +145,30 @@ const SECTIONS: {
       { key: "logo_url", label: "Logo URL" },
       { key: "sort_order", label: "Order", type: "number" },
     ],
-    defaults: { name: "New partner", tier: "silver", blurb: "", url: "", logo_url: "", sort_order: 99 },
+    defaults: {
+      name: "New partner",
+      tier: "silver",
+      blurb: "",
+      url: "",
+      logo_url: "",
+      sort_order: 99,
+    },
   },
 ];
 
 const inputCls =
   "w-full rounded-lg border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary";
 
+type ContentRecord = { id: string } & Record<string, string | number | null>;
+
+function mutationMessage(error: unknown) {
+  return error instanceof Error ? error.message : "The database change could not be saved";
+}
+
 function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
   const qc = useQueryClient();
   const key = ["site-content", section.table] as const;
+  const [busy, setBusy] = useState<string | null>(null);
 
   const { data: rows = [], isLoading } = useQuery({
     queryKey: key,
@@ -111,43 +179,72 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
         .order("sort_order", { ascending: true })
         .order("created_at", { ascending: true });
       if (error) throw error;
-      return (data ?? []) as Record<string, any>[];
+      return (data ?? []) as unknown as ContentRecord[];
     },
   });
 
-  const [draft, setDraft] = useState<Record<string, Record<string, any>>>({});
+  const [draft, setDraft] = useState<Record<string, ContentRecord>>({});
   useEffect(() => {
-    const next: Record<string, Record<string, any>> = {};
-    rows.forEach((r) => (next[r.id as string] = { ...r }));
+    const next: Record<string, ContentRecord> = {};
+    rows.forEach((r) => (next[r.id] = { ...r }));
     setDraft(next);
   }, [rows]);
 
-  const refresh = () => qc.invalidateQueries({ queryKey: key });
+  const refresh = async () => {
+    const invalidations = [qc.invalidateQueries({ queryKey: key })];
+    if (section.table === "factories") {
+      invalidations.push(qc.invalidateQueries({ queryKey: ["factory-count"] }));
+    }
+    await Promise.all(invalidations);
+  };
 
   const save = async (id: string) => {
-    const patch: Record<string, any> = {};
+    const patch: Record<string, EditableValue> = {};
     section.fields.forEach((f) => {
       const v = draft[id]?.[f.key];
-      patch[f.key] = f.type === "number" ? Number(v) || 0 : v ?? "";
+      patch[f.key] = f.type === "number" ? Number(v) || 0 : (v ?? "");
     });
-    const { error } = await (supabase.from(section.table) as any).update(patch).eq("id", id);
-    if (error) return toast.error(error.message);
-    toast.success("Saved");
-    refresh();
+    setBusy(id);
+    try {
+      await mutateAdminContent({
+        data: { action: "update", table: section.table, id, values: patch },
+      });
+      await refresh();
+      toast.success("Saved to database");
+    } catch (error) {
+      toast.error(mutationMessage(error));
+    } finally {
+      setBusy(null);
+    }
   };
 
   const remove = async (id: string) => {
     if (!confirm("Delete this item?")) return;
-    const { error } = await supabase.from(section.table).delete().eq("id", id);
-    if (error) return toast.error(error.message);
-    toast.success("Deleted");
-    refresh();
+    setBusy(id);
+    try {
+      await mutateAdminContent({ data: { action: "delete", table: section.table, id } });
+      await refresh();
+      toast.success("Deleted from database");
+    } catch (error) {
+      toast.error(mutationMessage(error));
+    } finally {
+      setBusy(null);
+    }
   };
 
   const add = async () => {
-    const { error } = await supabase.from(section.table).insert(section.defaults as any);
-    if (error) return toast.error(error.message);
-    refresh();
+    setBusy("add");
+    try {
+      await mutateAdminContent({
+        data: { action: "create", table: section.table, values: section.defaults },
+      });
+      await refresh();
+      toast.success(`Added to ${section.label} database list`);
+    } catch (error) {
+      toast.error(mutationMessage(error));
+    } finally {
+      setBusy(null);
+    }
   };
 
   return (
@@ -156,9 +253,10 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
         <h2 className="text-xl font-semibold tracking-tight">{section.label}</h2>
         <button
           onClick={add}
-          className="rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90"
+          disabled={busy !== null}
+          className="rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          + Add
+          {busy === "add" ? "Adding…" : "+ Add"}
         </button>
       </div>
 
@@ -184,6 +282,20 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
                             setDraft((d) => ({ ...d, [id]: { ...d[id], [f.key]: e.target.value } }))
                           }
                         />
+                      ) : f.type === "select" ? (
+                        <select
+                          className={`${inputCls} mt-1`}
+                          value={draft[id]?.[f.key] ?? ""}
+                          onChange={(e) =>
+                            setDraft((d) => ({ ...d, [id]: { ...d[id], [f.key]: e.target.value } }))
+                          }
+                        >
+                          {f.options?.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
                       ) : (
                         <input
                           type={f.type === "number" ? "number" : "text"}
@@ -200,13 +312,15 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
                 <div className="mt-3 flex gap-2">
                   <button
                     onClick={() => save(id)}
-                    className="rounded-full border border-border px-4 py-1.5 text-xs hover:bg-secondary"
+                    disabled={busy !== null}
+                    className="rounded-full border border-border px-4 py-1.5 text-xs hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    Save
+                    {busy === id ? "Saving…" : "Save to database"}
                   </button>
                   <button
                     onClick={() => remove(id)}
-                    className="rounded-full border border-destructive/50 px-4 py-1.5 text-xs text-destructive hover:bg-destructive/10"
+                    disabled={busy !== null}
+                    className="rounded-full border border-destructive/50 px-4 py-1.5 text-xs text-destructive hover:bg-destructive/10 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Delete
                   </button>
@@ -228,7 +342,7 @@ function MembersSection() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("profiles")
-        .select("id, full_name, school, startup, position, is_member, onboarded, member_no")
+        .select("*")
         .order("member_no", { ascending: true });
       if (error) throw error;
       return data ?? [];
@@ -241,6 +355,25 @@ function MembersSection() {
     const { error } = await supabase.from("profiles").update({ is_member: next }).eq("id", id);
     if (error) return toast.error(error.message);
     refresh();
+  };
+
+  const featuredCount = rows.filter((profile) => profile.home_featured).length;
+  const featuredSchemaReady =
+    rows.length === 0 || rows.some((profile) => profile.home_featured !== undefined);
+
+  const updateFeatured = async (id: string, featured: boolean, order: number) => {
+    if (featured && featuredCount >= 3) {
+      return toast.error("Only three members can be featured on the homepage");
+    }
+    const { error } = await supabase.rpc("admin_set_home_featured", {
+      _profile_id: id,
+      _featured: featured,
+      _order: Math.max(1, Math.min(999, order || 999)),
+    });
+    if (error) return toast.error(error.message);
+    toast.success(featured ? "Featured on homepage" : "Removed from homepage");
+    refresh();
+    qc.invalidateQueries({ queryKey: ["community-profiles"] });
   };
 
   const removeUser = async (id: string) => {
@@ -256,7 +389,23 @@ function MembersSection() {
 
   return (
     <section className="space-y-4">
-      <h2 className="text-xl font-semibold tracking-tight">Members</h2>
+      <div>
+        <h2 className="text-xl font-semibold tracking-tight">Members</h2>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Select up to three public profiles for the light homepage. Lower order appears first.
+        </p>
+        {!featuredSchemaReady && (
+          <p className="mt-2 text-xs text-amber-600">
+            Featured controls will become available after the local featured-members migration is
+            applied.
+          </p>
+        )}
+        {featuredCount > 3 && (
+          <p className="mt-2 text-xs text-destructive">
+            More than three profiles are marked as featured; only the first three will be shown.
+          </p>
+        )}
+      </div>
       {isLoading ? (
         <div className="text-sm text-muted-foreground">Loading…</div>
       ) : (
@@ -268,11 +417,12 @@ function MembersSection() {
                 <th className="px-4 py-3 text-left">Name</th>
                 <th className="px-4 py-3 text-left">Startup</th>
                 <th className="px-4 py-3 text-left">Member</th>
+                <th className="px-4 py-3 text-left">Homepage</th>
                 <th className="px-4 py-3 text-left">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {rows.map((p: any) => (
+              {rows.map((p) => (
                 <tr key={p.id}>
                   <td className="px-4 py-3 text-muted-foreground">
                     {p.member_no ? String(p.member_no).padStart(4, "0") : "—"}
@@ -290,6 +440,39 @@ function MembersSection() {
                     >
                       {p.is_member ? "Member" : "Not member"}
                     </button>
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        disabled={!featuredSchemaReady || (!p.home_featured && featuredCount >= 3)}
+                        onClick={() =>
+                          updateFeatured(p.id, !p.home_featured, p.home_featured_order ?? 999)
+                        }
+                        className={`rounded-full px-3 py-1 text-xs disabled:cursor-not-allowed disabled:opacity-40 ${
+                          p.home_featured
+                            ? "bg-primary text-primary-foreground"
+                            : "border border-border"
+                        }`}
+                      >
+                        {p.home_featured ? "Featured" : "Feature"}
+                      </button>
+                      <input
+                        type="number"
+                        min={1}
+                        max={999}
+                        defaultValue={p.home_featured_order ?? 999}
+                        disabled={!featuredSchemaReady || !p.home_featured}
+                        aria-label={`Homepage order for ${p.full_name || "member"}`}
+                        className="w-16 rounded-md border border-border bg-background px-2 py-1 text-xs disabled:opacity-40"
+                        onBlur={(event) => {
+                          const next = Number(event.currentTarget.value) || 999;
+                          if (p.home_featured && next !== p.home_featured_order) {
+                            updateFeatured(p.id, true, next);
+                          }
+                        }}
+                      />
+                    </div>
                   </td>
                   <td className="px-4 py-3">
                     {p.id === userId ? (
@@ -344,7 +527,7 @@ function BusinessesSection() {
         <div className="text-sm text-muted-foreground">Loading…</div>
       ) : (
         <div className="space-y-2">
-          {rows.map((b: any) => (
+          {rows.map((b) => (
             <div
               key={b.id}
               className="flex items-center justify-between rounded-xl border border-border bg-card/60 px-4 py-3 text-sm"
@@ -382,8 +565,7 @@ function AdminPage() {
   const section = useMemo(() => SECTIONS.find((s) => s.table === tab), [tab]);
 
   return (
-    <div className="min-h-screen">
-      <SiteNav />
+    <MemberPortalShell className="portal-page">
       <main className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
         <div className="text-xs uppercase tracking-[0.22em] text-primary">Control room</div>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">Admin</h1>
@@ -433,8 +615,7 @@ function AdminPage() {
           </>
         )}
       </main>
-      <SiteFooter />
-    </div>
+    </MemberPortalShell>
   );
 }
 

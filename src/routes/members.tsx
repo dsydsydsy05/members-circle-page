@@ -1,53 +1,107 @@
+import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteNav, SiteFooter } from "@/components/SiteNav";
-import { MemberFlipCard } from "@/components/MemberFlipCard";
+import { LightArchiveIndex } from "@/components/light/LightMemberArchive";
+import { MemberPortalShell } from "@/components/light/LightMemberPortal";
 import { useCommunityMembers } from "@/lib/use-community-members";
-
-
+import { useAuth } from "@/lib/use-auth";
+import type { Member } from "@/lib/community-data";
 
 export const Route = createFileRoute("/members")({
   head: () => ({
     meta: [
       { title: "Members · The Room" },
-      { name: "description", content: "Meet the founders, designers and buyers inside the The Room community. Flip a card to see details." },
-      { property: "og:title", content: "Members · The Room" },
-      { property: "og:description", content: "Flip through the The Room member cards." },
+      {
+        name: "description",
+        content: "The public member directory of The Room — founders, builders and operators.",
+      },
+      { property: "og:title", content: "People in The Room" },
+      {
+        property: "og:description",
+        content: "An editorial directory built around the Member Pass system.",
+      },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://theroomcommunity.org/members" }],
   }),
   component: MembersPage,
 });
 
+function matchesQuery(member: Member, query: string) {
+  const haystack = [member.name, member.role, member.city, member.bio, ...member.tags]
+    .join(" ")
+    .toLowerCase();
+  return haystack.includes(query);
+}
+
 function MembersPage() {
   const { members, loading } = useCommunityMembers();
+  const { profile } = useAuth();
+  const [query, setQuery] = useState("");
+
+  const visible = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    const filtered = q ? members.filter((member) => matchesQuery(member, q)) : members;
+
+    // Match against your own profile: same school first, then shared project types.
+    // School names are fuzzy-matched both ways ("NYU" hits "NYU Stern").
+    const school = profile?.school?.trim().toLowerCase();
+    const myTags = new Set((profile?.tags ?? []).map((tag) => tag.trim().toLowerCase()));
+    if (!school && myTags.size === 0) return filtered;
+
+    const sameSchool = (other: string) => {
+      const theirs = other.trim().toLowerCase();
+      if (!school || !theirs) return false;
+      return theirs === school || theirs.includes(school) || school.includes(theirs);
+    };
+    const score = (member: Member) => {
+      let value = 0;
+      if (sameSchool(member.city)) value += 2;
+      value += member.tags.filter((tag) => myTags.has(tag.trim().toLowerCase())).length;
+      return value;
+    };
+    return [...filtered].sort((a, b) => score(b) - score(a));
+  }, [members, query, profile]);
+
   return (
-    <div className="min-h-screen">
-      <SiteNav />
-      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
-        <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Community</div>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">Members</h1>
-        <p className="mt-3 max-w-2xl text-muted-foreground">
-          A small, curated group. Every member has a card — tap to flip and see what they do, then visit their site.
-        </p>
-        {loading ? (
-          <p className="mt-10 text-sm text-muted-foreground">Loading members…</p>
-        ) : members.length === 0 ? (
-          <div className="mt-10 rounded-2xl border border-border bg-card p-10 text-center">
-            <h2 className="text-2xl font-semibold tracking-tight">No members yet</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              The Room is just opening. Sign up, enter your invitation code, and yours will be the first card here.
-            </p>
+    <MemberPortalShell className="depth-page">
+      <main>
+        <header className="members-directory-hero">
+          <div className="page-shell members-directory-hero__grid">
+            <div className="eyebrow members-directory-hero__eyebrow">
+              Member Space / Private Directory
+            </div>
+            <h1 className="members-directory-hero__title">Inside the room.</h1>
+            <div className="members-directory-hero__side">
+              <label className="directory-search">
+                <span>Search</span>
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Name, school, or project type"
+                />
+              </label>
+              <p className="members-directory-hero__intro">
+                This is the internal member directory. It is separate from the public Members
+                archive and never includes invited guests.
+              </p>
+            </div>
           </div>
-        ) : (
-          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {members.map((m) => <MemberFlipCard key={m.id} member={m} />)}
+        </header>
+        <section className="members-directory-list">
+          <div className="page-shell">
+            {loading ? (
+              <p className="empty-truth">Loading members…</p>
+            ) : members.length === 0 ? (
+              <p className="empty-truth">No internal member profiles are currently available.</p>
+            ) : visible.length === 0 ? (
+              <p className="empty-truth">No members match your search.</p>
+            ) : (
+              <LightArchiveIndex members={visible} variant="directory" />
+            )}
           </div>
-        )}
+        </section>
       </main>
-
-
-      <SiteFooter />
-    </div>
+    </MemberPortalShell>
   );
 }

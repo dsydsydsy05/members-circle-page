@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import favicon from "@/assets/favicon-2.png.asset.json";
+import socialImage from "@/assets/the-room-logo.png.asset.json";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -78,27 +79,31 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Room — a quieter community for builders" },
-      { name: "description", content: "Members-only community for founders and makers. Flip cards, factory list, family businesses, and events." },
+      { title: "The Room — A quieter place to build" },
+      {
+        name: "description",
+        content: "A private community for founders, builders and people creating what’s next.",
+      },
       { name: "author", content: "The Room" },
-      { property: "og:title", content: "The Room — a quieter community for builders" },
-      { property: "og:description", content: "Members-only community for founders and makers. Flip cards, factory list, family businesses, and events." },
+      { name: "theme-color", content: "#e9e8e3" },
+      { property: "og:title", content: "The Room — A quieter place to build" },
+      { property: "og:description", content: "Be the dumbest person in the room." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "The Room — a quieter community for builders" },
-      { name: "twitter:description", content: "Members-only community for founders and makers. Flip cards, factory list, family businesses, and events." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/193b16bd-1a8f-4a23-a391-6635054096cd/id-preview-72f30b59--18c20231-b1b3-4854-ac83-3daa9bef7587.lovable.app-1785239519196.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/193b16bd-1a8f-4a23-a391-6635054096cd/id-preview-72f30b59--18c20231-b1b3-4854-ac83-3daa9bef7587.lovable.app-1785239519196.png" },
+      { name: "twitter:title", content: "The Room — A quieter place to build" },
+      { name: "twitter:description", content: "Be the dumbest person in the room." },
+      { property: "og:image", content: `https://theroomcommunity.org${socialImage.url}` },
+      { name: "twitter:image", content: `https://theroomcommunity.org${socialImage.url}` },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: favicon.url, type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "preconnect", href: "https://api.fontshare.com" },
-      { rel: "stylesheet", href: "https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&display=swap" },
-
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,

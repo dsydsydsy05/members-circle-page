@@ -17,7 +17,12 @@ export function AvatarUploader({ value, onChange }: Props) {
   const [error, setError] = useState<string | null>(null);
   const pendingBlob = useRef<Blob | null>(null);
 
-  useEffect(() => () => { if (srcUrl) URL.revokeObjectURL(srcUrl); }, [srcUrl]);
+  useEffect(
+    () => () => {
+      if (srcUrl) URL.revokeObjectURL(srcUrl);
+    },
+    [srcUrl],
+  );
 
   const pickFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -35,36 +40,43 @@ export function AvatarUploader({ value, onChange }: Props) {
     setSrcUrl(URL.createObjectURL(file));
   };
 
-  const uploadBlob = useCallback(async (blob: Blob) => {
-    pendingBlob.current = blob;
-    setUploading(true);
-    setError(null);
-    try {
-      const { data: userData } = await supabase.auth.getUser();
-      const uid = userData.user?.id;
-      if (!uid) throw new Error("Your session expired. Please sign in again.");
+  const uploadBlob = useCallback(
+    async (blob: Blob) => {
+      pendingBlob.current = blob;
+      setUploading(true);
+      setError(null);
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        const uid = userData.user?.id;
+        if (!uid) throw new Error("Your session expired. Please sign in again.");
 
-      const path = `${uid}/avatar-${Date.now()}.jpg`;
-      const { error: upErr } = await supabase.storage
-        .from("avatars")
-        .upload(path, blob, { upsert: true, contentType: "image/jpeg" });
-      if (upErr) throw new Error(`Upload failed: ${upErr.message}`);
+        const path = `${uid}/avatar-${Date.now()}.jpg`;
+        const { error: upErr } = await supabase.storage
+          .from("avatars")
+          .upload(path, blob, { upsert: true, contentType: "image/jpeg" });
+        if (upErr) throw new Error(`Upload failed: ${upErr.message}`);
 
-      const { data: signed, error: signErr } = await supabase.storage
-        .from("avatars")
-        .createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
-      if (signErr || !signed?.signedUrl) {
-        throw new Error(signErr?.message ?? "Uploaded, but the image link could not be created.");
+        const { data: signed, error: signErr } = await supabase.storage
+          .from("avatars")
+          .createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
+        if (signErr || !signed?.signedUrl) {
+          throw new Error(signErr?.message ?? "Uploaded, but the image link could not be created.");
+        }
+        onChange(signed.signedUrl);
+        pendingBlob.current = null;
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : "Something went wrong while uploading.";
+        setError(
+          navigator.onLine === false
+            ? "You appear to be offline. Check your connection and retry."
+            : msg,
+        );
+      } finally {
+        setUploading(false);
       }
-      onChange(signed.signedUrl);
-      pendingBlob.current = null;
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : "Something went wrong while uploading.";
-      setError(navigator.onLine === false ? "You appear to be offline. Check your connection and retry." : msg);
-    } finally {
-      setUploading(false);
-    }
-  }, [onChange]);
+    },
+    [onChange],
+  );
 
   const retry = () => {
     if (pendingBlob.current) void uploadBlob(pendingBlob.current);
@@ -77,7 +89,11 @@ export function AvatarUploader({ value, onChange }: Props) {
 
       <div className="mt-2 flex items-center gap-4">
         {value.trim() ? (
-          <img src={value} alt="Avatar preview" className="h-20 w-20 rounded-full object-cover ring-1 ring-border" />
+          <img
+            src={value}
+            alt="Avatar preview"
+            className="h-20 w-20 rounded-full object-cover ring-1 ring-border"
+          />
         ) : (
           <div className="flex h-20 w-20 items-center justify-center rounded-full border border-dashed border-border text-[10px] uppercase tracking-wider text-muted-foreground">
             Photo
@@ -85,12 +101,24 @@ export function AvatarUploader({ value, onChange }: Props) {
         )}
 
         <div className="flex flex-wrap items-center gap-3">
-          <label className={`cursor-pointer rounded-full border border-border px-4 py-2 text-sm transition-colors ${uploading ? "opacity-50" : "text-muted-foreground hover:border-primary hover:text-primary"}`}>
+          <label
+            className={`cursor-pointer rounded-full border border-border px-4 py-2 text-sm transition-colors ${uploading ? "opacity-50" : "text-muted-foreground hover:border-primary hover:text-primary"}`}
+          >
             {uploading ? "Uploading…" : value.trim() ? "Change photo" : "Upload photo"}
-            <input type="file" accept="image/*" className="hidden" disabled={uploading} onChange={pickFile} />
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              disabled={uploading}
+              onChange={pickFile}
+            />
           </label>
           {value.trim() && !uploading && (
-            <button type="button" onClick={() => onChange("")} className="text-sm text-muted-foreground hover:text-primary">
+            <button
+              type="button"
+              onClick={() => onChange("")}
+              className="text-sm text-muted-foreground hover:text-primary"
+            >
               Remove
             </button>
           )}
@@ -115,8 +143,13 @@ export function AvatarUploader({ value, onChange }: Props) {
         <CropModal
           src={srcUrl}
           busy={uploading}
-          onCancel={() => { setSrcUrl(null); }}
-          onConfirm={async (blob) => { setSrcUrl(null); await uploadBlob(blob); }}
+          onCancel={() => {
+            setSrcUrl(null);
+          }}
+          onConfirm={async (blob) => {
+            setSrcUrl(null);
+            await uploadBlob(blob);
+          }}
         />
       )}
     </div>
@@ -144,7 +177,9 @@ function CropModal({
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev; };
+    return () => {
+      document.body.style.overflow = prev;
+    };
   }, []);
 
   // base scale so the image always covers the crop viewport
@@ -162,7 +197,9 @@ function CropModal({
     };
   };
 
-  useEffect(() => { setOffset((o) => clamp(o)); /* eslint-disable-next-line */ }, [zoom, natural]);
+  useEffect(() => {
+    setOffset((o) => clamp(o)); /* eslint-disable-next-line */
+  }, [zoom, natural]);
 
   const onPointerDown = (e: React.PointerEvent) => {
     (e.target as Element).setPointerCapture(e.pointerId);
@@ -170,12 +207,16 @@ function CropModal({
   };
   const onPointerMove = (e: React.PointerEvent) => {
     if (!drag.current) return;
-    setOffset(clamp({
-      x: drag.current.ox + (e.clientX - drag.current.x),
-      y: drag.current.oy + (e.clientY - drag.current.y),
-    }));
+    setOffset(
+      clamp({
+        x: drag.current.ox + (e.clientX - drag.current.x),
+        y: drag.current.oy + (e.clientY - drag.current.y),
+      }),
+    );
   };
-  const onPointerUp = () => { drag.current = null; };
+  const onPointerUp = () => {
+    drag.current = null;
+  };
 
   const confirm = async () => {
     const img = imgRef.current;
@@ -185,7 +226,10 @@ function CropModal({
     canvas.width = OUTPUT_SIZE;
     canvas.height = OUTPUT_SIZE;
     const ctx = canvas.getContext("2d");
-    if (!ctx) { setWorking(false); return; }
+    if (!ctx) {
+      setWorking(false);
+      return;
+    }
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, OUTPUT_SIZE, OUTPUT_SIZE);
 
@@ -215,7 +259,9 @@ function CropModal({
   return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-6">
-        <h2 className="text-sm uppercase tracking-[0.22em] text-muted-foreground">Crop your photo</h2>
+        <h2 className="text-sm uppercase tracking-[0.22em] text-muted-foreground">
+          Crop your photo
+        </h2>
 
         <div
           className="relative mx-auto mt-5 cursor-grab overflow-hidden rounded-full bg-black active:cursor-grabbing"

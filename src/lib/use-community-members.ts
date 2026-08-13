@@ -16,11 +16,24 @@ export function useCommunityMembers(): { members: Member[]; loading: boolean } {
   const { data, isLoading } = useQuery({
     queryKey: ["community-profiles"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const fields =
+        "id, member_no, full_name, avatar_url, school, startup, position, website, tags, about, home_featured, home_featured_order, created_at";
+      const legacyFields =
+        "id, member_no, full_name, avatar_url, school, startup, position, website, tags, about, created_at";
+      let { data, error } = await supabase
         .from("profiles")
-        .select("id, member_no, full_name, avatar_url, school, startup, position, website, tags, about")
+        .select(fields)
         .eq("onboarded", true)
         .order("created_at", { ascending: false });
+      if (error?.code === "42703" || error?.message?.includes("home_featured")) {
+        const fallback = await supabase
+          .from("profiles")
+          .select(legacyFields)
+          .eq("onboarded", true)
+          .order("created_at", { ascending: false });
+        data = fallback.data as typeof data;
+        error = fallback.error;
+      }
       if (error) throw error;
       return data ?? [];
     },
@@ -43,6 +56,11 @@ export function useCommunityMembers(): { members: Member[]; loading: boolean } {
       initials: initialsOf(p.full_name!),
       avatarUrl: p.avatar_url,
       memberNo: p.member_no,
+      featuredOnHome: "home_featured" in p ? Boolean(p.home_featured) : false,
+      featuredOrder:
+        "home_featured_order" in p && typeof p.home_featured_order === "number"
+          ? p.home_featured_order
+          : 999,
     }));
 
   return { members, loading: isLoading };
