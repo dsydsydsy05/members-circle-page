@@ -29,6 +29,7 @@ function PartnerItem({ partner, index }: { partner: PartnerRow; index: number })
 
 export function LightPartnerLogoGrid({ compact = false }: { compact?: boolean }) {
   const { data: partners = [], isLoading, isError } = usePartners();
+  const visiblePartners = compact ? partners.slice(0, 4) : partners;
 
   if (isLoading) {
     return (
@@ -48,14 +49,14 @@ export function LightPartnerLogoGrid({ compact = false }: { compact?: boolean })
 
   return (
     <div className={`light-partner-logo-grid${compact ? " light-partner-logo-grid--compact" : ""}`}>
-      {partners.map((partner, index) => (
+      {visiblePartners.map((partner, index) => (
         <PartnerItem key={partner.id} partner={partner} index={index} />
       ))}
       {compact ? (
         <Link
           to="/partners"
           aria-label="View all ecosystem partners"
-          style={{ "--logo-index": partners.length } as CSSProperties}
+          style={{ "--logo-index": visiblePartners.length } as CSSProperties}
         >
           <span className="light-partner-logo-grid__more" aria-hidden="true">
             <i />

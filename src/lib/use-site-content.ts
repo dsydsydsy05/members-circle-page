@@ -54,6 +54,28 @@ export type PartnerRow = {
   sort_order: number;
 };
 
+const LEGACY_DEMO_PARTNER_NAMES = new Set([
+  "NOVAWORKS",
+  "ATLAS CAPITAL",
+  "HELIOS LABS",
+  "MERIDIAN",
+  "FORMFACTOR",
+  "KILN&CO",
+  "PIXELGRAM",
+  "NORTHBOUND",
+  "OPENSTACK",
+  "CIRCLE HOUSE",
+]);
+
+function isLegacyDemoPartner(partner: PartnerRow) {
+  const isSeedFixture =
+    partner.url === "https://example.com" && LEGACY_DEMO_PARTNER_NAMES.has(partner.name);
+  const isLegacyNyuFixture =
+    partner.name === "NYU CEC" && partner.logo_url === "/partners/nyu-entrepreneurship.svg";
+
+  return isSeedFixture || isLegacyNyuFixture;
+}
+
 export const CONTENT_TABLES = [
   "events",
   "guests",
@@ -92,7 +114,10 @@ export function useFactories() {
   return useQuery(contentQuery<FactoryRow>("factories"));
 }
 export function usePartners() {
-  return useQuery(contentQuery<PartnerRow>("partners"));
+  return useQuery({
+    ...contentQuery<PartnerRow>("partners"),
+    select: (partners) => partners.filter((partner) => !isLegacyDemoPartner(partner)),
+  });
 }
 
 export function useInvalidateContent() {
