@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { ContentTable } from "@/lib/use-site-content";
 
-type ContentValue = string | number | null;
+type ContentValue = string | number | boolean | null;
 type ContentValues = Record<string, ContentValue>;
 type ContentAction = "create" | "update" | "delete";
 
@@ -16,7 +16,8 @@ export type AdminContentMutation = {
 type FieldRule =
   | { kind: "text"; max: number; required?: boolean; nullable?: boolean }
   | { kind: "number"; min: number; max: number }
-  | { kind: "status" };
+  | { kind: "status" }
+  | { kind: "boolean" };
 
 const tableRules: Record<ContentTable, Record<string, FieldRule>> = {
   events: {
@@ -60,6 +61,7 @@ const tableRules: Record<ContentTable, Record<string, FieldRule>> = {
     blurb: { kind: "text", max: 1_000 },
     url: { kind: "text", max: 2_000, nullable: true },
     logo_url: { kind: "text", max: 2_000, nullable: true },
+    is_published: { kind: "boolean" },
     sort_order: { kind: "number", min: -10_000, max: 10_000 },
   },
 };
@@ -102,6 +104,7 @@ const createDefaults: Record<ContentTable, ContentValues> = {
     blurb: "",
     url: null,
     logo_url: null,
+    is_published: false,
     sort_order: 99,
   },
 };
@@ -139,6 +142,11 @@ function sanitizeValues(table: ContentTable, values: ContentValues): ContentValu
       continue;
     }
 
+    if (rule.kind === "boolean") {
+      result[key] = value === true || value === "true";
+      continue;
+    }
+
     if (rule.kind === "status") {
       const status = String(value ?? "")
         .trim()
@@ -160,8 +168,9 @@ function sanitizeValues(table: ContentTable, values: ContentValues): ContentValu
 }
 
 type MutationError = { message: string };
+type MutationRow = Record<string, string | number | boolean | null>;
 type MutationResult = PromiseLike<{
-  data: Record<string, unknown> | null;
+  data: MutationRow | null;
   error: MutationError | null;
 }>;
 type SingleBuilder = { single: () => MutationResult };

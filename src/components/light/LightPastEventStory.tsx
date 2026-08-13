@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { EventRow } from "@/lib/use-site-content";
-import { waicPastEvent } from "@/lib/waic-event";
 
 function storyParagraphs(event: EventRow) {
-  return (event.body || waicPastEvent.body || "")
+  return (event.body || "")
     .split(/\n\s*\n/)
     .map((paragraph) => paragraph.trim())
     .filter(Boolean);
@@ -80,7 +79,7 @@ export function LightPastEventStory({
   if (!mountedEvent || typeof document === "undefined") return null;
 
   const paragraphs = storyParagraphs(mountedEvent);
-  const heroImage = mountedEvent.detail_image_url || waicPastEvent.detail_image_url!;
+  const heroImage = mountedEvent.detail_image_url || mountedEvent.cover_url || "";
 
   return createPortal(
     <div
@@ -105,7 +104,7 @@ export function LightPastEventStory({
           <div className="light-event-story__heading">
             <p>Past event · Shanghai</p>
             <h2 id="waic-event-story-title">{mountedEvent.title}</h2>
-            <span>{mountedEvent.summary || waicPastEvent.summary}</span>
+            <span>{mountedEvent.summary}</span>
           </div>
         </header>
 

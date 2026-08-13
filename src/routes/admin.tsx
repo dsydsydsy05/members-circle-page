@@ -30,13 +30,28 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-type EditableValue = string | number | null;
+type EditableValue = string | number | boolean | null;
 type Field = {
   key: string;
   label: string;
-  type?: "text" | "textarea" | "number" | "select";
+  type?: "text" | "textarea" | "number" | "select" | "image" | "boolean";
   options?: Array<{ value: string; label: string }>;
 };
+
+const SIGNED_URL_TTL = 60 * 60 * 24 * 365 * 5;
+
+/** Uploads to Supabase Storage so the database only ever stores a durable URL. */
+async function uploadContentImage(table: ContentTable, file: File) {
+  const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+  const path = `${table}/${crypto.randomUUID()}.${ext}`;
+  const { error: uploadError } = await supabase.storage
+    .from("media")
+    .upload(path, file, { cacheControl: "31536000", upsert: false });
+  if (uploadError) throw new Error(uploadError.message);
+  const { data, error } = await supabase.storage.from("media").createSignedUrl(path, SIGNED_URL_TTL);
+  if (error || !data?.signedUrl) throw new Error(error?.message ?? "Could not read uploaded image");
+  return data.signedUrl;
+}
 
 const SECTIONS: {
   table: ContentTable;
@@ -61,8 +76,8 @@ const SECTIONS: {
           { value: "past", label: "Past / Archive" },
         ],
       },
-      { key: "cover_url", label: "Cover image URL" },
-      { key: "detail_image_url", label: "Detail image URL" },
+      { key: "cover_url", label: "Cover image", type: "image" },
+      { key: "detail_image_url", label: "Detail image", type: "image" },
       { key: "summary", label: "Short introduction", type: "textarea" },
       { key: "body", label: "Event story", type: "textarea" },
       { key: "sort_order", label: "Order", type: "number" },
@@ -102,7 +117,7 @@ const SECTIONS: {
     table: "event_photos",
     label: "Event photos",
     fields: [
-      { key: "src", label: "Image URL" },
+      { key: "src", label: "Image", type: "image" },
       { key: "caption", label: "Caption" },
       { key: "sort_order", label: "Order", type: "number" },
     ],
@@ -142,7 +157,8 @@ const SECTIONS: {
       { key: "tier", label: "Tier (diamond/platinum/gold/silver/ecosystem)" },
       { key: "blurb", label: "Blurb", type: "textarea" },
       { key: "url", label: "URL" },
-      { key: "logo_url", label: "Logo URL" },
+      { key: "logo_url", label: "Logo", type: "image" },
+      { key: "is_published", label: "Published on the public site", type: "boolean" },
       { key: "sort_order", label: "Order", type: "number" },
     ],
     defaults: {
@@ -151,6 +167,7 @@ const SECTIONS: {
       blurb: "",
       url: "",
       logo_url: "",
+      is_published: false,
       sort_order: 99,
     },
   },
@@ -159,10 +176,69 @@ const SECTIONS: {
 const inputCls =
   "w-full rounded-lg border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary";
 
-type ContentRecord = { id: string } & Record<string, string | number | null>;
+type ContentRecord = { id: string } & Record<string, string | number | boolean | null>;
 
 function mutationMessage(error: unknown) {
   return error instanceof Error ? error.message : "The database change could not be saved";
+}
+
+function textValue(value: string | number | boolean | null | undefined) {
+  if (value === null || value === undefined || typeof value === "boolean") return "";
+  return String(value);
+}
+
+function ImageField({
+  table,
+  value,
+  onChange,
+}: {
+  table: ContentTable;
+  value: string;
+  onChange: (next: string) => void;
+}) {
+  const [uploading, setUploading] = useState(false);
+
+  const pick = async (file: File | undefined) => {
+    if (!file) return;
+    setUploading(true);
+    try {
+      onChange(await uploadContentImage(table, file));
+      toast.success("Image uploaded — press Save to store it");
+    } catch (error) {
+      toast.error(mutationMessage(error));
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <span className="mt-1 block space-y-2">
+      <input
+        type="text"
+        className={inputCls}
+        placeholder="https://…"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+      <span className="flex items-center gap-3">
+        <input
+          type="file"
+          accept="image/*"
+          disabled={uploading}
+          onChange={(e) => pick(e.target.files?.[0])}
+          className="text-xs"
+        />
+        {uploading ? <span className="text-xs text-muted-foreground">Uploading…</span> : null}
+      </span>
+      {value ? (
+        <img
+          src={value}
+          alt=""
+          className="h-16 w-24 rounded-md border border-border object-cover"
+        />
+      ) : null}
+    </span>
+  );
 }
 
 function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
@@ -195,6 +271,7 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
     if (section.table === "factories") {
       invalidations.push(qc.invalidateQueries({ queryKey: ["factory-count"] }));
     }
+    invalidations.push(qc.invalidateQueries({ queryKey: ["site-content", section.table] }));
     await Promise.all(invalidations);
   };
 
@@ -202,7 +279,9 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
     const patch: Record<string, EditableValue> = {};
     section.fields.forEach((f) => {
       const v = draft[id]?.[f.key];
-      patch[f.key] = f.type === "number" ? Number(v) || 0 : (v ?? "");
+      if (f.type === "number") patch[f.key] = Number(v) || 0;
+      else if (f.type === "boolean") patch[f.key] = v === true;
+      else patch[f.key] = typeof v === "string" ? v : (v ?? "") === "" ? "" : String(v);
     });
     setBusy(id);
     try {
@@ -277,15 +356,40 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
                       {f.type === "textarea" ? (
                         <textarea
                           className={`${inputCls} mt-1 min-h-[70px]`}
-                          value={draft[id]?.[f.key] ?? ""}
+                          value={textValue(draft[id]?.[f.key])}
                           onChange={(e) =>
                             setDraft((d) => ({ ...d, [id]: { ...d[id], [f.key]: e.target.value } }))
+                          }
+                        />
+                      ) : f.type === "boolean" ? (
+                        <span className="mt-2 flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            className="h-4 w-4 accent-[hsl(var(--primary))]"
+                            checked={draft[id]?.[f.key] === true}
+                            onChange={(e) =>
+                              setDraft((d) => ({
+                                ...d,
+                                [id]: { ...d[id], [f.key]: e.target.checked },
+                              }))
+                            }
+                          />
+                          <span className="text-xs">
+                            {draft[id]?.[f.key] === true ? "Visible publicly" : "Draft (hidden)"}
+                          </span>
+                        </span>
+                      ) : f.type === "image" ? (
+                        <ImageField
+                          table={section.table}
+                          value={typeof draft[id]?.[f.key] === "string" ? (draft[id][f.key] as string) : ""}
+                          onChange={(next) =>
+                            setDraft((d) => ({ ...d, [id]: { ...d[id], [f.key]: next } }))
                           }
                         />
                       ) : f.type === "select" ? (
                         <select
                           className={`${inputCls} mt-1`}
-                          value={draft[id]?.[f.key] ?? ""}
+                          value={textValue(draft[id]?.[f.key])}
                           onChange={(e) =>
                             setDraft((d) => ({ ...d, [id]: { ...d[id], [f.key]: e.target.value } }))
                           }
@@ -300,7 +404,7 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
                         <input
                           type={f.type === "number" ? "number" : "text"}
                           className={`${inputCls} mt-1`}
-                          value={draft[id]?.[f.key] ?? ""}
+                          value={textValue(draft[id]?.[f.key])}
                           onChange={(e) =>
                             setDraft((d) => ({ ...d, [id]: { ...d[id], [f.key]: e.target.value } }))
                           }

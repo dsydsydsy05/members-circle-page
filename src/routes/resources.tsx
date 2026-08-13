@@ -1,9 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
 import { MemberPortalShell } from "@/components/light/LightMemberPortal";
-import { getFactoryImportFallback } from "@/lib/factory-list.functions";
 import { useFactories } from "@/lib/use-site-content";
 
 export const Route = createFileRoute("/resources")({
@@ -33,14 +30,7 @@ function ResourcesPage() {
   const verifiedFactories = factories.filter(
     (factory) => factory.name.trim() && !factory.website?.includes("example.com"),
   );
-  const fallbackFn = useServerFn(getFactoryImportFallback);
-  const { data: fallbackFactories = [], isLoading: fallbackLoading } = useQuery({
-    queryKey: ["factory-import-fallback"],
-    queryFn: () => fallbackFn({ data: undefined }),
-    enabled: !factoriesLoading && verifiedFactories.length === 0,
-    staleTime: Infinity,
-  });
-  const visibleFactories = verifiedFactories.length > 0 ? verifiedFactories : fallbackFactories;
+  const visibleFactories = verifiedFactories;
   const filteredFactories = useMemo(() => {
     const query = search.trim().toLocaleLowerCase();
     if (!query) return visibleFactories;
@@ -59,7 +49,7 @@ function ResourcesPage() {
         .includes(query),
     );
   }, [search, visibleFactories]);
-  const loading = factoriesLoading || (verifiedFactories.length === 0 && fallbackLoading);
+  const loading = factoriesLoading;
   return (
     <MemberPortalShell className="portal-page">
       <main className="light-member-main mx-auto w-full max-w-[1720px] px-4 pb-16 pt-8 sm:px-8 sm:pt-10 xl:px-12">
