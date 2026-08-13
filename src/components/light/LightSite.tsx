@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
 import { BrandMark } from "@/components/BrandMark";
 import { GmailIcon, XiaohongshuIcon } from "@/components/SocialIcons";
-import { CONTACT_EMAIL, CONTACT_MAILTO } from "@/lib/contact";
+import { CONTACT_EMAIL, CONTACT_GMAIL_URL } from "@/lib/contact";
 import { useAuth } from "@/lib/use-auth";
 
 const links = [
@@ -70,7 +70,12 @@ export function LightSiteFooter() {
       <div className="light-shell light-footer__top">
         <BrandMark className="light-footer__mark" />
         <div className="light-footer__social">
-          <a href={CONTACT_MAILTO} aria-label={`Email ${CONTACT_EMAIL}`}>
+          <a
+            href={CONTACT_GMAIL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Email ${CONTACT_EMAIL} in Gmail`}
+          >
             <GmailIcon />
           </a>
           <a
