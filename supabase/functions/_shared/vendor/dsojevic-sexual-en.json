@@ -1,0 +1,1989 @@
+[
+  {
+    "id": "acrotomophilia",
+    "match": "acrotomophilia|acrotomophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "adjective-cock",
+    "match": "black cock|big cock|huge cock|giant cock|massive cock|throbbing cock",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "alabama-hot-pocket",
+    "match": "alabama hot pocket",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "alabama-tuna-melt",
+    "match": "alabama tuna melt",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "alaskan-pipeline",
+    "match": "alaskan pipeline",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "algophilia",
+    "match": "algophilia|algophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "anal",
+    "match": "anal",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "anilingus",
+    "match": "anilingus",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "apotemnophilia",
+    "match": "apotemnophilia|apotemnophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "arse",
+    "match": "arse",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": [
+      "*n",
+      "cath*",
+      "co*",
+      "he*",
+      "ho*",
+      "kath*",
+      "m*illes",
+      "p*",
+      "s*n"
+    ]
+  },
+  {
+    "id": "autoerotic|auto erotic",
+    "match": "autoerotic|auto erotic",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "babeland",
+    "match": "babeland",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "baby-batter",
+    "match": "baby batter|baby gravy|baby juice|ball batter|ball gravy",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ball-gag",
+    "match": "ball gag|ball-gag|ballgag",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ball-kicking",
+    "match": "ball kicking|ball-kicking",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ball-licking",
+    "match": "ball licking|ball-licking",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ball-sack",
+    "match": "ball sack",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ball-sucking",
+    "match": "ball sucking|ball-sucking",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ballcuzi",
+    "match": "ballcuzi",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "bangbros",
+    "match": "bangbros|bang bros",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "bangbus",
+    "match": "bangbus|bang bus",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "bareback",
+    "match": "bareback",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "barely-legal",
+    "match": "barely legal",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "bastinado",
+    "match": "bastinado",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "bdsm",
+    "match": "bdsm",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "beastiality",
+    "match": "beastiality|beestiality|bestiality",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "beaver-cleaver",
+    "match": "beaver cleaver",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "beaver-lips",
+    "match": "beaver lips",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "bellesa",
+    "match": "bellesa",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "big-boobs",
+    "match": "big boobs|big breasts|big knockers|big tits",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "birdlock",
+    "match": "birdlock",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "blow-your-load",
+    "match": "blow your load",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "blowjob",
+    "match": "blowjob|blow-job|blow job",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "blumpkin",
+    "match": "blumpkin",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "boner",
+    "match": "boner|raging boner|throbbing boner",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "booty-call",
+    "match": "booty call",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "boston-george",
+    "match": "boston george",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "brown-shower",
+    "match": "brown shower|brown showers",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "bukkake",
+    "match": "bukkake",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "bullet-vibe",
+    "match": "bullet vibe|bullet vibrator",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "camel-toe",
+    "match": "camel toe",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "canadian-porch-swing",
+    "match": "canadian porch swing",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "chocolate-rosebud",
+    "match": "chocolate rosebud|chocolate rosebuds",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "cholerophilia",
+    "match": "cholerophilia|cholerophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "cialis",
+    "match": "cialis",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "circlejerk",
+    "match": "circlejerk|circle-jerk",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "claustrophilia",
+    "match": "claustrophilia|claustrophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "cleveland-accordion",
+    "match": "cleveland accordion",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "cleveland-hot-waffle",
+    "match": "cleveland hot waffle",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "cleveland-steamer",
+    "match": "cleveland steamer",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "clit",
+    "match": "clit",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": [
+      "*ella",
+      "*ellum",
+      "*ic",
+      "*icize",
+      "*icized",
+      "*icizes",
+      "*icizing",
+      "*ics",
+      "ana*ic",
+      "cy*ol",
+      "cy*ols",
+      "en*ic",
+      "en*ics",
+      "hetero*e",
+      "hetero*es",
+      "pa*axel",
+      "pa*axels",
+      "pro*ic",
+      "pro*ics"
+    ]
+  },
+  {
+    "id": "clitoris",
+    "match": "cli*tori*s",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "clover-clamps",
+    "match": "clover clamps|clover clamp",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "clunge",
+    "match": "clu*nge",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "cock",
+    "match": "cock",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": [
+      "*ade",
+      "*aded",
+      "*ades",
+      "*alorum",
+      "*alorums",
+      "*amamie",
+      "*amamy",
+      "*apoo",
+      "*apoos",
+      "*ateel",
+      "*ateels",
+      "*atiel",
+      "*atiels",
+      "*atoo",
+      "*atoos",
+      "*atrice",
+      "*atrices",
+      "*bill",
+      "*billed",
+      "*billing",
+      "*bills",
+      "*boat",
+      "*boats",
+      "*chafer",
+      "*chafers",
+      "*crow",
+      "*crows",
+      "*ed",
+      "*er",
+      "*ered",
+      "*erel",
+      "*erels",
+      "*ering",
+      "*ers",
+      "*eye",
+      "*eyed",
+      "*eyedly",
+      "*eyedness",
+      "*eyednesses",
+      "*eyes",
+      "*horse",
+      "*horses",
+      "*ier",
+      "*iest",
+      "*ily",
+      "*iness",
+      "*inesses",
+      "*ing",
+      "*ish",
+      "*le",
+      "*lebur",
+      "*leburs",
+      "*led",
+      "*les",
+      "*leshell",
+      "*leshells",
+      "*like",
+      "*ling",
+      "*loft",
+      "*lofts",
+      "*ney",
+      "*neyfied",
+      "*neyfies",
+      "*neyfy",
+      "*neyfying",
+      "*neyish",
+      "*neyism",
+      "*neyisms",
+      "*neys",
+      "*pit",
+      "*pits",
+      "*roach",
+      "*roaches",
+      "*s",
+      "*scomb",
+      "*scombs",
+      "*sfoot",
+      "*sfoots",
+      "*shies",
+      "*shut",
+      "*shuts",
+      "*shy",
+      "*spur",
+      "*spurs",
+      "*sucker",
+      "*suckers",
+      "*sure",
+      "*surely",
+      "*sureness",
+      "*surenesses",
+      "*swain",
+      "*swains",
+      "*tail",
+      "*tailed",
+      "*tailing",
+      "*tails",
+      "*up",
+      "*ups",
+      "*y",
+      "a*",
+      "baw*",
+      "baw*s",
+      "bib*",
+      "bib*s",
+      "billy*",
+      "billy*s",
+      "black*",
+      "black*s",
+      "cold*",
+      "cold*ed",
+      "cold*ing",
+      "cold*s",
+      "game*",
+      "game*s",
+      "gor*",
+      "gor*s",
+      "hay*",
+      "hay*s",
+      "moor*",
+      "moor*s",
+      "pea*",
+      "pea*ed",
+      "pea*ier",
+      "pea*iest",
+      "pea*ing",
+      "pea*ish",
+      "pea*s",
+      "pea*y",
+      "pet*",
+      "pet*s",
+      "pinch*",
+      "pinch*s",
+      "poppy*",
+      "poppy*s",
+      "prin*",
+      "prin*s",
+      "re*",
+      "re*ed",
+      "re*ing",
+      "re*s",
+      "sea*",
+      "sea*s",
+      "shuttle*",
+      "shuttle*ed",
+      "shuttle*ing",
+      "shuttle*s",
+      "stop*",
+      "stop*s",
+      "un*",
+      "un*ed",
+      "un*ing",
+      "un*s",
+      "weather*",
+      "weather*s",
+      "wood*",
+      "wood*s"
+    ]
+  },
+  {
+    "id": "coimetrophilia",
+    "match": "coimetrophilia|coimetrophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "collaring",
+    "match": "collaring|collared",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "coprophilia",
+    "match": "coprophilia|coprophile|coprolagnia",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "cornhole",
+    "match": "cornhole",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "creampie",
+    "match": "creampie|cream-pie",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "cum",
+    "match": "cum",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "cumming",
+    "match": "cumming",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "cumshot",
+    "match": "cumshot|cumshots|cum shot|cum shots",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "cunnilingus",
+    "match": "cunnilingus",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "date-rape",
+    "match": "date rape|daterape",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ddlg",
+    "match": "ddlg",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "deep-throat",
+    "match": "deep throat|deep-throat|deepthroat",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "dendrophilia",
+    "match": "dendrophilia|dendrophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "dick",
+    "match": "di*ck",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": [
+      "*cissel",
+      "*en",
+      "*er",
+      "bene*",
+      "me*",
+      "zad*"
+    ]
+  },
+  {
+    "id": "dildo",
+    "match": "dildo|dildos",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "dipsea",
+    "match": "dipsea",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "dirty-pillows",
+    "match": "dirty pillows",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "dirty-sanchez",
+    "match": "dirty sanchez",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "dishabiliophilia",
+    "match": "dishabiliophilia|dishabiliophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "doggie-style",
+    "match": "doggie style|doggie-style|doggiestyle|doggy style|doggy-style|doggystyle|dog style",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "dolcett",
+    "match": "dolcett",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "domination",
+    "match": "domination",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "dominatrix",
+    "match": "dominatrix|domme|dommes",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "donkey-punch",
+    "match": "donkey punch",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "double-penetration",
+    "match": "double penetration|dp action",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "dry-hump",
+    "match": "dry hump",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "dutch-rudder",
+    "match": "dutch rudder",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "dystychiphilia",
+    "match": "dystychiphilia|dystychiphile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "edgeplay",
+    "match": "edgeplay|edge play",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ejaculate",
+    "match": "ejaculate|ejaculation|ejaculating|ejaculated",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "electro-play",
+    "match": "electro-play|electroplay",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "emetophilia",
+    "match": "emetophilia|emetophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "eskimo-trebuchet",
+    "match": "eskimo trebuchet",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "felch",
+    "match": "felch|felching",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "fellatio",
+    "match": "fellatio|fellating",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "female-squirting",
+    "match": "female squirting",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "figging",
+    "match": "figging",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "fingerbang",
+    "match": "fingerbang|finger bang|fingerbanging",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "fingering",
+    "match": "fingering|fingered",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "fisting",
+    "match": "fisting|fisted",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "footjob",
+    "match": "footjob|foot-job|foot job",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "french-rudder",
+    "match": "french rudder",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "frolicme",
+    "match": "frolicme|frolic me",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "frotting",
+    "match": "frotting|frottage",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "g-spot",
+    "match": "g-spot",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "gangbang",
+    "match": "gangbang|gang bang",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "gay-sex",
+    "match": "gay sex",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "genitorture",
+    "match": "genitorture",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "gerontophilia",
+    "match": "gerontophilia|gerontophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "girl-on-top",
+    "match": "girl on top",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "gokkun",
+    "match": "gokkun|go-kun",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "golden-shower",
+    "match": "golden shower|golden showers|yellow shower|yellow showers",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "goregasm",
+    "match": "goregasm",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "grope",
+    "match": "grope",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "group-sex",
+    "match": "group sex",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "hand-job",
+    "match": "hand job|hand-job|handjob",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "hickory-switch",
+    "match": "hickory switch",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "hippophilia",
+    "match": "hippophilia|hippophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "homoerotic",
+    "match": "homoerotic",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "horny",
+    "match": "horny",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "hot-carl",
+    "match": "hot carl",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "hot-richard",
+    "match": "hot richard",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "humping",
+    "match": "humping",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "impact-play",
+    "match": "impact play|impact-play",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "incest",
+    "match": "incest",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "intercourse",
+    "match": "intercourse",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "jack-off",
+    "match": "jack off|jack-off",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "jail-bait",
+    "match": "jail bait|jailbait",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "jelly-donut",
+    "match": "jelly donut",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "jerk-off",
+    "match": "jerk off|jerk-off",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "jerkmate",
+    "match": "jerkmate|jerk mate",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "jizz",
+    "match": "jizz",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "juggs",
+    "match": "juggs",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "kennebunkport-surprise",
+    "match": "kennebunkport surprise",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "kentucky-klondike",
+    "match": "kentucky klondike",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "kentucky-tractor-puller",
+    "match": "kentucky tractor puller",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "kinbaku",
+    "match": "kinbaku",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "knobbing",
+    "match": "knobbing",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "kynophilia",
+    "match": "kynophilia|kynophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "leather-restraint",
+    "match": "leather restraint",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "leather-straight-jacket",
+    "match": "leather straight jacket",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "leningrad-steamer",
+    "match": "leningrad steamer",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "literotica",
+    "match": "literotica",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "lovemaking",
+    "match": "lovemaking",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "male-squirting",
+    "match": "male squirting|male-squirting",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "masturbate",
+    "match": "ma*stu*rbate|ma*stu*rb8|masturbation|masturbating|masterbate|masterb8",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "mdlb",
+    "match": "mdlb",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "menage-a-trois",
+    "match": "menage a trois|menage-a-trois|menages a trois|menages-a-trois",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "menophilia",
+    "match": "menophilia|menophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "mexican-pancake",
+    "match": "mexican pancake",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "milwaukee-blizzard",
+    "match": "milwaukee blizzard",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "missionary-position",
+    "match": "missionary position",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "mississippi-birdbath",
+    "match": "mississippi birdbath",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "muffdiving",
+    "match": "muffdiving|muff diving|muffdiver|muff diver",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "mvtube",
+    "match": "mvtube",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "nambla",
+    "match": "nambla",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "necrophilia",
+    "match": "necrophilia|necrophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "nigerian-hurricane",
+    "match": "nigerian hurricane",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "nipple-clamps",
+    "match": "nipple clamps|nipple clamp",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "nude",
+    "match": "nude|nudity",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "nutten",
+    "match": "nutten",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "nymphomania",
+    "match": "nymphomania|nymphomaniac|nympho|nimphomania|nimphomaniac|nimpho",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "octopussy",
+    "match": "octopussy",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "omorashi",
+    "match": "omorashi",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "onlyfans",
+    "match": "onlyfans|only fans",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "orgasm",
+    "match": "orgasm|orgasms|orgasmic",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "paedophilia|pedophilia",
+    "match": "paedophilia|pedophilia|paedophile|pedophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "painslut",
+    "match": "painslut|pain slut",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "panamanian-petting-zoo",
+    "match": "panamanian petting zoo",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "panties",
+    "match": "panties",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "parthenophilia",
+    "match": "parthenophilia|parthenophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "pedobear",
+    "match": "pedobear|paedobear|pedo bear|paedo bear",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "pegging",
+    "match": "pegging",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "phagophilia",
+    "match": "phagophilia|phagophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "piss-pig",
+    "match": "piss pig|pisspig",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "pissing",
+    "match": "pissing",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "playboy",
+    "match": "playboy",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "pleasure-chest",
+    "match": "pleasure chest",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "pnigerophilia|pnigophilia",
+    "match": "pnigerophilia|pnigophilia|pnigerophile|pnigophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "poinephilia",
+    "match": "poinephilia|poinephile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ponyboy",
+    "match": "ponyboy|pony-boy|pony boy",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ponygirl",
+    "match": "ponygirl|pony-girl|pony girl",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ponyplay",
+    "match": "ponyplay|pony-play",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "poon",
+    "match": "poon|poontang",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": [
+      "cram*",
+      "cram*s",
+      "desserts*",
+      "desserts*ful",
+      "desserts*s",
+      "har*",
+      "har*ed",
+      "har*er",
+      "har*ers",
+      "har*ing",
+      "har*s",
+      "lam*",
+      "lam*ed",
+      "lam*er",
+      "lam*eries",
+      "lam*ers",
+      "lam*ery",
+      "lam*ing",
+      "lam*s",
+      "s*",
+      "s*bill",
+      "s*bills",
+      "s*ed",
+      "s*erism",
+      "s*erisms",
+      "s*ey",
+      "s*eys",
+      "s*ful",
+      "s*fuls",
+      "s*ier",
+      "s*ies",
+      "s*iest",
+      "s*ily",
+      "s*ing",
+      "s*s",
+      "s*sful",
+      "s*y",
+      "soups*",
+      "soups*s",
+      "tables*",
+      "tables*ful",
+      "tables*fuls",
+      "tables*s",
+      "tables*sful",
+      "teas*",
+      "teas*ful",
+      "teas*fuls",
+      "teas*s",
+      "teas*sful"
+    ]
+  },
+  {
+    "id": "poop-chute",
+    "match": "poop chute|poopchute",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "pornhub",
+    "match": "pornhub|porn hub",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "pornography",
+    "match": "pornography|pornographic|porno|pornos|porn",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "prince-albert-piercing",
+    "match": "prince albert piercing",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "proctophilia",
+    "match": "proctophilia|proctophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "punani",
+    "match": "pu*na*ni|punany",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "queef",
+    "match": "queef|queaf",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "quim",
+    "match": "quim",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "ramen-yarmulke",
+    "match": "ramen yarmulke",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "rape",
+    "match": "rape",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "raping",
+    "match": "raping|rapist",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "reverse-cowgirl",
+    "match": "reverse cowgirl",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "rhabdophilia",
+    "match": "rhabdophilia|rhabdophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "rhypophilia",
+    "match": "rhypophilia|rhypophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "rimjob",
+    "match": "rimjob|rimming",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "rusty-trombone",
+    "match": "rusty trombone",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "santorum",
+    "match": "santorum",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "scatophilia",
+    "match": "scatophilia|scatophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "schlong",
+    "match": "schlong|shlong",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "scissoring",
+    "match": "scissoring",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "seplophilia",
+    "match": "seplophilia|seplophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "sex",
+    "match": "sex",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "shaved pussy",
+    "match": "shaved pussy|shaved beaver",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "shibari",
+    "match": "shibari",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "shota",
+    "match": "shota",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "shrimping",
+    "match": "shrimping",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "skeet",
+    "match": "skeet",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "skittles-harvest",
+    "match": "skittles harvest|skittle harvest",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "snowballing",
+    "match": "snowballing",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "sodomize",
+    "match": "sodomize|sodomise|sodomist|sodomy",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "spicy-gringo",
+    "match": "spicy gringo",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "splooge",
+    "match": "splooge|splooge moose|spooge",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "spunk",
+    "match": "spunk",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "strap-on",
+    "match": "strap on|strap-on",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "strap-on",
+    "match": "strap-on|strapon",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "strappado",
+    "match": "strappado",
+    "severity": 4,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "taphephilia",
+    "match": "taphephilia|taphephile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "tea-bagging",
+    "match": "tea bagging|tea-bagging|tea bagged|tea-bagged",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "thanatophilia",
+    "match": "thanatophilia|thanatophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "threesome",
+    "match": "threesome",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "throating",
+    "match": "throating",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "thumbzilla",
+    "match": "thumbzilla",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "tits",
+    "match": "tits",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": [
+      "bush*",
+      "pas*",
+      "tom*"
+    ]
+  },
+  {
+    "id": "titty",
+    "match": "titt*y|titt*ies",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "topless",
+    "match": "topless",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "traumatophilia",
+    "match": "traumatophilia|traumatophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "tribbing",
+    "match": "tribbing|tribadism",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "urethra-play",
+    "match": "urethra play",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "urophilia",
+    "match": "urophilia|urophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "viagra",
+    "match": "viagra",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "vibrator",
+    "match": "vibrator",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "violet-wand",
+    "match": "violet wand",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "vorarephilia",
+    "match": "vorarephilia|vorarephile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "voyeurweb",
+    "match": "voyeurweb",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "wank",
+    "match": "wa*nk",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": [
+      "s*",
+      "t*"
+    ]
+  },
+  {
+    "id": "wax-play",
+    "match": "wax play|wax-play",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "wet-dream",
+    "match": "wet dream",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "wiitwd",
+    "match": "wiitwd",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "wolfbagging",
+    "match": "wolfbagging",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "worldsex",
+    "match": "worldsex",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "wrapping-men",
+    "match": "wrapping men",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "wrinkled-starfish",
+    "match": "wrinkled starfish",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "xhamster",
+    "match": "xhamster",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "xnxx",
+    "match": "xnxx",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "xtube",
+    "match": "xtube",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "xvideos",
+    "match": "xvideos",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "xxx",
+    "match": "xxx",
+    "severity": 2,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "xyrophilia",
+    "match": "xyrophilia|xyrophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  },
+  {
+    "id": "zoophilia",
+    "match": "zoophilia|zoophile",
+    "severity": 3,
+    "allow_partial": true,
+    "exceptions": []
+  }
+]

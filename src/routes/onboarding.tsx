@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AvatarUploader } from "@/components/AvatarUploader";
 import { FamilyBusinessSection } from "@/components/FamilyBusinessSection";
 import { MemberPortalShell } from "@/components/light/LightMemberPortal";
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/onboarding")({
 
 function OnboardingPage() {
   const navigate = useNavigate();
-  const { loading, isSignedIn, isMember, profile, refresh } = useAuth();
+  const { loading, isSignedIn, isMember, profile, email, refresh } = useAuth();
   const [step, setStep] = useState<"code" | "form">("code");
 
   useEffect(() => {
@@ -69,9 +69,13 @@ function OnboardingPage() {
 
   return (
     <MemberPortalShell className="portal-page">
-      <main className="light-member-main mx-auto max-w-xl px-6 py-16">
+      <main
+        className={`light-member-main mx-auto max-w-6xl px-6 py-16 ${step === "code" ? "light-access-main" : ""}`}
+      >
         {step === "code" ? (
-          <CodeStep
+          <AccessStep
+            email={email ?? ""}
+            initialName={profile?.full_name ?? ""}
             onSuccess={async () => {
               await refresh();
               setStep("form");
@@ -92,59 +96,170 @@ function OnboardingPage() {
   );
 }
 
-function CodeStep({ onSuccess, onSkip }: { onSuccess: () => void; onSkip: () => void }) {
+function AccessStep({
+  email,
+  initialName,
+  onSuccess,
+  onSkip,
+}: {
+  email: string;
+  initialName: string;
+  onSuccess: () => void;
+  onSkip: () => void;
+}) {
   const [code, setCode] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [name, setName] = useState(initialName);
+  const [codeBusy, setCodeBusy] = useState(false);
+  const [waitlistBusy, setWaitlistBusy] = useState(false);
+  const [codeError, setCodeError] = useState<string | null>(null);
+  const [waitlistMessage, setWaitlistMessage] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
-  const submit = async (e: React.FormEvent) => {
+  const {
+    data: waitlist,
+    isLoading: waitlistLoading,
+    error: waitlistError,
+  } = useQuery({
+    queryKey: ["waitlist-entry"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("waitlist_entries")
+        .select("id, full_name, email, status, created_at")
+        .maybeSingle();
+      if (error) throw error;
+      return data;
+    },
+    retry: false,
+  });
+
+  useEffect(() => {
+    if (waitlist?.full_name) setName(waitlist.full_name);
+  }, [waitlist?.full_name]);
+
+  const submitCode = async (e: React.FormEvent) => {
     e.preventDefault();
-    setBusy(true);
-    setError(null);
+    setCodeBusy(true);
+    setCodeError(null);
     const { data, error } = await supabase.rpc("redeem_invitation_code", { _code: code });
-    setBusy(false);
+    setCodeBusy(false);
     if (error) {
-      setError(error.message);
+      setCodeError(error.message);
       return;
     }
     if (data === true) onSuccess();
-    else setError("That invitation code isn't valid.");
+    else setCodeError("That invitation code isn't valid.");
+  };
+
+  const submitWaitlist = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const cleanName = name.trim();
+    if (!cleanName) return setWaitlistMessage("Your name is required.");
+    setWaitlistBusy(true);
+    setWaitlistMessage(null);
+    const { data, error } = await supabase.functions.invoke("submit-waitlist", {
+      body: { fullName: cleanName },
+    });
+    setWaitlistBusy(false);
+    if (error) {
+      setWaitlistMessage(
+        error.message.includes("non-2xx")
+          ? "Waitlist email notifications are prepared locally and will open after the Edge Function is deployed."
+          : error.message,
+      );
+      return;
+    }
+    setWaitlistMessage("You are on the list. We’ll write when there is a room for you.");
+    queryClient.setQueryData(["waitlist-entry"], data.entry);
   };
 
   return (
-    <>
-      <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Step 1 of 2</div>
-      <h1 className="mt-2 text-4xl font-semibold tracking-tight">Invitation code</h1>
-      <p className="mt-3 text-sm text-muted-foreground">
-        Members unlock the vetted factory list and the family business directory. You can skip this
-        — you'll still be signed in, but those two sections stay locked.
-      </p>
-      <form onSubmit={submit} className="mt-8 space-y-4">
-        <input
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          placeholder="Enter your code"
-          className="w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm tracking-widest outline-none focus:border-primary"
-        />
-        {error && <p className="text-sm text-red-400">{error}</p>}
-        <div className="flex gap-3">
-          <button
-            type="submit"
-            disabled={busy}
-            className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
-          >
-            {busy ? "Checking…" : "Unlock member access"}
-          </button>
-          <button
-            type="button"
-            onClick={onSkip}
-            className="rounded-full border border-border px-5 py-2.5 text-sm text-muted-foreground hover:text-primary"
-          >
-            Skip for now
-          </button>
+    <div className="light-access-sheet">
+      <header className="light-access-head">
+        <span>Access / The Room</span>
+        <strong>Boston · 2026</strong>
+      </header>
+
+      <section className="light-access-waitlist">
+        <div className="light-access-copy">
+          <span>01 / Become a member</span>
+          <h1>Join the waitlist.</h1>
+          <p>
+            Tell us who you are. We review each request so the room stays useful, trusted and
+            intentionally small.
+          </p>
         </div>
-      </form>
-    </>
+        <div className="light-access-form-wrap">
+          {waitlistLoading ? (
+            <p className="light-access-status">Checking your place…</p>
+          ) : waitlist ? (
+            <div className="light-access-state">
+              <span>Status / {waitlist.status}</span>
+              <strong>{waitlist.full_name}</strong>
+              <p>{waitlist.email}</p>
+              <p>
+                {waitlist.status === "approved"
+                  ? "Your membership has been approved."
+                  : waitlist.status === "rejected"
+                    ? "This request is closed. You can still use an invitation code below."
+                    : "Your request is with The Room team."}
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={submitWaitlist} className="light-access-form">
+              <label htmlFor="waitlist-name">Name</label>
+              <input
+                id="waitlist-name"
+                value={name}
+                onChange={(event) => setName(event.target.value.slice(0, 80))}
+                placeholder="Your full name"
+                autoComplete="name"
+                required
+              />
+              <label htmlFor="waitlist-email">Email</label>
+              <input id="waitlist-email" value={email} readOnly aria-readonly="true" />
+              <button type="submit" disabled={waitlistBusy}>
+                {waitlistBusy ? "Joining…" : "Join waitlist ↗"}
+              </button>
+            </form>
+          )}
+          {waitlistError ? (
+            <p className="light-access-status">
+              Waitlist will become available when the local database migration is applied.
+            </p>
+          ) : null}
+          {waitlistMessage ? <p className="light-access-status">{waitlistMessage}</p> : null}
+        </div>
+      </section>
+
+      <section className="light-access-invite">
+        <div>
+          <span>02 / Already invited</span>
+          <h2>Have a code?</h2>
+          <p>Invitation access remains separate from the waitlist and unlocks membership now.</p>
+        </div>
+        <form onSubmit={submitCode}>
+          <label htmlFor="invitation-code">Invitation code</label>
+          <div>
+            <input
+              id="invitation-code"
+              value={code}
+              onChange={(event) => setCode(event.target.value)}
+              placeholder="Enter your code"
+              autoComplete="off"
+              required
+            />
+            <button type="submit" disabled={codeBusy}>
+              {codeBusy ? "Checking…" : "Unlock ↗"}
+            </button>
+          </div>
+          {codeError ? <p className="light-access-status">{codeError}</p> : null}
+        </form>
+      </section>
+
+      <button type="button" onClick={onSkip} className="light-access-skip">
+        Continue without membership →
+      </button>
+    </div>
   );
 }
 
@@ -208,6 +323,9 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
     setBusy(false);
     if (error) setError(error.message);
     else {
+      void supabase.functions
+        .invoke("refresh-member-embedding", { body: { profileId: uid } })
+        .catch(() => undefined);
       await queryClient.invalidateQueries({ queryKey: ["community-profiles"] });
       await queryClient.invalidateQueries({ queryKey: ["member-count"] });
       onSaved();

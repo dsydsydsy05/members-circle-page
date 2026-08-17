@@ -87,15 +87,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: "The Room" },
       { name: "theme-color", content: "#e9e8e3" },
       { property: "og:title", content: "The Room — Be in the right room" },
-      { property: "og:description", content: "A community for founders, builders and people creating what’s next." },
+      {
+        property: "og:description",
+        content: "A community for founders, builders and people creating what’s next.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "The Room — Be in the right room" },
-      { name: "twitter:description", content: "A community for founders, builders and people creating what’s next." },
+      {
+        name: "twitter:description",
+        content: "A community for founders, builders and people creating what’s next.",
+      },
       { property: "og:image", content: `https://theroomcommunity.org${socialImage.url}` },
       { name: "twitter:image", content: `https://theroomcommunity.org${socialImage.url}` },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6ce871554ee5c9f5d4a1315e82f37d1a/id-preview-96f60326--18c20231-b1b3-4854-ac83-3daa9bef7587.lovable.app-1786656157007.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6ce871554ee5c9f5d4a1315e82f37d1a/id-preview-96f60326--18c20231-b1b3-4854-ac83-3daa9bef7587.lovable.app-1786656157007.png" },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6ce871554ee5c9f5d4a1315e82f37d1a/id-preview-96f60326--18c20231-b1b3-4854-ac83-3daa9bef7587.lovable.app-1786656157007.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6ce871554ee5c9f5d4a1315e82f37d1a/id-preview-96f60326--18c20231-b1b3-4854-ac83-3daa9bef7587.lovable.app-1786656157007.png",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

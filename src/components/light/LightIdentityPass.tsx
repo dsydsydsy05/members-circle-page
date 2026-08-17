@@ -123,7 +123,6 @@ export function LightIdentityPass({
     event.currentTarget.releasePointerCapture?.(event.pointerId);
   };
 
-
   const move = (event: PointerEvent<HTMLDivElement>) => {
     onDragMove(event);
     if (
@@ -172,7 +171,6 @@ export function LightIdentityPass({
         reset();
       }}
     >
-
       <div className="light-identity-float">
         <div ref={rotorRef} className="light-identity-rotor">
           <div ref={tiltRef} className="light-identity-tilt">

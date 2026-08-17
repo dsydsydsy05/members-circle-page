@@ -9,6 +9,11 @@ import { deleteAppUser } from "@/lib/admin.functions";
 import { mutateAdminContent } from "@/lib/admin-content.functions";
 import { CONTENT_TABLES, type ContentTable } from "@/lib/use-site-content";
 import { toast } from "sonner";
+import {
+  AdminModerationSection,
+  AdminQASection,
+  AdminWaitlistSection,
+} from "@/components/admin/AdminCommunitySections";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -48,7 +53,9 @@ async function uploadContentImage(table: ContentTable, file: File) {
     .from("media")
     .upload(path, file, { cacheControl: "31536000", upsert: false });
   if (uploadError) throw new Error(uploadError.message);
-  const { data, error } = await supabase.storage.from("media").createSignedUrl(path, SIGNED_URL_TTL);
+  const { data, error } = await supabase.storage
+    .from("media")
+    .createSignedUrl(path, SIGNED_URL_TTL);
   if (error || !data?.signedUrl) throw new Error(error?.message ?? "Could not read uploaded image");
   return data.signedUrl;
 }
@@ -381,7 +388,11 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
                       ) : f.type === "image" ? (
                         <ImageField
                           table={section.table}
-                          value={typeof draft[id]?.[f.key] === "string" ? (draft[id][f.key] as string) : ""}
+                          value={
+                            typeof draft[id]?.[f.key] === "string"
+                              ? (draft[id][f.key] as string)
+                              : ""
+                          }
                           onChange={(next) =>
                             setDraft((d) => ({ ...d, [id]: { ...d[id], [f.key]: next } }))
                           }
@@ -658,6 +669,9 @@ function BusinessesSection() {
 
 const TABS = [
   ...SECTIONS.map((s) => ({ id: s.table as string, label: s.label })),
+  { id: "qa", label: "Q&A" },
+  { id: "waitlist", label: "Waitlist" },
+  { id: "moderation", label: "Moderation" },
   { id: "members", label: "Members" },
   { id: "businesses", label: "Family businesses" },
 ];
@@ -710,6 +724,12 @@ function AdminPage() {
             <div className="mt-10">
               {section ? (
                 <ContentSection key={section.table} section={section} />
+              ) : tab === "qa" ? (
+                <AdminQASection />
+              ) : tab === "waitlist" ? (
+                <AdminWaitlistSection />
+              ) : tab === "moderation" ? (
+                <AdminModerationSection />
               ) : tab === "members" ? (
                 <MembersSection />
               ) : (

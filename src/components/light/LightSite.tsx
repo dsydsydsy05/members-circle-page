@@ -9,6 +9,7 @@ import { useAuth } from "@/lib/use-auth";
 const links = [
   { to: "/about", label: "About" },
   { to: "/events", label: "Events" },
+  { to: "/qa", label: "Q&A" },
   // Public archive. The authenticated Directory intentionally remains `/members`.
   { to: "/light/members", label: "Members" },
   { to: "/partners", label: "Ecosystem" },
@@ -104,6 +105,7 @@ export function LightSiteFooter() {
         <nav className="light-footer__links" aria-label="Footer navigation">
           <Link to="/about">About</Link>
           <Link to="/events">Events</Link>
+          <Link to="/qa">Q&amp;A</Link>
           <Link to="/light/members">Members</Link>
           <Link to="/partners">Ecosystem</Link>
           <Link to="/auth">Enter</Link>
