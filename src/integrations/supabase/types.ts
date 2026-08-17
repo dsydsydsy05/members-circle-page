@@ -652,7 +652,16 @@ export type Database = {
       waitlist_entries: {
         Row: {
           admin_note: string | null
+          admin_notification_error: string | null
+          admin_notification_id: string | null
+          admin_notification_status: string
+          admin_notified_at: string | null
           created_at: string
+          decision_notification_error: string | null
+          decision_notification_id: string | null
+          decision_notification_status: string
+          decision_notified_at: string | null
+          decision_notified_for: string | null
           email: string
           full_name: string
           id: string
@@ -664,7 +673,16 @@ export type Database = {
         }
         Insert: {
           admin_note?: string | null
+          admin_notification_error?: string | null
+          admin_notification_id?: string | null
+          admin_notification_status?: string
+          admin_notified_at?: string | null
           created_at?: string
+          decision_notification_error?: string | null
+          decision_notification_id?: string | null
+          decision_notification_status?: string
+          decision_notified_at?: string | null
+          decision_notified_for?: string | null
           email: string
           full_name: string
           id?: string
@@ -676,7 +694,16 @@ export type Database = {
         }
         Update: {
           admin_note?: string | null
+          admin_notification_error?: string | null
+          admin_notification_id?: string | null
+          admin_notification_status?: string
+          admin_notified_at?: string | null
           created_at?: string
+          decision_notification_error?: string | null
+          decision_notification_id?: string | null
+          decision_notification_status?: string
+          decision_notified_at?: string | null
+          decision_notified_for?: string | null
           email?: string
           full_name?: string
           id?: string
@@ -718,7 +745,16 @@ export type Database = {
         Args: { _admin_note?: string; _entry_id: string; _status: string }
         Returns: {
           admin_note: string | null
+          admin_notification_error: string | null
+          admin_notification_id: string | null
+          admin_notification_status: string
+          admin_notified_at: string | null
           created_at: string
+          decision_notification_error: string | null
+          decision_notification_id: string | null
+          decision_notification_status: string
+          decision_notified_at: string | null
+          decision_notified_for: string | null
           email: string
           full_name: string
           id: string
@@ -769,7 +805,16 @@ export type Database = {
         Args: { _full_name: string }
         Returns: {
           admin_note: string | null
+          admin_notification_error: string | null
+          admin_notification_id: string | null
+          admin_notification_status: string
+          admin_notified_at: string | null
           created_at: string
+          decision_notification_error: string | null
+          decision_notification_id: string | null
+          decision_notification_status: string
+          decision_notified_at: string | null
+          decision_notified_for: string | null
           email: string
           full_name: string
           id: string
