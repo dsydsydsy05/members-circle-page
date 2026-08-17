@@ -34,6 +34,8 @@ Deno.serve(async (request) => {
   try {
     const authorization = request.headers.get("Authorization");
     if (!authorization) return json({ error: "Unauthorized" }, 401);
+
+
     const url = Deno.env.get("SUPABASE_URL")!;
     const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
