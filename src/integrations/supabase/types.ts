@@ -206,6 +206,208 @@ export type Database = {
         }
         Relationships: []
       }
+      invitation_code_redemptions: {
+        Row: {
+          id: string
+          invitation_code_id: string
+          redeemed_at: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          invitation_code_id: string
+          redeemed_at?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          invitation_code_id?: string
+          redeemed_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invitation_code_redemptions_invitation_code_id_fkey"
+            columns: ["invitation_code_id"]
+            isOneToOne: false
+            referencedRelation: "invitation_codes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invitation_codes: {
+        Row: {
+          active: boolean
+          code_hash: string
+          created_at: string
+          created_by: string | null
+          expires_at: string | null
+          id: string
+          label: string
+          max_redemptions: number | null
+          redemption_count: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          code_hash: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          id?: string
+          label: string
+          max_redemptions?: number | null
+          redemption_count?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          code_hash?: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          id?: string
+          label?: string
+          max_redemptions?: number | null
+          redemption_count?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      member_embedding_jobs: {
+        Row: {
+          attempts: number
+          last_error: string | null
+          profile_id: string
+          queued_at: string
+        }
+        Insert: {
+          attempts?: number
+          last_error?: string | null
+          profile_id: string
+          queued_at?: string
+        }
+        Update: {
+          attempts?: number
+          last_error?: string | null
+          profile_id?: string
+          queued_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_embedding_jobs_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      moderation_domains: {
+        Row: {
+          active: boolean
+          category: string
+          created_at: string
+          domain: string
+          id: string
+          source: string
+          source_url: string | null
+        }
+        Insert: {
+          active?: boolean
+          category: string
+          created_at?: string
+          domain: string
+          id?: string
+          source: string
+          source_url?: string | null
+        }
+        Update: {
+          active?: boolean
+          category?: string
+          created_at?: string
+          domain?: string
+          id?: string
+          source?: string
+          source_url?: string | null
+        }
+        Relationships: []
+      }
+      moderation_events: {
+        Row: {
+          actor_id: string | null
+          category: string
+          content_hash: string
+          created_at: string
+          id: string
+          source: string
+        }
+        Insert: {
+          actor_id?: string | null
+          category: string
+          content_hash: string
+          created_at?: string
+          id?: string
+          source: string
+        }
+        Update: {
+          actor_id?: string | null
+          category?: string
+          content_hash?: string
+          created_at?: string
+          id?: string
+          source?: string
+        }
+        Relationships: []
+      }
+      moderation_terms: {
+        Row: {
+          active: boolean
+          category: string
+          created_at: string
+          created_by: string | null
+          effect: string
+          id: string
+          language: string
+          match_mode: string
+          severity: number
+          source: string
+          source_url: string | null
+          term: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          category: string
+          created_at?: string
+          created_by?: string | null
+          effect?: string
+          id?: string
+          language: string
+          match_mode?: string
+          severity?: number
+          source?: string
+          source_url?: string | null
+          term: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          effect?: string
+          id?: string
+          language?: string
+          match_mode?: string
+          severity?: number
+          source?: string
+          source_url?: string | null
+          term?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       partners: {
         Row: {
           blurb: string
@@ -244,6 +446,38 @@ export type Database = {
           url?: string | null
         }
         Relationships: []
+      }
+      profile_search_documents: {
+        Row: {
+          embedded_at: string | null
+          embedding: string | null
+          profile_id: string
+          search_text: string
+          updated_at: string
+        }
+        Insert: {
+          embedded_at?: string | null
+          embedding?: string | null
+          profile_id: string
+          search_text: string
+          updated_at?: string
+        }
+        Update: {
+          embedded_at?: string | null
+          embedding?: string | null
+          profile_id?: string
+          search_text?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profile_search_documents_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -302,6 +536,98 @@ export type Database = {
         }
         Relationships: []
       }
+      qa_answers: {
+        Row: {
+          body: string
+          created_at: string
+          deleted_at: string | null
+          deleted_by: string | null
+          id: string
+          published_by: string
+          question_id: string
+          responder_avatar_url: string | null
+          responder_name: string
+          responder_title: string | null
+          responder_type: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          deleted_at?: string | null
+          deleted_by?: string | null
+          id?: string
+          published_by: string
+          question_id: string
+          responder_avatar_url?: string | null
+          responder_name: string
+          responder_title?: string | null
+          responder_type: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          deleted_at?: string | null
+          deleted_by?: string | null
+          id?: string
+          published_by?: string
+          question_id?: string
+          responder_avatar_url?: string | null
+          responder_name?: string
+          responder_title?: string | null
+          responder_type?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "qa_answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "qa_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      qa_questions: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          deleted_at: string | null
+          deleted_by: string | null
+          id: string
+          moderation_state: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          deleted_at?: string | null
+          deleted_by?: string | null
+          id?: string
+          moderation_state?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          deleted_at?: string | null
+          deleted_by?: string | null
+          id?: string
+          moderation_state?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -323,11 +649,92 @@ export type Database = {
         }
         Relationships: []
       }
+      waitlist_entries: {
+        Row: {
+          admin_note: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_note?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_note?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      admin_list_qa_questions: {
+        Args: never
+        Returns: {
+          author_email: string
+          author_id: string
+          body: string
+          created_at: string
+          id: string
+          moderation_state: string
+          status: string
+        }[]
+      }
+      admin_replace_moderation_domains: {
+        Args: {
+          _category: string
+          _domains: string[]
+          _source: string
+          _source_url: string
+        }
+        Returns: number
+      }
+      admin_review_waitlist: {
+        Args: { _admin_note?: string; _entry_id: string; _status: string }
+        Returns: {
+          admin_note: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "waitlist_entries"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       admin_set_home_featured: {
         Args: { _featured: boolean; _order?: number; _profile_id: string }
         Returns: undefined
@@ -346,7 +753,39 @@ export type Database = {
         }
         Returns: boolean
       }
+      match_member_profiles: {
+        Args: {
+          match_count?: number
+          query_embedding: string
+          query_text: string
+        }
+        Returns: {
+          profile_id: string
+          score: number
+        }[]
+      }
       redeem_invitation_code: { Args: { _code: string }; Returns: boolean }
+      submit_waitlist: {
+        Args: { _full_name: string }
+        Returns: {
+          admin_note: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "waitlist_entries"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
