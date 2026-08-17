@@ -32,51 +32,9 @@ Deno.serve(async (request) => {
   if (request.method !== "POST") return json({ error: "Method not allowed" }, 405);
 
   try {
-    const backfillToken = Deno.env.get("BACKFILL_TOKEN");
-    const isBackfill = Boolean(backfillToken) &&
-      request.headers.get("x-backfill-token") === backfillToken;
     const authorization = request.headers.get("Authorization");
-    if (!authorization && !isBackfill) return json({ error: "Unauthorized" }, 401);
+    if (!authorization) return json({ error: "Unauthorized" }, 401);
 
-    if (isBackfill) {
-      const client = createClient(
-        Deno.env.get("SUPABASE_URL")!,
-        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-        { auth: { persistSession: false } },
-      );
-      const { data: rows, error: listError } = await client
-        .from("profiles")
-        .select("id, full_name, position, startup, school, about, tags")
-        .eq("is_member", true)
-        .eq("onboarded", true);
-      if (listError) throw listError;
-      const session = new Supabase.ai.Session("gte-small");
-      let refreshed = 0;
-      const failures: string[] = [];
-      for (const row of rows ?? []) {
-        try {
-          const text = searchText(row);
-          const embedding = await session.run(text || "member", {
-            mean_pool: true,
-            normalize: true,
-          });
-          const { error: upsertError } = await client.from("profile_search_documents").upsert({
-            profile_id: row.id,
-            search_text: text,
-            embedding,
-            embedded_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          });
-          if (upsertError) throw upsertError;
-          await client.from("member_embedding_jobs").delete().eq("profile_id", row.id);
-          refreshed += 1;
-        } catch (e) {
-          failures.push(row.id);
-          console.error(e);
-        }
-      }
-      return json({ ok: true, total: rows?.length ?? 0, refreshed, failures });
-    }
 
     const url = Deno.env.get("SUPABASE_URL")!;
     const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
