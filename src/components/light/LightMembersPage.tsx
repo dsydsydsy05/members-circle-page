@@ -49,6 +49,10 @@ export function LightMembersPage() {
     return [...ordered, ...localMatches.filter((member) => !seen.has(member.id))];
   }, [debouncedQuery, members, semantic.data]);
 
+  const hasSemanticOrder = Boolean(
+    debouncedQuery && semantic.data?.semantic && semantic.data.ids?.length,
+  );
+
   return (
     <LightPage className="light-public-page light-members-page">
       <main>
@@ -83,7 +87,7 @@ export function LightMembersPage() {
             ) : filteredMembers.length === 0 ? (
               <p className="light-empty">No files match “{debouncedQuery}”. Try another clue.</p>
             ) : (
-              <LightArchiveIndex members={filteredMembers} />
+              <LightArchiveIndex members={filteredMembers} preserveOrder={hasSemanticOrder} />
             )}
           </div>
         </section>

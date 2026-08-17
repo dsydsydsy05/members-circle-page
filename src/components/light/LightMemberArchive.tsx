@@ -468,15 +468,17 @@ function ArchiveFrontPanel({
 export function LightArchiveIndex({
   members,
   variant = "public",
+  preserveOrder = false,
 }: {
   members: Member[];
   variant?: "public" | "directory";
+  preserveOrder?: boolean;
 }) {
   const dossier = useDossier();
   const folders = useMemo<ArchiveFolder[]>(() => {
-    const sorted = [...members].sort((a, b) =>
-      a.name.localeCompare(b.name, "en", { sensitivity: "base" }),
-    );
+    const sorted = preserveOrder
+      ? [...members]
+      : [...members].sort((a, b) => a.name.localeCompare(b.name, "en", { sensitivity: "base" }));
     const count = 13;
     return Array.from({ length: count }, (_, index) => {
       const member = index < sorted.length ? sorted[index] : undefined;
@@ -501,7 +503,7 @@ export function LightArchiveIndex({
         number: member ? memberNo(member.memberNo) : "000",
       };
     });
-  }, [members]);
+  }, [members, preserveOrder]);
 
   return (
     <>

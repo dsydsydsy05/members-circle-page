@@ -184,6 +184,7 @@ const inputCls =
   "w-full rounded-lg border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary";
 
 type ContentRecord = { id: string } & Record<string, string | number | boolean | null>;
+const EMPTY_CONTENT_ROWS: ContentRecord[] = [];
 
 function mutationMessage(error: unknown) {
   return error instanceof Error ? error.message : "The database change could not be saved";
@@ -253,7 +254,7 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
   const key = ["site-content", section.table] as const;
   const [busy, setBusy] = useState<string | null>(null);
 
-  const { data: rows = [], isLoading } = useQuery({
+  const { data: queriedRows, isLoading } = useQuery({
     queryKey: key,
     queryFn: async () => {
       const { data, error } = await supabase
@@ -265,6 +266,7 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
       return (data ?? []) as unknown as ContentRecord[];
     },
   });
+  const rows = queriedRows ?? EMPTY_CONTENT_ROWS;
 
   const [draft, setDraft] = useState<Record<string, ContentRecord>>({});
   useEffect(() => {
@@ -452,6 +454,7 @@ function ContentSection({ section }: { section: (typeof SECTIONS)[number] }) {
 function MembersSection() {
   const qc = useQueryClient();
   const { userId } = useAuth();
+  const [memberMessage, setMemberMessage] = useState("");
   const { data: rows = [], isLoading } = useQuery({
     queryKey: ["admin-profiles"],
     queryFn: async () => {
@@ -467,9 +470,25 @@ function MembersSection() {
   const refresh = () => qc.invalidateQueries({ queryKey: ["admin-profiles"] });
 
   const toggleMember = async (id: string, next: boolean) => {
-    const { error } = await supabase.from("profiles").update({ is_member: next }).eq("id", id);
-    if (error) return toast.error(error.message);
-    refresh();
+    setMemberMessage("Updating member access…");
+    const { data, error } = await supabase
+      .from("profiles")
+      .update({ is_member: next })
+      .eq("id", id)
+      .select("id, is_member")
+      .maybeSingle();
+    if (error) {
+      setMemberMessage(error.message);
+      return toast.error(error.message);
+    }
+    if (!data) {
+      setMemberMessage("Member status was not updated. Check the profiles admin policy.");
+      return toast.error("Member status was not updated. Check the profiles admin policy.");
+    }
+    setMemberMessage(next ? "Member access enabled" : "Member access disabled");
+    toast.success(next ? "Member access enabled" : "Member access disabled");
+    await refresh();
+    await qc.invalidateQueries({ queryKey: ["auth-session-profile"] });
   };
 
   const featuredCount = rows.filter((profile) => profile.home_featured).length;
@@ -509,6 +528,9 @@ function MembersSection() {
         <p className="mt-1 text-xs text-muted-foreground">
           Select up to three public profiles for the light homepage. Lower order appears first.
         </p>
+        {memberMessage ? (
+          <p className="mt-2 text-xs text-muted-foreground">{memberMessage}</p>
+        ) : null}
         {!featuredSchemaReady && (
           <p className="mt-2 text-xs text-amber-600">
             Featured controls will become available after the local featured-members migration is
