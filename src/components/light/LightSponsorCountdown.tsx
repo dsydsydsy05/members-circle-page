@@ -10,7 +10,7 @@ function getParts(now: number): Parts {
   const total = Math.floor(diff / 1000);
   const pad = (n: number, len = 2) => String(n).padStart(len, "0");
   return {
-    days: pad(Math.floor(total / 86400), 3),
+    days: pad(Math.floor(total / 86400)),
     hours: pad(Math.floor((total % 86400) / 3600)),
     minutes: pad(Math.floor((total % 3600) / 60)),
     seconds: pad(total % 60),

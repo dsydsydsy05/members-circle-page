@@ -413,7 +413,7 @@
 
 @media (max-width: 760px) {
   .site-nav__inner {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr;
     height: 112px;
   }
   .site-nav__links {
@@ -427,13 +427,19 @@
   .site-nav__actions {
     grid-column: 2;
     grid-row: 1;
+    gap: 0.55rem;
   }
   .site-nav__link {
     font-size: 0.54rem;
     letter-spacing: 0.07em;
   }
   .site-nav__actions .utility-link {
-    display: none;
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    font-size: 0.46rem;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
   }
   .signal-link {
     min-height: 36px;

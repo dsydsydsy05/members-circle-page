@@ -5,6 +5,7 @@ import { BrandMark } from "@/components/BrandMark";
 import { GmailIcon, XiaohongshuIcon } from "@/components/SocialIcons";
 import { CONTACT_EMAIL, CONTACT_GMAIL_URL } from "@/lib/contact";
 import { useAuth } from "@/lib/use-auth";
+import { useIsAdmin } from "@/lib/use-admin";
 
 const links = [
   { to: "/about", label: "About" },
@@ -18,41 +19,113 @@ const links = [
 export function LightSiteNav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { isSignedIn } = useAuth();
+  const [inverse, setInverse] = useState(false);
+  const { isSignedIn, isMember } = useAuth();
+  const { isAdmin } = useIsAdmin();
 
   useEffect(() => {
-    const update = () => setScrolled(window.scrollY > 18);
+    const update = () => {
+      setScrolled(window.scrollY > 18);
+      const darkSection = document.querySelector<HTMLElement>("[data-nav-tone='dark']");
+      if (!darkSection) {
+        setInverse(false);
+        return;
+      }
+      const rect = darkSection.getBoundingClientRect();
+      setInverse(rect.top <= 92 && rect.bottom > 36);
+    };
     update();
     window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    const closeOnDesktop = () => {
+      if (window.innerWidth > 900) setOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("resize", closeOnDesktop);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("resize", closeOnDesktop);
+    };
+  }, [open]);
+
+  const accountLabel = !isSignedIn ? "Enter" : isMember ? "My pass" : "Enter code";
+  const accountTarget = isSignedIn ? "/onboarding" : "/auth";
+
   return (
-    <header className={`light-nav ${scrolled ? "light-nav--scrolled" : ""}`}>
+    <header
+      className={`light-nav ${scrolled ? "light-nav--scrolled" : ""} ${
+        inverse ? "light-nav--inverse" : ""
+      } ${open ? "light-nav--open" : ""}`}
+    >
+      <button
+        type="button"
+        className="light-nav__backdrop"
+        aria-label="Close navigation"
+        tabIndex={open ? 0 : -1}
+        onClick={() => setOpen(false)}
+      />
       <div className="light-shell light-nav__inner">
         <Link to="/" className="light-nav__brand" aria-label="The Room home">
           <BrandMark />
         </Link>
-        <nav className={`light-nav__links ${open ? "light-nav__links--open" : ""}`}>
-          {links.map((link) => (
+        <nav
+          id="light-site-navigation"
+          className={`light-nav__links ${isAdmin ? "light-nav__links--admin" : ""} ${
+            open ? "light-nav__links--open" : ""
+          }`}
+        >
+          {links.map((link, index) => (
             <Link
               key={link.to}
               to={link.to}
               activeProps={{ className: "light-nav__link--active" }}
               onClick={() => setOpen(false)}
             >
-              {link.label}
+              <span className="light-nav__index">{String(index + 1).padStart(2, "0")}</span>
+              <span>{link.label}</span>
             </Link>
           ))}
+          {isAdmin ? (
+            <Link to="/admin" className="light-nav__admin-link" onClick={() => setOpen(false)}>
+              <span className="light-nav__index">06</span>
+              <span>Admin</span>
+            </Link>
+          ) : null}
         </nav>
         <div className="light-nav__actions">
-          <Link to={isSignedIn ? "/members" : "/auth"} className="light-button light-button--small">
+          <Link
+            to={isSignedIn ? "/members" : "/auth"}
+            className="light-button light-button--small light-nav__account light-nav__account--desktop"
+            onClick={() => setOpen(false)}
+          >
             {isSignedIn ? "Member space" : "Enter"} <span>↗</span>
+          </Link>
+          <Link
+            to={accountTarget}
+            className="light-button light-button--small light-nav__account light-nav__account--mobile"
+            onClick={() => setOpen(false)}
+          >
+            {accountLabel} <span>↗</span>
           </Link>
           <button
             type="button"
             className="light-nav__menu"
             aria-label="Toggle navigation"
+            aria-controls="light-site-navigation"
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
           >

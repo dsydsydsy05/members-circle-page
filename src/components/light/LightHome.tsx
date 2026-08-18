@@ -120,7 +120,11 @@ function LightFlipHero() {
 
 function FoundingLetter() {
   const sectionRef = useRef<HTMLElement>(null);
+  const campusRef = useRef<HTMLElement>(null);
+  const mapRef = useRef<HTMLElement>(null);
   const [progress, setProgress] = useState(0);
+  const [mobilePhotoRevealed, setMobilePhotoRevealed] = useState(false);
+  const [mobileMapDrawn, setMobileMapDrawn] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -146,6 +150,62 @@ function FoundingLetter() {
       if (frame) cancelAnimationFrame(frame);
       window.removeEventListener("scroll", request);
       window.removeEventListener("resize", request);
+    };
+  }, []);
+
+  useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 640px)");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let observer: IntersectionObserver | null = null;
+
+    const connect = () => {
+      observer?.disconnect();
+      observer = null;
+      if (!mobile.matches) return;
+
+      if (reduced.matches || typeof IntersectionObserver === "undefined") {
+        setMobilePhotoRevealed(true);
+        setMobileMapDrawn(true);
+        return;
+      }
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            if (entry.target === campusRef.current) setMobilePhotoRevealed(true);
+            if (entry.target === mapRef.current) setMobileMapDrawn(true);
+            observer?.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -4%" },
+      );
+
+      const campus = campusRef.current;
+      const map = mapRef.current;
+      if (campus) {
+        if (campus.getBoundingClientRect().top < window.innerHeight * 0.96) {
+          setMobilePhotoRevealed(true);
+        } else {
+          observer.observe(campus);
+        }
+      }
+      if (map) {
+        if (map.getBoundingClientRect().top < window.innerHeight * 0.96) {
+          setMobileMapDrawn(true);
+        } else {
+          observer.observe(map);
+        }
+      }
+    };
+
+    connect();
+    mobile.addEventListener("change", connect);
+    reduced.addEventListener("change", connect);
+    return () => {
+      observer?.disconnect();
+      mobile.removeEventListener("change", connect);
+      reduced.removeEventListener("change", connect);
     };
   }, []);
 
@@ -238,7 +298,12 @@ function FoundingLetter() {
               </span>
             </div>
           </div>
-          <figure className="light-letter__campus">
+          <figure
+            ref={campusRef}
+            className={`light-letter__campus ${
+              mobilePhotoRevealed ? "light-letter__campus--revealed" : ""
+            }`}
+          >
             <img
               src="/images/babson-college.jpg"
               alt="Babson College entrance in Wellesley, Massachusetts"
@@ -249,7 +314,8 @@ function FoundingLetter() {
             42.3601° N · 71.0589° W
           </span>
           <figure
-            className="light-letter__map"
+            ref={mapRef}
+            className={`light-letter__map ${mobileMapDrawn ? "light-letter__map--drawn" : ""}`}
             aria-label="Pencil outline of Boston, Massachusetts"
           >
             <svg viewBox="0 0 220 132" role="img" aria-hidden="true">
@@ -366,7 +432,7 @@ export function LightHome() {
           <LightPartnerLogoGrid compact />
         </section>
 
-        <section className="light-final-cta">
+        <section className="light-final-cta" data-nav-tone="dark">
           <div className="light-shell light-final-cta__panel">
             <BrandMark compact className="light-final-cta__watermark" aria-hidden="true" />
             <BrandMark className="light-final-cta__mark" />
