@@ -2907,6 +2907,101 @@
   font-size: 8px;
   font-weight: 500;
 }
+.light-member-contact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  border-block: 1px solid var(--light-line);
+  color: var(--light-ink);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.light-member-contact--profile {
+  margin-top: 30px;
+}
+.light-member-contact--dossier {
+  border-top: 0;
+}
+.light-member-contact > a,
+.light-member-contact__email {
+  position: relative;
+  min-width: 0;
+  padding: 15px 18px 15px 0;
+}
+.light-member-contact > :nth-child(2) {
+  padding-left: 18px;
+  border-left: 1px solid var(--light-line);
+}
+.light-member-contact > a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 16px;
+  color: inherit;
+}
+.light-member-contact > a > span,
+.light-member-contact__email > span:first-child {
+  grid-column: 1 / -1;
+  color: var(--light-muted);
+  font-size: 7px;
+}
+.light-member-contact > a strong,
+.light-member-contact__email strong,
+.light-member-contact__revealed {
+  overflow: hidden;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+}
+.light-member-contact > a em,
+.light-member-contact__email em {
+  color: var(--light-green);
+  font-size: 7px;
+  font-style: normal;
+  white-space: nowrap;
+}
+.light-member-contact__email {
+  display: grid;
+  gap: 6px;
+}
+.light-member-contact__email button,
+.light-member-contact__signin,
+.light-member-contact__locked {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+.light-member-contact__email button {
+  cursor: pointer;
+}
+.light-member-contact__email button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+.light-member-contact__revealed {
+  width: max-content;
+  max-width: 100%;
+  padding-bottom: 2px;
+  border-bottom: 1px solid currentColor;
+  color: var(--light-green);
+}
+.light-member-contact__email small {
+  color: #a13f31;
+  font-size: 7px;
+  letter-spacing: 0.03em;
+  text-transform: none;
+}
 .light-dossier__foot {
   display: flex;
   justify-content: space-between;
@@ -5273,6 +5368,14 @@
   }
   .light-dossier__foot {
     gap: 20px;
+  }
+  .light-member-contact {
+    grid-template-columns: 1fr;
+  }
+  .light-member-contact > :nth-child(2) {
+    padding-left: 0;
+    border-top: 1px solid var(--light-line);
+    border-left: 0;
   }
   .light-principles,
   .light-operating-model,

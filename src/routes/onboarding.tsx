@@ -96,6 +96,7 @@ function OnboardingPage() {
         ) : (
           <ProfileForm
             initial={profile}
+            accountEmail={email ?? ""}
             onSaved={async () => {
               await refresh();
               window.location.assign(next);
@@ -281,11 +282,34 @@ type ProfileLike = {
   startup: string | null;
   position: string | null;
   website: string | null;
+  linkedin_url: string | null;
   tags: string[];
   about: string | null;
 } | null;
 
-function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () => void }) {
+function normalizeLinkedIn(value: string) {
+  const clean = value.trim();
+  if (!clean) return null;
+  try {
+    const url = new URL(/^https?:\/\//i.test(clean) ? clean : `https://${clean}`);
+    const host = url.hostname.toLowerCase().replace(/^www\./, "");
+    if (host !== "linkedin.com" && !host.endsWith(".linkedin.com")) return undefined;
+    url.protocol = "https:";
+    return url.toString();
+  } catch {
+    return undefined;
+  }
+}
+
+function ProfileForm({
+  initial,
+  accountEmail,
+  onSaved,
+}: {
+  initial: ProfileLike;
+  accountEmail: string;
+  onSaved: () => void;
+}) {
   const queryClient = useQueryClient();
   const [fullName, setFullName] = useState(initial?.full_name ?? "");
   const [avatarUrl, setAvatarUrl] = useState(initial?.avatar_url ?? "");
@@ -293,15 +317,49 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
   const [startup, setStartup] = useState(initial?.startup ?? "");
   const [position, setPosition] = useState(initial?.position ?? "");
   const [website, setWebsite] = useState(initial?.website ?? "");
+  const [linkedin, setLinkedin] = useState(initial?.linkedin_url ?? "");
+  const [contactEmail, setContactEmail] = useState(accountEmail);
   const [tags, setTags] = useState((initial?.tags ?? []).join(", "));
   const [about, setAbout] = useState(initial?.about ?? "");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    let cancelled = false;
+    const loadPrivateContact = async () => {
+      const { data: userData } = await supabase.auth.getUser();
+      const uid = userData.user?.id;
+      if (!uid) return;
+      const { data } = await supabase
+        .from("member_private_contacts")
+        .select("email")
+        .eq("profile_id", uid)
+        .maybeSingle();
+      if (!cancelled && data?.email) setContactEmail(data.email);
+    };
+    void loadPrivateContact();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim()) {
       setError("Your name is required.");
+      return;
+    }
+    const linkedinUrl = normalizeLinkedIn(linkedin);
+    if (linkedinUrl === undefined) {
+      setError("Enter a valid LinkedIn profile URL.");
+      return;
+    }
+    const cleanContactEmail = contactEmail.trim().toLowerCase();
+    if (
+      cleanContactEmail &&
+      (cleanContactEmail.length > 320 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanContactEmail))
+    ) {
+      setError("Enter a valid contact email.");
       return;
     }
     setBusy(true);
@@ -322,6 +380,7 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
         startup: startup.trim().slice(0, 120) || null,
         position: position.trim().slice(0, 120) || null,
         website: website.trim().slice(0, 300) || null,
+        linkedin_url: linkedinUrl,
         tags: tags
           .split(",")
           .map((t) => t.trim())
@@ -331,9 +390,22 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
         onboarded: true,
       })
       .eq("id", uid);
+    if (error) {
+      setBusy(false);
+      setError(error.message);
+      return;
+    }
+
+    const contactResult = cleanContactEmail
+      ? await supabase.from("member_private_contacts").upsert({
+          profile_id: uid,
+          email: cleanContactEmail,
+        })
+      : await supabase.from("member_private_contacts").delete().eq("profile_id", uid);
     setBusy(false);
-    if (error) setError(error.message);
-    else {
+    if (contactResult.error) {
+      setError(contactResult.error.message);
+    } else {
       void supabase.functions
         .invoke("refresh-member-embedding", { body: { profileId: uid } })
         .catch(() => undefined);
@@ -423,6 +495,41 @@ function ProfileForm({ initial, onSaved }: { initial: ProfileLike; onSaved: () =
             placeholder="https://…"
             maxLength={300}
           />
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label htmlFor="linkedin" className={label}>
+              LinkedIn
+            </label>
+            <input
+              id="linkedin"
+              value={linkedin}
+              onChange={(e) => setLinkedin(e.target.value)}
+              className={field}
+              placeholder="linkedin.com/in/your-name"
+              autoComplete="url"
+              maxLength={500}
+            />
+          </div>
+          <div>
+            <label htmlFor="contact-email" className={label}>
+              Contact email (protected)
+            </label>
+            <input
+              id="contact-email"
+              type="email"
+              value={contactEmail}
+              onChange={(e) => setContactEmail(e.target.value)}
+              className={field}
+              placeholder="you@email.com"
+              autoComplete="email"
+              maxLength={320}
+            />
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+              Public pages show a mask. Only signed-in members can reveal the full address.
+            </p>
+          </div>
         </div>
 
         <div>

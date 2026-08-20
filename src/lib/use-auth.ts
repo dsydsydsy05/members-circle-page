@@ -10,6 +10,8 @@ export type Profile = {
   startup: string | null;
   position: string | null;
   website: string | null;
+  linkedin_url: string | null;
+  contact_email_mask: string | null;
   tags: string[];
   about: string | null;
   member_no: number | null;

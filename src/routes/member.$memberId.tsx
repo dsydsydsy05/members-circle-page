@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { MemberContactLinks } from "@/components/light/MemberContactLinks";
 import { LightPage } from "@/components/light/LightSite";
 import { useCommunityMembers } from "@/lib/use-community-members";
 
@@ -92,6 +93,11 @@ function MemberProfilePage() {
                         Website ↗
                       </a>
                     ) : null}
+                    <MemberContactLinks
+                      memberId={member.id}
+                      linkedinUrl={member.linkedinUrl}
+                      emailMask={member.contactEmailMask}
+                    />
                   </div>
                 </div>
               </div>

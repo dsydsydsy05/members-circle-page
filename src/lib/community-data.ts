@@ -8,6 +8,8 @@ export type Member = {
   bio: string;
   tags: string[];
   website: string;
+  linkedinUrl: string;
+  contactEmailMask: string;
   initials: string;
   avatarUrl?: string | null;
   memberNo?: number | null;

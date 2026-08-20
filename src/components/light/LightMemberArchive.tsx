@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "@tanstack/react-router";
+import { MemberContactLinks } from "@/components/light/MemberContactLinks";
 import type { Member } from "@/lib/community-data";
 
 function memberNo(value?: number | null) {
@@ -168,6 +169,12 @@ export function LightMemberDossier({
               </div>
             </div>
           </div>
+          <MemberContactLinks
+            memberId={member.id}
+            linkedinUrl={member.linkedinUrl}
+            emailMask={member.contactEmailMask}
+            variant="dossier"
+          />
           <div className="light-dossier__foot">
             <span>Filed / {new Date().getFullYear()}</span>
             {member.website ? (
