@@ -408,6 +408,89 @@ export type Database = {
         }
         Relationships: []
       }
+      nfc_tag_events: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          details: Json
+          id: number
+          member_id: string | null
+          tag_id: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          id?: never
+          member_id?: string | null
+          tag_id: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          id?: never
+          member_id?: string | null
+          tag_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nfc_tag_events_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "nfc_tags"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      nfc_tags: {
+        Row: {
+          batch_id: string
+          claimable_until: string | null
+          claimed_at: string | null
+          created_at: string
+          created_by: string | null
+          disabled_at: string | null
+          id: string
+          serial_no: string
+          status: string
+          token_hash: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          batch_id: string
+          claimable_until?: string | null
+          claimed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          disabled_at?: string | null
+          id?: string
+          serial_no: string
+          status?: string
+          token_hash: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          batch_id?: string
+          claimable_until?: string | null
+          claimed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          disabled_at?: string | null
+          id?: string
+          serial_no?: string
+          status?: string
+          token_hash?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       partners: {
         Row: {
           blurb: string
@@ -720,6 +803,29 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_create_nfc_batch: {
+        Args: { _batch_id: string; _count: number }
+        Returns: {
+          serial_no: string
+          token: string
+          url_path: string
+        }[]
+      }
+      admin_disable_nfc_tag: { Args: { _tag_id: string }; Returns: boolean }
+      admin_list_nfc_tags: {
+        Args: never
+        Returns: {
+          batch_id: string
+          claimable_until: string
+          claimed_at: string
+          created_at: string
+          id: string
+          member_name: string
+          serial_no: string
+          status: string
+          user_id: string
+        }[]
+      }
       admin_list_qa_questions: {
         Args: never
         Returns: {
@@ -775,6 +881,18 @@ export type Database = {
         Args: { _featured: boolean; _order?: number; _profile_id: string }
         Returns: undefined
       }
+      admin_set_nfc_batch_claimable: {
+        Args: { _batch_id: string; _claimable: boolean; _minutes?: number }
+        Returns: number
+      }
+      claim_nfc_tag: {
+        Args: { _token: string }
+        Returns: {
+          member_id: string
+          profile_ready: boolean
+          state: string
+        }[]
+      }
       get_public_directory_counts: {
         Args: never
         Returns: {
@@ -801,6 +919,15 @@ export type Database = {
         }[]
       }
       redeem_invitation_code: { Args: { _code: string }; Returns: boolean }
+      resolve_nfc_tag: {
+        Args: { _token: string }
+        Returns: {
+          member_id: string
+          member_no: number
+          profile_ready: boolean
+          state: string
+        }[]
+      }
       submit_waitlist: {
         Args: { _full_name: string }
         Returns: {
