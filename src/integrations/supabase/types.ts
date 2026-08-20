@@ -811,6 +811,10 @@ export type Database = {
           url_path: string
         }[]
       }
+      admin_delete_nfc_test_batch: {
+        Args: { _batch_id: string }
+        Returns: number
+      }
       admin_disable_nfc_tag: { Args: { _tag_id: string }; Returns: boolean }
       admin_list_nfc_tags: {
         Args: never
