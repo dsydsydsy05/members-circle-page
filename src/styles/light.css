@@ -4267,6 +4267,26 @@
   }
 }
 
+@media (min-width: 641px) and (max-width: 900px) and (max-height: 720px) {
+  .light-home-hero__frame {
+    padding: 84px 28px 24px;
+  }
+  .light-pass-stage {
+    min-height: 0;
+  }
+  .light-pass-stack {
+    --light-pass-width: clamp(220px, min(31vw, 45svh), 300px);
+    gap: 10px;
+    transform: translateY(-18px);
+  }
+  .theme-light .light-home-waitlist {
+    min-height: 38px;
+  }
+  .light-home-scroll-cue {
+    bottom: 14px;
+  }
+}
+
 /* NFC event activation / one physical pass, one account */
 .light-nfc-main {
   min-height: calc(100svh - 110px);
