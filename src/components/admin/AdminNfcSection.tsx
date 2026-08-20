@@ -117,6 +117,24 @@ export function AdminNfcSection() {
     );
   };
 
+  const deleteTestBatch = async (id: string, total: number) => {
+    if (
+      !confirm(
+        `Permanently delete ${id} and its ${total} test pass${total === 1 ? "" : "es"}? This removes the batch from both Event controls and Physical inventory and cannot be undone.`,
+      )
+    )
+      return;
+    setBusy(`${id}-delete`);
+    const { data: deleted, error } = await supabase.rpc("admin_delete_nfc_test_batch", {
+      _batch_id: id,
+    });
+    setBusy(null);
+    if (error) return toast.error(error.message);
+    if (lastBatch?.id === id) setLastBatch(null);
+    await refresh();
+    toast.success(`${id} deleted (${deleted} test pass${deleted === 1 ? "" : "es"}).`);
+  };
+
   const disableTag = async (id: string, serialNo: string) => {
     if (!confirm(`Disable ${serialNo}? It will stop opening the member profile.`)) return;
     setBusy(id);
@@ -130,11 +148,14 @@ export function AdminNfcSection() {
   return (
     <section className="space-y-10">
       <header className="border-b border-border pb-6">
-        <div className="text-xs uppercase tracking-[0.2em] text-primary">NFC / Event inventory</div>
-        <h2 className="mt-2 text-3xl font-semibold tracking-tight">Anonymous passes</h2>
+        <div className="text-xs uppercase tracking-[0.2em] text-primary">
+          NFC / Physical inventory
+        </div>
+        <h2 className="mt-2 text-3xl font-semibold tracking-tight">Anonymous NFC inventory</h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          Manufacture the URLs before attendees are known. Keep batches inactive in storage, open
-          them at check-in, and let each attendee claim the physical pass once.
+          Create each production batch before attendees are known. Keep unused passes inactive in
+          storage, reopen the same remaining inventory at future events, and let each attendee claim
+          one physical pass.
         </p>
       </header>
 
@@ -147,7 +168,7 @@ export function AdminNfcSection() {
           <input
             value={batchId}
             onChange={(event) => setBatchId(event.target.value)}
-            placeholder="BOSTON-2026-01"
+            placeholder="NFC-STOCK-2026-01"
             maxLength={48}
             required
             className="mt-2 w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm uppercase outline-none focus:border-primary"
@@ -193,8 +214,8 @@ export function AdminNfcSection() {
           <div>
             <h3 className="text-xl font-semibold tracking-tight">Event controls</h3>
             <p className="mt-1 text-xs text-muted-foreground">
-              Opening a batch affects only inactive or already-open passes. Claimed and disabled
-              passes stay unchanged.
+              A batch is a physical production lot, not one event. Reopening it affects only
+              unclaimed passes; claimed and disabled passes stay unchanged.
             </p>
           </div>
           <label className="text-xs uppercase tracking-wider text-muted-foreground">
@@ -251,6 +272,16 @@ export function AdminNfcSection() {
                   >
                     Close unclaimed
                   </button>
+                  {id.startsWith("TEST-") ? (
+                    <button
+                      type="button"
+                      disabled={Boolean(busy)}
+                      onClick={() => deleteTestBatch(id, summary.total)}
+                      className="rounded-full border border-destructive/40 px-4 py-2 text-xs text-destructive disabled:opacity-40"
+                    >
+                      Delete test batch
+                    </button>
+                  ) : null}
                 </div>
               </div>
             ))}
