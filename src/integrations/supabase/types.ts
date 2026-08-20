@@ -274,35 +274,6 @@ export type Database = {
         }
         Relationships: []
       }
-      member_embedding_jobs: {
-        Row: {
-          attempts: number
-          last_error: string | null
-          profile_id: string
-          queued_at: string
-        }
-        Insert: {
-          attempts?: number
-          last_error?: string | null
-          profile_id: string
-          queued_at?: string
-        }
-        Update: {
-          attempts?: number
-          last_error?: string | null
-          profile_id?: string
-          queued_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "member_embedding_jobs_profile_id_fkey"
-            columns: ["profile_id"]
-            isOneToOne: true
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       member_contact_reveal_events: {
         Row: {
           profile_id: string
@@ -327,6 +298,35 @@ export type Database = {
             foreignKeyName: "member_contact_reveal_events_profile_id_fkey"
             columns: ["profile_id"]
             isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      member_embedding_jobs: {
+        Row: {
+          attempts: number
+          last_error: string | null
+          profile_id: string
+          queued_at: string
+        }
+        Insert: {
+          attempts?: number
+          last_error?: string | null
+          profile_id: string
+          queued_at?: string
+        }
+        Update: {
+          attempts?: number
+          last_error?: string | null
+          profile_id?: string
+          queued_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_embedding_jobs_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: true
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -976,6 +976,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      mask_member_email: { Args: { _email: string }; Returns: string }
       match_member_profiles: {
         Args: {
           match_count?: number
@@ -988,10 +989,6 @@ export type Database = {
         }[]
       }
       redeem_invitation_code: { Args: { _code: string }; Returns: boolean }
-      reveal_member_contact_email: {
-        Args: { _profile_id: string }
-        Returns: string | null
-      }
       resolve_nfc_tag: {
         Args: { _token: string }
         Returns: {
@@ -1000,6 +997,10 @@ export type Database = {
           profile_ready: boolean
           state: string
         }[]
+      }
+      reveal_member_contact_email: {
+        Args: { _profile_id: string }
+        Returns: string
       }
       submit_waitlist: {
         Args: { _full_name: string }
