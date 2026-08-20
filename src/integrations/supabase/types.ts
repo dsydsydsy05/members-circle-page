@@ -274,6 +274,35 @@ export type Database = {
         }
         Relationships: []
       }
+      member_contact_reveal_events: {
+        Row: {
+          profile_id: string
+          requester_id: string
+          revealed_at: string
+          revealed_on: string
+        }
+        Insert: {
+          profile_id: string
+          requester_id: string
+          revealed_at?: string
+          revealed_on?: string
+        }
+        Update: {
+          profile_id?: string
+          requester_id?: string
+          revealed_at?: string
+          revealed_on?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_contact_reveal_events_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       member_embedding_jobs: {
         Row: {
           attempts: number
@@ -296,6 +325,35 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "member_embedding_jobs_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      member_private_contacts: {
+        Row: {
+          created_at: string
+          email: string
+          profile_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          profile_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          profile_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_private_contacts_profile_id_fkey"
             columns: ["profile_id"]
             isOneToOne: true
             referencedRelation: "profiles"
@@ -566,12 +624,14 @@ export type Database = {
         Row: {
           about: string | null
           avatar_url: string | null
+          contact_email_mask: string | null
           created_at: string
           full_name: string | null
           home_featured: boolean
           home_featured_order: number
           id: string
           is_member: boolean
+          linkedin_url: string | null
           member_no: number | null
           onboarded: boolean
           position: string | null
@@ -584,12 +644,14 @@ export type Database = {
         Insert: {
           about?: string | null
           avatar_url?: string | null
+          contact_email_mask?: string | null
           created_at?: string
           full_name?: string | null
           home_featured?: boolean
           home_featured_order?: number
           id: string
           is_member?: boolean
+          linkedin_url?: string | null
           member_no?: number | null
           onboarded?: boolean
           position?: string | null
@@ -602,12 +664,14 @@ export type Database = {
         Update: {
           about?: string | null
           avatar_url?: string | null
+          contact_email_mask?: string | null
           created_at?: string
           full_name?: string | null
           home_featured?: boolean
           home_featured_order?: number
           id?: string
           is_member?: boolean
+          linkedin_url?: string | null
           member_no?: number | null
           onboarded?: boolean
           position?: string | null
@@ -912,6 +976,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      mask_member_email: { Args: { _email: string }; Returns: string }
       match_member_profiles: {
         Args: {
           match_count?: number
@@ -932,6 +997,10 @@ export type Database = {
           profile_ready: boolean
           state: string
         }[]
+      }
+      reveal_member_contact_email: {
+        Args: { _profile_id: string }
+        Returns: string
       }
       submit_waitlist: {
         Args: { _full_name: string }
