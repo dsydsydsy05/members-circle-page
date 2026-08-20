@@ -897,7 +897,7 @@ export type Database = {
           state: string
         }[]
       }
-      claim_waitlist_for_current_user: { Args: never; Returns: string | null }
+      claim_waitlist_for_current_user: { Args: never; Returns: string }
       get_public_directory_counts: {
         Args: never
         Returns: {
