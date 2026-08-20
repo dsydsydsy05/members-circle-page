@@ -253,11 +253,11 @@ export function AdminWaitlistSection() {
     if (error) return toast.error(error.message);
     if (data?.notificationSent === false) {
       toast.warning(
-        `${next === "approved" ? "Member approved" : "Application rejected"}; applicant email failed.`,
+        `${next === "approved" ? "Application approved" : "Application rejected"}; applicant email failed.`,
       );
     } else {
       toast.success(
-        `${next === "approved" ? "Member approved" : "Application rejected"}; applicant emailed.`,
+        `${next === "approved" ? "Application approved" : "Application rejected"}; applicant emailed.`,
       );
     }
     queryClient.invalidateQueries({ queryKey: ["admin-waitlist"] });
@@ -270,7 +270,8 @@ export function AdminWaitlistSection() {
         <div>
           <h2 className="text-xl font-semibold tracking-tight">Waitlist</h2>
           <p className="mt-1 text-xs text-muted-foreground">
-            Approving a request also grants Member status.
+            Approved applicants receive Member access now or when they later sign in with the same
+            email.
           </p>
         </div>
         <select

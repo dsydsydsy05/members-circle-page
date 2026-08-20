@@ -9,13 +9,29 @@ const DEFAULT_ADMIN_EMAILS = [
 
 type WaitlistEntry = {
   id: string;
-  user_id: string;
+  user_id: string | null;
   email: string;
   full_name: string;
   status: "pending" | "approved" | "rejected";
   admin_notification_status: "pending" | "processing" | "sent" | "failed";
   created_at: string;
 };
+
+function publicEntry(entry: WaitlistEntry) {
+  return {
+    id: entry.id,
+    email: entry.email,
+    full_name: entry.full_name,
+    status: entry.status,
+    created_at: entry.created_at,
+  };
+}
+
+function clientPayload(entry: WaitlistEntry, userId: string | null) {
+  // Anonymous responses stay generic so the endpoint cannot be used to check
+  // whether another person's email is already on the list.
+  return userId ? { entry: publicEntry(entry) } : { submitted: true };
+}
 
 function escapeHtml(value: string) {
   return value
@@ -103,37 +119,90 @@ Deno.serve(async (request) => {
   if (request.method !== "POST") return json({ error: "Method not allowed" }, 405);
 
   try {
-    const authorization = request.headers.get("Authorization");
-    if (!authorization) return json({ error: "Sign in to join the waitlist." }, 401);
-
     const url = Deno.env.get("SUPABASE_URL")!;
     const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const userClient = createClient(url, anonKey, {
-      global: { headers: { Authorization: authorization } },
-      auth: { persistSession: false },
-    });
     const serviceClient = createClient(url, serviceKey, { auth: { persistSession: false } });
-
-    const { data: userData, error: userError } = await userClient.auth.getUser();
-    if (userError || !userData.user) return json({ error: "Your session has expired." }, 401);
-
     const payload = await request.json().catch(() => ({}));
     const fullName = typeof payload.fullName === "string" ? payload.fullName.trim() : "";
+    const submittedEmail = typeof payload.email === "string" ? payload.email.trim() : "";
+    const honeypot = typeof payload.website === "string" ? payload.website.trim() : "";
+
+    // Quietly accept bot-filled honeypots without creating an application.
+    if (honeypot) return json({ submitted: true }, 201);
     if (fullName.length < 1 || fullName.length > 80) {
       return json({ error: "Name must be between 1 and 80 characters." }, 400);
     }
 
-    const { data: submittedEntry, error: submitError } = await userClient.rpc("submit_waitlist", {
-      _full_name: fullName,
-    });
-    if (submitError || !submittedEntry) {
-      throw submitError ?? new Error("Waitlist entry was not created.");
+    let userId: string | null = null;
+    let accountEmail: string | null = null;
+    const authorization = request.headers.get("Authorization");
+    if (authorization) {
+      const userClient = createClient(url, anonKey, {
+        global: { headers: { Authorization: authorization } },
+        auth: { persistSession: false },
+      });
+      const { data: userData } = await userClient.auth.getUser();
+      if (userData.user) {
+        userId = userData.user.id;
+        accountEmail = userData.user.email ?? null;
+      }
     }
-    const entry = submittedEntry as unknown as WaitlistEntry;
+
+    const email = (accountEmail || submittedEmail).trim().toLowerCase();
+    if (email.length < 3 || email.length > 320 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return json({ error: "Enter a valid email address." }, 400);
+    }
+
+    const { data: existing, error: existingError } = await serviceClient
+      .from("waitlist_entries")
+      .select("*")
+      .eq("email", email)
+      .maybeSingle<WaitlistEntry>();
+    if (existingError) throw existingError;
+
+    let entry = existing;
+    if (entry) {
+      const canAttach = userId && (entry.user_id === null || entry.user_id === userId);
+      const canUpdateName = canAttach && entry.status === "pending";
+      if (canAttach && (entry.user_id === null || canUpdateName)) {
+        const { data: updated, error: updateError } = await serviceClient
+          .from("waitlist_entries")
+          .update({
+            user_id: userId,
+            ...(canUpdateName ? { full_name: fullName } : {}),
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", entry.id)
+          .select("*")
+          .single<WaitlistEntry>();
+        if (updateError) throw updateError;
+        entry = updated;
+      }
+    } else {
+      const { data: inserted, error: insertError } = await serviceClient
+        .from("waitlist_entries")
+        .insert({ user_id: userId, email, full_name: fullName })
+        .select("*")
+        .single<WaitlistEntry>();
+      if (insertError) {
+        if (insertError.code !== "23505") throw insertError;
+        const { data: racedEntry, error: raceError } = await serviceClient
+          .from("waitlist_entries")
+          .select("*")
+          .eq("email", email)
+          .single<WaitlistEntry>();
+        if (raceError) throw raceError;
+        entry = racedEntry;
+      } else {
+        entry = inserted;
+      }
+    }
+
+    if (!entry) throw new Error("Waitlist entry was not created.");
 
     if (entry.admin_notification_status === "sent") {
-      return json({ entry, notificationSent: true, duplicate: true });
+      return json({ ...clientPayload(entry, userId), notificationSent: true, duplicate: true });
     }
 
     const { data: claimed, error: claimError } = await serviceClient
@@ -145,7 +214,11 @@ Deno.serve(async (request) => {
       .maybeSingle<WaitlistEntry>();
     if (claimError) throw claimError;
     if (!claimed) {
-      return json({ entry, notificationSent: false, notificationInProgress: true });
+      return json({
+        ...clientPayload(entry, userId),
+        notificationSent: false,
+        notificationInProgress: true,
+      });
     }
 
     try {
@@ -162,7 +235,7 @@ Deno.serve(async (request) => {
         .select("*")
         .single<WaitlistEntry>();
       if (updateError) throw updateError;
-      return json({ entry: sentEntry, notificationSent: true }, 201);
+      return json({ ...clientPayload(sentEntry, userId), notificationSent: true }, 201);
     } catch (emailError) {
       const detail = emailError instanceof Error ? emailError.message : "Email delivery failed.";
       console.error("Waitlist email failed:", detail);
@@ -173,7 +246,7 @@ Deno.serve(async (request) => {
           admin_notification_error: detail.slice(0, 500),
         })
         .eq("id", claimed.id);
-      return json({ entry: claimed, notificationSent: false }, 201);
+      return json({ ...clientPayload(claimed, userId), notificationSent: false }, 201);
     }
   } catch (error) {
     console.error(error);

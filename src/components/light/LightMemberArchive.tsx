@@ -343,10 +343,16 @@ function ArchiveFolderShape({
   folder,
   index,
   onOpen,
+  previewed = false,
+  onPreviewStart,
+  onPreviewEnd,
 }: {
   folder: ArchiveFolder;
   index: number;
   onOpen?: (event: MouseEvent<SVGGElement>) => void;
+  previewed?: boolean;
+  onPreviewStart?: () => void;
+  onPreviewEnd?: () => void;
 }) {
   const leftX = archiveConfig.baseLeft - index * archiveConfig.perspective;
   const rightX = archiveConfig.baseRight + index * archiveConfig.perspective;
@@ -368,12 +374,15 @@ function ArchiveFolderShape({
 
   return (
     <g
-      className={`light-archive-folder ${folder.member ? "light-archive-folder--active" : ""}`}
+      className={`light-archive-folder ${folder.member ? "light-archive-folder--active" : ""} ${previewed ? "light-archive-folder--touch-preview" : ""}`}
       style={{ "--archive-y": `${y}px` } as CSSProperties}
       tabIndex={folder.member ? 0 : undefined}
       role={folder.member ? "button" : undefined}
       aria-label={folder.member ? `Open file for ${folder.member.name}` : undefined}
       onClick={onOpen}
+      onTouchStart={folder.member ? onPreviewStart : undefined}
+      onTouchEnd={folder.member ? onPreviewEnd : undefined}
+      onTouchCancel={folder.member ? onPreviewEnd : undefined}
       onKeyDown={
         folder.member
           ? (event) => {
@@ -475,6 +484,7 @@ export function LightArchiveIndex({
   preserveOrder?: boolean;
 }) {
   const dossier = useDossier();
+  const [touchPreviewKey, setTouchPreviewKey] = useState<string | null>(null);
   const folders = useMemo<ArchiveFolder[]>(() => {
     const sorted = preserveOrder
       ? [...members]
@@ -528,6 +538,9 @@ export function LightArchiveIndex({
                 <ArchiveFolderShape
                   folder={folder}
                   index={index}
+                  previewed={touchPreviewKey === folder.key}
+                  onPreviewStart={folder.member ? () => setTouchPreviewKey(folder.key) : undefined}
+                  onPreviewEnd={folder.member ? () => setTouchPreviewKey(null) : undefined}
                   onOpen={
                     folder.member ? (event) => dossier.show(folder.member!, event) : undefined
                   }

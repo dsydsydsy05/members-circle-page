@@ -1,1 +1,4 @@
 project_id = "yortabtwbntfsggsnoix"
+
+[functions.submit-waitlist]
+verify_jwt = false

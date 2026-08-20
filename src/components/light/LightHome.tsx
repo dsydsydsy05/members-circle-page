@@ -101,13 +101,23 @@ function LightFlipHero() {
     >
       <div className="light-shell light-home-hero__frame">
         <div className="light-pass-stage">
-          <LightIdentityPass
-            name={name}
-            number={number}
-            role={role}
-            location={location}
-            flipProgress={flipProgress}
-          />
+          <div className="light-pass-stack">
+            <Link
+              to="/waitlist"
+              className="light-home-waitlist"
+              aria-label="Join The Room waitlist"
+            >
+              <span>Waitlist / Open</span>
+              <em aria-hidden="true">Apply ↗</em>
+            </Link>
+            <LightIdentityPass
+              name={name}
+              number={number}
+              role={role}
+              location={location}
+              flipProgress={flipProgress}
+            />
+          </div>
         </div>
         <a className="light-home-scroll-cue" href="#founding-letter" aria-label="Scroll down">
           <span>Scroll down</span>

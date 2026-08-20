@@ -9,90 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ResourcesRouteImport } from './routes/resources'
-import { Route as QaRouteImport } from './routes/qa'
-import { Route as ProjectsRouteImport } from './routes/projects'
-import { Route as PartnersRouteImport } from './routes/partners'
-import { Route as OnboardingRouteImport } from './routes/onboarding'
-import { Route as MembersRouteImport } from './routes/members'
-import { Route as GuestsRouteImport } from './routes/guests'
-import { Route as EventsRouteImport } from './routes/events'
-import { Route as BusinessesRouteImport } from './routes/businesses'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as LightRouteRouteImport } from './routes/light/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BusinessesRouteImport } from './routes/businesses'
+import { Route as EventsRouteImport } from './routes/events'
+import { Route as GuestsRouteImport } from './routes/guests'
+import { Route as LightRouteRouteImport } from './routes/light/route'
+import { Route as MembersRouteImport } from './routes/members'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as PartnersRouteImport } from './routes/partners'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as QaRouteImport } from './routes/qa'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as WaitlistRouteImport } from './routes/waitlist'
 import { Route as LightIndexRouteImport } from './routes/light/index'
-import { Route as NfcTokenRouteImport } from './routes/nfc.$token'
-import { Route as MemberMemberIdRouteImport } from './routes/member.$memberId'
-import { Route as LightQaRouteImport } from './routes/light/qa'
-import { Route as LightProjectsRouteImport } from './routes/light/projects'
-import { Route as LightPartnersRouteImport } from './routes/light/partners'
-import { Route as LightMembersRouteImport } from './routes/light/members'
-import { Route as LightGuestsRouteImport } from './routes/light/guests'
-import { Route as LightEventsRouteImport } from './routes/light/events'
 import { Route as LightAboutRouteImport } from './routes/light/about'
+import { Route as LightEventsRouteImport } from './routes/light/events'
+import { Route as LightGuestsRouteImport } from './routes/light/guests'
+import { Route as LightMembersRouteImport } from './routes/light/members'
+import { Route as LightPartnersRouteImport } from './routes/light/partners'
+import { Route as LightProjectsRouteImport } from './routes/light/projects'
+import { Route as LightQaRouteImport } from './routes/light/qa'
+import { Route as MemberMemberIdRouteImport } from './routes/member.$memberId'
+import { Route as NfcTokenRouteImport } from './routes/nfc.$token'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResourcesRoute = ResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const QaRoute = QaRouteImport.update({
-  id: '/qa',
-  path: '/qa',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PartnersRoute = PartnersRouteImport.update({
-  id: '/partners',
-  path: '/partners',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingRoute = OnboardingRouteImport.update({
-  id: '/onboarding',
-  path: '/onboarding',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MembersRoute = MembersRouteImport.update({
-  id: '/members',
-  path: '/members',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GuestsRoute = GuestsRouteImport.update({
-  id: '/guests',
-  path: '/guests',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EventsRoute = EventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BusinessesRoute = BusinessesRouteImport.update({
-  id: '/businesses',
-  path: '/businesses',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -100,14 +46,74 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessesRoute = BusinessesRouteImport.update({
+  id: '/businesses',
+  path: '/businesses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuestsRoute = GuestsRouteImport.update({
+  id: '/guests',
+  path: '/guests',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LightRouteRoute = LightRouteRouteImport.update({
   id: '/light',
   path: '/light',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const MembersRoute = MembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QaRoute = QaRouteImport.update({
+  id: '/qa',
+  path: '/qa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WaitlistRoute = WaitlistRouteImport.update({
+  id: '/waitlist',
+  path: '/waitlist',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LightIndexRoute = LightIndexRouteImport.update({
@@ -115,39 +121,9 @@ const LightIndexRoute = LightIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LightRouteRoute,
 } as any)
-const NfcTokenRoute = NfcTokenRouteImport.update({
-  id: '/nfc/$token',
-  path: '/nfc/$token',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MemberMemberIdRoute = MemberMemberIdRouteImport.update({
-  id: '/member/$memberId',
-  path: '/member/$memberId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LightQaRoute = LightQaRouteImport.update({
-  id: '/qa',
-  path: '/qa',
-  getParentRoute: () => LightRouteRoute,
-} as any)
-const LightProjectsRoute = LightProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
-  getParentRoute: () => LightRouteRoute,
-} as any)
-const LightPartnersRoute = LightPartnersRouteImport.update({
-  id: '/partners',
-  path: '/partners',
-  getParentRoute: () => LightRouteRoute,
-} as any)
-const LightMembersRoute = LightMembersRouteImport.update({
-  id: '/members',
-  path: '/members',
-  getParentRoute: () => LightRouteRoute,
-} as any)
-const LightGuestsRoute = LightGuestsRouteImport.update({
-  id: '/guests',
-  path: '/guests',
+const LightAboutRoute = LightAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => LightRouteRoute,
 } as any)
 const LightEventsRoute = LightEventsRouteImport.update({
@@ -155,10 +131,40 @@ const LightEventsRoute = LightEventsRouteImport.update({
   path: '/events',
   getParentRoute: () => LightRouteRoute,
 } as any)
-const LightAboutRoute = LightAboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+const LightGuestsRoute = LightGuestsRouteImport.update({
+  id: '/guests',
+  path: '/guests',
   getParentRoute: () => LightRouteRoute,
+} as any)
+const LightMembersRoute = LightMembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => LightRouteRoute,
+} as any)
+const LightPartnersRoute = LightPartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => LightRouteRoute,
+} as any)
+const LightProjectsRoute = LightProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => LightRouteRoute,
+} as any)
+const LightQaRoute = LightQaRouteImport.update({
+  id: '/qa',
+  path: '/qa',
+  getParentRoute: () => LightRouteRoute,
+} as any)
+const MemberMemberIdRoute = MemberMemberIdRouteImport.update({
+  id: '/member/$memberId',
+  path: '/member/$memberId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NfcTokenRoute = NfcTokenRouteImport.update({
+  id: '/nfc/$token',
+  path: '/nfc/$token',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -177,6 +183,7 @@ export interface FileRoutesByFullPath {
   '/qa': typeof QaRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/waitlist': typeof WaitlistRoute
   '/light/about': typeof LightAboutRoute
   '/light/events': typeof LightEventsRoute
   '/light/guests': typeof LightGuestsRoute
@@ -203,6 +210,7 @@ export interface FileRoutesByTo {
   '/qa': typeof QaRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/waitlist': typeof WaitlistRoute
   '/light/about': typeof LightAboutRoute
   '/light/events': typeof LightEventsRoute
   '/light/guests': typeof LightGuestsRoute
@@ -231,6 +239,7 @@ export interface FileRoutesById {
   '/qa': typeof QaRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/waitlist': typeof WaitlistRoute
   '/light/about': typeof LightAboutRoute
   '/light/events': typeof LightEventsRoute
   '/light/guests': typeof LightGuestsRoute
@@ -260,6 +269,7 @@ export interface FileRouteTypes {
     | '/qa'
     | '/resources'
     | '/sitemap.xml'
+    | '/waitlist'
     | '/light/about'
     | '/light/events'
     | '/light/guests'
@@ -286,6 +296,7 @@ export interface FileRouteTypes {
     | '/qa'
     | '/resources'
     | '/sitemap.xml'
+    | '/waitlist'
     | '/light/about'
     | '/light/events'
     | '/light/guests'
@@ -313,6 +324,7 @@ export interface FileRouteTypes {
     | '/qa'
     | '/resources'
     | '/sitemap.xml'
+    | '/waitlist'
     | '/light/about'
     | '/light/events'
     | '/light/guests'
@@ -341,94 +353,18 @@ export interface RootRouteChildren {
   QaRoute: typeof QaRoute
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  WaitlistRoute: typeof WaitlistRoute
   MemberMemberIdRoute: typeof MemberMemberIdRoute
   NfcTokenRoute: typeof NfcTokenRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/qa': {
-      id: '/qa'
-      path: '/qa'
-      fullPath: '/qa'
-      preLoaderRoute: typeof QaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/partners': {
-      id: '/partners'
-      path: '/partners'
-      fullPath: '/partners'
-      preLoaderRoute: typeof PartnersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding': {
-      id: '/onboarding'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof OnboardingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/members': {
-      id: '/members'
-      path: '/members'
-      fullPath: '/members'
-      preLoaderRoute: typeof MembersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/guests': {
-      id: '/guests'
-      path: '/guests'
-      fullPath: '/guests'
-      preLoaderRoute: typeof GuestsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/businesses': {
-      id: '/businesses'
-      path: '/businesses'
-      fullPath: '/businesses'
-      preLoaderRoute: typeof BusinessesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -438,6 +374,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/businesses': {
+      id: '/businesses'
+      path: '/businesses'
+      fullPath: '/businesses'
+      preLoaderRoute: typeof BusinessesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guests': {
+      id: '/guests'
+      path: '/guests'
+      fullPath: '/guests'
+      preLoaderRoute: typeof GuestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/light': {
       id: '/light'
       path: '/light'
@@ -445,11 +416,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LightRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/members': {
+      id: '/members'
+      path: '/members'
+      fullPath: '/members'
+      preLoaderRoute: typeof MembersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/qa': {
+      id: '/qa'
+      path: '/qa'
+      fullPath: '/qa'
+      preLoaderRoute: typeof QaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/waitlist': {
+      id: '/waitlist'
+      path: '/waitlist'
+      fullPath: '/waitlist'
+      preLoaderRoute: typeof WaitlistRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/light/': {
@@ -459,53 +479,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LightIndexRouteImport
       parentRoute: typeof LightRouteRoute
     }
-    '/nfc/$token': {
-      id: '/nfc/$token'
-      path: '/nfc/$token'
-      fullPath: '/nfc/$token'
-      preLoaderRoute: typeof NfcTokenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/member/$memberId': {
-      id: '/member/$memberId'
-      path: '/member/$memberId'
-      fullPath: '/member/$memberId'
-      preLoaderRoute: typeof MemberMemberIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/light/qa': {
-      id: '/light/qa'
-      path: '/qa'
-      fullPath: '/light/qa'
-      preLoaderRoute: typeof LightQaRouteImport
-      parentRoute: typeof LightRouteRoute
-    }
-    '/light/projects': {
-      id: '/light/projects'
-      path: '/projects'
-      fullPath: '/light/projects'
-      preLoaderRoute: typeof LightProjectsRouteImport
-      parentRoute: typeof LightRouteRoute
-    }
-    '/light/partners': {
-      id: '/light/partners'
-      path: '/partners'
-      fullPath: '/light/partners'
-      preLoaderRoute: typeof LightPartnersRouteImport
-      parentRoute: typeof LightRouteRoute
-    }
-    '/light/members': {
-      id: '/light/members'
-      path: '/members'
-      fullPath: '/light/members'
-      preLoaderRoute: typeof LightMembersRouteImport
-      parentRoute: typeof LightRouteRoute
-    }
-    '/light/guests': {
-      id: '/light/guests'
-      path: '/guests'
-      fullPath: '/light/guests'
-      preLoaderRoute: typeof LightGuestsRouteImport
+    '/light/about': {
+      id: '/light/about'
+      path: '/about'
+      fullPath: '/light/about'
+      preLoaderRoute: typeof LightAboutRouteImport
       parentRoute: typeof LightRouteRoute
     }
     '/light/events': {
@@ -515,12 +493,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LightEventsRouteImport
       parentRoute: typeof LightRouteRoute
     }
-    '/light/about': {
-      id: '/light/about'
-      path: '/about'
-      fullPath: '/light/about'
-      preLoaderRoute: typeof LightAboutRouteImport
+    '/light/guests': {
+      id: '/light/guests'
+      path: '/guests'
+      fullPath: '/light/guests'
+      preLoaderRoute: typeof LightGuestsRouteImport
       parentRoute: typeof LightRouteRoute
+    }
+    '/light/members': {
+      id: '/light/members'
+      path: '/members'
+      fullPath: '/light/members'
+      preLoaderRoute: typeof LightMembersRouteImport
+      parentRoute: typeof LightRouteRoute
+    }
+    '/light/partners': {
+      id: '/light/partners'
+      path: '/partners'
+      fullPath: '/light/partners'
+      preLoaderRoute: typeof LightPartnersRouteImport
+      parentRoute: typeof LightRouteRoute
+    }
+    '/light/projects': {
+      id: '/light/projects'
+      path: '/projects'
+      fullPath: '/light/projects'
+      preLoaderRoute: typeof LightProjectsRouteImport
+      parentRoute: typeof LightRouteRoute
+    }
+    '/light/qa': {
+      id: '/light/qa'
+      path: '/qa'
+      fullPath: '/light/qa'
+      preLoaderRoute: typeof LightQaRouteImport
+      parentRoute: typeof LightRouteRoute
+    }
+    '/member/$memberId': {
+      id: '/member/$memberId'
+      path: '/member/$memberId'
+      fullPath: '/member/$memberId'
+      preLoaderRoute: typeof MemberMemberIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nfc/$token': {
+      id: '/nfc/$token'
+      path: '/nfc/$token'
+      fullPath: '/nfc/$token'
+      preLoaderRoute: typeof NfcTokenRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -567,6 +587,7 @@ const rootRouteChildren: RootRouteChildren = {
   QaRoute: QaRoute,
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  WaitlistRoute: WaitlistRoute,
   MemberMemberIdRoute: MemberMemberIdRoute,
   NfcTokenRoute: NfcTokenRoute,
 }

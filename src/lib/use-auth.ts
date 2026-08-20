@@ -30,6 +30,11 @@ async function fetchAuthState(): Promise<{
   const user = data.user;
   if (!user) return { userId: null, email: null, profile: null };
 
+  // Public waitlist applications start without an account. Once the applicant
+  // signs in with the same email, this idempotent claim attaches the row and
+  // activates membership only when an admin has already approved it.
+  await supabase.rpc("claim_waitlist_for_current_user");
+
   const { data: profile } = await supabase
     .from("profiles")
     .select("*")

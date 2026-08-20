@@ -4,6 +4,7 @@ import { corsHeaders, json } from "../_shared/cors.ts";
 type Decision = "approved" | "rejected";
 type WaitlistEntry = {
   id: string;
+  user_id: string | null;
   email: string;
   full_name: string;
   status: "pending" | Decision;
@@ -30,14 +31,22 @@ async function sendDecisionEmail(entry: WaitlistEntry, decision: Decision) {
   const siteUrl = Deno.env.get("PUBLIC_SITE_URL")?.replace(/\/$/, "");
   const name = escapeHtml(entry.full_name);
   const approved = decision === "approved";
+  const needsAccountActivation = approved && !entry.user_id;
   const subject = approved
     ? "You’re in — Welcome to The Room"
     : "An update on your The Room application";
   const heading = approved ? "You’re in the room." : "An update from The Room.";
   const message = approved
-    ? "Your Become a Member application has been approved. Your account now has Member access."
+    ? needsAccountActivation
+      ? "Your Become a Member application has been approved. Sign in or create an account with this same email to activate Member access."
+      : "Your Become a Member application has been approved. Your account now has Member access."
     : "Thank you for asking to join The Room. We are not able to offer Member access at this time.";
-  const action = approved && siteUrl ? `${siteUrl}/onboarding` : null;
+  const action =
+    approved && siteUrl
+      ? needsAccountActivation
+        ? `${siteUrl}/auth?mode=signin`
+        : `${siteUrl}/onboarding`
+      : null;
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",

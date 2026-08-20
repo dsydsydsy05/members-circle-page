@@ -752,7 +752,7 @@ export type Database = {
           reviewed_by: string | null
           status: string
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           admin_note?: string | null
@@ -773,7 +773,7 @@ export type Database = {
           reviewed_by?: string | null
           status?: string
           updated_at?: string
-          user_id: string
+          user_id?: string | null
         }
         Update: {
           admin_note?: string | null
@@ -794,7 +794,7 @@ export type Database = {
           reviewed_by?: string | null
           status?: string
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -872,7 +872,7 @@ export type Database = {
           reviewed_by: string | null
           status: string
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         SetofOptions: {
           from: "*"
@@ -897,6 +897,7 @@ export type Database = {
           state: string
         }[]
       }
+      claim_waitlist_for_current_user: { Args: never; Returns: string | null }
       get_public_directory_counts: {
         Args: never
         Returns: {
@@ -953,7 +954,7 @@ export type Database = {
           reviewed_by: string | null
           status: string
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         SetofOptions: {
           from: "*"
