@@ -775,6 +775,44 @@ export type Database = {
         Args: { _featured: boolean; _order?: number; _profile_id: string }
         Returns: undefined
       }
+      admin_create_nfc_batch: {
+        Args: { _batch_id: string; _count: number }
+        Returns: {
+          serial_no: string
+          token: string
+          url_path: string
+        }[]
+      }
+      admin_disable_nfc_tag: {
+        Args: { _tag_id: string }
+        Returns: boolean
+      }
+      admin_list_nfc_tags: {
+        Args: never
+        Returns: {
+          batch_id: string
+          claimable_until: string | null
+          claimed_at: string | null
+          created_at: string
+          id: string
+          member_name: string | null
+          serial_no: string
+          status: string
+          user_id: string | null
+        }[]
+      }
+      admin_set_nfc_batch_claimable: {
+        Args: { _batch_id: string; _claimable: boolean; _minutes?: number }
+        Returns: number
+      }
+      claim_nfc_tag: {
+        Args: { _token: string }
+        Returns: {
+          member_id: string
+          profile_ready: boolean
+          state: string
+        }[]
+      }
       get_public_directory_counts: {
         Args: never
         Returns: {
@@ -801,6 +839,15 @@ export type Database = {
         }[]
       }
       redeem_invitation_code: { Args: { _code: string }; Returns: boolean }
+      resolve_nfc_tag: {
+        Args: { _token: string }
+        Returns: {
+          member_id: string | null
+          member_no: number | null
+          profile_ready: boolean
+          state: string
+        }[]
+      }
       submit_waitlist: {
         Args: { _full_name: string }
         Returns: {

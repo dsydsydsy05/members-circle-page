@@ -33,6 +33,7 @@ import { Route as LightPartnersRouteImport } from './routes/light/partners'
 import { Route as LightProjectsRouteImport } from './routes/light/projects'
 import { Route as LightQaRouteImport } from './routes/light/qa'
 import { Route as MemberMemberIdRouteImport } from './routes/member.$memberId'
+import { Route as NfcTokenRouteImport } from './routes/nfc.$token'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -154,6 +155,11 @@ const MemberMemberIdRoute = MemberMemberIdRouteImport.update({
   path: '/member/$memberId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NfcTokenRoute = NfcTokenRouteImport.update({
+  id: '/nfc/$token',
+  path: '/nfc/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -179,6 +185,7 @@ export interface FileRoutesByFullPath {
   '/light/projects': typeof LightProjectsRoute
   '/light/qa': typeof LightQaRoute
   '/member/$memberId': typeof MemberMemberIdRoute
+  '/nfc/$token': typeof NfcTokenRoute
   '/light/': typeof LightIndexRoute
 }
 export interface FileRoutesByTo {
@@ -204,6 +211,7 @@ export interface FileRoutesByTo {
   '/light/projects': typeof LightProjectsRoute
   '/light/qa': typeof LightQaRoute
   '/member/$memberId': typeof MemberMemberIdRoute
+  '/nfc/$token': typeof NfcTokenRoute
   '/light': typeof LightIndexRoute
 }
 export interface FileRoutesById {
@@ -231,6 +239,7 @@ export interface FileRoutesById {
   '/light/projects': typeof LightProjectsRoute
   '/light/qa': typeof LightQaRoute
   '/member/$memberId': typeof MemberMemberIdRoute
+  '/nfc/$token': typeof NfcTokenRoute
   '/light/': typeof LightIndexRoute
 }
 export interface FileRouteTypes {
@@ -259,6 +268,7 @@ export interface FileRouteTypes {
     | '/light/projects'
     | '/light/qa'
     | '/member/$memberId'
+    | '/nfc/$token'
     | '/light/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -284,6 +294,7 @@ export interface FileRouteTypes {
     | '/light/projects'
     | '/light/qa'
     | '/member/$memberId'
+    | '/nfc/$token'
     | '/light'
   id:
     | '__root__'
@@ -310,6 +321,7 @@ export interface FileRouteTypes {
     | '/light/projects'
     | '/light/qa'
     | '/member/$memberId'
+    | '/nfc/$token'
     | '/light/'
   fileRoutesById: FileRoutesById
 }
@@ -330,6 +342,7 @@ export interface RootRouteChildren {
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   MemberMemberIdRoute: typeof MemberMemberIdRoute
+  NfcTokenRoute: typeof NfcTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -502,6 +515,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MemberMemberIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nfc/$token': {
+      id: '/nfc/$token'
+      path: '/nfc/$token'
+      fullPath: '/nfc/$token'
+      preLoaderRoute: typeof NfcTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -548,6 +568,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   MemberMemberIdRoute: MemberMemberIdRoute,
+  NfcTokenRoute: NfcTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

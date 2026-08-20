@@ -1,10 +1,20 @@
 import { useState } from "react";
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { LightSiteFooter, LightSiteNav } from "@/components/light/LightSite";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
+import { safeAuthMode, safeNfcReturnPath } from "@/lib/safe-return";
+
+type AuthSearch = {
+  mode?: "signin" | "signup";
+  next?: string;
+};
 
 export const Route = createFileRoute("/auth")({
+  validateSearch: (search: Record<string, unknown>): AuthSearch => ({
+    mode: safeAuthMode(search.mode),
+    next: safeNfcReturnPath(search.next),
+  }),
   head: () => ({
     meta: [
       { title: "Sign in · The Room" },
@@ -23,8 +33,9 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
-  const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const search = Route.useSearch();
+  const next = safeNfcReturnPath(search.next);
+  const [mode, setMode] = useState<"signin" | "signup">(safeAuthMode(search.mode));
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -41,16 +52,16 @@ function AuthPage() {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: `${window.location.origin}/onboarding` },
+          options: { emailRedirectTo: new URL(next, window.location.origin).toString() },
         });
         if (error) throw error;
         const { data: session } = await supabase.auth.getSession();
-        if (session.session) navigate({ to: "/onboarding" });
+        if (session.session) window.location.assign(next);
         else setNotice("Check your inbox to confirm your email, then sign in.");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate({ to: "/onboarding" });
+        window.location.assign(next);
       }
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Something went wrong");
@@ -65,13 +76,13 @@ function AuthPage() {
     setNotice(null);
     try {
       const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: `${window.location.origin}/onboarding`,
+        redirect_uri: new URL(next, window.location.origin).toString(),
       });
       if (result.error) {
         setError(result.error.message ?? "Google sign-in failed");
         return;
       }
-      if (!result.redirected) navigate({ to: "/onboarding" });
+      if (!result.redirected) window.location.assign(next);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Google sign-in failed");
     } finally {

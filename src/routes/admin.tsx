@@ -14,6 +14,7 @@ import {
   AdminQASection,
   AdminWaitlistSection,
 } from "@/components/admin/AdminCommunitySections";
+import { AdminNfcSection } from "@/components/admin/AdminNfcSection";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -694,6 +695,7 @@ const TABS = [
   { id: "qa", label: "Q&A" },
   { id: "waitlist", label: "Waitlist" },
   { id: "moderation", label: "Moderation" },
+  { id: "nfc", label: "NFC passes" },
   { id: "members", label: "Members" },
   { id: "businesses", label: "Family businesses" },
 ];
@@ -752,6 +754,8 @@ function AdminPage() {
                 <AdminWaitlistSection />
               ) : tab === "moderation" ? (
                 <AdminModerationSection />
+              ) : tab === "nfc" ? (
+                <AdminNfcSection />
               ) : tab === "members" ? (
                 <MembersSection />
               ) : (

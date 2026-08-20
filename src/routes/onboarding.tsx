@@ -7,8 +7,16 @@ import { MemberPortalShell } from "@/components/light/LightMemberPortal";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/use-auth";
+import { safeNfcReturnPath } from "@/lib/safe-return";
+
+type OnboardingSearch = {
+  next?: string;
+};
 
 export const Route = createFileRoute("/onboarding")({
+  validateSearch: (search: Record<string, unknown>): OnboardingSearch => ({
+    next: safeNfcReturnPath(search.next, "/members"),
+  }),
   head: () => ({
     meta: [
       { title: "Your member card · The Room" },
@@ -31,6 +39,8 @@ export const Route = createFileRoute("/onboarding")({
 
 function OnboardingPage() {
   const navigate = useNavigate();
+  const search = Route.useSearch();
+  const next = safeNfcReturnPath(search.next, "/members");
   const { loading, isSignedIn, isMember, profile, email, refresh } = useAuth();
   const [step, setStep] = useState<"code" | "form">("code");
 
@@ -58,6 +68,7 @@ function OnboardingPage() {
           </p>
           <Link
             to="/auth"
+            search={{ mode: "signin", next }}
             className="mt-6 inline-block rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
             Go to sign in
@@ -87,7 +98,7 @@ function OnboardingPage() {
             initial={profile}
             onSaved={async () => {
               await refresh();
-              navigate({ to: "/members" });
+              window.location.assign(next);
             }}
           />
         )}
