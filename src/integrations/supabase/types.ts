@@ -14,6 +14,89 @@ export type Database = {
   }
   public: {
     Tables: {
+      community_notifications: {
+        Row: {
+          actor_id: string
+          attempts: number
+          connection_id: string
+          created_at: string
+          error: string | null
+          id: string
+          kind: string
+          provider_id: string | null
+          recipient_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          actor_id: string
+          attempts?: number
+          connection_id: string
+          created_at?: string
+          error?: string | null
+          id?: string
+          kind: string
+          provider_id?: string | null
+          recipient_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          actor_id?: string
+          attempts?: number
+          connection_id?: string
+          created_at?: string
+          error?: string | null
+          id?: string
+          kind?: string
+          provider_id?: string | null
+          recipient_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_notifications_connection_id_fkey"
+            columns: ["connection_id"]
+            isOneToOne: false
+            referencedRelation: "member_connections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      community_reports: {
+        Row: {
+          created_at: string
+          id: string
+          reason: string
+          reporter_id: string
+          resolved_at: string | null
+          status: string
+          target_id: string
+          target_type: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          reason: string
+          reporter_id: string
+          resolved_at?: string | null
+          status?: string
+          target_id: string
+          target_type: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          reason?: string
+          reporter_id?: string
+          resolved_at?: string | null
+          status?: string
+          target_id?: string
+          target_type?: string
+        }
+        Relationships: []
+      }
       event_photos: {
         Row: {
           caption: string
@@ -294,6 +377,84 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      member_blocks: {
+        Row: {
+          blocked_id: string
+          blocker_id: string
+          created_at: string
+        }
+        Insert: {
+          blocked_id: string
+          blocker_id: string
+          created_at?: string
+        }
+        Update: {
+          blocked_id?: string
+          blocker_id?: string
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_blocks_blocked_id_fkey"
+            columns: ["blocked_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "member_blocks_blocker_id_fkey"
+            columns: ["blocker_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      member_connections: {
+        Row: {
+          created_at: string
+          id: string
+          reason: string
+          recipient_id: string
+          sender_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          reason: string
+          recipient_id: string
+          sender_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          reason?: string
+          recipient_id?: string
+          sender_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_connections_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "member_connections_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       member_contact_reveal_events: {
         Row: {
@@ -713,6 +874,7 @@ export type Database = {
           created_at: string
           deleted_at: string | null
           deleted_by: string | null
+          guest_id: string | null
           id: string
           published_by: string
           question_id: string
@@ -722,12 +884,14 @@ export type Database = {
           responder_type: string
           status: string
           updated_at: string
+          version: number
         }
         Insert: {
           body: string
           created_at?: string
           deleted_at?: string | null
           deleted_by?: string | null
+          guest_id?: string | null
           id?: string
           published_by: string
           question_id: string
@@ -737,12 +901,14 @@ export type Database = {
           responder_type: string
           status?: string
           updated_at?: string
+          version?: number
         }
         Update: {
           body?: string
           created_at?: string
           deleted_at?: string | null
           deleted_by?: string | null
+          guest_id?: string | null
           id?: string
           published_by?: string
           question_id?: string
@@ -752,13 +918,71 @@ export type Database = {
           responder_type?: string
           status?: string
           updated_at?: string
+          version?: number
         }
         Relationships: [
+          {
+            foreignKeyName: "qa_answers_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "qa_answers_question_id_fkey"
             columns: ["question_id"]
             isOneToOne: false
             referencedRelation: "qa_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      qa_approvals: {
+        Row: {
+          answer_body: string
+          answer_id: string
+          created_at: string
+          decided_at: string | null
+          expires_at: string
+          guest_name: string
+          guest_title: string | null
+          id: string
+          status: string
+          token_hash: string
+          version: number
+        }
+        Insert: {
+          answer_body: string
+          answer_id: string
+          created_at?: string
+          decided_at?: string | null
+          expires_at?: string
+          guest_name: string
+          guest_title?: string | null
+          id?: string
+          status?: string
+          token_hash: string
+          version: number
+        }
+        Update: {
+          answer_body?: string
+          answer_id?: string
+          created_at?: string
+          decided_at?: string | null
+          expires_at?: string
+          guest_name?: string
+          guest_title?: string | null
+          id?: string
+          status?: string
+          token_hash?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "qa_approvals_answer_id_fkey"
+            columns: ["answer_id"]
+            isOneToOne: false
+            referencedRelation: "qa_answers"
             referencedColumns: ["id"]
           },
         ]
@@ -1024,6 +1248,28 @@ export type Database = {
       }
       reveal_member_contact_email: {
         Args: { _profile_id: string }
+        Returns: string
+      }
+      room_blocked: { Args: { _a: string; _b: string }; Returns: boolean }
+      room_connections: {
+        Args: { _action: string; _payload?: Json }
+        Returns: Json
+      }
+      room_guest_approval: {
+        Args: { _decision?: string; _token: string }
+        Returns: Json
+      }
+      room_is_member: { Args: { _id: string }; Returns: boolean }
+      room_moderation_admin: {
+        Args: { _action: string; _payload?: Json }
+        Returns: Json
+      }
+      room_qa_admin: {
+        Args: { _action: string; _payload?: Json }
+        Returns: Json
+      }
+      room_report: {
+        Args: { _id: string; _reason: string; _type: string }
         Returns: string
       }
       submit_waitlist: {
