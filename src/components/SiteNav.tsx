@@ -3,9 +3,11 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { LiquidGlassButton } from "@/components/LiquidGlassButton";
 import { useAuth, signOut } from "@/lib/use-auth";
+import { useConnections } from "@/lib/community";
 import { useIsAdmin } from "@/lib/use-admin";
 
 const spaceLinks = [
+  { to: "/connections", label: "Connections" },
   { to: "/members", label: "Directory" },
   { to: "/resources", label: "Factory List" },
   { to: "/businesses", label: "Family Business" },
@@ -20,8 +22,12 @@ export function SiteNav({
   space?: "public" | "member";
 }) {
   const [scrolled, setScrolled] = useState(false);
-  const { loading, isSignedIn, isMember } = useAuth();
+  const { loading, isSignedIn, isMember, userId } = useAuth();
   const { isAdmin } = useIsAdmin();
+  const { data: connections = [] } = useConnections();
+  const pending = connections.filter(
+    (c) => c.recipient_id === userId && c.status === "pending",
+  ).length;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -62,6 +68,7 @@ export function SiteNav({
               activeProps={{ className: "site-nav__link site-nav__link--active" }}
             >
               {link.label}
+              {link.to === "/connections" && pending > 0 ? ` (${pending})` : ""}
             </Link>
           ))}
         </nav>

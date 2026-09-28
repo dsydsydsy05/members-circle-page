@@ -34,11 +34,13 @@ export function LightEventStudies({
         const coverSrc = isPast
           ? event.cover_url || editorialCovers[index % editorialCovers.length]
           : upcomingCoverByTitle[event.title] || editorialCovers[index % editorialCovers.length];
-        const isPoster = coverSrc.includes("waic-founders-dinner");
+        const isPoster =
+          event.cover_display === "poster" || coverSrc.includes("waic-founders-dinner");
         const content = (
           <>
             <span className="light-event-study__index">
-              Event / {String(index + 1).padStart(2, "0")}
+              {isPast ? "Past event" : "Event"} /{" "}
+              {String(isPast ? (event.archive_number ?? index + 1) : index + 1).padStart(2, "0")}
             </span>
             <span
               className={`light-event-study__visual ${
@@ -50,7 +52,7 @@ export function LightEventStudies({
                   isPoster ? "light-event-study__image--poster" : ""
                 }`}
                 src={coverSrc}
-                alt=""
+                alt={isPoster ? `${event.title} invitation poster` : event.title}
               />
               {overlayLabel ? (
                 <span className="light-event-study__coming">{overlayLabel}</span>

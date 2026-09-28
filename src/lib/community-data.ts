@@ -6,6 +6,8 @@ export type Member = {
   role: string;
   city: string;
   bio: string;
+  conversationTopics?: string;
+  building?: string;
   tags: string[];
   website: string;
   linkedinUrl: string;

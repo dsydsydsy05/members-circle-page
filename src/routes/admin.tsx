@@ -1,3 +1,4 @@
+import { AdminCommunitySafety } from "@/components/admin/AdminAnswerDesk";
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -86,6 +87,18 @@ const SECTIONS: {
       },
       { key: "cover_url", label: "Cover image", type: "image" },
       { key: "detail_image_url", label: "Detail image", type: "image" },
+      { key: "attendance_label", label: "At the table (e.g. 19 founders)" },
+      { key: "image_alt", label: "Photo description" },
+      { key: "cover_caption", label: "Cover caption" },
+      {
+        key: "cover_display",
+        label: "Cover display",
+        type: "select",
+        options: [
+          { value: "photo", label: "Photo" },
+          { value: "poster", label: "Full poster" },
+        ],
+      },
       { key: "summary", label: "Short introduction", type: "textarea" },
       { key: "body", label: "Event story", type: "textarea" },
       { key: "sort_order", label: "Order", type: "number" },
@@ -97,6 +110,10 @@ const SECTIONS: {
       city: "",
       status: "upcoming",
       cover_url: "",
+      cover_display: "photo",
+      attendance_label: "",
+      image_alt: "",
+      cover_caption: "",
       detail_image_url: "",
       summary: "",
       body: "",
@@ -109,6 +126,8 @@ const SECTIONS: {
     fields: [
       { key: "name", label: "Name" },
       { key: "title", label: "Title" },
+      { key: "avatar_url", label: "Approved portrait", type: "image" },
+      { key: "bio", label: "Approved biography", type: "textarea" },
       { key: "event", label: "Event" },
       { key: "date_label", label: "Date" },
       { key: "sort_order", label: "Order", type: "number" },
@@ -753,7 +772,10 @@ function AdminPage() {
               ) : tab === "waitlist" ? (
                 <AdminWaitlistSection />
               ) : tab === "moderation" ? (
-                <AdminModerationSection />
+                <>
+                  <AdminModerationSection />
+                  <AdminCommunitySafety />
+                </>
               ) : tab === "nfc" ? (
                 <AdminNfcSection />
               ) : tab === "members" ? (

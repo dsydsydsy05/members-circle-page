@@ -147,7 +147,7 @@ export function LightMemberDossier({
               )}
             </div>
             <div>
-              <p className="light-dossier__annotation">Verified member / Boston archive</p>
+              <p className="light-dossier__annotation">Member / The Room archive</p>
               <h2>{member.name}</h2>
               <p className="light-dossier__role">{member.role}</p>
               {member.city ? <p className="light-dossier__school">{member.city}</p> : null}
@@ -155,20 +155,25 @@ export function LightMemberDossier({
           </div>
           <div className="light-dossier__body">
             <div>
-              <span>About</span>
-              <p>{member.bio || "This member is still writing their note for the archive."}</p>
+              <span>My story</span>
+              {member.bio ? <p>{member.bio}</p> : <p>This member has not added their story yet.</p>}
             </div>
             <div>
               <span>Working on</span>
+              {member.building ? <p>{member.building}</p> : null}
               <div className="light-dossier__tags">
-                {member.tags.length ? (
-                  member.tags.map((tag) => <b key={tag}>{tag}</b>)
-                ) : (
-                  <b>In progress</b>
-                )}
+                {member.tags.length ? member.tags.map((tag) => <b key={tag}>{tag}</b>) : null}
               </div>
             </div>
           </div>
+          {member.conversationTopics ? (
+            <div className="light-dossier__body">
+              <div>
+                <span>I’d love to talk about</span>
+                <p>{member.conversationTopics}</p>
+              </div>
+            </div>
+          ) : null}
           <MemberContactLinks
             memberId={member.id}
             linkedinUrl={member.linkedinUrl}

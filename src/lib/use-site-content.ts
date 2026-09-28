@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { previewPendingEvents } from "./pending-event-preview";
 import { supabase } from "@/integrations/supabase/client";
 
 export type EventRow = {
@@ -9,6 +10,11 @@ export type EventRow = {
   city: string;
   status: string;
   cover_url: string | null;
+  attendance_label?: string | null;
+  archive_number?: number | null;
+  image_alt?: string | null;
+  cover_caption?: string | null;
+  cover_display?: "photo" | "poster";
   detail_image_url?: string | null;
   summary?: string | null;
   body?: string | null;
@@ -16,6 +22,8 @@ export type EventRow = {
 };
 
 export type GuestRow = {
+  avatar_url?: string | null;
+  bio?: string | null;
   id: string;
   name: string;
   title: string;
@@ -81,7 +89,12 @@ function contentQuery<T>(table: ContentTable) {
 }
 
 export function useEvents() {
-  return useQuery(contentQuery<EventRow>("events"));
+  return useQuery({
+    ...contentQuery<EventRow>("events"),
+    // Local browser previews must show authored content before remote migration.
+    // Production and the admin's raw content cache keep using database records.
+    select: import.meta.env.DEV ? previewPendingEvents : undefined,
+  });
 }
 export function useGuests() {
   return useQuery(contentQuery<GuestRow>("guests"));

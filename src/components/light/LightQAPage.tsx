@@ -1,3 +1,4 @@
+import { ReportButton } from "./CommunityControls";
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -17,6 +18,8 @@ type AnswerRow = {
   body: string;
   responder_name: string;
   responder_title: string | null;
+  responder_avatar_url: string | null;
+  guest_id: string | null;
   responder_type: "admin" | "guest";
   created_at: string;
 };
@@ -32,6 +35,7 @@ function friendlyDate(value: string) {
 export function LightQAPage() {
   const queryClient = useQueryClient();
   const { isSignedIn, loading: authLoading } = useAuth();
+  const [filter, setFilter] = useState<"all" | "answered" | "waiting">("all");
   const [body, setBody] = useState("");
   const [composerOpen, setComposerOpen] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -50,7 +54,7 @@ export function LightQAPage() {
         supabase
           .from("qa_answers")
           .select(
-            "id, question_id, body, responder_name, responder_title, responder_type, created_at",
+            "id, question_id, body, responder_name, responder_title, responder_type, responder_avatar_url, guest_id, created_at",
           )
           .eq("status", "published")
           .order("created_at", { ascending: true }),
@@ -72,6 +76,14 @@ export function LightQAPage() {
     }
     return grouped;
   }, [data?.answers]);
+
+  const visibleQuestions = (data?.questions ?? []).filter(
+    (question) =>
+      filter === "all" ||
+      (filter === "answered"
+        ? !!answersByQuestion.get(question.id)?.length
+        : !answersByQuestion.get(question.id)?.length),
+  );
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -98,7 +110,7 @@ export function LightQAPage() {
           index="05"
           eyebrow="Questions / Answers"
           title="Ask what matters."
-          copy="Questions are anonymous in public. Answers come from guests and The Room team."
+          copy="Anonymous questions. Thoughtful answers, shared with permission."
           tools={
             <div className="light-qa-hero-action">
               {authLoading ? (
@@ -116,7 +128,11 @@ export function LightQAPage() {
                   {composerOpen ? "Close question" : "Ask a question ↗"}
                 </button>
               ) : (
-                <Link className="light-button light-button--small" to="/auth">
+                <Link
+                  className="light-button light-button--small"
+                  to="/auth"
+                  search={{ mode: "signin", next: "/qa" }}
+                >
                   Sign in to ask ↗
                 </Link>
               )}
@@ -137,6 +153,10 @@ export function LightQAPage() {
                 <h2>What do you need to know?</h2>
               </div>
               <form onSubmit={submit}>
+                <p>
+                  Your name is hidden from the public. The Room team can access your account for
+                  moderation.
+                </p>
                 <label htmlFor="qa-question">Your question</label>
                 <textarea
                   id="qa-question"
@@ -161,7 +181,22 @@ export function LightQAPage() {
         <section className="light-qa-index">
           <div className="light-shell">
             <header className="light-qa-index__head">
-              <span>Open questions</span>
+              <nav className="room-tabs" aria-label="Question filters">
+                {(["all", "waiting", "answered"] as const).map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    aria-pressed={filter === value}
+                    onClick={() => setFilter(value)}
+                  >
+                    {value === "waiting"
+                      ? "Awaiting answers"
+                      : value === "answered"
+                        ? "Answered"
+                        : "All questions"}
+                  </button>
+                ))}
+              </nav>
               <strong>{String(data?.questions.length ?? 0).padStart(3, "0")}</strong>
             </header>
             {isLoading ? (
@@ -170,21 +205,26 @@ export function LightQAPage() {
               <p className="light-qa-empty">
                 Q&amp;A is prepared locally and will open after its database migration is applied.
               </p>
-            ) : !data?.questions.length ? (
-              <p className="light-qa-empty">No questions yet. The first one can be yours.</p>
+            ) : !visibleQuestions.length ? (
+              <p className="light-qa-empty">
+                {filter === "all"
+                  ? "No questions yet. The first one can be yours."
+                  : "No questions in this view yet."}
+              </p>
             ) : (
               <ol className="light-qa-list">
-                {data.questions.map((question, index) => {
+                {visibleQuestions.map((question, index) => {
                   const answers = answersByQuestion.get(question.id) ?? [];
                   return (
-                    <li key={question.id}>
+                    <li key={question.id} id={`question-${question.id}`}>
                       <article className="light-qa-question">
                         <div className="light-qa-question__meta">
                           <span>Q / {String(index + 1).padStart(2, "0")}</span>
                           <time>{friendlyDate(question.created_at)}</time>
                         </div>
                         <h3>{question.body}</h3>
-                        <span className="light-qa-question__author">Anonymous member</span>
+                        <span className="light-qa-question__author">Anonymous participant</span>
+                        <ReportButton type="question" id={question.id} />
                       </article>
                       {answers.length ? (
                         <div className="light-qa-answers">
@@ -192,10 +232,28 @@ export function LightQAPage() {
                             <article key={answer.id}>
                               <div className="light-qa-answer__byline">
                                 <span>A / {answer.responder_type}</span>
-                                <strong>{answer.responder_name}</strong>
+                                {answer.guest_id ? (
+                                  <Link
+                                    to="/guest/$guestId"
+                                    params={{ guestId: answer.guest_id }}
+                                    className="room-answer-person"
+                                  >
+                                    {answer.responder_avatar_url ? (
+                                      <img src={answer.responder_avatar_url} alt="" />
+                                    ) : (
+                                      <span className="room-avatar">
+                                        {answer.responder_name.slice(0, 1)}
+                                      </span>
+                                    )}
+                                    <strong>{answer.responder_name} ↗</strong>
+                                  </Link>
+                                ) : (
+                                  <strong>{answer.responder_name}</strong>
+                                )}
                                 {answer.responder_title ? <em>{answer.responder_title}</em> : null}
                               </div>
                               <p>{answer.body}</p>
+                              <ReportButton type="answer" id={answer.id} />
                             </article>
                           ))}
                         </div>

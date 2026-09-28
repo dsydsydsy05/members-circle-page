@@ -206,10 +206,18 @@ export function LightGuestsPage() {
                 <article key={guest.id} className="light-guest-file">
                   <span>Conversation / {String(index + 1).padStart(2, "0")}</span>
                   <div className="light-guest-file__portrait" aria-hidden="true">
-                    {guest.name.slice(0, 1)}
+                    {guest.avatar_url ? (
+                      <img src={guest.avatar_url} alt="" />
+                    ) : (
+                      guest.name.slice(0, 1)
+                    )}
                   </div>
                   <div>
-                    <h2>{guest.name}</h2>
+                    <h2>
+                      <Link to="/guest/$guestId" params={{ guestId: guest.id }}>
+                        {guest.name} ↗
+                      </Link>
+                    </h2>
                     <p>{guest.title}</p>
                   </div>
                   <footer>

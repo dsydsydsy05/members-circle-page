@@ -17,7 +17,7 @@ export function useCommunityMembers(): { members: Member[]; loading: boolean } {
     queryKey: ["community-profiles"],
     queryFn: async () => {
       const contactFields =
-        "id, member_no, full_name, avatar_url, school, startup, position, website, linkedin_url, contact_email_mask, tags, about, home_featured, home_featured_order, created_at";
+        "id, member_no, full_name, avatar_url, school, startup, position, website, linkedin_url, contact_email_mask, conversation_topics, tags, about, home_featured, home_featured_order, created_at";
       const fields =
         "id, member_no, full_name, avatar_url, school, startup, position, website, tags, about, home_featured, home_featured_order, created_at";
       const legacyFields =
@@ -29,7 +29,9 @@ export function useCommunityMembers(): { members: Member[]; loading: boolean } {
         .order("created_at", { ascending: false });
       if (
         error?.code === "42703" &&
-        (error.message.includes("linkedin_url") || error.message.includes("contact_email_mask"))
+        (error.message.includes("linkedin_url") ||
+          error.message.includes("contact_email_mask") ||
+          error.message.includes("conversation_topics"))
       ) {
         const fallback = await supabase
           .from("profiles")
@@ -65,6 +67,8 @@ export function useCommunityMembers(): { members: Member[]; loading: boolean } {
       role: [p.position, p.startup].filter(Boolean).join(" · ") || "Member",
       city: p.school ?? "",
       bio: p.about ?? "",
+      building: p.startup ?? "",
+      conversationTopics: "conversation_topics" in p ? String(p.conversation_topics || "") : "",
       tags: p.tags ?? [],
       website: p.website ?? "",
       linkedinUrl: "linkedin_url" in p ? (p.linkedin_url ?? "") : "",

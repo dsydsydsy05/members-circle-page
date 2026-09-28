@@ -14,6 +14,7 @@ export type Profile = {
   contact_email_mask: string | null;
   tags: string[];
   about: string | null;
+  conversation_topics?: string | null;
   member_no: number | null;
   is_member: boolean;
   onboarded: boolean;

@@ -283,6 +283,7 @@ type ProfileLike = {
   position: string | null;
   website: string | null;
   linkedin_url: string | null;
+  conversation_topics?: string | null;
   tags: string[];
   about: string | null;
 } | null;
@@ -318,8 +319,9 @@ function ProfileForm({
   const [position, setPosition] = useState(initial?.position ?? "");
   const [website, setWebsite] = useState(initial?.website ?? "");
   const [linkedin, setLinkedin] = useState(initial?.linkedin_url ?? "");
-  const [contactEmail, setContactEmail] = useState(accountEmail);
+  const [contactEmail, setContactEmail] = useState("");
   const [tags, setTags] = useState((initial?.tags ?? []).join(", "));
+  const [topics, setTopics] = useState(initial?.conversation_topics ?? "");
   const [about, setAbout] = useState(initial?.about ?? "");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -386,6 +388,7 @@ function ProfileForm({
           .map((t) => t.trim())
           .filter(Boolean)
           .slice(0, 6),
+        conversation_topics: topics.trim().slice(0, 400) || null,
         about: about.trim().slice(0, 400) || null,
         onboarded: true,
       })
@@ -527,7 +530,8 @@ function ProfileForm({
               maxLength={320}
             />
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              Public pages show a mask. Only signed-in members can reveal the full address.
+              Only members you connect with can view this email. Sending or accepting a request
+              authorizes mutual sharing. Your login email is not shared automatically.
             </p>
           </div>
         </div>
@@ -559,6 +563,20 @@ function ProfileForm({
           />
         </div>
 
+        <div>
+          <label htmlFor="conversation-topics" className={label}>
+            I’d love to talk about
+          </label>
+          <textarea
+            id="conversation-topics"
+            className={field}
+            rows={3}
+            maxLength={400}
+            value={topics}
+            onChange={(e) => setTopics(e.target.value)}
+            placeholder="A challenge, an interest, or an idea you’d like to explore."
+          />
+        </div>
         <FamilyBusinessSection defaultOwner={fullName} />
 
         {error && <p className="text-sm text-red-400">{error}</p>}

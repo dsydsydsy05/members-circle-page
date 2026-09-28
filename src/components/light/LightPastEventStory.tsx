@@ -93,25 +93,30 @@ export function LightPastEventStory({
         className="light-event-story"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="waic-event-story-title"
+        aria-labelledby="event-story-title"
         tabIndex={-1}
       >
         <header className="light-event-story__hero">
-          <img src={heroImage} alt="Guests gathering at The Room founder dinner in Shanghai" />
+          <img src={heroImage} alt={mountedEvent.image_alt || mountedEvent.title} />
           <button type="button" className="light-event-story__close" onClick={onClose}>
             Close <span aria-hidden="true">×</span>
           </button>
           <div className="light-event-story__heading">
-            <p>Past event · Shanghai</p>
-            <h2 id="waic-event-story-title">{mountedEvent.title}</h2>
+            <p>Past event · {mountedEvent.city}</p>
+            <h2 id="event-story-title">{mountedEvent.title}</h2>
             <span>{mountedEvent.summary}</span>
           </div>
         </header>
 
         <div className="light-event-story__content">
           <div className="light-event-story__file-line">
-            <span>The Room / Event archive</span>
-            <span>File 001 / WAIC 2026</span>
+            <span>
+              The Room /{" "}
+              {mountedEvent.archive_number
+                ? `Past event ${String(mountedEvent.archive_number).padStart(2, "0")}`
+                : "Event archive"}
+            </span>
+            <span>{mountedEvent.date_label}</span>
           </div>
 
           <dl className="light-event-story__facts">
@@ -129,7 +134,7 @@ export function LightPastEventStory({
             </div>
             <div>
               <dt>At the table</dt>
-              <dd>30 guests</dd>
+              <dd>{mountedEvent.attendance_label || "By invitation"}</dd>
             </div>
           </dl>
 
@@ -142,7 +147,9 @@ export function LightPastEventStory({
           </div>
 
           <footer className="light-event-story__footer">
-            <span>Filed in Shanghai / July 2026</span>
+            <span>
+              Filed in {mountedEvent.city} / {mountedEvent.date_label}
+            </span>
             <button type="button" onClick={onClose}>
               Return to Events ↑
             </button>

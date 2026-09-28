@@ -34,19 +34,22 @@ Deno.serve(async (request) => {
     }
 
     const tenMinutesAgo = new Date(Date.now() - 10 * 60_000).toISOString();
-    const { count } = await serviceClient
+    const { count, error: countError } = await serviceClient
       .from("qa_questions")
       .select("id", { count: "exact", head: true })
       .eq("author_id", userData.user.id)
       .gte("created_at", tenMinutesAgo);
+    if (countError) throw countError;
     if ((count ?? 0) >= 3) {
       return json({ error: "Please wait before sending another question." }, 429);
     }
 
-    const [{ data: terms }, { data: domains }] = await Promise.all([
-      serviceClient.from("moderation_terms").select("*").eq("active", true),
-      serviceClient.from("moderation_domains").select("*").eq("active", true),
-    ]);
+    const [{ data: terms, error: termsError }, { data: domains, error: domainsError }] =
+      await Promise.all([
+        serviceClient.from("moderation_terms").select("*").eq("active", true),
+        serviceClient.from("moderation_domains").select("*").eq("active", true),
+      ]);
+    if (termsError || domainsError) throw termsError || domainsError;
     const result = moderateText(
       body,
       (terms ?? []) as ModerationTerm[],
@@ -69,12 +72,13 @@ Deno.serve(async (request) => {
 
     const normalized = normalizeModerationText(body).normalized;
     const yesterday = new Date(Date.now() - 24 * 60 * 60_000).toISOString();
-    const { data: recent } = await serviceClient
+    const { data: recent, error: recentError } = await serviceClient
       .from("qa_questions")
       .select("body")
       .eq("author_id", userData.user.id)
       .gte("created_at", yesterday)
       .neq("status", "deleted");
+    if (recentError) throw recentError;
     if (
       (recent ?? []).some(
         (question) => normalizeModerationText(question.body).normalized === normalized,

@@ -74,11 +74,18 @@ function MemberProfilePage() {
                   </p>
                   <div className="mt-10 max-w-2xl border-t border-black/20 pt-6">
                     <div className="font-mono text-[10px] uppercase tracking-[.16em] text-black/45">
-                      What they’re building
+                      Their story
                     </div>
                     <p className="mt-4 text-xl leading-relaxed sm:text-2xl">
                       {member.bio || "Profile statement not yet added."}
                     </p>
+                    {member.building && <p className="mt-6">Working on / {member.building}</p>}
+                    {member.conversationTopics && (
+                      <div className="mt-6">
+                        <h2>I’d love to talk about</h2>
+                        <p>{member.conversationTopics}</p>
+                      </div>
+                    )}
                     {member.website ? (
                       <a
                         href={
