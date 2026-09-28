@@ -43,13 +43,18 @@ export type Database = {
       }
       events: {
         Row: {
+          archive_number: number | null
+          attendance_label: string | null
           body: string | null
           city: string
+          cover_caption: string | null
+          cover_display: string
           cover_url: string | null
           created_at: string
           date_label: string
           detail_image_url: string | null
           id: string
+          image_alt: string | null
           slug: string | null
           sort_order: number
           status: string
@@ -58,13 +63,18 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          archive_number?: number | null
+          attendance_label?: string | null
           body?: string | null
           city?: string
+          cover_caption?: string | null
+          cover_display?: string
           cover_url?: string | null
           created_at?: string
           date_label?: string
           detail_image_url?: string | null
           id?: string
+          image_alt?: string | null
           slug?: string | null
           sort_order?: number
           status?: string
@@ -73,13 +83,18 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          archive_number?: number | null
+          attendance_label?: string | null
           body?: string | null
           city?: string
+          cover_caption?: string | null
+          cover_display?: string
           cover_url?: string | null
           created_at?: string
           date_label?: string
           detail_image_url?: string | null
           id?: string
+          image_alt?: string | null
           slug?: string | null
           sort_order?: number
           status?: string
@@ -175,6 +190,8 @@ export type Database = {
       }
       guests: {
         Row: {
+          avatar_url: string | null
+          bio: string | null
           created_at: string
           date_label: string
           event: string
@@ -185,6 +202,8 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          avatar_url?: string | null
+          bio?: string | null
           created_at?: string
           date_label?: string
           event?: string
@@ -195,6 +214,8 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          avatar_url?: string | null
+          bio?: string | null
           created_at?: string
           date_label?: string
           event?: string
@@ -625,6 +646,7 @@ export type Database = {
           about: string | null
           avatar_url: string | null
           contact_email_mask: string | null
+          conversation_topics: string | null
           created_at: string
           full_name: string | null
           home_featured: boolean
@@ -645,6 +667,7 @@ export type Database = {
           about?: string | null
           avatar_url?: string | null
           contact_email_mask?: string | null
+          conversation_topics?: string | null
           created_at?: string
           full_name?: string | null
           home_featured?: boolean
@@ -665,6 +688,7 @@ export type Database = {
           about?: string | null
           avatar_url?: string | null
           contact_email_mask?: string | null
+          conversation_topics?: string | null
           created_at?: string
           full_name?: string | null
           home_featured?: boolean
