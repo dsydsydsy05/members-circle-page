@@ -6,6 +6,13 @@ import { useCommunityMembers } from "@/lib/use-community-members";
 export const Route = createFileRoute("/member/$memberId")({
   head: () => ({
     meta: [
+      { property: "og:title", content: "Member profile · The Room" },
+      {
+        property: "og:description",
+        content: "A Member Pass profile inside The Room public archive.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Member profile · The Room" },
       {
         name: "description",

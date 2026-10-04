@@ -4,6 +4,7 @@ import { LightEventsPage } from "@/components/light/LightPublicPages";
 export const Route = createFileRoute("/events")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Events · The Room" },
       {
         name: "description",

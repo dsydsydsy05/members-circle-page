@@ -1023,6 +1023,47 @@ export type Database = {
         }
         Relationships: []
       }
+      qa_replies: {
+        Row: {
+          author_id: string
+          author_name: string
+          body: string
+          created_at: string
+          id: string
+          question_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          author_name?: string
+          body: string
+          created_at?: string
+          id?: string
+          question_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          author_name?: string
+          body?: string
+          created_at?: string
+          id?: string
+          question_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "qa_replies_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "qa_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -1237,6 +1278,7 @@ export type Database = {
         }[]
       }
       redeem_invitation_code: { Args: { _code: string }; Returns: boolean }
+      remove_qa_reply: { Args: { _id: string }; Returns: undefined }
       resolve_nfc_tag: {
         Args: { _token: string }
         Returns: {

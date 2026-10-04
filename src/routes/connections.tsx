@@ -12,7 +12,21 @@ import {
 } from "@/lib/community";
 export const Route = createFileRoute("/connections")({
   head: () => ({
-    meta: [{ title: "Connections · The Room" }, { name: "robots", content: "noindex" }],
+    meta: [
+      {
+        name: "description",
+        content: "Manage private member introductions and mutual connections in The Room.",
+      },
+      { property: "og:title", content: "Connections · The Room" },
+      {
+        property: "og:description",
+        content: "Manage private member introductions and mutual connections in The Room.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { title: "Connections · The Room" },
+      { name: "robots", content: "noindex" },
+    ],
   }),
   component: ConnectionsPage,
 });
