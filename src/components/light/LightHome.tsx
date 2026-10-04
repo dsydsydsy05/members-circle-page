@@ -9,7 +9,7 @@ import { useEvents } from "@/lib/use-site-content";
 import { LightEventStudies } from "@/components/light/LightEventStudies";
 import { LightArchiveIndex } from "@/components/light/LightMemberArchive";
 import { LightIdentityPass } from "@/components/light/LightIdentityPass";
-import { LightPartnerLogoGrid } from "@/components/light/LightPartnerLogoGrid";
+// LightPartnerLogoGrid import removed while the ecosystem rail is hidden.
 import { LightButton, LightPage, LightSectionHeader } from "@/components/light/LightSite";
 
 function clamp(value: number, min = 0, max = 1) {
@@ -435,12 +435,8 @@ export function LightHome() {
           </div>
         </section>
 
-        <section className="light-partner-rail">
-          <div className="light-shell light-partner-rail__heading">
-            <div className="light-partner-rail__label">04 / Ecosystem partners</div>
-          </div>
-          <LightPartnerLogoGrid compact />
-        </section>
+        {/* Ecosystem partner rail temporarily removed */}
+
 
         <section className="light-final-cta" data-nav-tone="dark">
           <div className="light-shell light-final-cta__panel">
