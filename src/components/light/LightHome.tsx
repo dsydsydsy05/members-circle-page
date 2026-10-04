@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { BrandMark } from "@/components/BrandMark";
 import { useAuth } from "@/lib/use-auth";
 import { useCommunityMembers } from "@/lib/use-community-members";
+import { useMemberCount } from "@/lib/use-member-count";
 import { useFactoryCount } from "@/lib/use-factory-count";
 import { useFamilyBusinessCount } from "@/lib/use-family-business-count";
 import { useEvents } from "@/lib/use-site-content";
@@ -373,6 +374,7 @@ function FoundingLetter() {
 
 export function LightHome() {
   const { members, loading: membersLoading } = useCommunityMembers();
+  const memberCount = useMemberCount();
   const familyBusinessCount = useFamilyBusinessCount();
   const factoryCount = useFactoryCount();
   const { data: events = [], isLoading: eventsLoading } = useEvents();
@@ -389,7 +391,7 @@ export function LightHome() {
         <section className="light-data-line" aria-label="The Room in numbers">
           <div className="light-shell light-data-line__grid">
             {[
-              [members.length, "Members"],
+              [memberCount ?? members.length, "Members"],
               [cityCount, "Cities"],
               [familyBusinessCount, "Family businesses"],
               [factoryCount, "Vetted factories"],
