@@ -4,6 +4,7 @@ import { LightAboutPage } from "@/components/light/LightPublicPages";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "About · The Room" },
       { name: "description", content: "The Room is a founder community born in Boston in 2026." },
       { property: "og:title", content: "About · The Room" },

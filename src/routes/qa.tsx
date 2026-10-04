@@ -7,7 +7,7 @@ export const Route = createFileRoute("/qa")({
       { title: "Q&A · The Room" },
       {
         name: "description",
-        content: "Anonymous founder questions answered by guests and The Room team.",
+        content: "Anonymous questions and replies from everyone signed in to The Room.",
       },
       { property: "og:title", content: "Questions worth asking · The Room" },
       { property: "og:type", content: "website" },

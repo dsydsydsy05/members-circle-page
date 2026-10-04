@@ -5,7 +5,22 @@ import { useGuests } from "@/lib/use-site-content";
 import { LightPage } from "@/components/light/LightSite";
 import type { Answer } from "@/lib/community";
 export const Route = createFileRoute("/guest/$guestId")({
-  head: () => ({ meta: [{ title: "Guest conversation · The Room" }] }),
+  head: () => ({
+    meta: [
+      {
+        name: "description",
+        content: "Explore this invited guest’s published conversations in The Room.",
+      },
+      { property: "og:title", content: "Guest conversation · The Room" },
+      {
+        property: "og:description",
+        content: "Explore this invited guest’s published conversations in The Room.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { title: "Guest conversation · The Room" },
+    ],
+  }),
   component: GuestPage,
 });
 function GuestPage() {

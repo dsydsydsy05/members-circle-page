@@ -9,6 +9,7 @@ import type { Member } from "@/lib/community-data";
 export const Route = createFileRoute("/members")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Members · The Room" },
       {
         name: "description",

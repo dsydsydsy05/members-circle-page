@@ -9,6 +9,10 @@ import { useAuth } from "@/lib/use-auth";
 export const Route = createFileRoute("/nfc/$token")({
   head: () => ({
     meta: [
+      { property: "og:title", content: "Activate your pass · The Room" },
+      { property: "og:description", content: "Activate or open a The Room NFC member pass." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Activate your pass · The Room" },
       {
         name: "description",

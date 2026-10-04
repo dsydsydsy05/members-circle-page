@@ -6,6 +6,17 @@ import { LightPage } from "@/components/light/LightSite";
 export const Route = createFileRoute("/guest-review")({
   head: () => ({
     meta: [
+      {
+        name: "description",
+        content: "Review and approve your exact guest answer version for The Room.",
+      },
+      { property: "og:title", content: "Review your answer · The Room" },
+      {
+        property: "og:description",
+        content: "Review and approve your exact guest answer version for The Room.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Review your answer · The Room" },
       { name: "robots", content: "noindex, nofollow" },
       { name: "referrer", content: "no-referrer" },
