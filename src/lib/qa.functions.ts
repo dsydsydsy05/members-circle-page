@@ -47,14 +47,12 @@ export const submitCommunityReply = createServerFn({ method: "POST" })
       const contentHash = Array.from(new Uint8Array(digest), (byte) =>
         byte.toString(16).padStart(2, "0"),
       ).join("");
-      const { error } = await supabaseAdmin
-        .from("moderation_events")
-        .insert({
-          actor_id: context.userId,
-          category: result.category,
-          source: result.source,
-          content_hash: contentHash,
-        });
+      const { error } = await supabaseAdmin.from("moderation_events").insert({
+        actor_id: context.userId,
+        category: result.category,
+        source: result.source,
+        content_hash: contentHash,
+      });
       if (error) console.error("Reply moderation audit failed", error.code);
       throw new Error("This reply does not meet The Room community guidelines.");
     }
