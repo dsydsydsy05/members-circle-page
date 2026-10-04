@@ -9,7 +9,7 @@ import { useEvents } from "@/lib/use-site-content";
 import { LightEventStudies } from "@/components/light/LightEventStudies";
 import { LightArchiveIndex } from "@/components/light/LightMemberArchive";
 import { LightIdentityPass } from "@/components/light/LightIdentityPass";
-import { LightPartnerLogoGrid } from "@/components/light/LightPartnerLogoGrid";
+// LightPartnerLogoGrid import removed while the ecosystem rail is hidden.
 import { LightButton, LightPage, LightSectionHeader } from "@/components/light/LightSite";
 
 function clamp(value: number, min = 0, max = 1) {
