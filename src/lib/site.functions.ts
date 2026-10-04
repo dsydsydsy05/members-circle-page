@@ -42,3 +42,11 @@ export const getFactoryCount = createServerFn({ method: "GET" }).handler(async (
   const counts = await readPublicDirectoryCounts();
   return counts.vettedFactories;
 });
+
+export const getMemberCount = createServerFn({ method: "GET" }).handler(async () => {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (supabaseAdmin.rpc as any)("get_public_member_count");
+  if (error) throw error;
+  return Number(data ?? 0);
+});
