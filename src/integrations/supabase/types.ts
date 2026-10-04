@@ -1258,6 +1258,7 @@ export type Database = {
           vetted_factories: number
         }[]
       }
+      get_public_member_count: { Args: never; Returns: number }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
