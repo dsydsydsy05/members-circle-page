@@ -1,0 +1,2 @@
+UPDATE public.events SET title = 'AI4S Panel with zeteon.ai', date_label = 'Oct 30, 2026 · 6–9 PM', summary = 'AI4S Panel with zeteon.ai · October 30, 2026 · 6–9 PM' WHERE id = '71024ea8-36c0-4bc0-8ed4-300c21cf0559' AND status = 'upcoming';
+UPDATE public.guests SET event = 'AI4S Panel with zeteon.ai', date_label = 'Oct 30, 2026 · 6–9 PM' WHERE event = 'The Room Opening: Our First Guest' AND lower(name) = 'coming soon';
