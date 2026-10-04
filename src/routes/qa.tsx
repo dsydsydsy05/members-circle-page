@@ -11,7 +11,10 @@ export const Route = createFileRoute("/qa")({
       },
       { property: "og:title", content: "Questions worth asking · The Room" },
       { property: "og:type", content: "website" },
-      { property: "og:description", content: "Anonymous questions and conversations with The Room community." },
+      {
+        property: "og:description",
+        content: "Anonymous questions and conversations with The Room community.",
+      },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://theroomcommunity.org/qa" }],
