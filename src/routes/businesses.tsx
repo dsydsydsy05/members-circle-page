@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MemberPortalShell } from "@/components/light/LightMemberPortal";
 import { useFamilyBusinesses, normalizeUrl, hostOf } from "@/lib/use-family-businesses";
+import { LockedDirectoryPage } from "@/components/light/LockedDirectoryPage";
 
 export const Route = createFileRoute("/businesses")({
   head: () => ({
@@ -19,10 +20,10 @@ export const Route = createFileRoute("/businesses")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: BusinessesPage,
+  component: () => <LockedDirectoryPage title="Family Business" />,
 });
 
-function BusinessesPage() {
+export function BusinessesPage() {
   return (
     <MemberPortalShell className="portal-page">
       <main className="light-member-main mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-6 sm:pt-10">
