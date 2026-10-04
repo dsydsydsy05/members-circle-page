@@ -13,7 +13,7 @@ const links = [
   { to: "/qa", label: "Q&A" },
   // Public archive. The authenticated Directory intentionally remains `/members`.
   { to: "/light/members", label: "Members" },
-  { to: "/partners", label: "Ecosystem" },
+  // Ecosystem (/partners) temporarily hidden.
 ] as const;
 
 export function LightSiteNav() {
@@ -180,7 +180,7 @@ export function LightSiteFooter() {
           <Link to="/events">Events</Link>
           <Link to="/qa">Q&amp;A</Link>
           <Link to="/light/members">Members</Link>
-          <Link to="/partners">Ecosystem</Link>
+          {/* Ecosystem temporarily hidden */}
           <Link to="/auth">Enter</Link>
         </nav>
         <span className="light-footer__copyright">© {new Date().getFullYear()} The Room</span>

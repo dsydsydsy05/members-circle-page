@@ -435,12 +435,8 @@ export function LightHome() {
           </div>
         </section>
 
-        <section className="light-partner-rail">
-          <div className="light-shell light-partner-rail__heading">
-            <div className="light-partner-rail__label">04 / Ecosystem partners</div>
-          </div>
-          <LightPartnerLogoGrid compact />
-        </section>
+        {/* Ecosystem partner rail temporarily removed */}
+
 
         <section className="light-final-cta" data-nav-tone="dark">
           <div className="light-shell light-final-cta__panel">
