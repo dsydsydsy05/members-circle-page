@@ -1,0 +1,4 @@
+DELETE FROM public.events WHERE id IN ('a0dafbb0-73c9-49f2-b053-2c9be6243f28', '2955a6c7-1b0f-46aa-a82b-26624b2638c1') AND status = 'upcoming';
+INSERT INTO public.events (slug, title, date_label, city, status, sort_order, summary, cover_display)
+VALUES ('the-room-pop-up-2026-10-15', 'The Room Pop-up', 'Oct 15, 2026 · 6 PM', 'Boston · Location TBA', 'upcoming', 0, 'The Room Pop-up · October 15, 2026 · 6 PM · Boston. Exact location to be announced.', 'photo')
+ON CONFLICT (slug) DO UPDATE SET title = EXCLUDED.title, date_label = EXCLUDED.date_label, city = EXCLUDED.city, status = EXCLUDED.status, sort_order = EXCLUDED.sort_order, summary = EXCLUDED.summary;
