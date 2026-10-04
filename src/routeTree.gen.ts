@@ -38,6 +38,7 @@ import { Route as LightGuestsRouteImport } from './routes/light/guests'
 import { Route as LightEventsRouteImport } from './routes/light/events'
 import { Route as LightAboutRouteImport } from './routes/light/about'
 import { Route as GuestGuestIdRouteImport } from './routes/guest.$guestId'
+import { Route as ApiPublicSendMemberWelcomeRouteImport } from './routes/api/public/send-member-welcome'
 
 const WaitlistRoute = WaitlistRouteImport.update({
   id: '/waitlist',
@@ -184,6 +185,12 @@ const GuestGuestIdRoute = GuestGuestIdRouteImport.update({
   path: '/guest/$guestId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicSendMemberWelcomeRoute =
+  ApiPublicSendMemberWelcomeRouteImport.update({
+    id: '/api/public/send-member-welcome',
+    path: '/api/public/send-member-welcome',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -215,6 +222,7 @@ export interface FileRoutesByFullPath {
   '/member/$memberId': typeof MemberMemberIdRoute
   '/nfc/$token': typeof NfcTokenRoute
   '/light/': typeof LightIndexRoute
+  '/api/public/send-member-welcome': typeof ApiPublicSendMemberWelcomeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -245,6 +253,7 @@ export interface FileRoutesByTo {
   '/member/$memberId': typeof MemberMemberIdRoute
   '/nfc/$token': typeof NfcTokenRoute
   '/light': typeof LightIndexRoute
+  '/api/public/send-member-welcome': typeof ApiPublicSendMemberWelcomeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -277,6 +286,7 @@ export interface FileRoutesById {
   '/member/$memberId': typeof MemberMemberIdRoute
   '/nfc/$token': typeof NfcTokenRoute
   '/light/': typeof LightIndexRoute
+  '/api/public/send-member-welcome': typeof ApiPublicSendMemberWelcomeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -310,6 +320,7 @@ export interface FileRouteTypes {
     | '/member/$memberId'
     | '/nfc/$token'
     | '/light/'
+    | '/api/public/send-member-welcome'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -340,6 +351,7 @@ export interface FileRouteTypes {
     | '/member/$memberId'
     | '/nfc/$token'
     | '/light'
+    | '/api/public/send-member-welcome'
   id:
     | '__root__'
     | '/'
@@ -371,6 +383,7 @@ export interface FileRouteTypes {
     | '/member/$memberId'
     | '/nfc/$token'
     | '/light/'
+    | '/api/public/send-member-welcome'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -395,6 +408,7 @@ export interface RootRouteChildren {
   GuestGuestIdRoute: typeof GuestGuestIdRoute
   MemberMemberIdRoute: typeof MemberMemberIdRoute
   NfcTokenRoute: typeof NfcTokenRoute
+  ApiPublicSendMemberWelcomeRoute: typeof ApiPublicSendMemberWelcomeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -602,6 +616,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestGuestIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/send-member-welcome': {
+      id: '/api/public/send-member-welcome'
+      path: '/api/public/send-member-welcome'
+      fullPath: '/api/public/send-member-welcome'
+      preLoaderRoute: typeof ApiPublicSendMemberWelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -653,6 +674,7 @@ const rootRouteChildren: RootRouteChildren = {
   GuestGuestIdRoute: GuestGuestIdRoute,
   MemberMemberIdRoute: MemberMemberIdRoute,
   NfcTokenRoute: NfcTokenRoute,
+  ApiPublicSendMemberWelcomeRoute: ApiPublicSendMemberWelcomeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

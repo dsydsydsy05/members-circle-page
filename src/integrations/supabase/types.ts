@@ -543,6 +543,24 @@ export type Database = {
           },
         ]
       }
+      member_welcome_emails: {
+        Row: {
+          email: string
+          resend_id: string | null
+          sent_at: string
+        }
+        Insert: {
+          email: string
+          resend_id?: string | null
+          sent_at?: string
+        }
+        Update: {
+          email?: string
+          resend_id?: string | null
+          sent_at?: string
+        }
+        Relationships: []
+      }
       moderation_domains: {
         Row: {
           active: boolean
@@ -1265,6 +1283,12 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      list_member_welcome_recipients: {
+        Args: never
+        Returns: {
+          email: string
+        }[]
       }
       mask_member_email: { Args: { _email: string }; Returns: string }
       match_member_profiles: {
