@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { MemberPortalShell } from "@/components/light/LightMemberPortal";
 import { useFactories } from "@/lib/use-site-content";
+import { LockedDirectoryPage } from "@/components/light/LockedDirectoryPage";
 
 export const Route = createFileRoute("/resources")({
   head: () => ({
@@ -21,10 +22,10 @@ export const Route = createFileRoute("/resources")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: ResourcesPage,
+  component: () => <LockedDirectoryPage title="Factory List" />,
 });
 
-function ResourcesPage() {
+export function ResourcesPage() {
   const [search, setSearch] = useState("");
   const { data: factories = [], isLoading: factoriesLoading } = useFactories();
   const verifiedFactories = factories.filter(

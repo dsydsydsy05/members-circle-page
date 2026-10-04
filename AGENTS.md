@@ -12,3 +12,4 @@
 - Build the Q&A feed and composer from AI Elements primitives to preserve accessible input and scrolling behavior.
 - Store community replies separately from official answers so signed-in replies never bypass versioned guest approval.
 - Validate and moderate community replies in authenticated TanStack server functions before privileged writes; public clients receive no author account IDs.
+- Temporarily closed directory routes render a shared locked page without mounting directory fetchers; retain the directory views and admin editing for reopening.
