@@ -1,20 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { useServerFn } from "@tanstack/react-start";
+import { getMemberCount } from "./site.functions";
 
-/** Number of people who have completed onboarding (real registered members). */
 export function useMemberCount() {
-  const { data } = useQuery({
-    queryKey: ["member-count"],
-    queryFn: async () => {
-      const { count, error } = await supabase
-        .from("profiles")
-        .select("id", { count: "exact", head: true })
-        .eq("onboarded", true);
-      if (error) throw error;
-      return count ?? 0;
-    },
-    staleTime: 0,
-    refetchOnMount: "always",
-  });
-  return data ?? 0;
+  const countFn = useServerFn(getMemberCount);
+  const query = useQuery({ queryKey: ["public-member-count"], queryFn: () => countFn(), staleTime: 30_000 });
+  return query.data;
 }

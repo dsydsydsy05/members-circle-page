@@ -1,0 +1,1 @@
+revoke execute on function public.get_public_member_count() from anon, authenticated;
