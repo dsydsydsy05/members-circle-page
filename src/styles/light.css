@@ -544,6 +544,8 @@
   place-items: center;
   transform: scale(calc(1 - var(--light-hero-progress, 0) * 0.018));
   transform-style: preserve-3d;
+  perspective: 1100px;
+  perspective-origin: 50% 42%;
 }
 .light-identity-float {
   transform-style: preserve-3d;
