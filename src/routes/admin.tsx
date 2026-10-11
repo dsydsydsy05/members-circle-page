@@ -712,7 +712,7 @@ function BusinessesSection() {
 const TABS = [
   ...SECTIONS.map((s) => ({ id: s.table as string, label: s.label })),
   { id: "qa", label: "Q&A" },
-  { id: "waitlist", label: "Waitlist" },
+  { id: "waitlist", label: "Applications" },
   { id: "moderation", label: "Moderation" },
   { id: "nfc", label: "NFC passes" },
   { id: "members", label: "Members" },

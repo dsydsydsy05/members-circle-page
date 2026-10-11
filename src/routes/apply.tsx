@@ -6,7 +6,10 @@ export const Route = createFileRoute("/apply")({
   head: () => ({
     meta: [
       { title: "Apply for membership · The Room" },
-      { name: "description", content: "Create an account and apply to become a member of The Room." },
+      {
+        name: "description",
+        content: "Create an account and apply to become a member of The Room.",
+      },
       { property: "og:title", content: "Apply for membership · The Room" },
       { property: "og:description", content: "Applications to The Room are reviewed by our team." },
       { property: "og:type", content: "website" },

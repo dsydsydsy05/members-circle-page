@@ -22,8 +22,7 @@ export const Route = createFileRoute("/onboarding")({
       { title: "Your member card · The Room" },
       {
         name: "description",
-        content:
-          "Apply for membership in The Room and set up your member card.",
+        content: "Apply for membership in The Room and set up your member card.",
       },
       { property: "og:title", content: "Your member card · The Room" },
       {
@@ -160,8 +159,10 @@ function AccessStep({
     }));
   }, [application]);
 
-  const set = (key: keyof typeof form, max: number) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm((f) => ({ ...f, [key]: event.target.value.slice(0, max) }));
+  const set =
+    (key: keyof typeof form, max: number) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setForm((f) => ({ ...f, [key]: event.target.value.slice(0, max) }));
 
   const submitCode = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -181,7 +182,8 @@ function AccessStep({
     event.preventDefault();
     const linkedinUrl = normalizeLinkedIn(form.linkedin);
     if (!linkedinUrl) return setAppMessage("Enter a valid LinkedIn profile URL.");
-    if (Object.values(form).some((v) => !v.trim())) return setAppMessage("Please fill in every field.");
+    if (Object.values(form).some((v) => !v.trim()))
+      return setAppMessage("Please fill in every field.");
     setAppBusy(true);
     setAppMessage(null);
     const { error } = await supabase.rpc("submit_member_application", {
@@ -230,7 +232,9 @@ function AccessStep({
             <p className="light-access-status">Checking your application…</p>
           ) : !showForm && application ? (
             <div className="light-access-state">
-              <span>Status / {application.status === "approved" ? "Approved" : "Under review"}</span>
+              <span>
+                Status / {application.status === "approved" ? "Approved" : "Under review"}
+              </span>
               <strong>{application.full_name}</strong>
               <p>{application.email}</p>
               <p>
@@ -239,7 +243,11 @@ function AccessStep({
                   : "Your application is with The Room team."}
               </p>
               {application.status === "pending" ? (
-                <button type="button" className="light-access-skip" onClick={() => setEditing(true)}>
+                <button
+                  type="button"
+                  className="light-access-skip"
+                  onClick={() => setEditing(true)}
+                >
                   Edit application →
                 </button>
               ) : null}
@@ -252,25 +260,64 @@ function AccessStep({
                 </p>
               ) : null}
               <label htmlFor="app-name">Full name</label>
-              <input id="app-name" value={form.name} onChange={set("name", 80)} autoComplete="name" required />
+              <input
+                id="app-name"
+                value={form.name}
+                onChange={set("name", 80)}
+                autoComplete="name"
+                required
+              />
               <label htmlFor="app-email">Email</label>
               <input id="app-email" value={email} readOnly aria-readonly="true" />
               <label htmlFor="app-school">School</label>
-              <input id="app-school" value={form.school} onChange={set("school", 120)} placeholder="e.g. Harvard, MIT" required />
+              <input
+                id="app-school"
+                value={form.school}
+                onChange={set("school", 120)}
+                placeholder="e.g. Harvard, MIT"
+                required
+              />
               <label htmlFor="app-position">Current role</label>
-              <input id="app-position" value={form.position} onChange={set("position", 120)} placeholder="e.g. Founder & CEO" required />
+              <input
+                id="app-position"
+                value={form.position}
+                onChange={set("position", 120)}
+                placeholder="e.g. Founder & CEO"
+                required
+              />
               <label htmlFor="app-startup">Company / what you’re working on</label>
-              <input id="app-startup" value={form.startup} onChange={set("startup", 120)} required />
+              <input
+                id="app-startup"
+                value={form.startup}
+                onChange={set("startup", 120)}
+                required
+              />
               <label htmlFor="app-linkedin">LinkedIn</label>
-              <input id="app-linkedin" value={form.linkedin} onChange={set("linkedin", 300)} placeholder="linkedin.com/in/yourname" required />
+              <input
+                id="app-linkedin"
+                value={form.linkedin}
+                onChange={set("linkedin", 300)}
+                placeholder="linkedin.com/in/yourname"
+                required
+              />
               <label htmlFor="app-reason">Why do you want to join The Room?</label>
-              <textarea id="app-reason" value={form.reason} onChange={set("reason", 2000)} rows={5} required />
+              <textarea
+                id="app-reason"
+                value={form.reason}
+                onChange={set("reason", 2000)}
+                rows={5}
+                required
+              />
               <button type="submit" disabled={appBusy}>
                 {appBusy ? "Submitting…" : "Submit application ↗"}
               </button>
             </form>
           )}
-          {appMessage ? <p className="light-access-status" role="status">{appMessage}</p> : null}
+          {appMessage ? (
+            <p className="light-access-status" role="status">
+              {appMessage}
+            </p>
+          ) : null}
         </div>
       </section>
 
