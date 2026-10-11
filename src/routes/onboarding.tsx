@@ -80,6 +80,7 @@ function OnboardingPage() {
   return (
     <MemberPortalShell className="portal-page">
       <main
+        id="membership-application"
         className={`light-member-main mx-auto max-w-6xl px-6 py-16 ${step === "code" ? "light-access-main" : ""}`}
       >
         <EntryChoice />
