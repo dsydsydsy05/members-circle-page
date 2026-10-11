@@ -6715,7 +6715,7 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--light-bg, #e9e8e3);
+  background: var(--light-ink, #111311);
 }
 .uec-ticket__tear::before { left: -10px; }
 .uec-ticket__tear::after { right: -10px; }
