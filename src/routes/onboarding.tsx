@@ -23,12 +23,12 @@ export const Route = createFileRoute("/onboarding")({
       {
         name: "description",
         content:
-          "Enter your invitation code and fill in the details that appear on your The Room member card.",
+          "Apply for membership in The Room and set up your member card.",
       },
       { property: "og:title", content: "Your member card · The Room" },
       {
         property: "og:description",
-        content: "Invitation code and member card details for The Room.",
+        content: "Membership application and member card for The Room.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -64,14 +64,14 @@ function OnboardingPage() {
         <main className="light-member-main mx-auto max-w-xl px-6 py-24 text-center">
           <h1 className="text-3xl font-semibold tracking-tight">Sign in first</h1>
           <p className="mt-3 text-sm text-muted-foreground">
-            You need an account before you can enter your invitation code.
+            Create an account first, then complete your membership application.
           </p>
           <Link
             to="/auth"
-            search={{ mode: "signin", next }}
+            search={{ mode: "signup", next: "/onboarding" }}
             className="mt-6 inline-block rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
-            Go to sign in
+            Create account
           </Link>
         </main>
       </MemberPortalShell>
@@ -120,23 +120,27 @@ function AccessStep({
   onSkip: () => void;
 }) {
   const [code, setCode] = useState("");
-  const [name, setName] = useState(initialName);
+  const [form, setForm] = useState({
+    name: initialName,
+    school: "",
+    position: "",
+    startup: "",
+    linkedin: "",
+    reason: "",
+  });
   const [codeBusy, setCodeBusy] = useState(false);
-  const [waitlistBusy, setWaitlistBusy] = useState(false);
+  const [appBusy, setAppBusy] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [codeError, setCodeError] = useState<string | null>(null);
-  const [waitlistMessage, setWaitlistMessage] = useState<string | null>(null);
+  const [appMessage, setAppMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
-  const {
-    data: waitlist,
-    isLoading: waitlistLoading,
-    error: waitlistError,
-  } = useQuery({
-    queryKey: ["waitlist-entry"],
+  const { data: application, isLoading: appLoading } = useQuery({
+    queryKey: ["member-application"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("waitlist_entries")
-        .select("id, full_name, email, status, created_at")
+        .select("id, full_name, email, status, school, position, startup, linkedin_url, reason")
         .maybeSingle();
       if (error) throw error;
       return data;
@@ -145,8 +149,19 @@ function AccessStep({
   });
 
   useEffect(() => {
-    if (waitlist?.full_name) setName(waitlist.full_name);
-  }, [waitlist?.full_name]);
+    if (!application) return;
+    setForm((f) => ({
+      name: application.full_name || f.name,
+      school: application.school ?? f.school,
+      position: application.position ?? f.position,
+      startup: application.startup ?? f.startup,
+      linkedin: application.linkedin_url ?? f.linkedin,
+      reason: application.reason ?? f.reason,
+    }));
+  }, [application]);
+
+  const set = (key: keyof typeof form, max: number) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [key]: event.target.value.slice(0, max) }));
 
   const submitCode = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -162,84 +177,100 @@ function AccessStep({
     else setCodeError("That invitation code isn't valid.");
   };
 
-  const submitWaitlist = async (event: React.FormEvent) => {
+  const submitApplication = async (event: React.FormEvent) => {
     event.preventDefault();
-    const cleanName = name.trim();
-    if (!cleanName) return setWaitlistMessage("Your name is required.");
-    setWaitlistBusy(true);
-    setWaitlistMessage(null);
-    const { data, error } = await supabase.functions.invoke("submit-waitlist", {
-      body: { fullName: cleanName },
+    const linkedinUrl = normalizeLinkedIn(form.linkedin);
+    if (!linkedinUrl) return setAppMessage("Enter a valid LinkedIn profile URL.");
+    if (Object.values(form).some((v) => !v.trim())) return setAppMessage("Please fill in every field.");
+    setAppBusy(true);
+    setAppMessage(null);
+    const { error } = await supabase.rpc("submit_member_application", {
+      _full_name: form.name,
+      _school: form.school,
+      _position: form.position,
+      _startup: form.startup,
+      _linkedin_url: linkedinUrl,
+      _reason: form.reason,
     });
-    setWaitlistBusy(false);
     if (error) {
-      setWaitlistMessage(
-        error.message.includes("non-2xx")
-          ? "Waitlist email notifications are prepared locally and will open after the Edge Function is deployed."
-          : error.message,
-      );
+      setAppBusy(false);
+      setAppMessage(error.message);
       return;
     }
-    setWaitlistMessage("You are on the list. We’ll write when there is a room for you.");
-    queryClient.setQueryData(["waitlist-entry"], data.entry);
+    // Best-effort admin notification; the application is already saved.
+    await supabase.functions
+      .invoke("submit-waitlist", { body: { fullName: form.name.trim() } })
+      .catch(() => null);
+    setAppBusy(false);
+    setEditing(false);
+    setAppMessage("Application received. We’ll email you once it’s reviewed.");
+    queryClient.invalidateQueries({ queryKey: ["member-application"] });
   };
+
+  const showForm = !application || editing || application.status === "rejected";
 
   return (
     <div className="light-access-sheet">
       <header className="light-access-head">
-        <span>Access / The Room</span>
+        <span>Application / The Room</span>
         <strong>Boston · 2026</strong>
       </header>
 
       <section className="light-access-waitlist">
         <div className="light-access-copy">
           <span>01 / Become a member</span>
-          <h1>Join the waitlist.</h1>
+          <h1>Apply to join.</h1>
           <p>
-            Tell us who you are. We review each request so the room stays useful, trusted and
-            intentionally small.
+            Tell us who you are. Every application is reviewed by The Room team so the room stays
+            useful and trusted.
           </p>
         </div>
         <div className="light-access-form-wrap">
-          {waitlistLoading ? (
-            <p className="light-access-status">Checking your place…</p>
-          ) : waitlist ? (
+          {appLoading ? (
+            <p className="light-access-status">Checking your application…</p>
+          ) : !showForm && application ? (
             <div className="light-access-state">
-              <span>Status / {waitlist.status}</span>
-              <strong>{waitlist.full_name}</strong>
-              <p>{waitlist.email}</p>
+              <span>Status / {application.status === "approved" ? "Approved" : "Under review"}</span>
+              <strong>{application.full_name}</strong>
+              <p>{application.email}</p>
               <p>
-                {waitlist.status === "approved"
+                {application.status === "approved"
                   ? "Your membership has been approved."
-                  : waitlist.status === "rejected"
-                    ? "This request is closed. You can still use an invitation code below."
-                    : "Your request is with The Room team."}
+                  : "Your application is with The Room team."}
               </p>
+              {application.status === "pending" ? (
+                <button type="button" className="light-access-skip" onClick={() => setEditing(true)}>
+                  Edit application →
+                </button>
+              ) : null}
             </div>
           ) : (
-            <form onSubmit={submitWaitlist} className="light-access-form">
-              <label htmlFor="waitlist-name">Name</label>
-              <input
-                id="waitlist-name"
-                value={name}
-                onChange={(event) => setName(event.target.value.slice(0, 80))}
-                placeholder="Your full name"
-                autoComplete="name"
-                required
-              />
-              <label htmlFor="waitlist-email">Email</label>
-              <input id="waitlist-email" value={email} readOnly aria-readonly="true" />
-              <button type="submit" disabled={waitlistBusy}>
-                {waitlistBusy ? "Joining…" : "Join waitlist ↗"}
+            <form onSubmit={submitApplication} className="light-access-form">
+              {application?.status === "rejected" ? (
+                <p className="light-access-status">
+                  Your previous application was not accepted. You may update and resubmit it.
+                </p>
+              ) : null}
+              <label htmlFor="app-name">Full name</label>
+              <input id="app-name" value={form.name} onChange={set("name", 80)} autoComplete="name" required />
+              <label htmlFor="app-email">Email</label>
+              <input id="app-email" value={email} readOnly aria-readonly="true" />
+              <label htmlFor="app-school">School</label>
+              <input id="app-school" value={form.school} onChange={set("school", 120)} placeholder="e.g. Harvard, MIT" required />
+              <label htmlFor="app-position">Current role</label>
+              <input id="app-position" value={form.position} onChange={set("position", 120)} placeholder="e.g. Founder & CEO" required />
+              <label htmlFor="app-startup">Company / what you’re working on</label>
+              <input id="app-startup" value={form.startup} onChange={set("startup", 120)} required />
+              <label htmlFor="app-linkedin">LinkedIn</label>
+              <input id="app-linkedin" value={form.linkedin} onChange={set("linkedin", 300)} placeholder="linkedin.com/in/yourname" required />
+              <label htmlFor="app-reason">Why do you want to join The Room?</label>
+              <textarea id="app-reason" value={form.reason} onChange={set("reason", 2000)} rows={5} required />
+              <button type="submit" disabled={appBusy}>
+                {appBusy ? "Submitting…" : "Submit application ↗"}
               </button>
             </form>
           )}
-          {waitlistError ? (
-            <p className="light-access-status">
-              Waitlist will become available when the local database migration is applied.
-            </p>
-          ) : null}
-          {waitlistMessage ? <p className="light-access-status">{waitlistMessage}</p> : null}
+          {appMessage ? <p className="light-access-status" role="status">{appMessage}</p> : null}
         </div>
       </section>
 
@@ -247,7 +278,7 @@ function AccessStep({
         <div>
           <span>02 / Already invited</span>
           <h2>Have a code?</h2>
-          <p>Invitation access remains separate from the waitlist and unlocks membership now.</p>
+          <p>An invitation code unlocks membership right away, without review.</p>
         </div>
         <form onSubmit={submitCode}>
           <label htmlFor="invitation-code">Invitation code</label>
