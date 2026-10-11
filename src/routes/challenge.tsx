@@ -322,15 +322,16 @@ function ChallengeApply() {
               value={form[q.key]}
               placeholder={q.placeholder}
               onChange={(e) => setForm((f) => ({ ...f, [q.key]: e.target.value.slice(0, 2000) }))}
-              required
+              required={!q.optional}
             />
           ) : (
             <input
               id={`uec-${q.key}`}
+              type={q.type}
               value={form[q.key]}
               placeholder={q.placeholder}
               onChange={(e) => setForm((f) => ({ ...f, [q.key]: e.target.value.slice(0, 300) }))}
-              required
+              required={!q.optional}
             />
           )}
         </div>
