@@ -6803,3 +6803,5 @@
   letter-spacing: 0.02em;
 }
 .entry-choice__card--challenge .entry-choice__cta { background: #8fbf4d; color: #111311; }
+.entry-choice__card--challenge strong,
+.entry-choice__card--challenge p { color: #f4f3ee; }
