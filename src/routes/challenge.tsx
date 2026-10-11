@@ -124,6 +124,8 @@ const EMPTY_FORM = {
   school: "",
   grade: "",
   linkedin_url: "",
+  email: "",
+  phone: "",
   current_work: "",
   why_deserve: "",
   crazy_thing: "",
@@ -135,6 +137,8 @@ const QUESTIONS: {
   label: string;
   textarea?: boolean;
   placeholder?: string;
+  optional?: boolean;
+  type?: string;
 }[] = [
   { key: "full_name", label: "What’s your name?", placeholder: "Your full name" },
   { key: "school", label: "What school do you go to?", placeholder: "e.g. Harvard, MIT, BU" },
@@ -145,6 +149,19 @@ const QUESTIONS: {
     placeholder: "linkedin.com/in/yourname",
   },
   {
+    key: "email",
+    label: "Your email",
+    type: "email",
+    placeholder: "you@school.edu",
+  },
+  {
+    key: "phone",
+    label: "Your phone number (optional)",
+    type: "tel",
+    placeholder: "+1 (555) 000-0000",
+    optional: true,
+  },
+  {
     key: "current_work",
     label: "What are you working on right now?",
     textarea: true,
@@ -152,7 +169,7 @@ const QUESTIONS: {
   },
   {
     key: "why_deserve",
-    label: "Why do you think you deserve the money more than everyone else?",
+    label: "Why can you win the Challenge?",
     textarea: true,
   },
   { key: "crazy_thing", label: "Tell us one crazy thing about you.", textarea: true },
@@ -182,7 +199,7 @@ function ChallengeApply() {
       const { data, error } = await supabase
         .from("challenge_applications")
         .select(
-          "id, status, full_name, school, grade, linkedin_url, current_work, why_deserve, crazy_thing, on_camera",
+          "id, status, full_name, school, grade, linkedin_url, email, phone, current_work, why_deserve, crazy_thing, on_camera",
         )
         .eq("user_id", uid)
         .maybeSingle();
@@ -199,6 +216,8 @@ function ChallengeApply() {
       school: application.school ?? "",
       grade: application.grade ?? "",
       linkedin_url: application.linkedin_url ?? "",
+      email: application.email ?? "",
+      phone: application.phone ?? "",
       current_work: application.current_work ?? "",
       why_deserve: application.why_deserve ?? "",
       crazy_thing: application.crazy_thing ?? "",
@@ -213,7 +232,7 @@ function ChallengeApply() {
   if (!isSignedIn) {
     return (
       <>
-        <p>Create an account first — then answer 8 quick questions to apply.</p>
+        <p>Create an account first — then answer 10 quick questions to apply.</p>
         <div className="uec-apply__actions">
           <span className="uec-pill">
             <i aria-hidden="true" /> Applications open
@@ -228,8 +247,13 @@ function ChallengeApply() {
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (Object.values(form).some((v) => !v.trim())) {
+    const requiredKeys = QUESTIONS.filter((q) => !q.optional).map((q) => q.key);
+    if (requiredKeys.some((k) => !form[k].trim())) {
       setMessage("Please answer every question.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+      setMessage("Enter a valid email address.");
       return;
     }
     setBusy(true);
@@ -243,6 +267,8 @@ function ChallengeApply() {
       _why_deserve: form.why_deserve,
       _crazy_thing: form.crazy_thing,
       _on_camera: form.on_camera,
+      _email: form.email,
+      _phone: form.phone,
     });
     setBusy(false);
     if (error) {
@@ -284,7 +310,7 @@ function ChallengeApply() {
   return (
     <form className="uec-form" onSubmit={submit}>
       {QUESTIONS.map((q, i) => (
-        <div key={q.key} className="uec-field" data-reveal>
+        <div key={q.key} className="uec-field">
           <label htmlFor={`uec-${q.key}`}>
             <span>{String(i + 1).padStart(2, "0")}</span>
             {q.label}
@@ -296,15 +322,16 @@ function ChallengeApply() {
               value={form[q.key]}
               placeholder={q.placeholder}
               onChange={(e) => setForm((f) => ({ ...f, [q.key]: e.target.value.slice(0, 2000) }))}
-              required
+              required={!q.optional}
             />
           ) : (
             <input
               id={`uec-${q.key}`}
+              type={q.type}
               value={form[q.key]}
               placeholder={q.placeholder}
               onChange={(e) => setForm((f) => ({ ...f, [q.key]: e.target.value.slice(0, 300) }))}
-              required
+              required={!q.optional}
             />
           )}
         </div>

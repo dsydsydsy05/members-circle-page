@@ -15,6 +15,13 @@
       "when": 1791749934509,
       "tag": "0001_challenge_applications",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791750120912,
+      "tag": "0002_challenge_contact_fields",
+      "breakpoints": true
     }
   ]
 }
