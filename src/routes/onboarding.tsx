@@ -678,18 +678,22 @@ function EntryChoice() {
     <section className="entry-choice" aria-label="Choose what to apply for">
       <p className="entry-choice__kicker">What brings you here?</p>
       <div className="entry-choice__grid">
-        <Link to="/challenge" className="entry-choice__card entry-choice__card--challenge">
-          <span className="entry-choice__tag">The Ultimate Entrepreneurial Challenge</span>
-          <strong>Apply to play the Challenge</strong>
-          <p>Answer 11 quick questions — no membership needed. Applications close Oct 18.</p>
-          <span className="entry-choice__cta">Start Challenge application →</span>
-        </Link>
-        <a href="#membership-application" className="entry-choice__card">
+        <a href="#membership-application" className="entry-choice__mini">
           <span className="entry-choice__tag">The Room Membership</span>
           <strong>Apply for membership</strong>
-          <p>Join the community directory, events and member perks.</p>
-          <span className="entry-choice__cta">Fill in the form below ↓</span>
+          <p>Directory, events and member perks.</p>
+          <span className="entry-choice__mini-cta">Fill in the form below ↓</span>
         </a>
+        <Link to="/challenge" className="entry-choice__hero">
+          <span className="entry-choice__tag">The Ultimate Entrepreneurial Challenge</span>
+          <strong>Apply to play the Challenge</strong>
+          <p>
+            Answer 11 quick questions — no membership needed. We pick a small, sharp field of
+            players.
+          </p>
+          <span className="entry-choice__cta">Start Challenge application →</span>
+          <span className="entry-choice__close">Applications close Oct 18</span>
+        </Link>
       </div>
     </section>
   );
