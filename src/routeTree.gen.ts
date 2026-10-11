@@ -15,6 +15,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ApplyRouteImport } from './routes/apply'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BusinessesRouteImport } from './routes/businesses'
+import { Route as ChallengeRouteImport } from './routes/challenge'
 import { Route as ConnectionsRouteImport } from './routes/connections'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as GuestReviewRouteImport } from './routes/guest-review'
@@ -69,6 +70,11 @@ const AuthRoute = AuthRouteImport.update({
 const BusinessesRoute = BusinessesRouteImport.update({
   id: '/businesses',
   path: '/businesses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChallengeRoute = ChallengeRouteImport.update({
+  id: '/challenge',
+  path: '/challenge',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConnectionsRoute = ConnectionsRouteImport.update({
@@ -206,6 +212,7 @@ export interface FileRoutesByFullPath {
   '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
+  '/challenge': typeof ChallengeRoute
   '/connections': typeof ConnectionsRoute
   '/events': typeof EventsRoute
   '/guest-review': typeof GuestReviewRoute
@@ -238,6 +245,7 @@ export interface FileRoutesByTo {
   '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
+  '/challenge': typeof ChallengeRoute
   '/connections': typeof ConnectionsRoute
   '/events': typeof EventsRoute
   '/guest-review': typeof GuestReviewRoute
@@ -272,6 +280,7 @@ export interface FileRoutesById {
   '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
+  '/challenge': typeof ChallengeRoute
   '/connections': typeof ConnectionsRoute
   '/events': typeof EventsRoute
   '/guest-review': typeof GuestReviewRoute
@@ -307,6 +316,7 @@ export interface FileRouteTypes {
     | '/apply'
     | '/auth'
     | '/businesses'
+    | '/challenge'
     | '/connections'
     | '/events'
     | '/guest-review'
@@ -339,6 +349,7 @@ export interface FileRouteTypes {
     | '/apply'
     | '/auth'
     | '/businesses'
+    | '/challenge'
     | '/connections'
     | '/events'
     | '/guest-review'
@@ -372,6 +383,7 @@ export interface FileRouteTypes {
     | '/apply'
     | '/auth'
     | '/businesses'
+    | '/challenge'
     | '/connections'
     | '/events'
     | '/guest-review'
@@ -406,6 +418,7 @@ export interface RootRouteChildren {
   ApplyRoute: typeof ApplyRoute
   AuthRoute: typeof AuthRoute
   BusinessesRoute: typeof BusinessesRoute
+  ChallengeRoute: typeof ChallengeRoute
   ConnectionsRoute: typeof ConnectionsRoute
   EventsRoute: typeof EventsRoute
   GuestReviewRoute: typeof GuestReviewRoute
@@ -466,6 +479,13 @@ declare module '@tanstack/react-router' {
       path: '/businesses'
       fullPath: '/businesses'
       preLoaderRoute: typeof BusinessesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/challenge': {
+      id: '/challenge'
+      path: '/challenge'
+      fullPath: '/challenge'
+      preLoaderRoute: typeof ChallengeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/connections': {
@@ -680,6 +700,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApplyRoute: ApplyRoute,
   AuthRoute: AuthRoute,
   BusinessesRoute: BusinessesRoute,
+  ChallengeRoute: ChallengeRoute,
   ConnectionsRoute: ConnectionsRoute,
   EventsRoute: EventsRoute,
   GuestReviewRoute: GuestReviewRoute,
