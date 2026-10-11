@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       challenge_applications: {
         Row: {
+          admin_notified_at: string | null
           crazy_thing: string
           created_at: string
           current_work: string
@@ -34,6 +35,7 @@ export type Database = {
           why_deserve: string
         }
         Insert: {
+          admin_notified_at?: string | null
           crazy_thing: string
           created_at?: string
           current_work: string
@@ -52,6 +54,7 @@ export type Database = {
           why_deserve: string
         }
         Update: {
+          admin_notified_at?: string | null
           crazy_thing?: string
           created_at?: string
           current_work?: string
@@ -1435,6 +1438,7 @@ export type Database = {
           _why_deserve: string
         }
         Returns: {
+          admin_notified_at: string | null
           crazy_thing: string
           created_at: string
           current_work: string

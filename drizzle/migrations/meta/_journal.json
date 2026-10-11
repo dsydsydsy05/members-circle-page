@@ -29,6 +29,13 @@
       "when": 1791750462169,
       "tag": "0003_0003_challenge_money_plan",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791750732662,
+      "tag": "0004_challenge_application_admin_notified",
+      "breakpoints": true
     }
   ]
 }

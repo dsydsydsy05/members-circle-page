@@ -1,0 +1,2 @@
+ALTER TABLE public.challenge_applications ADD COLUMN admin_notified_at timestamptz;
+COMMENT ON COLUMN public.challenge_applications.admin_notified_at IS 'Set when the admin notification email for this application was sent; prevents duplicate notifications on resubmission.';
