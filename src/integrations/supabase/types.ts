@@ -24,6 +24,7 @@ export type Database = {
           grade: string
           id: string
           linkedin_url: string
+          money_plan: string | null
           on_camera: string
           phone: string | null
           school: string
@@ -41,6 +42,7 @@ export type Database = {
           grade: string
           id?: string
           linkedin_url: string
+          money_plan?: string | null
           on_camera: string
           phone?: string | null
           school: string
@@ -58,6 +60,7 @@ export type Database = {
           grade?: string
           id?: string
           linkedin_url?: string
+          money_plan?: string | null
           on_camera?: string
           phone?: string | null
           school?: string
@@ -1425,6 +1428,7 @@ export type Database = {
           _full_name: string
           _grade: string
           _linkedin_url: string
+          _money_plan: string
           _on_camera: string
           _phone: string
           _school: string
@@ -1439,6 +1443,7 @@ export type Database = {
           grade: string
           id: string
           linkedin_url: string
+          money_plan: string | null
           on_camera: string
           phone: string | null
           school: string
