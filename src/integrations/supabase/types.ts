@@ -1119,8 +1119,13 @@ export type Database = {
           email: string
           full_name: string
           id: string
+          linkedin_url: string | null
+          position: string | null
+          reason: string | null
           reviewed_at: string | null
           reviewed_by: string | null
+          school: string | null
+          startup: string | null
           status: string
           updated_at: string
           user_id: string | null
@@ -1140,8 +1145,13 @@ export type Database = {
           email: string
           full_name: string
           id?: string
+          linkedin_url?: string | null
+          position?: string | null
+          reason?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
+          school?: string | null
+          startup?: string | null
           status?: string
           updated_at?: string
           user_id?: string | null
@@ -1161,8 +1171,13 @@ export type Database = {
           email?: string
           full_name?: string
           id?: string
+          linkedin_url?: string | null
+          position?: string | null
+          reason?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
+          school?: string | null
+          startup?: string | null
           status?: string
           updated_at?: string
           user_id?: string | null
@@ -1239,8 +1254,13 @@ export type Database = {
           email: string
           full_name: string
           id: string
+          linkedin_url: string | null
+          position: string | null
+          reason: string | null
           reviewed_at: string | null
           reviewed_by: string | null
+          school: string | null
+          startup: string | null
           status: string
           updated_at: string
           user_id: string | null
@@ -1339,6 +1359,17 @@ export type Database = {
         Args: { _id: string; _reason: string; _type: string }
         Returns: string
       }
+      submit_member_application: {
+        Args: {
+          _full_name: string
+          _linkedin_url: string
+          _position: string
+          _reason: string
+          _school: string
+          _startup: string
+        }
+        Returns: string
+      }
       submit_waitlist: {
         Args: { _full_name: string }
         Returns: {
@@ -1356,8 +1387,13 @@ export type Database = {
           email: string
           full_name: string
           id: string
+          linkedin_url: string | null
+          position: string | null
+          reason: string | null
           reviewed_at: string | null
           reviewed_by: string | null
+          school: string | null
+          startup: string | null
           status: string
           updated_at: string
           user_id: string | null
