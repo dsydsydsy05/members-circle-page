@@ -59,6 +59,7 @@ function ChallengePage() {
         <LightSiteNav />
         <section className="uec-hero" onPointerMove={onMove}>
           <div className="uec-hero__glow" aria-hidden="true" />
+          <ChallengeTicket />
           <p className="uec-kicker">The Room presents · Boston 2026</p>
           <h1 className="uec-title">
             {["The Ultimate", "Entrepreneurial", "Challenge"].map((line, i) => (
