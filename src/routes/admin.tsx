@@ -709,10 +709,165 @@ function BusinessesSection() {
   );
 }
 
+type ChallengeApplication = {
+  id: string;
+  full_name: string;
+  school: string;
+  grade: string;
+  linkedin_url: string;
+  current_work: string;
+  why_deserve: string;
+  money_plan: string | null;
+  crazy_thing: string;
+  on_camera: string;
+  email: string | null;
+  phone: string | null;
+  status: string;
+  created_at: string;
+};
+
+function AdminChallengeSection() {
+  const qc = useQueryClient();
+  const [openId, setOpenId] = useState<string | null>(null);
+  const { data: rows = [], isLoading } = useQuery({
+    queryKey: ["admin-challenge-applications"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("challenge_applications")
+        .select(
+          "id, full_name, school, grade, linkedin_url, current_work, why_deserve, money_plan, crazy_thing, on_camera, email, phone, status, created_at",
+        )
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return (data ?? []) as ChallengeApplication[];
+    },
+  });
+
+  const review = async (id: string, decision: "accepted" | "rejected") => {
+    const { error } = await supabase.rpc("admin_review_challenge_application", {
+      _application_id: id,
+      _decision: decision,
+    });
+    if (error) return toast.error(error.message);
+    toast.success(decision === "accepted" ? "Application accepted" : "Application rejected");
+    qc.invalidateQueries({ queryKey: ["admin-challenge-applications"] });
+  };
+
+  const statusStyle = (status: string) =>
+    status === "accepted"
+      ? "bg-primary text-primary-foreground"
+      : status === "rejected"
+        ? "bg-destructive/10 text-destructive"
+        : "border border-border text-muted-foreground";
+
+  return (
+    <section className="space-y-4">
+      <div>
+        <h2 className="text-xl font-semibold tracking-tight">Challenge applications</h2>
+        <p className="mt-1 text-xs text-muted-foreground">
+          The Ultimate Entrepreneurial Challenge entries. Newest first.
+        </p>
+      </div>
+      {isLoading ? (
+        <div className="text-sm text-muted-foreground">Loading…</div>
+      ) : rows.length === 0 ? (
+        <div className="rounded-2xl border border-border bg-card/60 p-8 text-center text-sm text-muted-foreground">
+          No challenge applications yet.
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {rows.map((a) => (
+            <div key={a.id} className="rounded-xl border border-border bg-card/60 px-4 py-3 text-sm">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <div className="font-medium">
+                    {a.full_name}
+                    <span className="ml-2 text-xs font-normal text-muted-foreground">
+                      {a.school} · {a.grade}
+                    </span>
+                  </div>
+                  <div className="mt-0.5 text-xs text-muted-foreground">
+                    {a.email || "no email"}
+                    {a.phone ? ` · ${a.phone}` : ""} ·{" "}
+                    {new Date(a.created_at).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className={`rounded-full px-3 py-1 text-xs ${statusStyle(a.status)}`}>
+                    {a.status}
+                  </span>
+                  <button
+                    onClick={() => setOpenId(openId === a.id ? null : a.id)}
+                    className="rounded-full border border-border px-3 py-1 text-xs hover:bg-secondary"
+                  >
+                    {openId === a.id ? "Hide" : "Answers"}
+                  </button>
+                  {a.status === "pending" && (
+                    <>
+                      <button
+                        onClick={() => review(a.id, "accepted")}
+                        className="rounded-full bg-primary px-3 py-1 text-xs text-primary-foreground hover:opacity-90"
+                      >
+                        Accept
+                      </button>
+                      <button
+                        onClick={() => review(a.id, "rejected")}
+                        className="rounded-full border border-destructive/50 px-3 py-1 text-xs text-destructive hover:bg-destructive/10"
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+              {openId === a.id && (
+                <dl className="mt-3 space-y-2 border-t border-border pt-3 text-xs">
+                  {(
+                    [
+                      ["LinkedIn", a.linkedin_url],
+                      ["Working on", a.current_work],
+                      ["Why will you win the Challenge?", a.why_deserve],
+                      ["How would you make money during the Challenge?", a.money_plan],
+                      ["One crazy thing", a.crazy_thing],
+                      ["On camera / content", a.on_camera],
+                    ] as const
+                  ).map(([label, value]) => (
+                    <div key={label}>
+                      <dt className="font-medium text-muted-foreground">{label}</dt>
+                      <dd className="mt-0.5 whitespace-pre-wrap">
+                        {label === "LinkedIn" && value ? (
+                          <a
+                            href={value.startsWith("http") ? value : `https://${value}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-primary underline"
+                          >
+                            {value}
+                          </a>
+                        ) : (
+                          value || "—"
+                        )}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
 const TABS = [
   ...SECTIONS.map((s) => ({ id: s.table as string, label: s.label })),
   { id: "qa", label: "Q&A" },
   { id: "waitlist", label: "Applications" },
+  { id: "challenge", label: "Challenge" },
   { id: "moderation", label: "Moderation" },
   { id: "nfc", label: "NFC passes" },
   { id: "members", label: "Members" },
@@ -771,6 +926,8 @@ function AdminPage() {
                 <AdminQASection />
               ) : tab === "waitlist" ? (
                 <AdminWaitlistSection />
+              ) : tab === "challenge" ? (
+                <AdminChallengeSection />
               ) : tab === "moderation" ? (
                 <>
                   <AdminModerationSection />
