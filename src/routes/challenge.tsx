@@ -199,7 +199,7 @@ function ChallengeApply() {
       const { data, error } = await supabase
         .from("challenge_applications")
         .select(
-          "id, status, full_name, school, grade, linkedin_url, current_work, why_deserve, crazy_thing, on_camera",
+          "id, status, full_name, school, grade, linkedin_url, email, phone, current_work, why_deserve, crazy_thing, on_camera",
         )
         .eq("user_id", uid)
         .maybeSingle();
@@ -216,6 +216,8 @@ function ChallengeApply() {
       school: application.school ?? "",
       grade: application.grade ?? "",
       linkedin_url: application.linkedin_url ?? "",
+      email: application.email ?? "",
+      phone: application.phone ?? "",
       current_work: application.current_work ?? "",
       why_deserve: application.why_deserve ?? "",
       crazy_thing: application.crazy_thing ?? "",
