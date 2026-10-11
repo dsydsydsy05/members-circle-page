@@ -226,6 +226,7 @@ function ChallengeApply() {
       phone: application.phone ?? "",
       current_work: application.current_work ?? "",
       why_deserve: application.why_deserve ?? "",
+      money_plan: application.money_plan ?? "",
       crazy_thing: application.crazy_thing ?? "",
       on_camera: application.on_camera ?? "",
     });
