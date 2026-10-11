@@ -221,9 +221,9 @@ function AccessStep({
       </header>
 
       <section className="light-access-waitlist">
-        <div className="light-access-copy">
+        <div className="light-access-copy light-access-copy--entry">
           <span>01 / Become a member</span>
-          <h1>Apply to join.</h1>
+          <h1>Membership application.</h1>
           <p>
             Tell us who you are. Every application is reviewed by The Room team so the room stays
             useful and trusted.

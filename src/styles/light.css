@@ -6868,3 +6868,10 @@
   text-transform: uppercase;
   color: rgba(244, 243, 238, 0.45);
 }
+
+/* Membership panel reads as secondary next to the Challenge hero */
+.light-access-copy--entry h1 {
+  max-width: 15ch;
+  font-size: clamp(28px, 3.1vw, 46px);
+  letter-spacing: -0.048em;
+}
