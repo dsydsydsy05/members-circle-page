@@ -82,6 +82,7 @@ function OnboardingPage() {
       <main
         className={`light-member-main mx-auto max-w-6xl px-6 py-16 ${step === "code" ? "light-access-main" : ""}`}
       >
+        <ChallengeCallout />
         {step === "code" ? (
           <AccessStep
             email={email ?? ""}
@@ -668,5 +669,17 @@ function ProfileForm({
         </button>
       </form>
     </>
+  );
+}
+
+function ChallengeCallout() {
+  return (
+    <Link to="/challenge" className="challenge-callout">
+      <div className="challenge-callout__text">
+        <span>The Ultimate Entrepreneurial Challenge</span>
+        <strong>Think you can win? Apply to play.</strong>
+      </div>
+      <span className="challenge-callout__cta">Apply to play →</span>
+    </Link>
   );
 }
