@@ -247,8 +247,13 @@ function ChallengeApply() {
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (Object.values(form).some((v) => !v.trim())) {
+    const requiredKeys = QUESTIONS.filter((q) => !q.optional).map((q) => q.key);
+    if (requiredKeys.some((k) => !form[k].trim())) {
       setMessage("Please answer every question.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+      setMessage("Enter a valid email address.");
       return;
     }
     setBusy(true);
@@ -262,6 +267,8 @@ function ChallengeApply() {
       _why_deserve: form.why_deserve,
       _crazy_thing: form.crazy_thing,
       _on_camera: form.on_camera,
+      _email: form.email,
+      _phone: form.phone,
     });
     setBusy(false);
     if (error) {
