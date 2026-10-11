@@ -671,3 +671,15 @@ function ProfileForm({
     </>
   );
 }
+
+function ChallengeCallout() {
+  return (
+    <Link to="/challenge" className="challenge-callout">
+      <div className="challenge-callout__text">
+        <span>The Ultimate Entrepreneurial Challenge</span>
+        <strong>Think you can win? Apply to play.</strong>
+      </div>
+      <span className="challenge-callout__cta">Apply to play →</span>
+    </Link>
+  );
+}
