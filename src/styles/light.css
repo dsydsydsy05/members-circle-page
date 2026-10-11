@@ -6548,7 +6548,7 @@
 }
 .uec-kicker { font-family: var(--font-mono, monospace); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--light-green); }
 .uec-hero .uec-kicker { color: var(--light-green-soft); }
-.uec-title { margin: 24px 0 40px; font-weight: 800; text-transform: uppercase; line-height: .9; letter-spacing: -.04em; font-size: clamp(26px, 7.4vw, 116px); }
+.theme-light .uec .uec-title { margin: 24px 0 40px; font-weight: 800; text-transform: uppercase; line-height: .9; letter-spacing: -.04em; font-size: clamp(26px, 7.4vw, 116px); }
 .uec-line { display: block; overflow: hidden; }
 .uec-line > span { display: inline-block; transform: translateY(105%); animation: uec-rise .9s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: calc(var(--i) * 120ms + 150ms); }
 .uec-line:nth-child(2) > span { color: var(--light-green); }
@@ -6589,7 +6589,7 @@
   .uec-stage { min-height: 180px; }
   .uec-hero__row { flex-direction: column; align-items: flex-start; }
   .uec-badge { width: 104px; height: 104px; }
-  .uec-hero { padding-top: 96px; }
+  .theme-light .uec .uec-hero { padding-top: 104px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .uec *, .uec [data-reveal] { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
