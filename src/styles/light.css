@@ -6747,3 +6747,6 @@
     transform: rotate(2deg);
   }
 }
+@media (min-width: 721px) {
+  .uec-title { padding-right: min(340px, 28vw); }
+}
