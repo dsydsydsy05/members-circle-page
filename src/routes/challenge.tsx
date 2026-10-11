@@ -194,6 +194,11 @@ function ChallengeApply() {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<keyof typeof EMPTY_FORM, string>>>({});
+  const update = (key: keyof typeof EMPTY_FORM, value: string) => {
+    setForm((f) => ({ ...f, [key]: value }));
+    setErrors((e) => (e[key] ? { ...e, [key]: undefined } : e));
+  };
 
   const { data: application, isLoading } = useQuery({
     queryKey: ["challenge-application"],
@@ -252,15 +257,34 @@ function ChallengeApply() {
     );
   }
 
+  const validate = (f: typeof EMPTY_FORM) => {
+    const errs: Partial<Record<keyof typeof EMPTY_FORM, string>> = {};
+    for (const q of QUESTIONS) {
+      if (!q.optional && !f[q.key].trim()) errs[q.key] = "This question is required.";
+    }
+    if (f.linkedin_url.trim() && !f.linkedin_url.toLowerCase().includes("linkedin.com/")) {
+      errs.linkedin_url = "Must be a LinkedIn profile link, e.g. linkedin.com/in/yourname";
+    }
+    if (f.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) {
+      errs.email = "Enter a valid email address, e.g. you@school.edu";
+    }
+    if (f.phone.trim() && !/^[+\d\s().-]{7,}$/.test(f.phone.trim())) {
+      errs.phone = "Use digits only, e.g. +1 555 000 0000";
+    }
+    return errs;
+  };
+
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const requiredKeys = QUESTIONS.filter((q) => !q.optional).map((q) => q.key);
-    if (requiredKeys.some((k) => !form[k].trim())) {
-      setMessage("Please answer every question.");
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-      setMessage("Enter a valid email address.");
+    const errs = validate(form);
+    setErrors(errs);
+    const firstBad = QUESTIONS.find((q) => errs[q.key]);
+    if (firstBad) {
+      setMessage("Please fix the fields marked in red.");
+      document.getElementById(`uec-${firstBad.key}`)?.focus();
+      document
+        .getElementById(`uec-${firstBad.key}`)
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
     setBusy(true);
@@ -280,7 +304,12 @@ function ChallengeApply() {
     });
     setBusy(false);
     if (error) {
-      setMessage(error.message);
+      const m = error.message;
+      if (/linkedin/i.test(m)) setErrors({ linkedin_url: m });
+      else if (/email/i.test(m)) setErrors({ email: m });
+      setMessage(
+        /sign in|jwt/i.test(m) ? "Your session expired — please sign in again." : `Couldn’t submit: ${m}`,
+      );
       return;
     }
     // Notify the admin by email. Fire-and-forget: a failed notification must
