@@ -6594,3 +6594,17 @@
 @media (prefers-reduced-motion: reduce) {
   .uec *, .uec [data-reveal] { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
 }
+
+/* Challenge application form */
+.uec-form { max-width: 640px; margin: 32px auto 0; text-align: left; display: grid; gap: 22px; }
+.uec-field label { display: flex; align-items: baseline; gap: 10px; font-weight: 600; font-size: 15px; letter-spacing: -.01em; }
+.uec-field label span { font-family: var(--font-mono, monospace); font-size: 11px; color: var(--light-green); letter-spacing: .08em; }
+.uec-field input, .uec-field textarea { margin-top: 8px; width: 100%; border: 1px solid var(--light-line); border-radius: 14px; background: var(--light-bg, #fff); padding: 13px 16px; font: inherit; font-size: 15px; color: inherit; outline: none; transition: border-color .2s, box-shadow .2s; }
+.uec-field input:focus, .uec-field textarea:focus { border-color: var(--light-green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--light-green) 18%, transparent); }
+.uec-field textarea { resize: vertical; min-height: 96px; }
+.uec-form .uec-apply__actions { margin-top: 8px; }
+.uec-form .uec-cta { border: none; cursor: pointer; font: inherit; font-weight: 600; }
+.uec-form-status { margin-top: 16px; text-align: center; font-size: 14px; color: var(--light-muted); }
+.uec-form-state { display: grid; justify-items: center; gap: 14px; margin-top: 28px; }
+.uec-form-state p { max-width: 420px; margin: 0; color: var(--light-muted); }
+.uec-form-edit { background: none; border: none; cursor: pointer; font: inherit; font-size: 14px; font-weight: 600; color: var(--light-ink); text-decoration: underline; text-underline-offset: 3px; }
