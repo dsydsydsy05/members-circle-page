@@ -169,7 +169,12 @@ const QUESTIONS: {
   },
   {
     key: "why_deserve",
-    label: "Why can you win the Challenge?",
+    label: "Why will you win the Challenge?",
+    textarea: true,
+  },
+  {
+    key: "money_plan",
+    label: "How would you make money during the Challenge?",
     textarea: true,
   },
   { key: "crazy_thing", label: "Tell us one crazy thing about you.", textarea: true },
