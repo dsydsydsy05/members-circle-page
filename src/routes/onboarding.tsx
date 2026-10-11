@@ -82,6 +82,7 @@ function OnboardingPage() {
       <main
         className={`light-member-main mx-auto max-w-6xl px-6 py-16 ${step === "code" ? "light-access-main" : ""}`}
       >
+        <ChallengeCallout />
         {step === "code" ? (
           <AccessStep
             email={email ?? ""}
