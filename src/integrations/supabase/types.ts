@@ -19,11 +19,13 @@ export type Database = {
           crazy_thing: string
           created_at: string
           current_work: string
+          email: string | null
           full_name: string
           grade: string
           id: string
           linkedin_url: string
           on_camera: string
+          phone: string | null
           school: string
           status: string
           updated_at: string
@@ -34,11 +36,13 @@ export type Database = {
           crazy_thing: string
           created_at?: string
           current_work: string
+          email?: string | null
           full_name: string
           grade: string
           id?: string
           linkedin_url: string
           on_camera: string
+          phone?: string | null
           school: string
           status?: string
           updated_at?: string
@@ -49,11 +53,13 @@ export type Database = {
           crazy_thing?: string
           created_at?: string
           current_work?: string
+          email?: string | null
           full_name?: string
           grade?: string
           id?: string
           linkedin_url?: string
           on_camera?: string
+          phone?: string | null
           school?: string
           status?: string
           updated_at?: string
@@ -1415,10 +1421,12 @@ export type Database = {
         Args: {
           _crazy_thing: string
           _current_work: string
+          _email: string
           _full_name: string
           _grade: string
           _linkedin_url: string
           _on_camera: string
+          _phone: string
           _school: string
           _why_deserve: string
         }
@@ -1426,11 +1434,13 @@ export type Database = {
           crazy_thing: string
           created_at: string
           current_work: string
+          email: string | null
           full_name: string
           grade: string
           id: string
           linkedin_url: string
           on_camera: string
+          phone: string | null
           school: string
           status: string
           updated_at: string
