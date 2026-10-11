@@ -40,6 +40,7 @@ import { Route as LightProjectsRouteImport } from './routes/light/projects'
 import { Route as LightQaRouteImport } from './routes/light/qa'
 import { Route as MemberMemberIdRouteImport } from './routes/member.$memberId'
 import { Route as NfcTokenRouteImport } from './routes/nfc.$token'
+import { Route as ApiPublicChallengeApplicationNotifyRouteImport } from './routes/api/public/challenge-application-notify'
 import { Route as ApiPublicSendMemberWelcomeRouteImport } from './routes/api/public/send-member-welcome'
 
 const IndexRoute = IndexRouteImport.update({
@@ -197,6 +198,12 @@ const NfcTokenRoute = NfcTokenRouteImport.update({
   path: '/nfc/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicChallengeApplicationNotifyRoute =
+  ApiPublicChallengeApplicationNotifyRouteImport.update({
+    id: '/api/public/challenge-application-notify',
+    path: '/api/public/challenge-application-notify',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicSendMemberWelcomeRoute =
   ApiPublicSendMemberWelcomeRouteImport.update({
     id: '/api/public/send-member-welcome',
@@ -236,6 +243,7 @@ export interface FileRoutesByFullPath {
   '/member/$memberId': typeof MemberMemberIdRoute
   '/nfc/$token': typeof NfcTokenRoute
   '/light/': typeof LightIndexRoute
+  '/api/public/challenge-application-notify': typeof ApiPublicChallengeApplicationNotifyRoute
   '/api/public/send-member-welcome': typeof ApiPublicSendMemberWelcomeRoute
 }
 export interface FileRoutesByTo {
@@ -269,6 +277,7 @@ export interface FileRoutesByTo {
   '/member/$memberId': typeof MemberMemberIdRoute
   '/nfc/$token': typeof NfcTokenRoute
   '/light': typeof LightIndexRoute
+  '/api/public/challenge-application-notify': typeof ApiPublicChallengeApplicationNotifyRoute
   '/api/public/send-member-welcome': typeof ApiPublicSendMemberWelcomeRoute
 }
 export interface FileRoutesById {
@@ -304,6 +313,7 @@ export interface FileRoutesById {
   '/member/$memberId': typeof MemberMemberIdRoute
   '/nfc/$token': typeof NfcTokenRoute
   '/light/': typeof LightIndexRoute
+  '/api/public/challenge-application-notify': typeof ApiPublicChallengeApplicationNotifyRoute
   '/api/public/send-member-welcome': typeof ApiPublicSendMemberWelcomeRoute
 }
 export interface FileRouteTypes {
@@ -340,6 +350,7 @@ export interface FileRouteTypes {
     | '/member/$memberId'
     | '/nfc/$token'
     | '/light/'
+    | '/api/public/challenge-application-notify'
     | '/api/public/send-member-welcome'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -373,6 +384,7 @@ export interface FileRouteTypes {
     | '/member/$memberId'
     | '/nfc/$token'
     | '/light'
+    | '/api/public/challenge-application-notify'
     | '/api/public/send-member-welcome'
   id:
     | '__root__'
@@ -407,6 +419,7 @@ export interface FileRouteTypes {
     | '/member/$memberId'
     | '/nfc/$token'
     | '/light/'
+    | '/api/public/challenge-application-notify'
     | '/api/public/send-member-welcome'
   fileRoutesById: FileRoutesById
 }
@@ -434,6 +447,7 @@ export interface RootRouteChildren {
   GuestGuestIdRoute: typeof GuestGuestIdRoute
   MemberMemberIdRoute: typeof MemberMemberIdRoute
   NfcTokenRoute: typeof NfcTokenRoute
+  ApiPublicChallengeApplicationNotifyRoute: typeof ApiPublicChallengeApplicationNotifyRoute
   ApiPublicSendMemberWelcomeRoute: typeof ApiPublicSendMemberWelcomeRoute
 }
 
@@ -656,6 +670,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NfcTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/challenge-application-notify': {
+      id: '/api/public/challenge-application-notify'
+      path: '/api/public/challenge-application-notify'
+      fullPath: '/api/public/challenge-application-notify'
+      preLoaderRoute: typeof ApiPublicChallengeApplicationNotifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/send-member-welcome': {
       id: '/api/public/send-member-welcome'
       path: '/api/public/send-member-welcome'
@@ -716,6 +737,8 @@ const rootRouteChildren: RootRouteChildren = {
   GuestGuestIdRoute: GuestGuestIdRoute,
   MemberMemberIdRoute: MemberMemberIdRoute,
   NfcTokenRoute: NfcTokenRoute,
+  ApiPublicChallengeApplicationNotifyRoute:
+    ApiPublicChallengeApplicationNotifyRoute,
   ApiPublicSendMemberWelcomeRoute: ApiPublicSendMemberWelcomeRoute,
 }
 export const routeTree = rootRouteImport
