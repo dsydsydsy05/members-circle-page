@@ -83,7 +83,6 @@ function OnboardingPage() {
         id="membership-application"
         className={`light-member-main mx-auto max-w-6xl px-6 py-16 ${step === "code" ? "light-access-main" : ""}`}
       >
-        <EntryChoice />
         {step === "code" ? (
           <AccessStep
             email={email ?? ""}
@@ -221,7 +220,7 @@ function AccessStep({
       </header>
 
       <section className="light-access-waitlist">
-        <div className="light-access-copy light-access-copy--entry">
+        <div className="light-access-copy light-access-copy--membership">
           <span>01 / Become a member</span>
           <h1>Membership application.</h1>
           <p>
@@ -670,31 +669,5 @@ function ProfileForm({
         </button>
       </form>
     </>
-  );
-}
-
-function EntryChoice() {
-  return (
-    <section className="entry-choice" aria-label="Choose what to apply for">
-      <p className="entry-choice__kicker">What brings you here?</p>
-      <div className="entry-choice__grid">
-        <a href="#membership-application" className="entry-choice__mini">
-          <span className="entry-choice__tag">The Room Membership</span>
-          <strong>Apply for membership</strong>
-          <p>Directory, events and member perks.</p>
-          <span className="entry-choice__mini-cta">Fill in the form below ↓</span>
-        </a>
-        <Link to="/challenge" className="entry-choice__hero">
-          <span className="entry-choice__tag">The Ultimate Entrepreneurial Challenge</span>
-          <strong>Apply to play the Challenge</strong>
-          <p>
-            Answer 11 quick questions — no membership needed. We pick a small, sharp field of
-            players.
-          </p>
-          <span className="entry-choice__cta">Start Challenge application →</span>
-          <span className="entry-choice__close">Applications close Oct 18</span>
-        </Link>
-      </div>
-    </section>
   );
 }
