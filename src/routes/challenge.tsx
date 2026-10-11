@@ -194,6 +194,11 @@ function ChallengeApply() {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<keyof typeof EMPTY_FORM, string>>>({});
+  const update = (key: keyof typeof EMPTY_FORM, value: string) => {
+    setForm((f) => ({ ...f, [key]: value }));
+    setErrors((e) => (e[key] ? { ...e, [key]: undefined } : e));
+  };
 
   const { data: application, isLoading } = useQuery({
     queryKey: ["challenge-application"],
@@ -252,15 +257,34 @@ function ChallengeApply() {
     );
   }
 
+  const validate = (f: typeof EMPTY_FORM) => {
+    const errs: Partial<Record<keyof typeof EMPTY_FORM, string>> = {};
+    for (const q of QUESTIONS) {
+      if (!q.optional && !f[q.key].trim()) errs[q.key] = "This question is required.";
+    }
+    if (f.linkedin_url.trim() && !f.linkedin_url.toLowerCase().includes("linkedin.com/")) {
+      errs.linkedin_url = "Must be a LinkedIn profile link, e.g. linkedin.com/in/yourname";
+    }
+    if (f.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) {
+      errs.email = "Enter a valid email address, e.g. you@school.edu";
+    }
+    if (f.phone.trim() && !/^[+\d\s().-]{7,}$/.test(f.phone.trim())) {
+      errs.phone = "Use digits only, e.g. +1 555 000 0000";
+    }
+    return errs;
+  };
+
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const requiredKeys = QUESTIONS.filter((q) => !q.optional).map((q) => q.key);
-    if (requiredKeys.some((k) => !form[k].trim())) {
-      setMessage("Please answer every question.");
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-      setMessage("Enter a valid email address.");
+    const errs = validate(form);
+    setErrors(errs);
+    const firstBad = QUESTIONS.find((q) => errs[q.key]);
+    if (firstBad) {
+      setMessage("Please fix the fields marked in red.");
+      document.getElementById(`uec-${firstBad.key}`)?.focus();
+      document
+        .getElementById(`uec-${firstBad.key}`)
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
     setBusy(true);
@@ -280,7 +304,12 @@ function ChallengeApply() {
     });
     setBusy(false);
     if (error) {
-      setMessage(error.message);
+      const m = error.message;
+      if (/linkedin/i.test(m)) setErrors({ linkedin_url: m });
+      else if (/email/i.test(m)) setErrors({ email: m });
+      setMessage(
+        /sign in|jwt/i.test(m) ? "Your session expired — please sign in again." : `Couldn’t submit: ${m}`,
+      );
       return;
     }
     // Notify the admin by email. Fire-and-forget: a failed notification must
@@ -332,9 +361,9 @@ function ChallengeApply() {
   }
 
   return (
-    <form className="uec-form" onSubmit={submit}>
+    <form className="uec-form" onSubmit={submit} noValidate>
       {QUESTIONS.map((q, i) => (
-        <div key={q.key} className="uec-field">
+        <div key={q.key} className={`uec-field${errors[q.key] ? " is-invalid" : ""}`}>
           <label htmlFor={`uec-${q.key}`}>
             <span>{String(i + 1).padStart(2, "0")}</span>
             {q.label}
@@ -345,8 +374,9 @@ function ChallengeApply() {
               rows={4}
               value={form[q.key]}
               placeholder={q.placeholder}
-              onChange={(e) => setForm((f) => ({ ...f, [q.key]: e.target.value.slice(0, 2000) }))}
-              required={!q.optional}
+              aria-invalid={!!errors[q.key]}
+              aria-describedby={errors[q.key] ? `uec-${q.key}-err` : undefined}
+              onChange={(e) => update(q.key, e.target.value.slice(0, 2000))}
             />
           ) : (
             <input
@@ -354,10 +384,16 @@ function ChallengeApply() {
               type={q.type}
               value={form[q.key]}
               placeholder={q.placeholder}
-              onChange={(e) => setForm((f) => ({ ...f, [q.key]: e.target.value.slice(0, 300) }))}
-              required={!q.optional}
+              aria-invalid={!!errors[q.key]}
+              aria-describedby={errors[q.key] ? `uec-${q.key}-err` : undefined}
+              onChange={(e) => update(q.key, e.target.value.slice(0, 300))}
             />
           )}
+          {errors[q.key] ? (
+            <p id={`uec-${q.key}-err`} className="uec-field-error">
+              {errors[q.key]}
+            </p>
+          ) : null}
         </div>
       ))}
       <div className="uec-apply__actions">
@@ -366,7 +402,10 @@ function ChallengeApply() {
         </button>
       </div>
       {message ? (
-        <p className="uec-form-status" role="status">
+        <p
+          className={`uec-form-status${Object.values(errors).some(Boolean) || message.startsWith("Couldn") || message.startsWith("Your session") ? " is-error" : ""}`}
+          role="status"
+        >
           {message}
         </p>
       ) : null}
