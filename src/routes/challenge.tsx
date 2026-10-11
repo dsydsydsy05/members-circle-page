@@ -124,6 +124,8 @@ const EMPTY_FORM = {
   school: "",
   grade: "",
   linkedin_url: "",
+  email: "",
+  phone: "",
   current_work: "",
   why_deserve: "",
   crazy_thing: "",
@@ -135,6 +137,8 @@ const QUESTIONS: {
   label: string;
   textarea?: boolean;
   placeholder?: string;
+  optional?: boolean;
+  type?: string;
 }[] = [
   { key: "full_name", label: "What’s your name?", placeholder: "Your full name" },
   { key: "school", label: "What school do you go to?", placeholder: "e.g. Harvard, MIT, BU" },
@@ -145,6 +149,19 @@ const QUESTIONS: {
     placeholder: "linkedin.com/in/yourname",
   },
   {
+    key: "email",
+    label: "Your email",
+    type: "email",
+    placeholder: "you@school.edu",
+  },
+  {
+    key: "phone",
+    label: "Your phone number (optional)",
+    type: "tel",
+    placeholder: "+1 (555) 000-0000",
+    optional: true,
+  },
+  {
     key: "current_work",
     label: "What are you working on right now?",
     textarea: true,
@@ -152,7 +169,7 @@ const QUESTIONS: {
   },
   {
     key: "why_deserve",
-    label: "Why do you think you deserve the money more than everyone else?",
+    label: "Why can you win the Challenge?",
     textarea: true,
   },
   { key: "crazy_thing", label: "Tell us one crazy thing about you.", textarea: true },
