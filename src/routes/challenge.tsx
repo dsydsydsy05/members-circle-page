@@ -28,6 +28,53 @@ const STAGES = [
   { n: "03", title: "Play", body: "Compete live. Build, pitch, survive the rounds." },
 ];
 
+// Applications close Oct 18, 2026 at 23:59 Boston time (EDT, UTC-4).
+const APPLY_DEADLINE = new Date("2026-10-18T23:59:59-04:00").getTime();
+
+function useCountdown(target: number) {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(id);
+  }, []);
+  const left = Math.max(0, target - now);
+  return {
+    days: Math.floor(left / 86_400_000),
+    hours: Math.floor((left / 3_600_000) % 24),
+    mins: Math.floor((left / 60_000) % 60),
+    secs: Math.floor((left / 1000) % 60),
+    closed: left === 0,
+  };
+}
+
+function ChallengeTicket() {
+  const { days, hours, mins, secs, closed } = useCountdown(APPLY_DEADLINE);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return (
+    <aside className="uec-ticket" aria-label="Challenge pass with application countdown">
+      <div className="uec-ticket__head">
+        <span>THE ROOM / UEC</span>
+        <span>CHALLENGE PASS</span>
+      </div>
+      <p className="uec-ticket__label">EVENT · LATE OCT — EARLY NOV</p>
+      <p className="uec-ticket__label">APPLICATIONS CLOSE IN</p>
+      <p className="uec-ticket__count" aria-live="polite">
+        {closed ? "CLOSED" : `${pad(days)}:${pad(hours)}:${pad(mins)}:${pad(secs)}`}
+      </p>
+      <p className="uec-ticket__deadline">DEADLINE · OCT 18 · 11:59 PM ET</p>
+      <div className="uec-ticket__tear" aria-hidden="true" />
+      <div className="uec-ticket__foot">
+        <span className="uec-ticket__barcode" aria-hidden="true" />
+        <span>
+          BOSTON,
+          <br />
+          MASSACHUSETTS
+        </span>
+      </div>
+    </aside>
+  );
+}
+
 function ChallengePage() {
   const root = useRef<HTMLDivElement>(null);
 
@@ -59,6 +106,7 @@ function ChallengePage() {
         <LightSiteNav />
         <section className="uec-hero" onPointerMove={onMove}>
           <div className="uec-hero__glow" aria-hidden="true" />
+          <ChallengeTicket />
           <p className="uec-kicker">The Room presents · Boston 2026</p>
           <h1 className="uec-title">
             {["The Ultimate", "Entrepreneurial", "Challenge"].map((line, i) => (
