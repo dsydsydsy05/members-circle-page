@@ -239,7 +239,7 @@ function ChallengeApply() {
   if (!isSignedIn) {
     return (
       <>
-        <p>Create an account first — then answer 10 quick questions to apply.</p>
+        <p>Create an account first — then answer 11 quick questions to apply.</p>
         <div className="uec-apply__actions">
           <span className="uec-pill">
             <i aria-hidden="true" /> Applications open
