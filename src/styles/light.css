@@ -6602,6 +6602,9 @@
 .uec-field input, .uec-field textarea { margin-top: 8px; width: 100%; border: 1px solid var(--light-line); border-radius: 14px; background: var(--light-bg, #fff); padding: 13px 16px; font: inherit; font-size: 15px; color: inherit; outline: none; transition: border-color .2s, box-shadow .2s; }
 .uec-field input:focus, .uec-field textarea:focus { border-color: var(--light-green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--light-green) 18%, transparent); }
 .uec-field textarea { resize: vertical; min-height: 96px; }
+.uec-field.is-invalid input, .uec-field.is-invalid textarea, .uec-field.is-invalid input:focus, .uec-field.is-invalid textarea:focus { border: 2px solid #d93025; box-shadow: 0 0 0 3px rgba(217, 48, 37, .15); }
+.uec-field-error { margin: 6px 0 0; color: #d93025; font-size: 13px; font-weight: 600; }
+.uec-form-status.is-error { color: #d93025; font-weight: 600; }
 .uec-form .uec-apply__actions { margin-top: 8px; }
 .uec-form .uec-cta { border: none; cursor: pointer; font: inherit; font-weight: 600; }
 .uec-form-status { margin-top: 16px; text-align: center; font-size: 14px; color: var(--light-muted); }
