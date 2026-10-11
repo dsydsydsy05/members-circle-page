@@ -8,6 +8,13 @@
       "when": 1791749592410,
       "tag": "0000_member_applications",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791749934509,
+      "tag": "0001_challenge_applications",
+      "breakpoints": true
     }
   ]
 }

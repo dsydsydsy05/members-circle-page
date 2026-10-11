@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      challenge_applications: {
+        Row: {
+          crazy_thing: string
+          created_at: string
+          current_work: string
+          full_name: string
+          grade: string
+          id: string
+          linkedin_url: string
+          on_camera: string
+          school: string
+          status: string
+          updated_at: string
+          user_id: string
+          why_deserve: string
+        }
+        Insert: {
+          crazy_thing: string
+          created_at?: string
+          current_work: string
+          full_name: string
+          grade: string
+          id?: string
+          linkedin_url: string
+          on_camera: string
+          school: string
+          status?: string
+          updated_at?: string
+          user_id: string
+          why_deserve: string
+        }
+        Update: {
+          crazy_thing?: string
+          created_at?: string
+          current_work?: string
+          full_name?: string
+          grade?: string
+          id?: string
+          linkedin_url?: string
+          on_camera?: string
+          school?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+          why_deserve?: string
+        }
+        Relationships: []
+      }
       community_notifications: {
         Row: {
           actor_id: string
@@ -1237,6 +1285,10 @@ export type Database = {
         }
         Returns: number
       }
+      admin_review_challenge_application: {
+        Args: { _application_id: string; _decision: string }
+        Returns: undefined
+      }
       admin_review_waitlist: {
         Args: { _admin_note?: string; _entry_id: string; _status: string }
         Returns: {
@@ -1358,6 +1410,39 @@ export type Database = {
       room_report: {
         Args: { _id: string; _reason: string; _type: string }
         Returns: string
+      }
+      submit_challenge_application: {
+        Args: {
+          _crazy_thing: string
+          _current_work: string
+          _full_name: string
+          _grade: string
+          _linkedin_url: string
+          _on_camera: string
+          _school: string
+          _why_deserve: string
+        }
+        Returns: {
+          crazy_thing: string
+          created_at: string
+          current_work: string
+          full_name: string
+          grade: string
+          id: string
+          linkedin_url: string
+          on_camera: string
+          school: string
+          status: string
+          updated_at: string
+          user_id: string
+          why_deserve: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "challenge_applications"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       submit_member_application: {
         Args: {
