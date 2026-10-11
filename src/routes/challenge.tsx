@@ -310,7 +310,7 @@ function ChallengeApply() {
   return (
     <form className="uec-form" onSubmit={submit}>
       {QUESTIONS.map((q, i) => (
-        <div key={q.key} className="uec-field" data-reveal>
+        <div key={q.key} className="uec-field">
           <label htmlFor={`uec-${q.key}`}>
             <span>{String(i + 1).padStart(2, "0")}</span>
             {q.label}
