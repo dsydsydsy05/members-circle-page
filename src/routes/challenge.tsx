@@ -361,9 +361,9 @@ function ChallengeApply() {
   }
 
   return (
-    <form className="uec-form" onSubmit={submit}>
+    <form className="uec-form" onSubmit={submit} noValidate>
       {QUESTIONS.map((q, i) => (
-        <div key={q.key} className="uec-field">
+        <div key={q.key} className={`uec-field${errors[q.key] ? " is-invalid" : ""}`}>
           <label htmlFor={`uec-${q.key}`}>
             <span>{String(i + 1).padStart(2, "0")}</span>
             {q.label}
@@ -374,8 +374,9 @@ function ChallengeApply() {
               rows={4}
               value={form[q.key]}
               placeholder={q.placeholder}
-              onChange={(e) => setForm((f) => ({ ...f, [q.key]: e.target.value.slice(0, 2000) }))}
-              required={!q.optional}
+              aria-invalid={!!errors[q.key]}
+              aria-describedby={errors[q.key] ? `uec-${q.key}-err` : undefined}
+              onChange={(e) => update(q.key, e.target.value.slice(0, 2000))}
             />
           ) : (
             <input
@@ -383,10 +384,16 @@ function ChallengeApply() {
               type={q.type}
               value={form[q.key]}
               placeholder={q.placeholder}
-              onChange={(e) => setForm((f) => ({ ...f, [q.key]: e.target.value.slice(0, 300) }))}
-              required={!q.optional}
+              aria-invalid={!!errors[q.key]}
+              aria-describedby={errors[q.key] ? `uec-${q.key}-err` : undefined}
+              onChange={(e) => update(q.key, e.target.value.slice(0, 300))}
             />
           )}
+          {errors[q.key] ? (
+            <p id={`uec-${q.key}-err`} className="uec-field-error">
+              {errors[q.key]}
+            </p>
+          ) : null}
         </div>
       ))}
       <div className="uec-apply__actions">
@@ -395,7 +402,10 @@ function ChallengeApply() {
         </button>
       </div>
       {message ? (
-        <p className="uec-form-status" role="status">
+        <p
+          className={`uec-form-status${Object.values(errors).some(Boolean) || message.startsWith("Couldn") || message.startsWith("Your session") ? " is-error" : ""}`}
+          role="status"
+        >
           {message}
         </p>
       ) : null}
