@@ -272,6 +272,7 @@ function ChallengeApply() {
       _linkedin_url: form.linkedin_url,
       _current_work: form.current_work,
       _why_deserve: form.why_deserve,
+      _money_plan: form.money_plan,
       _crazy_thing: form.crazy_thing,
       _on_camera: form.on_camera,
       _email: form.email,
