@@ -13,6 +13,7 @@ const links = [
   { to: "/qa", label: "Q&A" },
   // Public archive. The authenticated Directory intentionally remains `/members`.
   { to: "/light/members", label: "Members" },
+  { to: "/challenge", label: "Challenge" },
   // Ecosystem (/partners) temporarily hidden.
 ] as const;
 
