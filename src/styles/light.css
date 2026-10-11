@@ -6752,7 +6752,7 @@
   display: grid;
   gap: 12px;
   grid-template-columns: minmax(0, 1fr);
-  align-items: stretch;
+  align-items: start;
 }
 .entry-choice__hero { order: -1; }
 @media (min-width: 860px) {
