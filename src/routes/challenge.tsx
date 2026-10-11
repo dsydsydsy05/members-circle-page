@@ -283,6 +283,22 @@ function ChallengeApply() {
       setMessage(error.message);
       return;
     }
+    // Notify the admin by email. Fire-and-forget: a failed notification must
+    // never block or error the applicant's submission.
+    void (async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (!session?.access_token) return;
+        await fetch("/api/public/challenge-application-notify", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        });
+      } catch {
+        // Notification is best-effort.
+      }
+    })();
     setEditing(false);
     setMessage("Application received. We’ll be in touch.");
     queryClient.invalidateQueries({ queryKey: ["challenge-application"] });
