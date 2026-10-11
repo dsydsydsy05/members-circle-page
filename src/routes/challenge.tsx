@@ -128,6 +128,7 @@ const EMPTY_FORM = {
   phone: "",
   current_work: "",
   why_deserve: "",
+  money_plan: "",
   crazy_thing: "",
   on_camera: "",
 };
