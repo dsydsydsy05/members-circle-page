@@ -22,8 +22,13 @@ export const Route = createFileRoute("/challenge")({
   component: ChallengePage,
 });
 
-const STAGES = [
-  { n: "01", title: "Apply", body: "Tell us who you are and why you want in." },
+const STAGES: { n: string; title: string; body: string; cta?: string }[] = [
+  {
+    n: "01",
+    title: "Apply",
+    body: "Tell us who you are and why you want in.",
+    cta: "Apply now →",
+  },
   { n: "02", title: "Get selected", body: "We pick a small, sharp field of players." },
   { n: "03", title: "Play", body: "Compete live. Build, pitch, survive the rounds." },
 ];
@@ -142,18 +147,33 @@ function ChallengePage() {
         </div>
 
         <section className="uec-stages">
-          {STAGES.map((s, i) => (
-            <article
-              key={s.n}
-              data-reveal
-              className="uec-stage"
-              style={{ "--i": i } as React.CSSProperties}
-            >
-              <span>{s.n}</span>
-              <h2>{s.title}</h2>
-              <p>{s.body}</p>
-            </article>
-          ))}
+          {STAGES.map((s, i) =>
+            s.cta ? (
+              <a
+                key={s.n}
+                href="#apply"
+                data-reveal
+                className="uec-stage uec-stage--link"
+                style={{ "--i": i } as React.CSSProperties}
+              >
+                <span>{s.n}</span>
+                <h2>{s.title}</h2>
+                <p>{s.body}</p>
+                <span className="uec-stage__cta">{s.cta}</span>
+              </a>
+            ) : (
+              <article
+                key={s.n}
+                data-reveal
+                className="uec-stage"
+                style={{ "--i": i } as React.CSSProperties}
+              >
+                <span>{s.n}</span>
+                <h2>{s.title}</h2>
+                <p>{s.body}</p>
+              </article>
+            ),
+          )}
         </section>
 
         <section id="apply" className="uec-apply" data-reveal>
