@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { LightSiteFooter, LightSiteNav } from "@/components/light/LightSite";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
-import { safeAuthMode, safeNfcReturnPath } from "@/lib/safe-return";
+import { safeAuthMode, safeAuthReturnPath } from "@/lib/safe-return";
 
 type AuthSearch = {
   mode?: "signin" | "signup";
@@ -13,7 +13,7 @@ type AuthSearch = {
 export const Route = createFileRoute("/auth")({
   validateSearch: (search: Record<string, unknown>): AuthSearch => ({
     mode: safeAuthMode(search.mode),
-    next: safeNfcReturnPath(search.next),
+    next: safeAuthReturnPath(search.next),
   }),
   head: () => ({
     meta: [
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const search = Route.useSearch();
-  const next = safeNfcReturnPath(search.next);
+  const next = safeAuthReturnPath(search.next);
   const [mode, setMode] = useState<"signin" | "signup">(safeAuthMode(search.mode));
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
