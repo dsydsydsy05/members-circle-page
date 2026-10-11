@@ -128,6 +128,7 @@ const EMPTY_FORM = {
   phone: "",
   current_work: "",
   why_deserve: "",
+  money_plan: "",
   crazy_thing: "",
   on_camera: "",
 };
@@ -169,7 +170,12 @@ const QUESTIONS: {
   },
   {
     key: "why_deserve",
-    label: "Why can you win the Challenge?",
+    label: "Why will you win the Challenge?",
+    textarea: true,
+  },
+  {
+    key: "money_plan",
+    label: "How would you make money during the Challenge?",
     textarea: true,
   },
   { key: "crazy_thing", label: "Tell us one crazy thing about you.", textarea: true },
@@ -199,7 +205,7 @@ function ChallengeApply() {
       const { data, error } = await supabase
         .from("challenge_applications")
         .select(
-          "id, status, full_name, school, grade, linkedin_url, email, phone, current_work, why_deserve, crazy_thing, on_camera",
+          "id, status, full_name, school, grade, linkedin_url, email, phone, current_work, why_deserve, money_plan, crazy_thing, on_camera",
         )
         .eq("user_id", uid)
         .maybeSingle();
@@ -220,6 +226,7 @@ function ChallengeApply() {
       phone: application.phone ?? "",
       current_work: application.current_work ?? "",
       why_deserve: application.why_deserve ?? "",
+      money_plan: application.money_plan ?? "",
       crazy_thing: application.crazy_thing ?? "",
       on_camera: application.on_camera ?? "",
     });
@@ -232,7 +239,7 @@ function ChallengeApply() {
   if (!isSignedIn) {
     return (
       <>
-        <p>Create an account first — then answer 10 quick questions to apply.</p>
+        <p>Create an account first — then answer 11 quick questions to apply.</p>
         <div className="uec-apply__actions">
           <span className="uec-pill">
             <i aria-hidden="true" /> Applications open
@@ -265,6 +272,7 @@ function ChallengeApply() {
       _linkedin_url: form.linkedin_url,
       _current_work: form.current_work,
       _why_deserve: form.why_deserve,
+      _money_plan: form.money_plan,
       _crazy_thing: form.crazy_thing,
       _on_camera: form.on_camera,
       _email: form.email,
