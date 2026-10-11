@@ -78,7 +78,7 @@ function ConnectionsPage() {
             Sign in to view connections ↗
           </Link>
         ) : !isMember ? (
-          <Link to="/waitlist">Connections are for members. Apply to join ↗</Link>
+          <Link to="/apply">Connections are for members. Apply to join ↗</Link>
         ) : (
           <>
             <nav className="room-tabs" aria-label="Connection folders">

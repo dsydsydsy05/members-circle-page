@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as ApplyRouteImport } from './routes/apply'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BusinessesRouteImport } from './routes/businesses'
 import { Route as ConnectionsRouteImport } from './routes/connections'
@@ -53,6 +54,11 @@ const AboutRoute = AboutRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplyRoute = ApplyRouteImport.update({
+  id: '/apply',
+  path: '/apply',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -197,6 +203,7 @@ export interface FileRoutesByFullPath {
   '/light': typeof LightRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
   '/connections': typeof ConnectionsRoute
@@ -228,6 +235,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
   '/connections': typeof ConnectionsRoute
@@ -261,6 +269,7 @@ export interface FileRoutesById {
   '/light': typeof LightRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/businesses': typeof BusinessesRoute
   '/connections': typeof ConnectionsRoute
@@ -295,6 +304,7 @@ export interface FileRouteTypes {
     | '/light'
     | '/about'
     | '/admin'
+    | '/apply'
     | '/auth'
     | '/businesses'
     | '/connections'
@@ -326,6 +336,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/apply'
     | '/auth'
     | '/businesses'
     | '/connections'
@@ -358,6 +369,7 @@ export interface FileRouteTypes {
     | '/light'
     | '/about'
     | '/admin'
+    | '/apply'
     | '/auth'
     | '/businesses'
     | '/connections'
@@ -391,6 +403,7 @@ export interface RootRouteChildren {
   LightRouteRoute: typeof LightRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
+  ApplyRoute: typeof ApplyRoute
   AuthRoute: typeof AuthRoute
   BusinessesRoute: typeof BusinessesRoute
   ConnectionsRoute: typeof ConnectionsRoute
@@ -432,6 +445,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apply': {
+      id: '/apply'
+      path: '/apply'
+      fullPath: '/apply'
+      preLoaderRoute: typeof ApplyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -657,6 +677,7 @@ const rootRouteChildren: RootRouteChildren = {
   LightRouteRoute: LightRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
+  ApplyRoute: ApplyRoute,
   AuthRoute: AuthRoute,
   BusinessesRoute: BusinessesRoute,
   ConnectionsRoute: ConnectionsRoute,

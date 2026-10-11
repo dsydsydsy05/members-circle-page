@@ -60,7 +60,7 @@ export function AdminWaitlistSection() {
     <section className="space-y-5">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold tracking-tight">Waitlist</h2>
+          <h2 className="text-xl font-semibold tracking-tight">Applications</h2>
           <p className="mt-1 text-xs text-muted-foreground">
             Approved applicants receive Member access now or when they later sign in with the same
             email.
@@ -97,7 +97,33 @@ export function AdminWaitlistSection() {
           <tbody className="divide-y divide-border">
             {rows.map((entry) => (
               <tr key={entry.id}>
-                <td className="px-3 py-4 font-medium">{entry.full_name}</td>
+                <td className="max-w-[340px] px-3 py-4 align-top">
+                  <div className="font-medium">{entry.full_name}</div>
+                  {entry.position || entry.startup ? (
+                    <div className="text-xs text-muted-foreground">
+                      {[entry.position, entry.startup].filter(Boolean).join(" · ")}
+                    </div>
+                  ) : null}
+                  {entry.school ? (
+                    <div className="text-xs text-muted-foreground">{entry.school}</div>
+                  ) : null}
+                  {entry.linkedin_url ? (
+                    <a
+                      href={entry.linkedin_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-xs underline"
+                    >
+                      LinkedIn ↗
+                    </a>
+                  ) : null}
+                  {entry.reason ? (
+                    <details className="mt-1 text-xs">
+                      <summary className="cursor-pointer text-muted-foreground">Why join</summary>
+                      <p className="mt-1 whitespace-pre-wrap">{entry.reason}</p>
+                    </details>
+                  ) : null}
+                </td>
                 <td className="px-3 py-4 text-muted-foreground">{entry.email}</td>
                 <td className="px-3 py-4 uppercase">{entry.status}</td>
                 <td className="px-3 py-4">

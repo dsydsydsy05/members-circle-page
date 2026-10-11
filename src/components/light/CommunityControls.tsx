@@ -115,7 +115,7 @@ export function ConnectControl({ memberId }: { memberId: string }) {
         Sign in to connect ↗
       </a>
     );
-  if (!isMember) return <Link to="/waitlist">Become a member to connect ↗</Link>;
+  if (!isMember) return <Link to="/apply">Become a member to connect ↗</Link>;
   const current = connections.find(
     (c) =>
       [c.sender_id, c.recipient_id].includes(memberId) &&

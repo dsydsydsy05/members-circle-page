@@ -104,11 +104,11 @@ function LightFlipHero() {
         <div className="light-pass-stage">
           <div className="light-pass-stack">
             <Link
-              to="/waitlist"
+              to="/apply"
               className="light-home-waitlist"
-              aria-label="Join The Room waitlist"
+              aria-label="Apply to join The Room"
             >
-              <span>Waitlist / Open</span>
+              <span>Membership / Open</span>
               <em aria-hidden="true">Apply ↗</em>
             </Link>
             <LightIdentityPass
