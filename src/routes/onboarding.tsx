@@ -80,9 +80,10 @@ function OnboardingPage() {
   return (
     <MemberPortalShell className="portal-page">
       <main
+        id="membership-application"
         className={`light-member-main mx-auto max-w-6xl px-6 py-16 ${step === "code" ? "light-access-main" : ""}`}
       >
-        <ChallengeCallout />
+        <EntryChoice />
         {step === "code" ? (
           <AccessStep
             email={email ?? ""}
@@ -672,14 +673,24 @@ function ProfileForm({
   );
 }
 
-function ChallengeCallout() {
+function EntryChoice() {
   return (
-    <Link to="/challenge" className="challenge-callout">
-      <div className="challenge-callout__text">
-        <span>The Ultimate Entrepreneurial Challenge</span>
-        <strong>Think you can win? Apply to play.</strong>
+    <section className="entry-choice" aria-label="Choose what to apply for">
+      <p className="entry-choice__kicker">What brings you here?</p>
+      <div className="entry-choice__grid">
+        <Link to="/challenge" className="entry-choice__card entry-choice__card--challenge">
+          <span className="entry-choice__tag">The Ultimate Entrepreneurial Challenge</span>
+          <strong>Apply to play the Challenge</strong>
+          <p>Answer 11 quick questions — no membership needed. Applications close Oct 18.</p>
+          <span className="entry-choice__cta">Start Challenge application →</span>
+        </Link>
+        <a href="#membership-application" className="entry-choice__card">
+          <span className="entry-choice__tag">The Room Membership</span>
+          <strong>Apply for membership</strong>
+          <p>Join the community directory, events and member perks.</p>
+          <span className="entry-choice__cta">Fill in the form below ↓</span>
+        </a>
       </div>
-      <span className="challenge-callout__cta">Apply to play →</span>
-    </Link>
+    </section>
   );
 }
