@@ -6637,7 +6637,7 @@
   text-transform: uppercase;
   color: #a9c46f;
 }
-.challenge-callout__text strong { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+.challenge-callout__text strong { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #f4f3ee; }
 .challenge-callout__cta {
   display: inline-flex;
   align-items: center;
