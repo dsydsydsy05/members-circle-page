@@ -28,7 +28,9 @@ export function LightEventStudies({
   onSelect?: (event: EventRow, trigger: HTMLElement) => void;
 }) {
   return (
-    <div className="light-event-studies">
+    <div
+      className={`light-event-studies${events.every((event) => event.status.toLowerCase() !== "past") ? " light-event-studies--upcoming" : ""}`}
+    >
       {events.map((event, index) => {
         const isPast = event.status.toLowerCase() === "past";
         const coverSrc = isPast

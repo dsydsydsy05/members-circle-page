@@ -44,6 +44,11 @@ export function LightMemberDossier({
   const [mounted, setMounted] = useState(open);
   const [entered, setEntered] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (open && mounted && sheetRef.current) sheetRef.current.scrollTop = 0;
+  }, [open, mounted, member?.id]);
 
   useEffect(() => {
     if (open) {
@@ -130,7 +135,13 @@ export function LightMemberDossier({
             {member.name}
           </text>
         </svg>
-        <div className="light-dossier__sheet">
+        <div
+          ref={sheetRef}
+          className="light-dossier__sheet"
+          role="region"
+          aria-label={`${member.name} profile details`}
+          tabIndex={0}
+        >
           <button type="button" className="light-dossier__close" onClick={onClose}>
             Close <span>×</span>
           </button>
