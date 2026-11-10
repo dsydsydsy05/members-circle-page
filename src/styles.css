@@ -2,6 +2,7 @@
 @source "../src";
 @import "tw-animate-css";
 @import "./styles/light.css";
+@import "./styles/print.css";
 
 @custom-variant dark (&:is(.dark *));
 

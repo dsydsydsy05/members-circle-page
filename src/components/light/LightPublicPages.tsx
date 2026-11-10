@@ -5,111 +5,34 @@ import { LightEventStudies } from "@/components/light/LightEventStudies";
 import { LightPastEventStory } from "@/components/light/LightPastEventStory";
 import { LightSponsorCountdown } from "@/components/light/LightSponsorCountdown";
 import { LightButton, LightPage, LightPageHero } from "@/components/light/LightSite";
+import { PrintFrame } from "@/components/print/PrintFrame";
+import { RoomStory } from "@/components/print/RoomStory";
 import { useEvents, useGuests, type EventRow } from "@/lib/use-site-content";
 import { SPONSOR_GMAIL_URL } from "@/lib/contact";
 
 export function LightAboutPage() {
-  const roomIndex = [
-    ["01", "A room to ask.", "Questions before pitches."],
-    ["02", "People who’ve done it before.", "Experience, shared quietly."],
-    ["03", "Capital, opportunities, and resources.", "The right things, opened up."],
-    ["04", "Whatever you need next.", "A useful room changes with you."],
-  ];
-
   return (
-    <LightPage className="light-public-page light-about-page">
+    <LightPage className="light-public-page light-about-page print-page">
       <main>
-        <article className="light-about-letter">
-          <header className="light-shell light-about-letter__head">
-            <div className="light-about-letter__folio">
-              <span>The Room / Founding letter / 08—2026</span>
-              <span>01 / About</span>
-            </div>
-            <div className="light-about-letter__intro">
-              <div className="light-about-letter__address">
-                <span>Boston, Massachusetts</span>
-                <span>August, 2026</span>
-                <p>
-                  To founders, builders,
-                  <br /> and people creating what’s next.
-                </p>
-              </div>
-              <h1>The Room is a founder community born in Boston in 2026.</h1>
-            </div>
-          </header>
-        </article>
-
-        <section className="light-about-index" aria-labelledby="about-index-title">
-          <div className="light-shell">
-            <div className="light-about-index__head">
-              <span>Filed under / The right room</span>
-              <h2 id="about-index-title">What the room holds.</h2>
-            </div>
-            <ol className="light-about-index__list">
-              {roomIndex.map(([index, title, note]) => (
-                <li key={index}>
-                  <span>{index}</span>
-                  <h3>{title}</h3>
-                  <p>{note}</p>
-                  <b aria-hidden="true">↗</b>
-                  {index === "02" ? (
-                    <i className="light-about-index__annotation" aria-hidden="true">
-                      people, not noise
-                    </i>
-                  ) : null}
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section className="light-about-method" aria-labelledby="about-method-title">
-          <div className="light-shell light-about-method__layout">
-            <figure className="light-about-method__photo">
-              <img
-                src="/images/babson-college.jpg"
-                alt="Babson College in Wellesley, Massachusetts"
-              />
-              <figcaption>
-                <span>Babson College / Wellesley, Massachusetts</span>
-                <span>42°18′01″N / 71°17′51″W</span>
-              </figcaption>
-            </figure>
-            <div className="light-about-method__content">
-              <span>How the room works</span>
-              <h2 id="about-method-title">Useful things should reach the right people.</h2>
+        <PrintFrame
+          photo="/images/rooms/empty-conference-room.jpg"
+          alt="An empty meeting room with chairs around a wooden table, a larger hall visible through the glass behind it"
+          plate="Plate 01"
+          caption={["An empty room", "Before anyone walks in"]}
+          hud={["TR—001 / An empty room", "Michael Dell / UT Austin, 2003"]}
+          line={
+            <>
+              <h1 className="print-frame__quote">
+                Try never to be the <em>smartest</em> person in the room.
+              </h1>
               <p>
-                We create outside-the-box events, then open the opportunities and resources we
-                receive back to the founder community.
+                And if you are, I suggest you invite smarter people… or find a different room.
+                <span>— Michael Dell, 2003</span>
               </p>
-              <ol>
-                <li>
-                  <b>01</b>
-                  <span>Outside-the-box events</span>
-                </li>
-                <li>
-                  <b>02</b>
-                  <span>Shared resources</span>
-                </li>
-                <li>
-                  <b>03</b>
-                  <span>Right things → Right people</span>
-                </li>
-              </ol>
-            </div>
-          </div>
-        </section>
-
-        <section className="light-about-cta">
-          <div className="light-shell">
-            <div className="light-kicker">
-              <span>04</span>
-              The door is open
-            </div>
-            <h2>Find the room you need.</h2>
-            <LightButton to="/auth">Enter the room ↗</LightButton>
-          </div>
-        </section>
+            </>
+          }
+        />
+        <RoomStory />
       </main>
     </LightPage>
   );

@@ -103,11 +103,7 @@ function LightFlipHero() {
       <div className="light-shell light-home-hero__frame">
         <div className="light-pass-stage">
           <div className="light-pass-stack">
-            <Link
-              to="/apply"
-              className="light-home-waitlist"
-              aria-label="Apply to join The Room"
-            >
+            <Link to="/apply" className="light-home-waitlist" aria-label="Apply to join The Room">
               <span>Membership / Open</span>
               <em aria-hidden="true">Apply ↗</em>
             </Link>
@@ -316,10 +312,10 @@ function FoundingLetter() {
             }`}
           >
             <img
-              src="/images/babson-college.jpg"
-              alt="Babson College entrance in Wellesley, Massachusetts"
+              src="/images/rooms/empty-conference-room.jpg"
+              alt="An empty meeting room with chairs around a wooden table, a larger hall visible through the glass behind it"
             />
-            <figcaption>Babson College / Wellesley, Massachusetts</figcaption>
+            <figcaption>An empty room / Before anyone walks in</figcaption>
           </figure>
           <span className="light-letter__coordinates" aria-hidden="true">
             42.3601° N · 71.0589° W
@@ -438,7 +434,6 @@ export function LightHome() {
         </section>
 
         {/* Ecosystem partner rail temporarily removed */}
-
 
         <section className="light-final-cta" data-nav-tone="dark">
           <div className="light-shell light-final-cta__panel">
