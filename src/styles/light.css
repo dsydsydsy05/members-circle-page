@@ -2122,7 +2122,7 @@
   height: calc(100% + 20px);
   object-fit: cover;
   object-position: 50% 64%;
-  filter: blur(5px) grayscale(0.08) brightness(1.02) saturate(0.84);
+  filter: grayscale(0.04) brightness(1.0) saturate(0.96);
   transform: scale(1.045);
   transition: transform 1.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
