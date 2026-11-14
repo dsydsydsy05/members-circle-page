@@ -9,8 +9,8 @@ import daliImage from "@/assets/s27-dali-residency.jpg";
 type ProgramKey = keyof typeof S27_PROGRAMS;
 const images = { hackerHouse: hackerHouseImage, dali: daliImage };
 const imageAlts = {
-  hackerHouse: "Minimal line illustration of founders collaborating in a shared house",
-  dali: "Minimal line illustration of a lakeside workspace and mountains in Dali",
+  hackerHouse: "Retro digital collage of founders, a wireframe hand and a pixel house",
+  dali: "Retro digital collage of Dali mountains, halftone lake and a pixel sun",
 };
 
 export function S27Countdown({ programKey }: { programKey: ProgramKey }) {
@@ -93,7 +93,7 @@ export function S27ProgramPage({ programKey }: { programKey: ProgramKey }) {
             <S27Countdown programKey={programKey} />
             <div className="s27-ticket__bottom"><span className="s27-ticket__barcode" aria-hidden="true" /><span>APPLICATION<br />OPENING PASS</span></div>
           </aside>
-          <span className="s27-cover__caption">THE ROOM / S27 — SKETCHBOOK SERIES</span>
+          <span className="s27-cover__caption">THE ROOM / S27 — FIELD NOTES SERIES</span>
         </section>
         <section id="opening" className="s27-opening-section">
           <div className="light-shell s27-opening-section__grid">
