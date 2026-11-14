@@ -47,10 +47,11 @@ export function S27HomeSection() {
           {(Object.keys(S27_PROGRAMS) as ProgramKey[]).map((key) => {
             const program = S27_PROGRAMS[key];
             return (
-              <article className="s27-program" key={key}>
+              <article className={`s27-program s27-program--${key}`} key={key}>
                 <Link to={program.path} className="s27-program__image" aria-label={`View ${program.title}`}>
                   <img src={images[key]} alt={imageAlts[key]} width={1440} height={960} loading="lazy" />
                   <span className="s27-program__edition">S27 / {program.category}</span>
+                  <span className="s27-program__number" aria-hidden="true">{key === "dali" ? "14" : "01"}</span>
                 </Link>
                 <div className="s27-program__body">
                   <h3><Link to={program.path}>{program.title}<ArrowUpRight size={22} aria-hidden="true" /></Link></h3>
@@ -72,17 +73,27 @@ export function S27ProgramPage({ programKey }: { programKey: ProgramKey }) {
   const otherKey = programKey === "hackerHouse" ? "dali" : "hackerHouse";
   const other = S27_PROGRAMS[otherKey];
   return (
-    <LightPage className="s27-page">
+    <LightPage className={`s27-page s27-page--${programKey}`}>
       <main>
-        <section className="s27-cover">
+        <section className="s27-cover" aria-labelledby="s27-title">
           <img className="s27-cover__image" src={images[programKey]} alt={imageAlts[programKey]} width={1440} height={960} />
+          <div className="s27-cover__registration" aria-hidden="true"><span>FIELD NOTES / S27</span><span>{programKey === "dali" ? "25°41′ N / 100°09′ E" : "THE ROOM / 001"}</span></div>
           <div className="light-shell s27-cover__content">
             <p className="s27-meta">The Room / {program.category}</p>
-            <h1>{program.title}</h1>
+            <h1 id="s27-title" aria-label={program.title}>
+              <span className="s27-title__season">S27</span>
+              {programKey === "dali" ? <><span>Dali.</span><span className="s27-title__subtitle">Founder Residency</span></> : <><span>Hacker</span><span className="s27-title__last">House.</span></>}
+            </h1>
             <p>{program.description}</p>
             <a href="#opening" className="light-button">Application opening <ArrowUpRight size={16} aria-hidden="true" /></a>
           </div>
-          <span className="s27-cover__caption">S27 / Sketchbook</span>
+          <aside className="s27-ticket" aria-label="Application opening pass">
+            <div className="s27-ticket__top"><span>THE ROOM</span><span>S27 / {programKey === "dali" ? "02" : "01"}</span></div>
+            <p className="s27-ticket__name">{programKey === "dali" ? "DALI / 14 DAYS" : "HACKER HOUSE"}</p>
+            <S27Countdown programKey={programKey} />
+            <div className="s27-ticket__bottom"><span className="s27-ticket__barcode" aria-hidden="true" /><span>APPLICATION<br />OPENING PASS</span></div>
+          </aside>
+          <span className="s27-cover__caption">THE ROOM / S27 — SKETCHBOOK SERIES</span>
         </section>
         <section id="opening" className="s27-opening-section">
           <div className="light-shell s27-opening-section__grid">
@@ -92,7 +103,11 @@ export function S27ProgramPage({ programKey }: { programKey: ProgramKey }) {
               <p>{program.detail}</p>
               <p className="s27-opening-note">Application details will be announced here.</p>
             </div>
-            <S27Countdown programKey={programKey} />
+            <div className="s27-specs">
+              <div><span>01 / PROGRAM</span><strong>{program.category}</strong></div>
+              <div><span>02 / APPLICATIONS</span><strong>{program.openingLabel}</strong></div>
+              <div><span>03 / STATUS</span><strong>Opening soon <ArrowUpRight size={18} aria-hidden="true" /></strong></div>
+            </div>
           </div>
         </section>
         <div className="light-shell s27-other-program">

@@ -6622,6 +6622,62 @@
 }
 @media(prefers-reduced-motion:reduce) { .s27-program__image img { transition:none; } }
 
+/* S27 / field-note editions */
+.theme-light { --s27-ticket-shadow: 0 12px 30px color-mix(in srgb,var(--light-ink) 14%,transparent); --s27-cover-shade: linear-gradient(90deg,color-mix(in srgb,var(--light-paper) 92%,transparent),color-mix(in srgb,var(--light-paper) 42%,transparent) 45%,transparent 78%); }
+.s27-cover { height:88svh; min-height:670px; max-height:1020px; align-items:center; border-bottom:1px solid var(--light-line-strong); }
+.s27-cover__image { object-position:center; }
+.s27-cover__content { padding-block:140px 100px; position:relative; }
+.s27-cover h1 { font-weight:800; text-transform:uppercase; margin:20px 0 24px; max-width:750px; font-size:100px; line-height:.88; }
+.s27-cover h1 > span { display:block; }
+.s27-cover h1 .s27-title__season { font:12px var(--font-mono); margin-bottom:18px; display:inline-block; border:1px solid var(--light-ink); padding:7px 13px; transform:rotate(-5deg); }
+.s27-title__last { color:var(--light-green); }
+.s27-cover h1 .s27-title__subtitle { font-size:32px; line-height:1.1; margin-top:16px; max-width:390px; }
+.s27-page--dali .s27-cover h1 { font-size:144px; }
+.s27-cover__content > p:not(.s27-meta) { font-size:16px; max-width:330px; }
+.s27-cover__registration { position:absolute; inset:104px 24px auto; display:flex; justify-content:space-between; border-top:1px solid var(--light-line-strong); padding-top:10px; font:10px var(--font-mono); }
+.s27-cover__caption { left:24px; right:auto; bottom:18px; }
+.s27-ticket { position:absolute; right:6%; bottom:72px; width:350px; padding:22px; background:var(--light-green-soft); border:1px solid var(--light-ink); box-shadow:var(--s27-ticket-shadow); transform:rotate(3deg); animation:s27-ticket-arrive .7s ease both; }
+.s27-page--dali .s27-ticket { background:var(--light-paper); transform:rotate(-3deg); }
+.s27-ticket__top { display:flex; justify-content:space-between; font:10px var(--font-mono); border-bottom:1px solid var(--light-ink); padding-bottom:12px; }
+.s27-ticket__name { font-size:24px; font-weight:800; margin:16px 0 20px; }
+.s27-ticket .s27-clock { gap:9px; }
+.s27-ticket .s27-clock strong { font-size:32px; color:var(--light-ink); }
+.s27-ticket .s27-clock-wrap .s27-meta { font-size:10px; }
+.s27-ticket__bottom { border-top:1px dashed var(--light-ink); margin:20px -22px -4px; padding:16px 22px 0; display:flex; justify-content:space-between; gap:20px; font:9px/1.5 var(--font-mono); }
+.s27-ticket__barcode { width:115px; height:30px; background:repeating-linear-gradient(90deg,var(--light-ink) 0 2px,transparent 2px 4px,var(--light-ink) 4px 5px,transparent 5px 8px); }
+.s27-specs { border-top:1px solid var(--light-ink); }
+.s27-specs > div { display:flex; justify-content:space-between; align-items:center; gap:18px; padding:18px 0; border-bottom:1px solid var(--light-line); }
+.s27-specs span { font:10px var(--font-mono); color:var(--light-muted); }
+.s27-specs strong { font-size:16px; display:flex; gap:12px; align-items:center; }
+.s27-program__number { position:absolute; right:18px; bottom:4px; font:800 90px/1 var(--font-display); color:var(--light-ink); background:var(--light-paper); padding:0 8px; }
+.s27-program--hackerHouse { border-top:5px solid var(--light-ink); }
+.s27-program--dali { border-top:5px solid var(--light-green); }
+.s27-program--dali .s27-program__number { color:var(--light-green); }
+@keyframes s27-ticket-arrive { from { opacity:0; translate:0 16px; } to { opacity:1; translate:0 0; } }
+@media(max-width:1050px) and (min-width:761px) {
+  .s27-ticket { width:300px; right:3%; bottom:42px; }
+  .s27-cover h1 { font-size:82px; }
+}
+@media(max-width:760px) {
+  .s27-cover { height:auto; min-height:0; max-height:none; display:block; padding-bottom:38px; }
+  .s27-cover::after { background:linear-gradient(180deg,color-mix(in srgb,var(--light-paper) 85%,transparent),color-mix(in srgb,var(--light-paper) 40%,transparent) 40%,var(--light-paper)); }
+  .s27-cover__registration { inset:92px 14px auto; font-size:8px; }
+  .s27-cover__content { padding-block:124px 10px; }
+  .s27-cover h1 { font-size:58px; margin-block:14px 16px; }
+  .s27-cover__content > p:not(.s27-meta) { margin-bottom:18px; }
+  .s27-page--dali .s27-cover h1 { font-size:100px; }
+  .s27-cover h1 .s27-title__subtitle { font-size:25px; }
+  .s27-ticket { position:relative; right:auto; bottom:auto; width:min(320px,calc(100% - 48px)); margin:12px auto 10px; padding:14px 18px; }
+  .s27-ticket .s27-clock { margin-block:12px; }
+  .s27-ticket .s27-clock strong { font-size:28px; }
+  .s27-ticket__name { font-size:20px; margin-block:12px; }
+  .s27-ticket__bottom { margin-inline:-18px; padding-inline:18px; }
+  .s27-cover__caption { font-size:8px; left:14px; }
+  .s27-specs > div { flex-wrap:wrap; }
+  .s27-program__number { font-size:64px; }
+}
+@media(prefers-reduced-motion:reduce) { .s27-ticket { animation:none; } }
+
 .light-access-copy--membership h1 {
   max-width: 15ch;
   font-size: clamp(28px, 3.1vw, 46px);
