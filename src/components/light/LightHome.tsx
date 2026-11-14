@@ -10,6 +10,7 @@ import { useEvents } from "@/lib/use-site-content";
 import { LightEventStudies } from "@/components/light/LightEventStudies";
 import { LightArchiveIndex } from "@/components/light/LightMemberArchive";
 import { LightIdentityPass } from "@/components/light/LightIdentityPass";
+import { S27HomeSection } from "@/components/light/S27Programs";
 // LightPartnerLogoGrid import removed while the ecosystem rail is hidden.
 import { LightButton, LightPage, LightSectionHeader } from "@/components/light/LightSite";
 
@@ -432,6 +433,8 @@ export function LightHome() {
             )}
           </div>
         </section>
+
+        <S27HomeSection />
 
         {/* Ecosystem partner rail temporarily removed */}
 

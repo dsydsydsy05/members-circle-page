@@ -13,6 +13,8 @@ const links = [
   { to: "/qa", label: "Q&A" },
   // Public archive. The authenticated Directory intentionally remains `/members`.
   { to: "/light/members", label: "Members" },
+  { to: "/hacker-house", label: "Hacker House" },
+  { to: "/dali", label: "Dali S27" },
   // Ecosystem (/partners) temporarily hidden.
 ] as const;
 
@@ -101,7 +103,7 @@ export function LightSiteNav() {
           ))}
           {isAdmin ? (
             <Link to="/admin" className="light-nav__admin-link" onClick={() => setOpen(false)}>
-              <span className="light-nav__index">05</span>
+              <span className="light-nav__index">07</span>
               <span>Admin</span>
             </Link>
           ) : null}
@@ -180,6 +182,8 @@ export function LightSiteFooter() {
           <Link to="/events">Events</Link>
           <Link to="/qa">Q&amp;A</Link>
           <Link to="/light/members">Members</Link>
+          <Link to="/hacker-house">Hacker House</Link>
+          <Link to="/dali">Dali S27</Link>
           {/* Ecosystem temporarily hidden */}
           <Link to="/auth">Enter</Link>
         </nav>

@@ -8,3 +8,9 @@
 
 - [x] Remove Challenge navigation, public application content, and admin tab without deleting submissions.
 - [x] Redirect old Challenge links and verify website navigation on desktop and mobile.
+
+# S27 application previews
+
+- [x] Add Hacker House and 14-day Dali founder residency sections with dedicated pages and navigation.
+- [x] Count down to Dec 1, 2026 and Feb 1, 2027 at midnight China time without opening unbuilt forms.
+- [x] Test countdown dates and desktop/mobile presentation.

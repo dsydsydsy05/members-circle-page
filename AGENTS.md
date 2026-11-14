@@ -19,3 +19,4 @@
 - Retired public application routes redirect to the homepage without mounting application forms or fetchers; historical application records remain persisted. Why: old bookmarks should not expose removed sections or destroy existing submissions.
 - Guest public reads require is_published; new admin-created guests start unpublished, while existing public records retain visibility. Why: draft guest details must stay private without removing existing announcements.
 - Avatar Storage SELECT is owner-scoped; display uses the owner's saved signed URL rather than granting visitors bucket-wide reads. Why: visitors may see shared profile photos without enumerating or signing other users' uploads.
+- S27 program pages and homepage previews share browser-safe program configuration and a hydration-safe countdown; reaching the date never enables an unimplemented form. Why: opening dates stay consistent without inventing application handling.
