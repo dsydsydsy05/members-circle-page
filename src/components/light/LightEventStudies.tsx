@@ -33,9 +33,11 @@ export function LightEventStudies({
     >
       {events.map((event, index) => {
         const isPast = event.status.toLowerCase() === "past";
-        const coverSrc = isPast
-          ? event.cover_url || editorialCovers[index % editorialCovers.length]
-          : upcomingCoverByTitle[event.title] || editorialCovers[index % editorialCovers.length];
+        const coverSrc =
+          event.cover_url ||
+          (isPast
+            ? editorialCovers[index % editorialCovers.length]
+            : upcomingCoverByTitle[event.title] || editorialCovers[index % editorialCovers.length]);
         const isPoster =
           event.cover_display === "poster" || coverSrc.includes("waic-founders-dinner");
         const content = (
