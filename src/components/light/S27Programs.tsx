@@ -9,8 +9,8 @@ import daliImage from "@/assets/s27-dali-residency.jpg";
 type ProgramKey = keyof typeof S27_PROGRAMS;
 const images = { hackerHouse: hackerHouseImage, dali: daliImage };
 const imageAlts = {
-  hackerHouse: "Illustrative shared house workspace for founders",
-  dali: "Illustrative lakeside workspace in Dali with mountain views",
+  hackerHouse: "Hand-drawn sketch of a shared house workspace for founders",
+  dali: "Hand-drawn sketch of a lakeside workspace in Dali with mountain views",
 };
 
 export function S27Countdown({ programKey }: { programKey: ProgramKey }) {
@@ -74,15 +74,15 @@ export function S27ProgramPage({ programKey }: { programKey: ProgramKey }) {
   return (
     <LightPage className="s27-page">
       <main>
-        <section className="s27-cover" data-nav-tone="dark">
+        <section className="s27-cover">
           <img className="s27-cover__image" src={images[programKey]} alt={imageAlts[programKey]} width={1440} height={960} />
           <div className="light-shell s27-cover__content">
             <p className="s27-meta">The Room / {program.category}</p>
             <h1>{program.title}</h1>
             <p>{program.description}</p>
-            <a href="#opening" className="light-button light-button--inverse">Application opening <ArrowUpRight size={16} aria-hidden="true" /></a>
+            <a href="#opening" className="light-button">Application opening <ArrowUpRight size={16} aria-hidden="true" /></a>
           </div>
-          <span className="s27-cover__caption">Illustrative image</span>
+          <span className="s27-cover__caption">S27 / Sketchbook</span>
         </section>
         <section id="opening" className="s27-opening-section">
           <div className="light-shell s27-opening-section__grid">
