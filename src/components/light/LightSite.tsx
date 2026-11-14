@@ -13,7 +13,6 @@ const links = [
   { to: "/qa", label: "Q&A" },
   // Public archive. The authenticated Directory intentionally remains `/members`.
   { to: "/light/members", label: "Members" },
-  { to: "/challenge", label: "Challenge" },
   // Ecosystem (/partners) temporarily hidden.
 ] as const;
 
@@ -102,7 +101,7 @@ export function LightSiteNav() {
           ))}
           {isAdmin ? (
             <Link to="/admin" className="light-nav__admin-link" onClick={() => setOpen(false)}>
-              <span className="light-nav__index">06</span>
+              <span className="light-nav__index">05</span>
               <span>Admin</span>
             </Link>
           ) : null}
