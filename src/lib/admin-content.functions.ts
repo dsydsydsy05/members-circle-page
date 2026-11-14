@@ -38,6 +38,7 @@ const tableRules: Record<ContentTable, Record<string, FieldRule>> = {
     sort_order: { kind: "number", min: -10_000, max: 10_000 },
   },
   guests: {
+    is_published: { kind: "boolean" },
     avatar_url: { kind: "text", max: 2000, nullable: true },
     bio: { kind: "text", max: 4000, nullable: true },
     name: { kind: "text", max: 160, required: true },
@@ -91,6 +92,7 @@ const createDefaults: Record<ContentTable, ContentValues> = {
     sort_order: 99,
   },
   guests: {
+    is_published: false,
     name: "Coming Soon",
     title: "Guest speaker TBA",
     event: "",

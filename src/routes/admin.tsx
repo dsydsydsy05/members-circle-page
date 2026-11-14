@@ -128,6 +128,7 @@ const SECTIONS: {
       { key: "title", label: "Title" },
       { key: "avatar_url", label: "Approved portrait", type: "image" },
       { key: "bio", label: "Approved biography", type: "textarea" },
+      { key: "is_published", label: "Publicly visible", type: "boolean" },
       { key: "event", label: "Event" },
       { key: "date_label", label: "Date" },
       { key: "sort_order", label: "Order", type: "number" },
@@ -135,6 +136,7 @@ const SECTIONS: {
     defaults: {
       name: "Coming Soon",
       title: "Guest speaker TBA",
+      is_published: false,
       event: "",
       date_label: "",
       sort_order: 99,

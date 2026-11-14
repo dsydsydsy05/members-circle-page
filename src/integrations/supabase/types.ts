@@ -339,6 +339,7 @@ export type Database = {
           date_label: string
           event: string
           id: string
+          is_published: boolean
           name: string
           sort_order: number
           title: string
@@ -351,6 +352,7 @@ export type Database = {
           date_label?: string
           event?: string
           id?: string
+          is_published?: boolean
           name?: string
           sort_order?: number
           title?: string
@@ -363,6 +365,7 @@ export type Database = {
           date_label?: string
           event?: string
           id?: string
+          is_published?: boolean
           name?: string
           sort_order?: number
           title?: string
