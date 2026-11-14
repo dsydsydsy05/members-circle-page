@@ -17,9 +17,11 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BusinessesRouteImport } from './routes/businesses'
 import { Route as ChallengeRouteImport } from './routes/challenge'
 import { Route as ConnectionsRouteImport } from './routes/connections'
+import { Route as DaliRouteImport } from './routes/dali'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as GuestReviewRouteImport } from './routes/guest-review'
 import { Route as GuestsRouteImport } from './routes/guests'
+import { Route as HackerHouseRouteImport } from './routes/hacker-house'
 import { Route as LightRouteRouteImport } from './routes/light/route'
 import { Route as MembersRouteImport } from './routes/members'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
@@ -83,6 +85,11 @@ const ConnectionsRoute = ConnectionsRouteImport.update({
   path: '/connections',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DaliRoute = DaliRouteImport.update({
+  id: '/dali',
+  path: '/dali',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
@@ -96,6 +103,11 @@ const GuestReviewRoute = GuestReviewRouteImport.update({
 const GuestsRoute = GuestsRouteImport.update({
   id: '/guests',
   path: '/guests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HackerHouseRoute = HackerHouseRouteImport.update({
+  id: '/hacker-house',
+  path: '/hacker-house',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LightRouteRoute = LightRouteRouteImport.update({
@@ -221,9 +233,11 @@ export interface FileRoutesByFullPath {
   '/businesses': typeof BusinessesRoute
   '/challenge': typeof ChallengeRoute
   '/connections': typeof ConnectionsRoute
+  '/dali': typeof DaliRoute
   '/events': typeof EventsRoute
   '/guest-review': typeof GuestReviewRoute
   '/guests': typeof GuestsRoute
+  '/hacker-house': typeof HackerHouseRoute
   '/members': typeof MembersRoute
   '/onboarding': typeof OnboardingRoute
   '/partners': typeof PartnersRoute
@@ -255,9 +269,11 @@ export interface FileRoutesByTo {
   '/businesses': typeof BusinessesRoute
   '/challenge': typeof ChallengeRoute
   '/connections': typeof ConnectionsRoute
+  '/dali': typeof DaliRoute
   '/events': typeof EventsRoute
   '/guest-review': typeof GuestReviewRoute
   '/guests': typeof GuestsRoute
+  '/hacker-house': typeof HackerHouseRoute
   '/members': typeof MembersRoute
   '/onboarding': typeof OnboardingRoute
   '/partners': typeof PartnersRoute
@@ -291,9 +307,11 @@ export interface FileRoutesById {
   '/businesses': typeof BusinessesRoute
   '/challenge': typeof ChallengeRoute
   '/connections': typeof ConnectionsRoute
+  '/dali': typeof DaliRoute
   '/events': typeof EventsRoute
   '/guest-review': typeof GuestReviewRoute
   '/guests': typeof GuestsRoute
+  '/hacker-house': typeof HackerHouseRoute
   '/members': typeof MembersRoute
   '/onboarding': typeof OnboardingRoute
   '/partners': typeof PartnersRoute
@@ -328,9 +346,11 @@ export interface FileRouteTypes {
     | '/businesses'
     | '/challenge'
     | '/connections'
+    | '/dali'
     | '/events'
     | '/guest-review'
     | '/guests'
+    | '/hacker-house'
     | '/members'
     | '/onboarding'
     | '/partners'
@@ -362,9 +382,11 @@ export interface FileRouteTypes {
     | '/businesses'
     | '/challenge'
     | '/connections'
+    | '/dali'
     | '/events'
     | '/guest-review'
     | '/guests'
+    | '/hacker-house'
     | '/members'
     | '/onboarding'
     | '/partners'
@@ -397,9 +419,11 @@ export interface FileRouteTypes {
     | '/businesses'
     | '/challenge'
     | '/connections'
+    | '/dali'
     | '/events'
     | '/guest-review'
     | '/guests'
+    | '/hacker-house'
     | '/members'
     | '/onboarding'
     | '/partners'
@@ -433,9 +457,11 @@ export interface RootRouteChildren {
   BusinessesRoute: typeof BusinessesRoute
   ChallengeRoute: typeof ChallengeRoute
   ConnectionsRoute: typeof ConnectionsRoute
+  DaliRoute: typeof DaliRoute
   EventsRoute: typeof EventsRoute
   GuestReviewRoute: typeof GuestReviewRoute
   GuestsRoute: typeof GuestsRoute
+  HackerHouseRoute: typeof HackerHouseRoute
   MembersRoute: typeof MembersRoute
   OnboardingRoute: typeof OnboardingRoute
   PartnersRoute: typeof PartnersRoute
@@ -509,6 +535,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConnectionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dali': {
+      id: '/dali'
+      path: '/dali'
+      fullPath: '/dali'
+      preLoaderRoute: typeof DaliRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/events': {
       id: '/events'
       path: '/events'
@@ -528,6 +561,13 @@ declare module '@tanstack/react-router' {
       path: '/guests'
       fullPath: '/guests'
       preLoaderRoute: typeof GuestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hacker-house': {
+      id: '/hacker-house'
+      path: '/hacker-house'
+      fullPath: '/hacker-house'
+      preLoaderRoute: typeof HackerHouseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/light': {
@@ -723,9 +763,11 @@ const rootRouteChildren: RootRouteChildren = {
   BusinessesRoute: BusinessesRoute,
   ChallengeRoute: ChallengeRoute,
   ConnectionsRoute: ConnectionsRoute,
+  DaliRoute: DaliRoute,
   EventsRoute: EventsRoute,
   GuestReviewRoute: GuestReviewRoute,
   GuestsRoute: GuestsRoute,
+  HackerHouseRoute: HackerHouseRoute,
   MembersRoute: MembersRoute,
   OnboardingRoute: OnboardingRoute,
   PartnersRoute: PartnersRoute,
