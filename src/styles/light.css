@@ -1975,6 +1975,17 @@
   aspect-ratio: 1086 / 1448;
   background: transparent;
 }
+/* Past events show their covers crisp; only upcoming covers stay blurred. */
+.light-event-study--past .light-event-study__image,
+.light-event-study--past:hover .light-event-study__image,
+.light-event-study--past:focus-visible .light-event-study__image {
+  filter: grayscale(1) contrast(1.02) brightness(0.92);
+}
+.light-event-study--past .light-event-study__image--poster,
+.light-event-study--past:hover .light-event-study__image--poster,
+.light-event-study--past:focus-visible .light-event-study__image--poster {
+  filter: contrast(1.02) brightness(0.96) saturate(0.98);
+}
 .light-event-study__coming {
   position: absolute;
   z-index: 4;

@@ -74,12 +74,14 @@ export function LightEventStudies({
         );
         const style = { "--event-delay": `${index * 100}ms` } as CSSProperties;
 
+        const studyClass = `light-event-study${isPast ? " light-event-study--past" : ""}`;
+
         if (onSelect) {
           return (
             <button
               key={event.id}
               type="button"
-              className="light-event-study"
+              className={studyClass}
               style={style}
               onClick={(mouseEvent: MouseEvent<HTMLButtonElement>) =>
                 onSelect(event, mouseEvent.currentTarget)
@@ -91,7 +93,7 @@ export function LightEventStudies({
         }
 
         return (
-          <Link key={event.id} to="/events" className="light-event-study" style={style}>
+          <Link key={event.id} to="/events" className={studyClass} style={style}>
             {content}
           </Link>
         );
