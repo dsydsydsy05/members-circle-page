@@ -9,7 +9,7 @@ import daliImage from "@/assets/s27-dali-residency.jpg";
 type ProgramKey = keyof typeof S27_PROGRAMS;
 const images = { hackerHouse: hackerHouseImage, dali: daliImage };
 const imageAlts = {
-  hackerHouse: "Retro digital collage of founders, a wireframe hand and a pixel house",
+  hackerHouse: "Halftone collage of builders collaborating around a shared table with laptops and monitors",
   dali: "Retro digital collage of Dali mountains, halftone lake and a pixel sun",
 };
 
