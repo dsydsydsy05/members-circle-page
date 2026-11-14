@@ -9,8 +9,8 @@ import daliImage from "@/assets/s27-dali-residency.jpg";
 type ProgramKey = keyof typeof S27_PROGRAMS;
 const images = { hackerHouse: hackerHouseImage, dali: daliImage };
 const imageAlts = {
-  hackerHouse: "Hand-drawn sketch of a shared house workspace for founders",
-  dali: "Hand-drawn sketch of a lakeside workspace in Dali with mountain views",
+  hackerHouse: "Minimal line illustration of founders collaborating in a shared house",
+  dali: "Minimal line illustration of a lakeside workspace and mountains in Dali",
 };
 
 export function S27Countdown({ programKey }: { programKey: ProgramKey }) {
