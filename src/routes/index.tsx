@@ -18,7 +18,14 @@ export const Route = createFileRoute("/")({
       { property: "og:url", content: "https://theroomcommunity.org/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://theroomcommunity.org/" }],
+    links: [
+      { rel: "canonical", href: "https://theroomcommunity.org/" },
+      // Lettering for the S27 card covers, matching the program pages.
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Della+Respira&family=VT323&display=swap",
+      },
+    ],
   }),
   component: LightHome,
 });

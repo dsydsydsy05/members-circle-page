@@ -6579,8 +6579,6 @@
 .s27-program-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
 .s27-program { border:1px solid var(--light-line); border-radius:8px; overflow:hidden; background:var(--light-paper); }
 .s27-program__image { display:block; position:relative; aspect-ratio:3/2; overflow:hidden; }
-.s27-program__image img { width:100%; height:100%; object-fit:cover; transition:transform .6s; }
-.s27-program__image:hover img { transform:scale(1.035); }
 .s27-program__edition { position:absolute; left:20px; top:20px; padding:9px 12px; background:var(--light-paper); color:var(--light-ink); font:11px var(--font-mono); }
 .s27-program__body { padding:28px; }
 .s27-program h3 { font-size:28px; line-height:1.15; letter-spacing:0; }
@@ -6604,16 +6602,10 @@
   .s27-program h3 { font-size:24px; }
   .s27-clock strong { font-size:32px; }
 }
-@media(prefers-reduced-motion:reduce) { .s27-program__image img { transition:none; } }
 
 /* S27 / field-note editions */
-.s27-program__number { position:absolute; right:18px; bottom:4px; font:800 90px/1 var(--font-display); color:var(--light-ink); background:var(--light-paper); padding:0 8px; }
 .s27-program--hackerHouse { border-top:5px solid var(--light-ink); }
 .s27-program--dali { border-top:5px solid var(--light-green); }
-.s27-program--dali .s27-program__number { color:var(--light-green); }
-@media(max-width:760px) {
-  .s27-program__number { font-size:64px; }
-}
 
 .light-access-copy--membership h1 {
   max-width: 15ch;
