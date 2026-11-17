@@ -1,8 +1,13 @@
+// Fields marked "To be announced" are not confirmed yet; replace them here and both pages update.
 export const S27_PROGRAMS = {
   hackerHouse: {
     title: "S27 Hacker House",
     opensAt: "2026-12-01T00:00:00+08:00",
     openingLabel: "December 1, 2026",
+    openingStamp: "2026-12-01 00:00 CST",
+    closingLabel: "To be announced",
+    location: "To be announced",
+    programDates: "To be announced",
     category: "Hacker House",
     description: "Applications open December 1.",
     detail: "S27 Hacker House applications open on December 1, 2026.",
@@ -12,9 +17,14 @@ export const S27_PROGRAMS = {
     title: "S27 Dali Founder Residency",
     opensAt: "2027-02-01T00:00:00+08:00",
     openingLabel: "February 1, 2027",
+    openingStamp: "2027-02-01 00:00 CST",
+    closingLabel: "To be announced",
+    location: "Dali, Yunnan",
+    programDates: "14 days · dates to be announced",
     category: "Dali · 14 days",
     description: "14 days in Dali for founders and digital nomads.",
-    detail: "A 14-day stay in Dali for founders and digital nomads. Applications open February 1, 2027.",
+    detail:
+      "A 14-day stay in Dali for founders and digital nomads. Applications open February 1, 2027.",
     path: "/dali",
   },
 } as const;

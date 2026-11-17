@@ -1,0 +1,803 @@
+/* S27 program reveals: each program opens on its own dark, full-screen poster, apart from the
+   site's paper theme. The whole page turns dark, down to the footer. */
+
+.s27-reveal-page {
+  --light-canvas: var(--reveal-bg);
+  --light-paper: var(--reveal-bg);
+  --light-ink: var(--reveal-ink);
+  --light-muted: color-mix(in srgb, var(--reveal-ink) 55%, transparent);
+  --light-line: color-mix(in srgb, var(--reveal-ink) 14%, transparent);
+  --light-line-strong: color-mix(in srgb, var(--reveal-ink) 32%, transparent);
+  color: var(--reveal-ink);
+  background: var(--reveal-bg);
+}
+.s27-reveal-page .light-footer {
+  border-top-color: var(--light-line);
+  background: transparent;
+}
+.s27-reveal-page .light-footer__social a {
+  color: color-mix(in srgb, var(--reveal-ink) 55%, transparent);
+}
+.s27-reveal-page .light-footer__social a:hover,
+.s27-reveal-page .light-footer__links a:hover {
+  color: var(--reveal-accent);
+}
+
+/* The nav stays in its dark dress for the whole page, not only over the poster. */
+.s27-reveal-page .light-nav__brand {
+  color: var(--reveal-ink);
+}
+@media (min-width: 901px) {
+  .s27-reveal-page .light-nav__links {
+    border-color: color-mix(in srgb, var(--reveal-ink) 14%, transparent);
+    background: color-mix(in srgb, var(--reveal-bg) 55%, transparent);
+    box-shadow: inset 0 1px color-mix(in srgb, var(--reveal-ink) 8%, transparent);
+  }
+  .s27-reveal-page .light-nav__links a {
+    color: color-mix(in srgb, var(--reveal-ink) 62%, transparent);
+  }
+  .s27-reveal-page .light-nav__links a:hover,
+  .s27-reveal-page .light-nav__links a.light-nav__link--active {
+    color: var(--reveal-ink);
+    background: color-mix(in srgb, var(--reveal-ink) 10%, transparent);
+  }
+}
+.s27-reveal-page .light-nav__actions > .light-button--small {
+  border-color: var(--reveal-ink);
+  background: var(--reveal-ink);
+  color: var(--reveal-bg) !important;
+}
+.s27-reveal-page .light-nav__menu {
+  border-color: color-mix(in srgb, var(--reveal-ink) 28%, transparent);
+  background: color-mix(in srgb, var(--reveal-ink) 8%, transparent);
+}
+.s27-reveal-page .light-nav__menu span {
+  background: var(--reveal-ink);
+}
+
+/* ------------------------------------------------------------------ Dali */
+
+.dali-page {
+  --reveal-bg: #1d1e1b;
+  --reveal-ink: #ebe6d8;
+  --reveal-accent: #8fb556;
+  --dali-green: #8fb556;
+  --dali-serif: "Della Respira", "Cinzel", Georgia, serif;
+  /* Worn ink: speckles knocked out of every printed letter. */
+  --dali-wear: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.5 1.65'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+  /* Paper: a fine tooth over a soft vignette. */
+  background-color: var(--reveal-bg);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(120% 90% at 50% 30%, #2b2c28 0%, var(--reveal-bg) 60%, #121311 100%);
+  background-attachment: scroll, fixed;
+}
+.dali-page main,
+.dali-page .light-footer {
+  background: transparent;
+}
+.dali-worn {
+  -webkit-mask-image: var(--dali-wear);
+  mask-image: var(--dali-wear);
+  -webkit-mask-size: 260px;
+  mask-size: 260px;
+}
+
+.dali-poster {
+  position: relative;
+  isolation: isolate;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  color: var(--dali-green);
+}
+
+/* Oval badges, two pairs on each side, like the cartouches of a print. */
+.dali-poster__badges {
+  position: absolute;
+  z-index: 3;
+  top: clamp(108px, 15svh, 150px);
+  display: grid;
+  gap: clamp(18px, 3.4svh, 34px);
+}
+.dali-poster__badges--left {
+  left: max(24px, 5vw);
+}
+.dali-poster__badges--right {
+  right: max(24px, 5vw);
+}
+.dali-badge {
+  display: grid;
+  width: clamp(150px, 13vw, 210px);
+}
+.dali-badge__oval {
+  display: block;
+  padding: 0.85em 1.2em;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font-family: var(--dali-serif);
+  font-size: clamp(12px, 0.98vw, 15px);
+  line-height: 1.08;
+  text-align: center;
+  text-transform: uppercase;
+  animation: dali-oval 650ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--delay) both;
+}
+.dali-badge__oval:first-child {
+  rotate: -3deg;
+}
+.dali-badge__oval + .dali-badge__oval {
+  margin-top: -0.35em;
+  rotate: 2deg;
+  animation-delay: calc(var(--delay) + 90ms);
+}
+
+/* The statement and countdown, stacked down the centre. */
+.dali-poster__center {
+  position: absolute;
+  z-index: 3;
+  top: clamp(96px, 12.5svh, 128px);
+  left: 50%;
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  width: max-content;
+  max-width: 52vw;
+}
+.dali-poster__statement {
+  margin: 0;
+  font-family: var(--dali-serif);
+  font-size: clamp(26px, min(3.5vw, 5.8svh), 62px);
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.dali-poster__statement span {
+  display: block;
+  animation: dali-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(80ms + var(--line) * 70ms) both;
+}
+.dali-poster__countdown {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  margin: clamp(14px, 2.4svh, 24px) 0 0;
+  padding: 0.5em 1.2em;
+  border-block: 1px solid color-mix(in srgb, var(--dali-green) 55%, transparent);
+  font-family: var(--dali-serif);
+  font-size: clamp(12px, 1vw, 15px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: dali-fade 500ms ease 550ms both;
+}
+.dali-poster__countdown b {
+  font-size: 1.5em;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+/* The relief print sits behind everything; the ridge draws itself in, the rest fades up. */
+.dali-poster__art {
+  position: absolute;
+  z-index: 1;
+  inset: auto 0 0;
+  width: 100%;
+  height: 80%;
+}
+.dali-art__line,
+.dali-art__solid {
+  stroke: var(--reveal-ink);
+  stroke-width: 2;
+}
+.dali-art__solid {
+  fill: var(--reveal-bg);
+}
+.dali-art__line--ridge {
+  stroke-width: 3.2;
+  stroke-dasharray: 1;
+  animation: dali-draw 1500ms cubic-bezier(0.45, 0, 0.2, 1) 150ms both;
+}
+.dali-art__line--far {
+  stroke-width: 1.6;
+  opacity: 0.45;
+  stroke-dasharray: 1;
+  animation: dali-draw 1500ms cubic-bezier(0.45, 0, 0.2, 1) 80ms both;
+}
+.dali-art__line--snow {
+  stroke-width: 1.8;
+  animation: dali-layer 800ms ease 650ms both;
+}
+.dali-art__line--shade {
+  stroke-width: 1.4;
+  opacity: 0.7;
+  animation: dali-layer 800ms ease 700ms both;
+}
+.dali-art__line--contour {
+  stroke-width: 1.4;
+  stroke-dasharray: 6 8;
+  opacity: 0.7;
+  animation: dali-layer 800ms ease 750ms both;
+}
+.dali-art__line--pagoda,
+.dali-art__line--gate {
+  stroke-width: 2.2;
+  animation: dali-layer 750ms ease 450ms both;
+}
+.dali-art__line--tiles {
+  stroke-width: 1.5;
+  animation: dali-layer 750ms ease 600ms both;
+}
+.dali-art__line--waves {
+  stroke-width: 1.8;
+  opacity: 0.85;
+  animation: dali-layer 900ms ease 250ms both;
+}
+.dali-art__line--boat,
+.dali-art__line--birds {
+  stroke-width: 2;
+  animation: dali-layer 600ms ease 900ms both;
+}
+
+/* The name, set large across the bottom over the drawing. */
+.dali-poster__title {
+  position: absolute;
+  z-index: 3;
+  bottom: clamp(10px, 2.6svh, 34px);
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+  margin: 0;
+  font-family: var(--dali-serif);
+  font-size: min(25vw, 42svh);
+  font-weight: 400;
+  line-height: 0.74;
+  letter-spacing: -0.01em;
+  color: var(--dali-green);
+}
+.dali-poster__title span {
+  display: block;
+  animation: dali-letter 850ms cubic-bezier(0.16, 0.8, 0.2, 1) calc(420ms + var(--letter) * 80ms)
+    both;
+}
+.dali-poster__corner {
+  position: absolute;
+  z-index: 3;
+  bottom: 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--reveal-ink);
+  opacity: 0.6;
+}
+.dali-poster__corner--left {
+  left: max(24px, 2.2vw);
+}
+.dali-poster__corner--right {
+  right: max(24px, 2.2vw);
+}
+
+/* Details below the poster, on the same paper. */
+.dali-details {
+  padding: clamp(72px, 9vw, 120px) 0 clamp(64px, 8vw, 104px);
+  color: var(--reveal-ink);
+}
+.dali-details__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(36px, 6vw, 96px);
+  align-items: start;
+}
+.dali-details__kicker,
+.dali-details dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.dali-details h2 {
+  margin: 18px 0 20px;
+  font-family: var(--dali-serif);
+  font-size: clamp(30px, 3.2vw, 50px);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--dali-green);
+}
+.dali-details p {
+  max-width: 520px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--reveal-ink) 82%, transparent);
+}
+.dali-details p.dali-details__note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: color-mix(in srgb, var(--reveal-ink) 55%, transparent);
+}
+.dali-details__specs {
+  margin: 0;
+  border-top: 1px solid color-mix(in srgb, var(--reveal-ink) 40%, transparent);
+}
+.dali-details__specs > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--reveal-ink) 14%, transparent);
+}
+.dali-details dd {
+  margin: 0;
+  font-family: var(--dali-serif);
+  font-size: 18px;
+  text-align: right;
+}
+
+@keyframes dali-oval {
+  from {
+    opacity: 0;
+    clip-path: inset(0 50% 0 50%);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 -4% 0 -4%);
+  }
+}
+@keyframes dali-rise {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    translate: 0 0.45em;
+  }
+}
+@keyframes dali-letter {
+  from {
+    opacity: 0;
+    filter: blur(14px);
+    translate: 0 30%;
+  }
+}
+@keyframes dali-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes dali-layer {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+}
+@keyframes dali-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Short desktop windows: tighten the centre column so the name keeps its space. */
+@media (min-width: 761px) and (max-height: 760px) {
+  .dali-poster__statement {
+    font-size: clamp(22px, 5.2svh, 44px);
+  }
+}
+
+/* Phones: the poster turns upright, much like the original print. */
+@media (max-width: 760px) {
+  .dali-poster {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    min-height: 100svh;
+    padding: 88px 16px calc(22vw + 30svh);
+  }
+  .dali-poster__badges {
+    position: relative;
+    inset: auto;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+  .dali-poster__badges--left {
+    order: 1;
+  }
+  .dali-poster__center {
+    position: relative;
+    inset: auto;
+    translate: none;
+    order: 2;
+    max-width: 100%;
+    margin: 18px 0;
+  }
+  .dali-poster__badges--right {
+    order: 3;
+  }
+  .dali-badge {
+    width: 100%;
+  }
+  .dali-badge__oval {
+    font-size: 11px;
+  }
+  .dali-poster__statement {
+    font-size: clamp(24px, 7.4vw, 34px);
+  }
+  .dali-poster__countdown {
+    font-size: 11px;
+  }
+  .dali-poster__art {
+    height: 46svh;
+  }
+  .dali-poster__title {
+    font-size: 31vw;
+    bottom: 34px;
+  }
+  .dali-poster__corner {
+    bottom: 10px;
+    font-size: 8px;
+  }
+  .dali-details__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------------ Hacker House */
+
+.hh-page {
+  --reveal-bg: #040504;
+  --reveal-ink: #d9f5df;
+  --reveal-accent: #62f07b;
+  --hh-green: #62f07b;
+  --hh-dim: rgba(98, 240, 123, 0.58);
+  --hh-char: 6ms;
+  background: radial-gradient(120% 70% at 50% 20%, #0a120b 0%, var(--reveal-bg) 70%);
+}
+.hh-page main,
+.hh-page .light-footer {
+  background: transparent;
+}
+.hh-screen {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 100svh;
+  overflow: hidden;
+  padding: clamp(104px, 14svh, 140px) max(24px, 6vw) 64px;
+  font-family: "VT323", ui-monospace, monospace;
+  color: var(--hh-green);
+  text-shadow: 0 0 10px rgba(98, 240, 123, 0.35);
+}
+.hh-screen__inner {
+  position: relative;
+  z-index: 2;
+  align-self: start;
+  justify-self: start;
+  width: min(100%, 1180px);
+}
+.hh-prompt {
+  margin: 0;
+  font-size: clamp(17px, 1.5vw, 24px);
+  color: var(--hh-dim);
+}
+.hh-title {
+  margin: 0.25em 0 0.3em;
+  font-size: clamp(52px, min(7vw, 11.5svh), 128px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0;
+}
+.hh-key {
+  margin: 0 0 0.4em;
+  animation: hh-glitch 520ms steps(4, end) calc(150ms + var(--at) * var(--hh-char)) both;
+}
+.hh-key p {
+  margin: 0;
+}
+.hh-key__label {
+  font-size: clamp(19px, 1.75vw, 30px);
+  color: var(--hh-dim);
+}
+.hh-key__value {
+  font-size: clamp(34px, min(4.4vw, 7.2svh), 76px);
+  line-height: 1;
+}
+.hh-key__count {
+  font-size: clamp(64px, min(10vw, 16svh), 176px);
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums;
+  color: #b8ffc6;
+  text-shadow:
+    0 0 14px rgba(98, 240, 123, 0.55),
+    0 0 40px rgba(98, 240, 123, 0.25);
+}
+.hh-table {
+  margin: 0.3em 0 0.5em;
+}
+.hh-table dd,
+.hh-line {
+  margin: 0;
+  font-size: clamp(19px, min(1.85vw, 3.6svh), 32px);
+  line-height: 1.26;
+}
+.hh-line--comment {
+  color: var(--hh-dim);
+}
+
+/* Lines type themselves out in order: one character every --hh-char. */
+.hh-typed {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: pre;
+  vertical-align: bottom;
+  width: calc(var(--chars) * 1ch);
+  /* Backwards only: once typed, the line falls back to its full width. Holding the last
+     keyframe can stop one step short, because the computed progress lands at 0.9999. */
+  animation: hh-type calc(var(--chars) * var(--hh-char)) steps(var(--chars), end)
+    calc(150ms + var(--at) * var(--hh-char)) backwards;
+}
+.hh-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.95em;
+  margin-left: 0.2em;
+  vertical-align: -0.12em;
+  background: currentColor;
+  box-shadow: 0 0 10px rgba(98, 240, 123, 0.6);
+  animation: hh-blink 1.05s steps(1) calc(150ms + var(--at) * var(--hh-char)) infinite both;
+}
+.hh-scanlines {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 2px, rgba(0, 0, 0, 0.22) 2px 3px),
+    radial-gradient(130% 100% at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* The robot: the glowing round face from the first version, without its icon frame, in
+   phosphor green. It peeks up from the bottom right; only the top half is on screen. */
+.hh-robot {
+  position: absolute;
+  z-index: 4;
+  right: max(24px, 9vw);
+  bottom: 0;
+  width: clamp(240px, 30vw, 450px);
+  aspect-ratio: 1;
+  translate: 0 46%;
+  animation:
+    hh-peek 1000ms cubic-bezier(0.2, 0.9, 0.25, 1.15) 350ms both,
+    hh-bob 5s ease-in-out 1400ms infinite;
+}
+/* The robot is a button: strip the native look, keep a visible focus ring. */
+button.hh-robot {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+button.hh-robot:focus-visible {
+  outline: none;
+}
+button.hh-robot:focus-visible .hh-robot__body {
+  outline: 2px solid var(--hh-green);
+  outline-offset: 6px;
+}
+/* Centred above the robot's head. */
+.hh-robot__bubble-slot {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 18px);
+  translate: -50% 0;
+}
+/* Speech bubble, drawn like a terminal window, with a tail pointing down at the robot. */
+.hh-bubble {
+  position: relative;
+  display: block;
+  padding: 0.55em 0.9em 0.6em;
+  border: 2px solid var(--hh-green);
+  border-radius: 14px;
+  background: #061008;
+  font-family: "VT323", ui-monospace, monospace;
+  font-size: clamp(22px, 2vw, 32px);
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--hh-green);
+  text-shadow: 0 0 10px rgba(98, 240, 123, 0.5);
+  box-shadow: 0 0 24px rgba(98, 240, 123, 0.25);
+  transform-origin: 50% 100%;
+  animation:
+    hh-bubble-in 260ms cubic-bezier(0.2, 0.9, 0.3, 1.3) both,
+    hh-bubble-out 300ms ease 4200ms forwards;
+}
+.hh-bubble::after {
+  content: "";
+  position: absolute;
+  left: calc(50% - 9px);
+  bottom: -11px;
+  width: 18px;
+  height: 18px;
+  border-right: 2px solid var(--hh-green);
+  border-bottom: 2px solid var(--hh-green);
+  background: #061008;
+  transform: rotate(45deg) skew(8deg, 8deg);
+}
+.hh-bubble__text {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  width: calc(var(--chars) * 1ch);
+  animation: hh-type calc(var(--chars) * 35ms) steps(var(--chars), end) 160ms backwards;
+}
+@keyframes hh-bubble-in {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+@keyframes hh-bubble-out {
+  to {
+    opacity: 0;
+    scale: 0.9;
+  }
+}
+.hh-robot__glow {
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(98, 240, 123, 0.18), transparent 75%);
+  filter: blur(8px);
+}
+.hh-robot__body {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  /* Deep green in the middle, brightening to a softer fluorescent rim. */
+  background: radial-gradient(
+    circle at 50% 56%,
+    #0c6a2c 0%,
+    #148a3b 32%,
+    #27ad55 50%,
+    #6fdc8c 63%,
+    #b9f5c8 69%,
+    #5fd27d 72%
+  );
+  box-shadow:
+    0 0 34px rgba(98, 240, 123, 0.4),
+    0 0 110px rgba(98, 240, 123, 0.18),
+    inset 0 8px 24px rgba(220, 255, 230, 0.45);
+}
+/* Horizontal scan lines across the face, like text on the terminal behind it. */
+.hh-robot__body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, rgba(2, 20, 8, 0.32) 0 2px, transparent 2px 5px);
+  pointer-events: none;
+}
+.hh-robot__eyes {
+  position: absolute;
+  z-index: 1;
+  top: 22%;
+  left: 50%;
+  display: flex;
+  gap: 12%;
+  width: 34%;
+  translate: calc(-50% + var(--look-x, 0) * 30%) calc(var(--look-y, 0) * 30%);
+}
+.hh-robot__eyes i {
+  display: block;
+  width: 38%;
+  aspect-ratio: 0.78;
+  border-radius: 50%;
+  background: radial-gradient(circle at 45% 35%, #ffffff 0%, #ecfff1 60%, #c8ffd5 100%);
+  box-shadow: 0 0 16px rgba(220, 255, 228, 0.9);
+  animation: hh-eye-blink 5.4s ease-in-out infinite;
+}
+.hh-robot__eyes i + i {
+  translate: 0 -12%;
+}
+
+@keyframes hh-type {
+  from {
+    width: 0;
+  }
+}
+@keyframes hh-glitch {
+  0% {
+    opacity: 0;
+    translate: -0.15em 0;
+  }
+  50% {
+    opacity: 0.6;
+    translate: 0.1em 0;
+  }
+}
+@keyframes hh-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes hh-peek {
+  from {
+    translate: 0 110%;
+  }
+}
+@keyframes hh-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3%);
+  }
+}
+@keyframes hh-eye-blink {
+  0%,
+  92%,
+  100% {
+    scale: 1 1;
+  }
+  95% {
+    scale: 1 0.08;
+  }
+}
+
+/* Short laptop windows: trim the frame so the whole screen fits without scrolling. */
+@media (min-width: 761px) and (max-height: 720px) {
+  .hh-screen {
+    padding-top: 92px;
+    padding-bottom: 36px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hh-screen {
+    padding: 100px 18px calc(62vw * 0.54 + 40px);
+  }
+  .hh-title {
+    font-size: clamp(44px, 13vw, 64px);
+  }
+  .hh-key__count {
+    font-size: clamp(48px, 15vw, 72px);
+  }
+  /* Narrow screens wrap the lines, so they fade in rather than type across. */
+  .hh-typed {
+    display: inline;
+    width: auto;
+    white-space: pre-wrap;
+    animation: hh-fade 260ms ease calc(150ms + var(--at) * var(--hh-char)) both;
+  }
+  .hh-robot {
+    right: auto;
+    left: 50%;
+    width: 62vw;
+    margin-left: -31vw;
+  }
+  @keyframes hh-fade {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dali-page *,
+  .hh-page * {
+    animation: none !important;
+  }
+}

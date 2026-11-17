@@ -12,4 +12,16 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      // Images uploaded in Lovable live under /__l5e/, which only Lovable's hosting serves.
+      // In local dev, fetch them from the project's Lovable domain so stored URLs still load.
+      proxy: {
+        "/__l5e": {
+          target: "https://18c20231-b1b3-4854-ac83-3daa9bef7587.lovableproject.com",
+          changeOrigin: true,
+        },
+      },
+    },
+  },
 });

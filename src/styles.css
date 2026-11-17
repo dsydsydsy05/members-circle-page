@@ -3,6 +3,7 @@
 @import "tw-animate-css";
 @import "./styles/light.css";
 @import "./styles/print.css";
+@import "./styles/s27-reveal.css";
 
 @custom-variant dark (&:is(.dark *));
 

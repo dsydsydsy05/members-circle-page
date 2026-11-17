@@ -44,7 +44,10 @@ export function LightEventsPage() {
   const returnFocus = useRef<HTMLElement | null>(null);
   const publishedEvents = events;
   const upcoming = publishedEvents.filter((event) => event.status.toLowerCase() !== "past");
-  const past = publishedEvents.filter((event) => event.status.toLowerCase() === "past");
+  // Newest first: the archive number counts up as events happen.
+  const past = publishedEvents
+    .filter((event) => event.status.toLowerCase() === "past")
+    .sort((a, b) => (b.archive_number ?? 0) - (a.archive_number ?? 0));
   return (
     <LightPage className="light-public-page light-events-page">
       <main>
